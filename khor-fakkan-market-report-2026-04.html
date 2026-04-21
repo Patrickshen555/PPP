@@ -144,6 +144,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .cust-stat{display:inline-block;background:var(--info-bg);color:var(--info);padding:3px 10px;border-radius:8px;font-size:12px;font-weight:700;margin-right:8px;margin-bottom:8px}
 .cust-action{font-size:13px;color:var(--gray600);padding:6px 0;padding-left:14px;border-left:3px solid var(--info);margin:8px 0}
 
+/* Market Region Grid (GTS Section) */
+.market-region-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px;margin-top:16px}
+.market-region-card{border-radius:14px;border:1px solid var(--gray200);background:#fff;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.market-region-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+.market-region-header{padding:18px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--gray200);background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%)}
+.market-region-flag{font-size:28px;flex-shrink:0}
+.market-region-title{font-size:16px;font-weight:800;color:var(--gray900)}
+.market-region-subtitle{font-size:12px;color:var(--gray500);margin-top:2px}
+.market-region-body{padding:16px 20px}
+.market-region-tag{display:inline-block;padding:3px 10px;border-radius:8px;font-size:11.5px;font-weight:700;margin-bottom:10px}
+.tag-import{background:var(--info-bg);color:var(--info)}
+.tag-export{background:#ecfdf5;color:#16a34a}
+.tag-transit{background:#fef3c7;color:#d97706}
+.tag-highlight{background:#fef2f2;color:#dc2626}
+.market-region-flow{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray600);margin-bottom:12px;flex-wrap:wrap;padding:8px 12px;background:var(--gray50);border-radius:8px}
+.flow-arrow{color:var(--info);font-weight:800;font-size:16px}
+.market-region-desc{font-size:13px;color:var(--gray700);line-height:1.7}
+.market-action{font-size:13px;color:var(--gray600);padding:12px 16px;background:linear-gradient(90deg,#eff6ff 0%,#f0f9ff 100%);border-left:3px solid var(--info);margin:12px 20px 16px;border-radius:0 8px 8px 0;line-height:1.7}
+
 /* Cargo Grid */
 .cargo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:16px}
 .cargo-item{border-radius:12px;border:1px solid var(--gray200);padding:18px;background:#fff;transition:transform .2s}
@@ -773,11 +792,267 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 <p style="line-height:1.9;color:#cbd5e1;font-size:15px">KHF 与 Sohar 在中东航运版图中各司其职：<strong style="color:#93c5fd">KHF</strong> 是面向阿联酋本土市场的"近岸配送中枢"，<strong style="color:#c4b5fd">Sohar</strong> 则是面向阿曼本土、工业项目和转口贸易的"战略深水港+自贸区跳板"。</p>
 <p style="line-height:1.9;color:#cbd5e1;font-size:15px;margin-top:10px"><strong style="color:#fbbf24">对销售的启示：</strong><br/>· 当客户货物发往阿联酋本土 → 优先推荐 <strong style="color:#93c5fd">KHF</strong><br/>· 当客户有 RoRo/化工/项目货/自贸区需求 → 重点推荐 <strong style="color:#c4b5fd">Sohar</strong><br/>· 当 KHF 旺季拥堵时 → Sohar 作为溢出方案告知客户</p>
 </div>
+
+
+<!-- ═════ REGIONAL MARKET RESEARCH ═════ -->
+<section class="section">
+<div class="section-title"><span class="num">06</span><span class="icon">🌐</span> <strong>GTS航线调研</strong></div>
+
+<!-- GTS航线定义卡片 -->
+<div style="background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);border-radius:14px;padding:24px;margin-bottom:28px;color:#fff;overflow:hidden;position:relative">
+<div style="font-size:15px;font-weight:800;color:#fbbf24;margin-bottom:12px">🚢 GTS</div>
+<p style="font-size:13.5px;line-height:1.8;color:#cbd5e1">
+GTS是一条<strong>中国→东南亚→中东波斯湾</strong>的大船干线航线。当前因霍尔木兹海峡紧张局势，在卡拉奇（Karachi, PKKHI）经停后需绕行或等待；待海峡完全开放后，将恢复<strong>Karachi → Dammam 直达</strong>。
+</p>
+<div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:16px;padding:16px;background:rgba(255,255,255,.08);border-radius:10px;font-family:'Courier New',monospace;font-size:13px">
+<span style="color:#94a3b8">路径：</span>
+<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNTAO</span><span>→</span>
+<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNSHA</span><span>→</span>
+<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNNGB</span><span>→</span>
+<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNNAS</span><span>→</span>
+<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNSHK</span><span>→</span>
+<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNXMN</span><span>→</span>
+<span style="background:#D97706;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">MYPKG</span><span>→</span>
+<span style="background:rgba(255,255,255,.25);padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">(CGX)</span><span>→</span>
+<span style="background:#2563EB;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">PKKHI</span><span>→</span>
+<span style="background:rgba(255,255,255,.25);padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">(WAT)</span><span>→</span>
+<span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">SADMM</span>
+</div>
+<div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:#94a3b8">
+<div><span style="color:#fbbf24">●</span> <strong style="color:#e2e8f0">红色</strong>：中国港口（青岛/上海/宁波/南沙/深圳/厦门）</div>
+<div><span style="color:#D97706">●</span> <strong style="color:#e2e8f0">橙色</strong>：东南亚（巴生港）</div>
+<div><span style="color:#2563EB">●</span> <strong style="color:#e2e8f0">蓝色</strong>：南亚中转（卡拉奇）</div>
+<div><span style="color:#16A34A">●</span> <strong style="color:#e2e8f0">绿色</strong>：目的地（达曼）</div>
+<div><span style="color:rgba(255,255,255,.35)">○</span> (CGX)/(WAT) 为<strong style="color:#e2e8f0">可选中转</strong>航线</div>
+</div>
+</div>
+
+<p style="font-size:14px;color:var(--gray600);margin-bottom:24px;line-height:1.7">
+本节围绕GTS航线挂港布局，聚焦各港口腹地市场的进出口结构、主要货类及目标客户群，为大船舱位填充和定向市场拓展提供数据支撑。
+</p>
+
+<div class="market-region-grid">
+
+<!-- 达曼 -->
+<div class="market-region-card">
+<div class="market-region-header">
+<div class="market-region-flag">🇸🇦</div>
+<div>
+<div class="market-region-title">达曼（Dammam）</div>
+<div class="market-region-subtitle">波斯湾东部 · 沙特东海岸第一大港</div>
+</div>
+</div>
+<div class="market-region-body">
+<span class="market-region-tag tag-import">🔵 主要进口市场</span>
+<div class="market-region-flow">
+<span>中国/东南亚</span>
+<span class="flow-arrow">→</span>
+<span>达曼</span>
+</div>
+<div class="market-region-desc">
+<strong>进口结构（重点！）：</strong>沙特当地高度依赖进口消费品和工业原材料。达曼港腹地覆盖东部省（Sharqia）制造业集群，进口以<strong>机械设备、汽车配件、纺织品、塑料粒子、电子产品</strong>为主。受"2030愿景"驱动，<strong>建材、钢铁、新能源设备进口量持续攀升</strong>，重型工程项目货是刚性需求。
+</div>
+<div class="market-region-desc" style="margin-top:8px">
+<strong>出口潜力：</strong>沙特石化产品（PE/PP）经达曼出口，但船公司主导舱位为进口方向。<br/>
+<strong>关键客户类型：</strong>沙特进口批发商（龙城体系延伸）、工程承包商（NEOM/红海项目）、汽车经销商（进口整车/KD件）。
+</div>
+</div>
+<div class="market-action"><strong>💡 GTS布局机会：</strong>达曼是GTS航线最终目的地（SADMM），沙特进口需求旺盛，大船挂港可稳定吸货。建议与沙特当地清关行/拖车行建立合作，打通末端配送链路。待海峡开放后KHI→DMM直达恢复，达曼将成为GTS航线最关键的卸货港。</div>
+</div>
+
+<!-- Jebel Ali -->
+<div class="market-region-card">
+<div class="market-region-header">
+<div class="market-region-flag">🇦🇪</div>
+<div>
+<div class="market-region-title">杰贝阿里（Jebel Ali）</div>
+<div class="market-region-subtitle">迪拜 · 中东最大自由贸易港</div>
+</div>
+</div>
+<div class="market-region-body">
+<span class="market-region-tag tag-import">🔵 进口</span>
+<span class="market-region-tag tag-transit" style="margin-left:4px">🔶 转口</span>
+<div class="market-region-flow">
+<span>中国/越南/印度</span>
+<span class="flow-arrow">→</span>
+<span>Jebel Ali</span>
+<span class="flow-arrow">→</span>
+<span>中东/非洲/南亚</span>
+</div>
+<div class="market-region-desc">
+<strong>市场核心：</strong>迪拜龙城（Dragon Mart）是中东最大中国商品集散地，进口额占阿联酋对华贸易约60%。Jebel Ali虽受伊朗紧张局势影响部分航班暂停，但腹地需求未减，货主正分流至<strong>KHF和Sohar</strong>。
+</div>
+<div class="market-region-desc" style="margin-top:8px">
+<strong>战时变化：</strong>货主从Jebel Ali转移至KHF，带动KHF仓储和转口需求激增。迪拜自贸区的转口贸易商利用Jebel Ali仓库进行分拨再出口。<br/>
+<strong>关键客户类型：</strong>迪拜综合贸易商（占比最高）、阿联酋本地进口商（含沙特客户绕道采购）、跨境电商（Amazon AE/Noon卖家中转）。
+</div>
+</div>
+<div class="market-action"><strong>💡 GTS布局机会：</strong>Jebel Ali不在GTS主航线上，但作为中东最大转口港，GTS大船可提供"KHI→KHF→迪拜陆桥"的战时替代方案，承接从Jebel Ali转移过来的货量。待海峡开放后，部分客户可能仍偏好JEBEL ALI中转。</div>
+</div>
+
+<!-- Sohar -->
+<div class="market-region-card">
+<div class="market-region-header">
+<div class="market-region-flag">🇴🇲</div>
+<div>
+<div class="market-region-title">苏哈尔（Sohar）</div>
+<div class="market-region-subtitle">阿曼 · 波斯湾入口战略要塞</div>
+</div>
+</div>
+<div class="market-region-body">
+<span class="market-region-tag tag-highlight">🔴 战略枢纽</span>
+<div class="market-region-flow">
+<span>中国/东南亚</span>
+<span class="flow-arrow">→</span>
+<span>Sohar</span>
+<span class="flow-arrow">→</span>
+<span>阿曼本地/沙特/卡塔尔</span>
+</div>
+<div class="market-region-desc">
+<strong>市场腹地：</strong>Sohar是阿曼最大工业港，腹地覆盖阿曼全境及沙特西部、卡塔尔（通过陆路）。港口拥有大型自由贸易区（Sohar FTZ），吸引工业和制造业企业入驻。<strong>进口以工业原材料、机械设备、消费品为主</strong>，出口以石油化工产品和铝锭为主。
+</div>
+<div class="market-region-desc" style="margin-top:8px">
+<strong>战略价值：</strong>作为KHF的竞争/补充港口，Sohar与KHF形成双枢纽格局。GTS若布局Sohar，可同时覆盖阿曼本地+波斯湾西部+沙特西部市场。<br/>
+<strong>关键客户类型：</strong>阿曼工业进口商（SOAG等大型企业）、沙特西部承包商（避开波斯湾南部拥挤）、卡塔尔进口商（工程材料）。
+</div>
+</div>
+<div class="market-action"><strong>💡 GTS布局机会：</strong>Sohar不在GTS主航线上，但作为阿曼战略港口，可作为GTS航线的<strong>战时替代挂靠港</strong>（KHI后绕行至Sohar，再陆运至沙特）。若将Sohar纳入GTS可选挂港序列（类似CGX/WAT），可大幅增强航线灵活性和抗风险能力。</div>
+</div>
+
+<!-- 东南亚 -->
+<div class="market-region-card">
+<div class="market-region-header">
+<div class="market-region-flag">🌏</div>
+<div>
+<div class="market-region-title">东南亚 → 中东/红海出口走廊</div>
+<div class="market-region-subtitle">越南 · 泰国 · 印尼 · 马来西亚</div>
+</div>
+</div>
+<div class="market-region-body">
+<span class="market-region-tag tag-export">🟢 主要出口至中东</span>
+<div class="market-region-flow">
+<span>越南/泰国/印尼</span>
+<span class="flow-arrow">→</span>
+<span>KHF/Sohar</span>
+<span class="flow-arrow">→</span>
+<span>沙特/阿联酋/红海</span>
+</div>
+<div class="market-region-desc">
+<strong>越南（最大增量）：</strong>越南制造业高速增长，纺织品、农产品、电子零部件出口中东大幅增加。越南胡志明港/海防港出货量年增20%+，主要目的地为沙特、阿联酋。战时霍尔木兹通行不确定性促使越南货主选择<strong>KHF中转+陆桥</strong>路线。
+</div>
+<div class="market-region-desc" style="margin-top:8px">
+<strong>泰国：</strong>橡胶、农产品、纺织品为出口主力，经KHF或Sohar进入中东市场。<br/>
+<strong>印尼：</strong>棕榈油、食品、宗教消费品（斋月旺季）出口稳定，走Sohar路线较多。<br/>
+<strong>马来西亚：</strong>电子元器件、橡胶制品，通过KHF中转覆盖中东。
+</div>
+</div>
+<div class="market-action"><strong>💡 GTS布局机会：</strong>GTS航线经停<strong>巴生港（MYPKG）</strong>——这是东南亚货物汇聚GTS大船的关键节点。越南/泰国/印尼出口商可通过支线喂给至巴生后上GTS干线。建议与巴生当地NVOCC合作，开发东南亚→中东的整箱货源。</div>
+</div>
+
+<!-- 印度/巴基斯坦 -->
+<div class="market-region-card">
+<div class="market-region-header">
+<div class="market-region-flag">🇮🇳</div>
+<div>
+<div class="market-region-title">印巴 → 中东/红海出口走廊</div>
+<div class="market-region-subtitle">印度 · 巴基斯坦 · 斯里兰卡</div>
+</div>
+</div>
+<div class="market-region-body">
+<span class="market-region-tag tag-export">🟢 主要出口至中东</span>
+<span class="market-region-tag tag-highlight" style="margin-left:4px">🔴 红海替代路线</span>
+<div class="market-region-flow">
+<span>卡拉奇/孟买/皮帕瓦沃</span>
+<span class="flow-arrow">→</span>
+<span>KHF/Sohar</span>
+<span class="flow-arrow">→</span>
+<span>沙特/东非/红海</span>
+</div>
+<div class="market-region-desc">
+<strong>巴基斯坦：</strong>卡拉奇是南亚对中东出口的核心门户。巴基斯坦纺织品（全球重要纺织出口国）、汽车配件、化学品大量出口沙特和阿联酋。受霍尔木兹紧张局势影响，巴基斯坦出口商已大幅转向<strong>KHF陆桥路线</strong>。
+</div>
+<div class="market-region-desc" style="margin-top:8px">
+<strong>印度（高速增长）：</strong>印度制造业崛起，纺织品、汽车配件、化学品出口中东持续增加。印度西海岸皮帕瓦沃(Pipavav)和蒙德拉(Mundra)港→KHF/Sohar航线运量激增。<strong>印度至沙特/阿联酋的TEU量年增约15~20%</strong>。<br/>
+<strong>斯里兰卡：</strong>茶叶、橡胶服装出口，量较小但稳定。
+</div>
+</div>
+<div class="market-action"><strong>💡 GTS布局机会：</strong>GTS航线在<strong>卡拉奇（PKKHI）</strong>经停——这是印巴货源上GTS大船的核心节点。巴基斯坦出口商（纺织/汽配）可直接在KHI装船；印度西海岸（皮帕瓦沃/蒙德拉）的货物可通过支线喂给至KHI后汇入GTS干线。建议重点开发卡拉奇当地大型NVOCC和直客。</div>
+</div>
+
+<!-- 东非/红海 -->
+<div class="market-region-card">
+<div class="market-region-header">
+<div class="market-region-flag">🌍</div>
+<div>
+<div class="market-region-title">东非 & 红海市场 — GTS反向货源</div>
+<div class="market-region-subtitle">肯尼亚 · 坦桑尼亚 · 吉布提 · 也门</div>
+</div>
+</div>
+<div class="market-region-body">
+<span class="market-region-tag tag-import">🔵 主要出口至中东</span>
+<div class="market-region-flow">
+<span>蒙巴萨/达累斯萨拉姆</span>
+<span class="flow-arrow">→</span>
+<span>KHF</span>
+<span class="flow-arrow">→</span>
+<span>迪拜/印度</span>
+</div>
+<div class="market-region-desc">
+<strong>东非→KHF反向货流：</strong>肯尼亚蒙巴萨港是东非最大港口，出口茶叶、咖啡、园艺产品（空运为主）、矿产；坦桑尼亚达累斯萨拉姆出口腰果、棉花。这些货物通过KHF中转至迪拜再出口至印度/欧洲。<strong>战时胡塞影响红海后，东非→中东反向货量有所增加。</strong>
+</div>
+<div class="market-region-desc" style="margin-top:8px">
+<strong>吉布提：</strong>埃塞俄比亚进出口门户，经吉布提港转运。埃塞俄比亚咖啡/豆类出口，走KHF中转到迪拜/印度的货量稳定。<br/>
+<strong>红海替代：</strong>因胡塞影响，原本走红海直达东非的航线改经KHF陆桥，形成"东非→KHF→陆运→红海"的替代路线。
+</div>
+</div>
+<div class="market-action"><strong>💡 GTS布局机会：</strong>东非市场不在GTS主航线上，但可作为<strong>GTS航线的延伸服务</strong>——GTS大船在达曼卸货后，部分舱位可安排支线至东非（蒙巴萨/吉布提）。建议与当地支线船公司建立合作，提供"中国→中东→东非"的联运方案，提升GTS航线附加值。</div>
+</div>
+
+</div><!-- /market-region-grid -->
+
+<div style="margin-top:32px;padding:20px 24px;background:linear-gradient(90deg,var(--navy) 0%,#234b78 100%);border-radius:14px;color:#fff">
+<div style="font-size:16px;font-weight:800;margin-bottom:12px">🎯 区域市场调研 — GTS航线布局核心结论</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;font-size:13.5px">
+<div>
+<div style="font-weight:700;margin-bottom:6px;color:#fbbf24">🏆 优先深耕市场（沿GTS航线顺序）</div>
+<ul style="padding-left:16px;line-height:1.9">
+<li><strong>青岛/上海/宁波/南沙/深圳/厦门</strong>：中国始发港，锁定大型直客和NVOCC</li>
+<li><strong>巴生（MYPKG）</strong>：东南亚中转枢纽，开发马来/印尼出口商</li>
+<li><strong>卡拉奇（PKKHI）</strong>：南亚关键节点，巴基斯坦+印度西海岸货源</li>
+<li><strong>达曼（SADMM）</strong>：最终目的地，沙特进口刚需最强，大船填充首选</li>
+</ul>
+</div>
+<div>
+<div style="font-weight:700;margin-bottom:6px;color:#fbbf24">⚡ GTS大船布局重点</div>
+<ul style="padding-left:16px;line-height:1.9">
+<li>GTS航线当前状态：KHI后待海峡开放→DMM直达恢复</li>
+<li>战时替代方案：KHF/Sohar作为临时终点或中转站</li>
+<li>巴生（MYPKG）：东南亚货物集散点，提升舱位利用率的关键</li>
+<li>卡拉奇（PKKHI）：印巴货源汇聚点，可建立支线喂给机制</li>
+<li>达曼（SADMM）：终极吸货港，重货/工程货为主</li>
+</ul>
+</div>
+<div>
+<div style="font-weight:700;margin-bottom:6px;color:#fbbf24">👥 沿线重点客户开发方向</div>
+<ul style="padding-left:16px;line-height:1.9">
+<li>中国段：华东/华南制造企业直客 + 大型NVOCC</li>
+<br/>
+<li>东南亚段：马来西亚/印尼出口商（经巴生集散）</li>
+<br/>
+<li>南亚段：巴基斯坦卡拉奇纺织/汽配出口商、印度NVOCC</li>
+<br/>
+<li>沙特段：达曼进口批发商、NEOM项目承包商、沙特汽车经销商</li>
+</ul>
+</div>
+</div>
+</div>
+
+</section>
 </section>
 
 <!-- ═════ FLOW DIAGRAM ═════ -->
 <section class="section">
-<div class="section-title"><span class="num">06</span><span class="icon">🔀</span> 物流流向 — KHF陆桥方案</div>
+<div class="section-title"><span class="num">07</span><span class="icon">🔀</span> 物流流向 — KHF陆桥方案</div>
 <div class="flow-box">
 <h3 style="font-size:17px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px">✅ 当前推荐路径：中国 → 印度洋 → KHF → 陆桥 → 目的地</h3>
 <div class="flow-row">
@@ -818,7 +1093,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 
 <!-- ═════ CUSTOMER ANALYSIS ═════ -->
 <section class="section">
-<div class="section-title"><span class="num">07</span><span class="icon">👥</span> 客户行为画像 — 战时模式</div>
+<div class="section-title"><span class="num">08</span><span class="icon">👥</span> 客户行为画像 — 战时模式</div>
 <div class="customer-grid">
 
 <div class="cust-card">
@@ -958,7 +1233,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 
 <!-- ═════ CARGO TYPES ═════ -->
 <section class="section">
-<div class="section-title"><span class="num">08</span><span class="icon">📦</span> 货物种类分布 & 4月热点</div>
+<div class="section-title"><span class="num">09</span><span class="icon">📦</span> 货物种类分布 & 4月热点</div>
 <div class="cargo-grid">
 <div class="cargo-item">
 <div class="cargo-icon">💻</div>
@@ -1019,7 +1294,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 
 <!-- ═════ RISK & OPPORTUNITY ═════ -->
 <section class="section">
-<div class="section-title"><span class="num">09</span><span class="icon">⚖️</span> 机遇 vs 风险矩阵</div>
+<div class="section-title"><span class="num">10</span><span class="icon">⚖️</span> 机遇 vs 风险矩阵</div>
 <div class="ro-matrix">
 <div class="ro-col">
 <div class="ro-header opportunity">✅ 当前市场机遇</div>
