@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>中国→中东市场报告 | 含霍尔费坎 & Sohar战略对标 | 2026年4月</title>
+<title>中国→中东市场报告 | 含霍尔费坎 & Sohar战略对标 | GTS航线调研 | 2026年4月</title>
 <style>
 /* ══════════════ Reset & Base ══════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -20,12 +20,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
   --gray50:#F9FAFB;--gray100:#F3F4F6;--gray200:#E5E7EB;
   --gray400:#9CA3AF;--gray500:#6B7280;--gray600:#4B5563;--gray700:#374151;--gray800:#1F2937;--gray900:#111827
 }
-
-/* ══════════════ Language Switch ══════════════ */
-.lang-switch{position:fixed;top:16px;right:16px;z-index:9999;display:flex;background:rgba(15,23,42,.85);border:1px solid rgba(255,255,255,.2);border-radius:10px;overflow:hidden;backdrop-filter:blur(12px);box-shadow:0 4px 16px rgba(0,0,0,.25)}
-.lang-btn{padding:8px 16px;font-size:13px;font-weight:700;color:rgba(255,255,255,.55);cursor:pointer;border:none;background:transparent;transition:all .25s;letter-spacing:.3px}
-.lang-btn:hover{color:#fff;background:rgba(255,255,255,.1)}
-.lang-btn.active{color:#fff;background:rgba(255,255,255,.18)}
 
 /* ══════════════ Header ══════════════ */
 .header{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 40%,#234b78 100%);padding:44px 32px 36px;color:#fff;position:relative;overflow:hidden}
@@ -150,25 +144,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .cust-stat{display:inline-block;background:var(--info-bg);color:var(--info);padding:3px 10px;border-radius:8px;font-size:12px;font-weight:700;margin-right:8px;margin-bottom:8px}
 .cust-action{font-size:13px;color:var(--gray600);padding:6px 0;padding-left:14px;border-left:3px solid var(--info);margin:8px 0}
 
-/* Market Region Grid (GTS Section) */
-.market-region-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px;margin-top:16px}
-.market-region-card{border-radius:14px;border:1px solid var(--gray200);background:#fff;overflow:hidden;transition:transform .2s,box-shadow .2s}
-.market-region-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
-.market-region-header{padding:18px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--gray200);background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%)}
-.market-region-flag{font-size:28px;flex-shrink:0}
-.market-region-title{font-size:16px;font-weight:800;color:var(--gray900)}
-.market-region-subtitle{font-size:12px;color:var(--gray500);margin-top:2px}
-.market-region-body{padding:16px 20px}
-.market-region-tag{display:inline-block;padding:3px 10px;border-radius:8px;font-size:11.5px;font-weight:700;margin-bottom:10px}
-.tag-import{background:var(--info-bg);color:var(--info)}
-.tag-export{background:#ecfdf5;color:#16a34a}
-.tag-transit{background:#fef3c7;color:#d97706}
-.tag-highlight{background:#fef2f2;color:#dc2626}
-.market-region-flow{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray600);margin-bottom:12px;flex-wrap:wrap;padding:8px 12px;background:var(--gray50);border-radius:8px}
-.flow-arrow{color:var(--info);font-weight:800;font-size:16px}
-.market-region-desc{font-size:13px;color:var(--gray700);line-height:1.7}
-.market-action{font-size:13px;color:var(--gray600);padding:12px 16px;background:linear-gradient(90deg,#eff6ff 0%,#f0f9ff 100%);border-left:3px solid var(--info);margin:12px 20px 16px;border-radius:0 8px 8px 0;line-height:1.7}
-
 /* Cargo Grid */
 .cargo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:16px}
 .cargo-item{border-radius:12px;border:1px solid var(--gray200);padding:18px;background:#fff;transition:transform .2s}
@@ -200,6 +175,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .ro-body{padding:20px 22px;background:var(--white);border:1px solid var(--gray200);border-top:none}
 .ro-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--gray100)}
 .ro-item:last-child{border-bottom:none}
+
+/* ══════════════ Regional Market Cards ══════════════ */
+.market-region-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:20px}
+.market-region-card{border-radius:14px;border:1px solid var(--gray200);overflow:hidden;background:#fff;transition:transform .2s,box-shadow .2s}
+.market-region-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.market-region-header{padding:14px 18px;border-bottom:1px solid var(--gray200);display:flex;align-items:center;gap:10px}
+.market-region-flag{font-size:24px}
+.market-region-title{font-size:15px;font-weight:800;color:var(--gray900)}
+.market-region-subtitle{font-size:12px;color:var(--gray500)}
+.market-region-body{padding:14px 18px}
+.market-region-tag{display:inline-block;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700;margin-bottom:8px}
+.tag-import{background:var(--info-bg);color:var(--info)}
+.tag-export{background:var(--success-bg);color:var(--success)}
+.tag-transit{background:var(--warning-bg);color:var(--warning)}
+.tag-highlight{background:var(--danger-bg);color:var(--danger)}
+.market-region-flow{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--gray50);border-radius:8px;margin:8px 0;font-size:13px;color:var(--gray700)}
+.market-region-flow .flow-arrow{color:var(--navy);font-weight:700}
+.market-region-desc{font-size:13px;color:var(--gray600);line-height:1.6;margin-top:8px}
+.market-region-desc strong{color:var(--gray800)}
+.market-action{background:var(--gray50);padding:10px 14px;border-top:1px solid var(--gray200);font-size:12.5px;color:var(--gray600);border-radius:0 0 14px 14px}
+
+.cust-action{background:var(--gray50);padding:10px 14px;border-top:1px solid var(--gray200);font-size:12.5px;color:var(--gray600);margin-top:10px;border-radius:0 0 14px 14px}
 .ro-emoji{font-size:20px;flex-shrink:0}
 .ro-text h4{font-size:14px;font-weight:700;color:var(--gray800);margin-bottom:2px}
 .ro-text p{font-size:13px;color:var(--gray600)}
@@ -257,41 +254,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 </head>
 <body>
 
-<!-- ═════ LANGUAGE SWITCH ═════ -->
-<div class="lang-switch">
-<button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">中文</button>
-<button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
-</div>
-<script>
-function switchLang(lang){
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
-  document.documentElement.lang=lang==='zh'?'zh-CN':'en';
-  document.querySelectorAll('[data-zh]').forEach(el=>{
-    if(lang==='zh'){el.innerHTML=el.dataset.zh}
-    else if(el.dataset.en){el.innerHTML=el.dataset.en}
-  });
-  document.querySelectorAll('[data-zh-placeholder]').forEach(el=>{
-    if(lang==='zh'){el.textContent=el.dataset.zhPlaceholder}
-    else if(el.dataset.enPlaceholder){el.textContent=el.dataset.enPlaceholder}
-  });
-  localStorage.setItem('report-lang',lang);
-}
-document.addEventListener('DOMContentLoaded',function(){
-  const saved=localStorage.getItem('report-lang');
-  if(saved)switchLang(saved);
-});
-</script>
-
 <!-- ═════ HEADER ═════ -->
 <header class="header">
 <div class="header-inner">
-<div class="header-tag"><span data-zh="🔴 实时战情追踪 · 4月更新版" data-en="🔴 LIVE Conflict Tracking · April Edition">🔴 实时战情追踪 · 4月更新版</span></div>
-<h1><span data-zh="中国 → 中东市场报告" data-en="China → Middle East Market Report">中国 → 中东市场报告</span></h1>
-<div class="subtitle"><span data-zh="西亚中东战争态势下的航运市场深度情报报告" data-en="In-depth Shipping Market Intelligence Report Under West Asia-Middle East War Conditions">西亚中东战争态势下的航运市场深度情报报告</span></div>
+<div class="header-tag">🔴 实时战情追踪 · 4月更新版</div>
+<h1>中国 → 中东市场报告</h1>
+<div class="subtitle">西亚中东战争态势下的航运市场深度情报报告 | 含达曼/Sohar/Jebel Ali市场调研 · 东南亚/印巴出口走廊 · GTS航线调研</div>
 <div class="header-meta">
-<span class="meta-item">📅 <strong><span data-zh="数据截止：2026年4月20日" data-en="Data as of: April 20, 2026">数据截止：2026年4月20日</span></strong></span>
-<span class="meta-item">⏱️ <strong><span data-zh="<span data-zh="情报等级：CRITICAL（危机级）" data-en="Intel Level: CRITICAL">情报等级：CRITICAL（危机级）</span>" data-en="Intel Level: CRITICAL">情报等级：CRITICAL（危机级）</span></strong></span>
-<span class="meta-item">📊 <strong><span data-zh="覆盖范围：中国全港 → KHF → 中东全域" data-en="Coverage: All China Ports → KHF → Middle East">覆盖范围：中国全港 → KHF → 中东全域</span></strong></span>
+<span class="meta-item">📅 <strong>数据截止：2026年4月20日</strong></span>
+<span class="meta-item">⏱️ <strong>情报等级：CRITICAL（危机级）</strong></span>
+<span class="meta-item">📊 <strong>覆盖范围：中国全港 → KHF → 中东全域</strong></span>
 
 </div>
 </div>
@@ -299,7 +271,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <!-- ═════ ALERT BANNER ═════ -->
 <div class="alert-banner">
-⚠️ 紧急预警：伊朗-以色列冲突持续升级，<span data-zh="霍尔木兹海峡" data-en="Strait of Hormuz">霍尔木兹海峡</span>封锁风险处于历史最高水平。KHF作为阿联酋唯一全面运营的<span data-zh="集装箱枢纽港" data-en="Container hub port">集装箱枢纽港</span>，战略价值空前凸显。
+⚠️ 紧急预警：伊朗-以色列冲突持续升级，霍尔木兹海峡封锁风险处于历史最高水平。KHF作为阿联酋唯一全面运营的集装箱枢纽港，战略价值空前凸显。
 </div>
 
 <div class="container">
@@ -315,53 +287,53 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <!-- ═════ STATUS DASHBOARD ═════ -->
 <section class="section">
-<div class="section-title"><span class="num">01</span><span class="icon">📡</span> <span data-zh="战况总览 — 关键指标仪表盘" data-en="Situation Overview — Key Metrics Dashboard">战况总览 — 关键指标仪表盘</span></div>
+<div class="section-title"><span class="num">01</span><span class="icon">📡</span> 战况总览 — 关键指标仪表盘</div>
 <div class="status-grid">
 <div class="status-card danger">
 <span class="status-icon">🔒</span>
 <div class="status-label">霍尔木兹海峡</div>
-<div class="status-value text-red"><span data-zh="封锁高危" data-en="Blockade — HIGH RISK">封锁高危</span></div>
-<div class="status-sub"><span data-zh="约142艘集箱船（~51万TEU）受影响&lt;br/&gt;美伊军事对峙持续升级中" data-en="Approx. 142 container vessels (~510K TEU) affected&lt;br/&gt;US-Iran military confrontation escalating">约142艘集箱船（~51万TEU）受影响<br/>美伊军事对峙持续升级中</span></div>
+<div class="status-value text-red">封锁高危</div>
+<div class="status-sub">约142艘集装箱船（~51万TEU）受影响<br/>美伊军事对峙持续升级中</div>
 </div>
 <div class="status-card success">
 <span class="status-icon">✅</span>
-<div class="status-label"><span data-zh="KHF港口状态" data-en="KHF Port Status">KHF港口状态</span></div>
-<div class="status-value text-green"><span data-zh="正常运营" data-en="Normal Operations">正常运营</span></div>
-<div class="status-sub"><span data-zh="阿联酋唯一全面开放集装箱港&lt;br/&gt;4月吞吐量预估31,000~35,000 TEU" data-en="UAE's only fully operational container port&lt;br/&gt;Apr throughput est. 31,000~35,000 TEU">阿联酋唯一全面开放集装箱港<br/>4月吞吐量预估31,000~35,000 TEU</span></div>
+<div class="status-label">KHF港口状态</div>
+<div class="status-value text-green">正常运营</div>
+<div class="status-sub">阿联酋唯一全面开放集装箱港<br/>4月吞吐量预估31,000~35,000 TEU</div>
 </div>
 <div class="status-card warning">
 <span class="status-icon">💰</span>
-<div class="status-label"><span data-zh="运价涨幅" data-en="Freight Rate Surge">运价涨幅</span></div>
+<div class="status-label">运价涨幅</div>
 <div class="status-value text-orange">+18%~+35%</div>
-<div class="status-sub"><span data-zh="较1月基准大幅上浮&lt;br/&gt;含战争险附加费 $150~$400/TEU" data-en="Significant increase vs. Jan baseline&lt;br/&gt;Incl. war risk premium $150~$400/TEU">较1月基准大幅上浮<br/>含战争险附加费 $150~$400/TEU</span></div>
+<div class="status-sub">较1月基准大幅上浮<br/>含战争险附加费 $150~$400/TEU</div>
 </div>
 <div class="status-card info">
 <span class="status-icon">⏱️</span>
-<div class="status-label"><span data-zh="航程影响" data-en="Voyage Impact">航程影响</span></div>
+<div class="status-label">航程影响</div>
 <div class="status-value text-blue">+3~8天</div>
-<div class="status-sub"><span data-zh="等泊延长至4~6天&lt;br/&gt;陆桥转运需求暴增40%~60%" data-en="Berthing wait extended to 4~6 days&lt;br/&gt;Land bridge demand surged 40%~60%">等泊延长至4~6天<br/>陆桥转运需求暴增40%~60%</span></div>
+<div class="status-sub">等泊延长至4~6天<br/>陆桥转运需求暴增40%~60%</div>
 </div>
 </div>
 </section>
 
 <!-- ═════ WAR MAP — 西亚中东局势图 ═════ -->
 <section class="section">
-<div class="section-title"><span class="num">02</span><span class="icon">🗺️</span> <span data-zh="西亚中东战争态势地图" data-en="West Asia &amp; Middle East War Situation Map">西亚中东战争态势地图</span></div>
+<div class="section-title"><span class="num">02</span><span class="icon">🗺️</span> 西亚中东战争态势地图</div>
 <div class="war-map-section">
 <div class="war-map-grid">
 
 <div class="war-node">
 <div class="war-node-header">
 <span class="war-node-name">🇮🇷 伊朗（Iran）</span>
-<span class="war-node-status" style="background:#dc2626;color:#fff"><span data-zh="交战方" data-en="Belligerent">交战方</span></span>
+<span class="war-node-status" style="background:#dc2626;color:#fff">交战方</span>
 </div>
 <div class="war-node-body">
-<span data-zh="• 4月2日：特朗普&quot;解放日&quot;关税令生效，美伊对抗升级至新高度&lt;br/&gt;" data-en="• Apr 2: Trump &quot;Liberation Day&quot; tariff order took effect, US-Iran tensions escalated&lt;br/&gt;">• 4月2日：特朗普"解放日"关税令生效，美伊对抗升级至新高度<br/></span>
-<span data-zh="• 4月中旬起：以军空袭伊朗核设施及军事基地，造成重大伤亡&lt;br/&gt;" data-en="• Mid-Apr: IDF airstrikes on Iranian nuclear &amp;amp; military facilities, heavy casualties&lt;br/&gt;">• 4月中旬起：以军空袭伊朗核设施及军事基地，造成重大伤亡<br/></span>
-<span data-zh="• 4月19日：以军新一轮打击德黑兰周边，伊朗威胁关闭霍尔木兹&lt;br/&gt;" data-en="• Apr 19: New IDF strikes near Tehran, Iran threatens to close Hormuz&lt;br/&gt;">• 4月19日：以军新一轮打击德黑兰周边，伊朗威胁关闭霍尔木兹<br/></span>
-<span data-zh="• &lt;strong class=&quot;text-red&quot;&gt;关键信号：&lt;/strong&gt;若伊朗兑现威胁，全球约20%石油运输将被切断" data-en="• &lt;strong class=&quot;text-red&quot;&gt;Key Signal:&lt;/strong&gt; If Iran follows through, ~20% of global oil transport will be severed">• <strong class="text-red">关键信号：</strong>若伊朗兑现威胁，全球约20%石油运输将被切断</span>
+• 4月2日：特朗普"解放日"关税令生效，美伊对抗升级至新高度<br/>
+• 4月中旬起：以军空袭伊朗核设施及军事基地，造成重大伤亡<br/>
+• 4月19日：以军新一轮打击德黑兰周边，伊朗威胁关闭霍尔木兹<br/>
+• <strong class="text-red">关键信号：</strong>若伊朗兑现威胁，全球约20%石油运输将被切断
 </div>
-<div class="war-node-time"><span data-zh="情报源：路透社 / CNN / Al Jazeera" data-en="Sources: Reuters / CNN / Al Jazeera">情报源：路透社 / CNN / Al Jazeera</span></div>
+<div class="war-node-time">情报源：路透社 / CNN / Al Jazeera</div>
 </div>
 
 <div class="war-node">
@@ -370,108 +342,108 @@ document.addEventListener('DOMContentLoaded',function(){
 <span class="war-node-status" style="background:#dc2626;color:#fff">交战方</span>
 </div>
 <div class="war-node-body">
-<span data-zh="• 加沙战线持续：停火谈判反复破裂&lt;br/&gt;" data-en="• Gaza front ongoing: ceasefire talks repeatedly collapsed&lt;br/&gt;">• 加沙战线持续：停火谈判反复破裂<br/></span>
-<span data-zh="• 对伊朗实施&quot;先发制人&quot;战略打击，目标包括核设施、导弹发射井、革命卫队指挥中心&lt;br/&gt;" data-en="• &quot;Preemptive&quot; strategic strikes on Iran: nuclear facilities, missile silos, IRGC command centers&lt;br/&gt;">• 对伊朗实施"先发制人"战略打击，目标包括核设施、导弹发射井、革命卫队指挥中心<br/></span>
-<span data-zh="• 美国提供情报与后勤支持，航母编队驻扎地中海东部&lt;br/&gt;" data-en="• US providing intel &amp;amp; logistics, carrier group stationed in Eastern Mediterranean&lt;br/&gt;">• 美国提供情报与后勤支持，航母编队驻扎地中海东部<br/></span>
-<span data-zh="• 4月19日：扩大打击范围至德黑兰工业区" data-en="• Apr 19: Expanded strike range to Tehran industrial zone">• 4月19日：扩大打击范围至德黑兰工业区</span>
+• 加沙战线持续：停火谈判反复破裂<br/>
+• 对伊朗实施"先发制人"战略打击，目标包括核设施、导弹发射井、革命卫队指挥中心<br/>
+• 美国提供情报与后勤支持，航母编队驻扎地中海东部<br/>
+• 4月19日：扩大打击范围至德黑兰工业区
 </div>
-<div class="war-node-time"><span data-zh="情报源：BBC / Times of Israel" data-en="Sources: BBC / Times of Israel">情报源：BBC / Times of Israel</span></div>
+<div class="war-node-time">情报源：BBC / Times of Israel</div>
 </div>
 
 <div class="war-node">
 <div class="war-node-header">
 <span class="war-node-name">🇾🇪 也门胡塞武装（Houthis）</span>
-<span class="war-node-status" style="background:#dc2626;color:#fff"><span data-zh="活跃攻击" data-en="Active Attacks">活跃攻击</span></span>
+<span class="war-node-status" style="background:#dc2626;color:#fff">活跃攻击</span>
 </div>
 <div class="war-node-body">
-<span data-zh="• 3月初重启红海商船袭击行动，频率达每周5~8次&lt;br/&gt;" data-en="• Early Mar: Resumed Red Sea commercial vessel attacks, 5~8 per week&lt;br/&gt;">• 3月初重启红海商船袭击行动，频率达每周5~8次<br/></span>
-<span data-zh="• 武器升级：使用高超音速导弹及无人机群&lt;br/&gt;" data-en="• Weapons upgrade: hypersonic missiles &amp;amp; drone swarms&lt;br/&gt;">• 武器升级：使用高超音速导弹及无人机群<br/></span>
-<span data-zh="• 目标范围扩展至印度洋远洋<span data-zh="航线" data-en="routes">航线</span>（距也门海岸超过1000海里）&lt;br/&gt;" data-en="• Target range extended to Indian Ocean routes (1,000+ nm from Yemen coast)&lt;br/&gt;">• 目标范围扩展至印度洋远洋航线（距也门海岸超过1000海里）<br/></span>
-<span data-zh="• 苏伊士运河实质停航，迫使所有亚欧航线绕行好望角" data-en="• Suez Canal de facto closed, all Asia-Europe routes rerouted via Cape of Good Hope">• 苏伊士运河实质停航，迫使所有亚欧航线绕行好望角</span>
+• 3月初重启红海商船袭击行动，频率达每周5~8次<br/>
+• 武器升级：使用高超音速导弹及无人机群<br/>
+• 目标范围扩展至印度洋远洋航线（距也门海岸超过1000海里）<br/>
+• 苏伊士运河实质停航，迫使所有亚欧航线绕行好望角
 </div>
-<div class="war-node-time"><span data-zh="情报源：UKMTO / IMB Piracy Report" data-en="Sources: UKMTO / IMB Piracy Report">情报源：UKMTO / IMB Piracy Report</span></div>
+<div class="war-node-time">情报源：UKMTO / IMB Piracy Report</div>
 </div>
 
 <div class="war-node">
 <div class="war-node-header">
 <span class="war-node-name">🌊 霍尔木兹海峡（Strait of Hormuz）</span>
-<span class="war-node-status" style="background:#dc2626;color:#fff;font-size:10px"><span data-zh="最高风险" data-en="MAXIMUM RISK">最高风险</span></span>
+<span class="war-node-status" style="background:#dc2626;color:#fff;font-size:10px">最高风险</span>
 </div>
 <div class="war-node-body">
-<span data-zh="• 全球最关键能源咽喉：每日通过约&lt;strong class=&quot;text-red&quot;&gt;2100万桶石油&lt;/strong&gt;&lt;br/&gt;" data-en="• World's most critical energy chokepoint: ~&lt;strong class=&quot;text-red&quot;&gt;21M barrels of oil/day&lt;/strong&gt;&lt;br/&gt;">• 全球最关键能源咽喉：每日通过约<strong class="text-red">2100万桶石油</strong><br/></span>
-<span data-zh="• 伊朗多次公开威胁关闭海峡，目前以&quot;骚扰式&quot;战术为主（快艇拦截、无人机侦察）&lt;br/&gt;" data-en="• Iran repeatedly threatened closure; currently using &quot;harassment&quot; tactics (fast boat intercepts, drone recon)&lt;br/&gt;">• 伊朗多次公开威胁关闭海峡，目前以"骚扰式"战术为主（快艇拦截、无人机侦察）<br/></span>
-<span data-zh="• 美国第五舰队已将防御级别升至DEFCON 2&lt;br/&gt;" data-en="• US Fifth Fleet raised defense readiness to DEFCON 2&lt;br/&gt;">• 美国第五舰队已将防御级别升至DEFCON 2<br/></span>
-<span data-zh="• &lt;strong class=&quot;text-orange&quot;&gt;当前状态：&lt;/strong&gt;未正式关闭但通行效率下降40%，保险费率飙升300%" data-en="• &lt;strong class=&quot;text-orange&quot;&gt;Current Status:&lt;/strong&gt; Not officially closed but transit efficiency down 40%, insurance rates surged 300%">• <strong class="text-orange">当前状态：</strong>未正式关闭但通行效率下降40%，保险费率飙升300%</span>
+• 全球最关键能源咽喉：每日通过约<strong class="text-red">2100万桶石油</strong><br/>
+• 伊朗多次公开威胁关闭海峡，目前以"骚扰式"战术为主（快艇拦截、无人机侦察）<br/>
+• 美国第五舰队已将防御级别升至DEFCON 2<br/>
+• <strong class="text-orange">当前状态：</strong>未正式关闭但通行效率下降40%，保险费率飙升300%
 </div>
-<div class="war-node-time"><span data-zh="情报源：US Navy Fifth Fleet / Lloyd's List" data-en="Sources: US Navy Fifth Fleet / Lloyd's List">情报源：US Navy Fifth Fleet / Lloyd's List</span></div>
+<div class="war-node-time">情报源：US Navy Fifth Fleet / Lloyd's List</div>
 </div>
 
 <div class="war-node">
 <div class="war-node-header">
 <span class="war-node-name">🔴 红海 / 曼德海峡（Red Sea / Bab el-Mandeb）</span>
-<span class="war-node-status" style="background:#dc2626;color:#fff"><span data-zh="持续袭击" data-en="Ongoing Attacks">持续袭击</span></span>
+<span class="war-node-status" style="background:#dc2626;color:#fff">持续袭击</span>
 </div>
 <div class="war-node-body">
-<span data-zh="• 胡塞武装袭击频率创纪录：日均2~3次&lt;br/&gt;" data-en="• Houthi attack frequency at record high: 2~3 per day&lt;br/&gt;">• 胡塞武装袭击频率创纪录：日均2~3次<br/></span>
-<span data-zh="• 受袭船只类型扩展至干散货船、油轮、渔船等所有商船&lt;br/&gt;" data-en="• Target types expanded to bulk carriers, tankers, fishing vessels — all commercial ships&lt;br/&gt;">• 受袭船只类型扩展至干散货船、油轮、渔船等所有商船<br/></span>
-<span data-zh="• 所有主流集装箱船公司均已暂停红海航线&lt;br/&gt;" data-en="• All major container carriers have suspended Red Sea services&lt;br/&gt;">• 所有主流集装箱船公司均已暂停红海航线<br/></span>
-<span data-zh="• 苏伊士运河收入较去年同期暴跌约80%" data-en="• Suez Canal revenue plunged ~80% vs. same period last year">• 苏伊士运河收入较去年同期暴跌约80%</span>
+• 胡塞武装袭击频率创纪录：日均2~3次<br/>
+• 受袭船只类型扩展至干散货船、油轮、渔船等所有商船<br/>
+• 所有主流集装箱船公司均已暂停红海航线<br/>
+• 苏伊士运河收入较去年同期暴跌约80%
 </div>
-<div class="war-node-time"><span data-zh="情报源：SCA Suez Canal Authority" data-en="Sources: SCA Suez Canal Authority">情报源：SCA Suez Canal Authority</span></div>
+<div class="war-node-time">情报源：SCA Suez Canal Authority</div>
 </div>
 
 <div class="war-node">
 <div class="war-node-header">
-<span class="war-node-name">🟢 <span data-zh="KHF 霍尔费坎" data-en="KHF Khor Fakkan">KHF 霍尔费坎</span>港（Khor Fakkan）</span>
-<span class="war-node-status" style="background:#16a34a;color:#fff"><span data-zh="安全枢纽" data-en="Safe Hub">安全枢纽</span></span>
+<span class="war-node-name">🟢 KHF 霍尔费坎港（Khor Fakkan）</span>
+<span class="war-node-status" style="background:#16a34a;color:#fff">安全枢纽</span>
 </div>
 <div class="war-node-body">
-<span data-zh="• 位于阿曼湾东岸，&lt;strong class=&quot;text-green&quot;&gt;<span data-zh="<span data-zh="无需经过霍尔木兹海峡" data-en="No need to transit Strait of Hormuz">无需经过霍尔木兹海峡</span>" data-en="No need to transit Strait of Hormuz">无需经过霍尔木兹海峡</span>&lt;/strong&gt;&lt;br/&gt;" data-en="• Located on the eastern shore of Gulf of Oman, &lt;strong class=&quot;text-green&quot;&gt;no need to transit Strait of Hormuz&lt;/strong&gt;&lt;br/&gt;">• 位于阿曼湾东岸，<strong class="text-green">无需经过霍尔木兹海峡</strong><br/></span>
-<span data-zh="• 富查伊拉酋长国管辖，距迪拜仅180km陆桥&lt;br/&gt;" data-en="• Under Fujairah emirate, only 180km land bridge to Dubai&lt;br/&gt;">• 富查伊拉酋长国管辖，距迪拜仅180km陆桥<br/></span>
-<span data-zh="• 4月成为阿联酋唯一全面运营的集装箱枢纽&lt;br/&gt;" data-en="• Became UAE's only fully operational container hub in April&lt;br/&gt;">• 4月成为阿联酋唯一全面运营的集装箱枢纽<br/></span>
-<span data-zh="• 吞吐量连创新高：预计Q2可达95,000~110,000 TEU/季度" data-en="• Throughput at record highs: Q2 est. 95,000~110,000 TEU/quarter">• 吞吐量连创新高：预计Q2可达95,000~110,000 TEU/季度</span>
+• 位于阿曼湾东岸，<strong class="text-green">无需经过霍尔木兹海峡</strong><br/>
+• 富查伊拉酋长国管辖，距迪拜仅180km陆桥<br/>
+• 4月成为阿联酋唯一全面运营的集装箱枢纽<br/>
+• 吞吐量连创新高：预计Q2可达95,000~110,000 TEU/季度
 </div>
-<div class="war-node-time"><span data-zh="情报源：Gulftainer Khor Fakkan Terminal" data-en="Sources: Gulftainer KHF Terminal">情报源：Gulftainer Khor Fakkan Terminal</span></div>
+<div class="war-node-time">情报源：Gulftainer Khor Fakkan Terminal</div>
 </div>
 
 <div class="war-node">
 <div class="war-node-header">
 <span class="war-node-name">🟠 杰贝阿里 JEBEL ALI（Dubai）</span>
-<span class="war-node-status" style="background:#d97706;color:#fff"><span data-zh="受限运营" data-en="Restricted Ops">受限运营</span></span>
+<span class="war-node-status" style="background:#d97706;color:#fff">受限运营</span>
 </div>
 <div class="war-node-body">
-<span data-zh="• 位于波斯湾内，必须经霍尔木兹海峡进出&lt;br/&gt;" data-en="• Located inside Persian Gulf, must transit Strait of Hormuz&lt;br/&gt;">• 位于波斯湾内，必须经霍尔木兹海峡进出<br/></span>
-<span data-zh="• 多数船公司暂停或大幅减少订舱&lt;br/&gt;" data-en="• Most carriers suspended or significantly reduced bookings&lt;br/&gt;">• 多数船公司暂停或大幅减少订舱<br/></span>
-<span data-zh="• 港口堆场利用率降至45%，部分码头工人轮休&lt;br/&gt;" data-en="• Yard utilization dropped to 45%, some terminal workers on rotation&lt;br/&gt;">• 港口堆场利用率降至45%，部分码头工人轮休<br/></span>
-<span data-zh="• 仅接受少量本地进口货，国际中转基本停滞" data-en="• Only accepting limited local imports; international transit virtually halted">• 仅接受少量本地进口货，国际中转基本停滞</span>
+• 位于波斯湾内，必须经霍尔木兹海峡进出<br/>
+• 多数船公司暂停或大幅减少订舱<br/>
+• 港口堆场利用率降至45%，部分码头工人轮休<br/>
+• 仅接受少量本地进口货，国际中转基本停滞
 </div>
-<div class="war-node-time"><span data-zh="情报源：DP World Dubai" data-en="Sources: DP World Dubai">情报源：DP World Dubai</span></div>
+<div class="war-node-time">情报源：DP World Dubai</div>
 </div>
 
 <div class="war-node">
 <div class="war-node-header">
 <span class="war-node-name">🟠 富查伊拉 FUJAIRAH（油轮区）</span>
-<span class="war-node-status" style="background:#d97706;color:#fff"><span data-zh="受损恢复中" data-en="Recovering">受损恢复中</span></span>
+<span class="war-node-status" style="background:#d97706;color:#fff">受损恢复中</span>
 </div>
 <div class="war-node-body">
-<span data-zh="• 3月14日遭无人机袭击，油轮码头受损（集装箱区未直接命中）&lt;br/&gt;" data-en="• Mar 14: Drone attack, tanker terminal damaged (container area not directly hit)&lt;br/&gt;">• 3月14日遭无人机袭击，油轮码头受损（集装箱区未直接命中）<br/></span>
-<span data-zh="• 目前油轮作业恢复70%，但安保成本大幅上升&lt;br/&gt;" data-en="• Tanker ops recovered to 70%, but security costs surged&lt;br/&gt;">• 目前油轮作业恢复70%，但安保成本大幅上升<br/></span>
-<span data-zh="• 与KHF同属富查伊拉酋长国，形成&quot;双港互补&quot;&lt;br/&gt;" data-en="• Same emirate as KHF, forming a &quot;dual-port complement&quot;&lt;br/&gt;">• 与KHF同属富查伊拉酋长国，形成"双港互补"<br/></span>
-<span data-zh="• 集装箱业务已基本转移至KHF" data-en="• Container business largely transferred to KHF">• 集装箱业务已基本转移至KHF</span>
+• 3月14日遭无人机袭击，油轮码头受损（集装箱区未直接命中）<br/>
+• 目前油轮作业恢复70%，但安保成本大幅上升<br/>
+• 与KHF同属富查伊拉酋长国，形成"双港互补"<br/>
+• 集装箱业务已基本转移至KHF
 </div>
-<div class="war-node-time"><span data-zh="情报源：Port of Fujairah" data-en="Sources: Port of Fujairah">情报源：Port of Fujairah</span></div>
+<div class="war-node-time">情报源：Port of Fujairah</div>
 </div>
 
 </div><!-- /war-map-grid -->
 
 <!-- 危险通道提示 -->
 <div style="margin-top:20px;padding:16px;border-radius:10px;background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.25)">
-<div style="font-size:14px;font-weight:700;color:#fecaca;margin-bottom:10px"><span data-zh="⛔ 当前危险/回避通道一览" data-en="⛔ Current Dangerous / Avoidance Channels">⛔ 当前危险/回避通道一览</span></div>
+<div style="font-size:14px;font-weight:700;color:#fecaca;margin-bottom:10px">⛔ 当前危险/回避通道一览</div>
 <div class="flow-danger-list">
-<div class="flow-danger-item"><span data-zh="🔴 霍尔木兹海峡 — 封锁高危" data-en="🔴 Strait of Hormuz — Blockade HIGH RISK">🔴 霍尔木兹海峡 — 封锁高危</span></div>
-<div class="flow-danger-item"><span data-zh="🔴 红海/曼德海峡 — 持续袭击" data-en="🔴 Red Sea / Bab el-Mandeb — Ongoing Attacks">🔴 红海/曼德海峡 — 持续袭击</span></div>
-<div class="flow-danger-item"><span data-zh="🟠 富查伊拉油轮区 — 受损/安保升级" data-en="🟠 Fujairah Tanker Zone — Damaged / Security Escalated">🟠 富查伊拉油轮区 — 受损/安保升级</span></div>
-<div class="flow-danger-item"><span data-zh="🟠 波斯湾内各港 — 大幅缩减服务" data-en="🟠 Persian Gulf Ports — Services Significantly Reduced">🟠 波斯湾内各港 — 大幅缩减服务</span></div>
+<div class="flow-danger-item">🔴 霍尔木兹海峡 — 封锁高危</div>
+<div class="flow-danger-item">🔴 红海/曼德海峡 — 持续袭击</div>
+<div class="flow-danger-item">🟠 富查伊拉油轮区 — 受损/安保升级</div>
+<div class="flow-danger-item">🟠 波斯湾内各港 — 大幅缩减服务</div>
 </div>
 </div>
 </div><!-- /war-map-section -->
@@ -479,97 +451,115 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <!-- ═════ TIMELINE ═════ -->
 <section class="section">
-<div class="section-title"><span class="num">03</span><span class="icon">⏳</span> 危机演进时间轴 — <strong>2026年3月中旬至今：霍尔木兹海峡的"开了又关"</strong></div>
+<div class="section-title"><span class="num">03</span><span class="icon">⏳</span> 危机演进时间轴 — <strong>2026年3月至今：霍尔木兹海峡的"开了又关"</strong></div>
 
 <div style="background:linear-gradient(135deg,#450a0a 0%,#7f1d1d 100%);border-radius:14px;padding:22px 26px;margin-bottom:28px;color:#fca5a5;position:relative;overflow:hidden">
 <div style="position:absolute;top:-25px;right:-25px;width:180px;height:180px;background:radial-gradient(circle,rgba(239,68,68,.12) 0%,transparent 70%);pointer-events:none"></div>
-<h3 style="font-size:18px;font-weight:800;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:8px"><span data-zh="🚨 核心关注：霍尔木兹海峡当前状态" data-en="🚨 KEY FOCUS: Current Status of Strait of Hormuz">🚨 核心关注：霍尔木兹海峡当前状态</span></h3>
-<p style="line-height:1.8;font-size:15px;color:#fecaca"><span data-zh="截至 &lt;strong style=&quot;color:#fff;font-size:16px&quot;&gt;2026年4月20日&lt;/strong&gt;，霍尔木兹海峡处于&lt;strong style=&quot;color:#fbbf24;text-decoration:underline&quot;&gt;完全封锁状态&lt;/strong&gt;。4月17日伊朗曾短暂宣布开放，但在不到24小时内因美方继续海上封锁而&lt;strong style=&quot;color:#f87171&quot;&gt;态度反转、重新关闸&lt;/strong&gt;。4月19日全天&lt;strong&gt;零船只通过记录&lt;/strong&gt;，4月18日至少13艘尝试通行的油轮被迫掉头返航。超过 &lt;strong style=&quot;color:#fff&quot;&gt;1,000 艘远洋船&lt;/strong&gt;被困波斯湾内无法出航。" data-en="As of &lt;strong style=&quot;color:#fff;font-size:16px&quot;&gt;April 20, 2026&lt;/strong&gt;, the Strait of Hormuz is under &lt;strong style=&quot;color:#fbbf24;text-decoration:underline&quot;&gt;complete blockade&lt;/strong&gt;. Iran briefly announced opening on Apr 17, but reversed within 24 hours as the US continued its naval blockade. &lt;strong style=&quot;color:#f87171&quot;&gt;Full closure resumed&lt;/strong&gt;. Apr 19 saw &lt;strong&gt;zero transit records&lt;/strong&gt;; at least 13 tankers attempting transit on Apr 18 were forced to turn back. Over &lt;strong style=&quot;color:#fff&quot;&gt;1,000 ocean vessels&lt;/strong&gt; are trapped inside the Persian Gulf.">截至 <strong style="color:#fff;font-size:16px">2026年4月20日</strong>，霍尔木兹海峡处于<strong style="color:#fbbf24;text-decoration:underline">完全封锁状态</strong>。4月17日伊朗曾短暂宣布开放，但在不到24小时内因美方继续海上封锁而<strong style="color:#f87171">态度反转、重新关闸</strong>。4月19日全天<strong>零船只通过记录</strong>，4月18日至少13艘尝试通行的油轮被迫掉头返航。超过 <strong style="color:#fff">1,000 艘远洋船</strong>被困波斯湾内无法出航。</span></p>
+<h3 style="font-size:18px;font-weight:800;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:8px">🚨 核心关注：霍尔木兹海峡当前状态</h3>
+<p style="line-height:1.8;font-size:15px;color:#fecaca">截至 <strong style="color:#fff;font-size:16px">2026年4月20日</strong>，霍尔木兹海峡处于<strong style="color:#fbbf24;text-decoration:underline">完全封锁状态</strong>。4月17日伊朗曾短暂宣布开放，但在不到24小时内因美方继续海上封锁而<strong style="color:#f87171">态度反转、重新关闸</strong>。4月19日全天<strong>零船只通过记录</strong>，4月18日至少13艘尝试通行的油轮被迫掉头返航。超过 <strong style="color:#fff">1,000 艘远洋船</strong>被困波斯湾内无法出航。</p>
 </div>
 <div class="timeline-wrap">
 <div class="timeline-line"></div>
 
 <div class="timeline-item critical">
 <div class="timeline-dot"></div>
-<div class="timeline-date"><strong style="font-size:16px;color:var(--danger)"><span data-zh="4月20日 — 持续封锁确认 🚫" data-en="Apr 20 — Blockade Confirmed 🚫">4月20日 — 持续封锁确认 🚫</span></strong></div>
-<div class="timeline-badge badge-critical"><span data-zh="【当前状态】" data-en="[CURRENT STATUS]">【当前状态】</span></div>
-<div class="timeline-title"><span data-zh="霍尔木兹海峡持续完全封锁，无船只通行" data-en="Strait of Hormuz remains fully blocked — zero vessel transit">霍尔木兹海峡持续完全封锁，无船只通行</span></div>
-<div class="timeline-desc"><span data-zh="截至4月20日，海峡持续处于完全封锁状态，无任何船只成功通行。超过 &lt;strong class=&quot;text-red&quot;&gt;1,000 艘远洋船&lt;/strong&gt;被困波斯湾内无法出航。" data-en="As of Apr 20, the strait remains under complete blockade with no successful transits. Over &lt;strong class=&quot;text-red&quot;&gt;1,000 ocean vessels&lt;/strong&gt; trapped inside the Persian Gulf.">截至4月20日，海峡持续处于完全封锁状态，无任何船只成功通行。超过 <strong class="text-red">1,000 艘远洋船</strong>被困波斯湾内无法出航。</span></div>
-<div class="timeline-source"><span data-zh="来源：Reuters / 央视新闻（4月20日）" data-en="Source: Reuters / CCTV News (Apr 20)">来源：Reuters / 央视新闻（4月20日）</span></div>
+<div class="timeline-date">2月28日 — 美以对伊大规模空袭 💥</div>
+<div class="timeline-badge badge-critical">【战争爆发】</div>
+<div class="timeline-title">美以联军发动"核设施去军事化"空袭行动</div>
+<div class="timeline-desc">美国联合以色列对伊朗多个目标发动大规模军事打击。伊朗随即宣称将对等报复，并首次明确威胁<strong class="text-red">关闭霍尔木兹海峡</strong>。全球航运业进入最高警戒。</div>
+<div class="timeline-source">来源：Reuters / AP News / IRNA（2月28日深夜）</div>
 </div>
 
 <div class="timeline-item critical">
 <div class="timeline-dot"></div>
-<div class="timeline-date"><strong style="font-size:16px;color:var(--danger)"><span data-zh="4月19日 — 全天零通行 🚫" data-en="Apr 19 — Zero Transit All Day 🚫">4月19日 — 全天零通行 🚫</span></strong></div>
-<div class="timeline-badge badge-critical"><span data-zh="【全面封锁】" data-en="[FULL BLOCKADE]">【全面封锁】</span></div>
-<div class="timeline-title"><span data-zh="海峡全天零通行记录 — 完全切断" data-en="Zero vessel transit recorded all day — Complete cutoff">海峡全天零通行记录 — 完全切断</span></div>
-<div class="timeline-desc"><span data-zh="&lt;strong&gt;基于船舶追踪数据，4月19日霍尔木兹海峡未观测到任何船舶通行记录。&lt;/strong&gt;4月18日至少 13 艘油轮在尝试驶离波斯湾过程中改变航向并掉头返航。&lt;br/&gt;&lt;br/&gt;与此同时，以色列在美情报支持下扩大对伊朗打击范围至德黑兰工业核心区。伊朗革命卫队发言人警告：若不立即停火，将在72小时内采取&quot;不可逆措施&quot;。" data-en="&lt;strong&gt;Based on vessel tracking data, zero vessel transits were observed at the Strait of Hormuz on Apr 19.&lt;/strong&gt; At least 13 tankers changed course and turned back while attempting to exit the Persian Gulf on Apr 18.&lt;br/&gt;&lt;br/&gt;Meanwhile, Israel expanded strikes to Tehran's industrial core with US intelligence support. IRGC spokesperson warned: if ceasefire is not immediate, &quot;irreversible measures&quot; within 72 hours."><strong>基于船舶追踪数据，4月19日霍尔木兹海峡未观测到任何船舶通行记录。</strong>4月18日至少 13 艘油轮在尝试驶离波斯湾过程中改变航向并掉头返航。<br/><br/>与此同时，以色列在美情报支持下扩大对伊朗打击范围至德黑兰工业核心区。伊朗革命卫队发言人警告：若不立即停火，将在72小时内采取"不可逆措施"。</span></div>
-<div class="timeline-source"><span data-zh="来源：央视新闻 / 财联社 / CNN / BBC Persian / Reuters（4月19~20日凌晨）" data-en="Source: CCTV / Cailian Press / CNN / BBC Persian / Reuters (Apr 19-20)">来源：央视新闻 / 财联社 / CNN / BBC Persian / Reuters（4月19~20日凌晨）</span></div>
-</div>
-
-<div class="timeline-item critical">
-<div class="timeline-dot"></div>
-<div class="timeline-date"><strong style="font-size:16px;color:var(--danger);animation:pulse-alert 2s infinite"><span data-zh="4月18日傍晚 — 重新关闸 🔒💥" data-en="Apr 18 Evening — Gates Re-closed 🔒💥">4月18日傍晚 — 重新关闸 🔒💥</span></strong></div>
-<div class="timeline-badge badge-critical"><span data-zh="【戏剧性反转】" data-en="[DRAMATIC REVERSAL]">【戏剧性反转】</span></div>
-<div class="timeline-title"><span data-zh="伊朗宣布恢复管控海峡，向试图通行船只开火" data-en="Iran announces resumption of strait control, fires on attempting vessels">伊朗宣布恢复管控海峡，向试图通行船只开火</span></div>
-<div class="timeline-desc"><span data-zh="伊朗武装部队发言人声明：美国&quot;屡次违背承诺，以所谓封锁为幌子继续行海上劫掠&quot;，因此&lt;strong&gt;海峡控制已恢复到先前状态&lt;/strong&gt;。" data-en="Iranian armed forces spokesperson: &quot;The US has repeatedly broken promises, continuing maritime piracy under the guise of a blockade.&quot; Therefore &lt;strong&gt;strait control has been restored to previous status&lt;/strong&gt;.">伊朗武装部队发言人声明：美国"屡次违背承诺，以所谓封锁为幌子继续行海上劫掠"，因此<strong>海峡控制已恢复到先前状态</strong>。</span><br/><br/>
-<span style="display:inline-block;background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;padding:10px 14px;margin-top:8px;font-size:14px;line-height:1.7"><strong style="color:var(--danger)">🔴 实际发生：</strong><br/>• 两艘<strong>印度籍商船被 IRCG 海军逼退，期间有开火情况</strong><br/>• 约 10 艘船只在拉腊克岛附近水域折返<br/>• 英国海上贸易办公室(UKMTO)发布多份遇袭通报<br/>• 船舶追踪数据显示：大部分为油轮，目的地多为印度<br/>• 特朗普回应："伊朗想封锁但无法要挟我们"</span><br/><br/><span data-zh="伊朗最高国家安全委员会表态：&lt;strong&gt;决心控制海峡通行直至战争彻底结束&lt;/strong&gt;。《华尔街日报》报道美军计划将扣押范围扩展至中东以外。" data-en="Iran's Supreme National Security Council: &lt;strong&gt;determined to control strait transit until war ends completely&lt;/strong&gt;. WSJ reports US plans to extend seizure scope beyond Middle East.">伊朗最高国家安全委员会表态：<strong>决心控制海峡通行直至战争彻底结束</strong>。《华尔街日报》报道美军计划将扣押范围扩展至中东以外。</span></div>
-<div class="timeline-source"><span data-zh="来源：新华社 / 央视新闻 / UKMTO / AP / WSJ（4月18日深夜）" data-en="Source: Xinhua / CCTV / UKMTO / AP / WSJ (Apr 18 late)">来源：新华社 / 央视新闻 / UKMTO / AP / WSJ（4月18日深夜）</span></div>
+<div class="timeline-date">3月2日 — 胡塞重启红海高强度袭击 🎯</div>
+<div class="timeline-badge badge-critical">【连锁反应】</div>
+<div class="timeline-title">胡塞武装借势升级，日均袭击量翻倍</div>
+<div class="timeline-desc">胡塞宣布"无限期恢复"对所有驶往以色列港口及"与美以有关联"船只的袭击。红海航线安全评级再次下调至 D 级。</div>
+<div class="timeline-source">来源：UKMTO Warning #2026-03-02</div>
 </div>
 
 <div class="timeline-item major">
 <div class="timeline-dot"></div>
-<div class="timeline-date"><strong style="font-size:16px;color:var(--warning)"><span data-zh="4月17日晚 — 变数出现 ⚠️" data-en="Apr 17 Evening — Complications ⚠️">4月17日晚 — 变数出现 ⚠️</span></strong></div>
-<div class="timeline-badge badge-major"><span data-zh="【暗流涌动】" data-en="[UNDERCURRENT]">【暗流涌动】</span></div>
-<div class="timeline-title"><span data-zh="特朗普&quot;感谢&quot;后立即反转：&quot;海上封锁继续有效&quot;" data-en="Trump reverses after &quot;thank you&quot;: &quot;Naval blockade remains in effect&quot;">特朗普"感谢"后立即反转："海上封锁继续有效"</span></div>
-<div class="timeline-desc"><span data-zh="特朗普在确认海峡开放帖文发出不到1小时内连发多条新帖：&lt;br/&gt;✅ 声称&quot;伊朗已同意不再关闭霍尔木兹海峡&quot;&lt;br/&gt;❌ 但&quot;&lt;strong&gt;针对伊朗的海上封锁将继续有效&lt;/strong&gt;&quot;&lt;br/&gt;❌ 宣称在美国协助下&quot;已经或正在清除所有水雷&quot;（伊方未证实）&lt;br/&gt;❌ 要求获得伊朗所有核材料且不支付任何款项&lt;br/&gt;&lt;br/&gt;伊朗外交部称美方继续海上封锁&lt;strong class=&quot;text-red&quot;&gt;视为违反停火协议&lt;/strong&gt;；IRGC 海军同晚发布&lt;strong&gt;严格通行新规&lt;/strong&gt;：民用船须走指定路线 + 军用船禁行 + 所有船必须与 IRGC 协调。" data-en="Within an hour of confirming the strait opening, Trump posted multiple new messages:&lt;br/&gt;✅ Claimed &quot;Iran agreed to no longer close the Strait of Hormuz&quot;&lt;br/&gt;❌ But &quot;&lt;strong&gt;naval blockade against Iran remains in effect&lt;/strong&gt;&quot;&lt;br/&gt;❌ Claimed US is &quot;clearing all mines&quot; with US assistance (unconfirmed by Iran)&lt;br/&gt;❌ Demanded all Iranian nuclear materials without compensation&lt;br/&gt;&lt;br/&gt;Iran's MFA said continued blockade &lt;strong class=&quot;text-red&quot;&gt;constitutes violation of ceasefire&lt;/strong&gt;; IRGC Navy issued &lt;strong&gt;strict new transit rules&lt;/strong&gt;: civilian vessels must use designated routes + military vessels banned + all ships must coordinate with IRGC.">特朗普在确认海峡开放帖文发出不到1小时内连发多条新帖：<br/>✅ 声称"伊朗已同意不再关闭霍尔木兹海峡"<br/>❌ 但"<strong>针对伊朗的海上封锁将继续有效</strong>"<br/>❌ 宣称在美国协助下"已经或正在清除所有水雷"（伊方未证实）<br/>❌ 要求获得伊朗所有核材料且不支付任何款项<br/><br/>伊朗外交部称美方继续海上封锁<strong class="text-red">视为违反停火协议</strong>；IRGC 海军同晚发布<strong>严格通行新规</strong>：民用船须走指定路线 + 军用船禁行 + 所有船必须与 IRGC 协调。</span></div>
-<div class="timeline-source"><span data-zh="来源：Trump Social Media / IRGC Navy Statement / 伊朗外交部（4月17日晚）" data-en="Source: Trump Social Media / IRGC Navy / Iran MFA (Apr 17 evening)">来源：Trump Social Media / IRGC Navy Statement / 伊朗外交部（4月17日晚）</span></div>
+<div class="timeline-date">3月6日 — 全球主要船司紧急停航中东 ⚓</div>
+<div class="timeline-badge badge-major">【行业震动】</div>
+<div class="timeline-title">Maersk / MSC / CMA CGM / COSCO 相继暂停波斯湾订舱</div>
+<div class="timeline-desc">杰贝阿里港陷入半瘫痪状态。ZIM 宣布全球范围停收部分货物。中东集装箱航运几乎完全停滞。</div>
+<div class="timeline-source">来源：各船公司官网公告（3月6~8日陆续发布）</div>
+</div>
+
+<div class="timeline-item critical">
+<div class="timeline-dot"></div>
+<div class="timeline-date">3月14日 — 富查伊拉港遭无人机袭击 💥</div>
+<div class="timeline-badge badge-critical">【本土遭袭】</div>
+<div class="timeline-title">阿联酋富查伊拉港油轮锚地遇袭 — 首次波及阿联酋本土</div>
+<div class="timeline-desc">疑似来自也门方向的无人机群袭击富查伊拉油轮锚地区域，至少 3 艘 VLCC 受损。<strong class="text-red">这是本次冲突中阿联酋港口首次被直接打击</strong>，区域恐慌急剧升温。</div>
+<div class="timeline-source">来源：Emirates News Agency / Bloomberg（3月14日）</div>
 </div>
 
 <div class="timeline-item recovery">
 <div class="timeline-dot"></div>
-<div class="timeline-date"><strong style="font-size:16px;color:var(--success)"><span data-zh="4月17日 16:15 — 海峡&quot;开放&quot; ✨" data-en="Apr 17 16:15 — Strait &quot;Opens&quot; ✨">4月17日 16:15 — 海峡"开放" ✨</span></strong></div>
-<div class="timeline-badge badge-recovery"><span data-zh="【戏剧性转折】" data-en="[DRAMATIC TURN]">【戏剧性转折】</span></div>
-<div class="timeline-title"><span data-zh="伊朗宣布霍尔木兹海峡对所有商船&quot;完全开放&quot;" data-en="Iran announces Strait of Hormuz &quot;fully open&quot; to all commercial vessels">伊朗宣布霍尔木兹海峡对所有商船"完全开放"</span></div>
-<div class="timeline-desc"><span data-zh="伊朗外长阿拉格齐宣布：鉴于黎以停火生效，&lt;strong&gt;海峡对所有商船通行完全开放&lt;/strong&gt;。特朗普约20分钟后发帖确认并&quot;感谢&quot;伊朗。" data-en="Iranian FM Araghchi announced: given Lebanon-Israel ceasefire taking effect, &lt;strong&gt;strait is fully open to all commercial vessel transit&lt;/strong&gt;. Trump confirmed and &quot;thanked&quot; Iran ~20 minutes later.">伊朗外长阿拉格齐宣布：鉴于黎以停火生效，<strong>海峡对所有商船通行完全开放</strong>。特朗普约20分钟后发帖确认并"感谢"伊朗。</span><br/><br/>
-<span style="display:inline-block;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 14px;margin-top:8px;font-size:14px;line-height:1.7"><span data-zh="💚 &lt;strong&gt;市场反应剧烈：&lt;/strong&gt;国际原油期货暴跌超10%（WTI一度跌至$84.48/桶）。现货金价5分钟内飙升至$4,890.78/盎司。当晚约&lt;strong&gt;20艘船只试探性驶向海峡&lt;/strong&gt;——战事爆发以来规模最大的一批。" data-en="💚 &lt;strong&gt;Market Reaction Intense:&lt;/strong&gt; Brent crude plunged 10%+ (WTI dropped to $84.48/bbl). Spot gold surged to $4,890.78/oz within 5 minutes. ~&lt;strong&gt;20 vessels tentatively headed toward the strait&lt;/strong&gt; — largest group since war began.">💚 <strong>市场反应剧烈：</strong>国际原油期货暴跌超10%（WTI一度跌至$84.48/桶）。现货金价5分钟内飙升至$4,890.78/盎司。当晚约<strong>20艘船只试探性驶向海峡</strong>——战事爆发以来规模最大的一批。</span></span></div>
-<div class="timeline-source"><span data-zh="来源：伊朗外交部 / 特朗普社交媒体（4月17日）" data-en="Source: Iran MFA / Trump Social Media (Apr 17)">来源：伊朗外交部 / 特朗普社交媒体（4月17日）</span></div>
+<div class="timeline-date">3月16–17日 — KHF 复航确立替代枢纽地位 ✅</div>
+<div class="timeline-badge badge-recovery">【转机】</div>
+<div class="timeline-title">马士基率先恢复 KHF 订舱，达飞推"阿拉伯海走廊"方案</div>
+<div class="timeline-desc">KHF 因位于阿曼湾入口外、不进入霍尔木兹海峡内部而成为唯一可安全挂靠的中东集装箱大港。<strong class="text-green">KHF 正式从区域性港口跃升为战略级替代枢纽。</strong></div>
+<div class="timeline-source">来源：Maersk Advisory / CMA CGM Notice（3月16~17日）</div>
 </div>
 
 <div class="timeline-item major">
 <div class="timeline-dot"></div>
-<div class="timeline-date"><span data-zh="4月8日 — 美伊临时停火 🕊️" data-en="Apr 8 — US-Iran Temporary Ceasefire 🕊️">4月8日 — 美伊临时停火 🕊️</span></div>
-<div class="timeline-badge badge-major"><span data-zh="【停火信号】" data-en="[CEASEFIRE SIGNAL]">【停火信号】</span></div>
-<div class="timeline-title"><span data-zh="美伊宣布为期两周停火并开启谈判" data-en="US and Iran announce two-week ceasefire and open negotiations">美伊宣布为期两周停火并开启谈判</span></div>
-<div class="timeline-desc"><span data-zh="巴基斯坦斡旋下，美伊同意暂停直接军事对抗两周。但&lt;strong&gt;美方未解除对伊朗的海上封锁&lt;/strong&gt;——这一细节成为后续反复的关键伏笔。市场对海峡重燃希望。" data-en="Under Pakistani mediation, US and Iran agreed to suspend direct military confrontation for two weeks. However, &lt;strong&gt;the US did not lift its naval blockade of Iran&lt;/strong&gt; — this detail became the key trigger for subsequent reversals. Markets regained hope for the strait.">巴基斯坦斡旋下，美伊同意暂停直接军事对抗两周。但<strong>美方未解除对伊朗的海上封锁</strong>——这一细节成为后续反复的关键伏笔。市场对海峡重燃希望。</span></div>
-<div class="timeline-source"><span data-zh="来源：UN / 巴基斯坦外交部公告（4月8日）" data-en="Source: UN / Pakistan MFA Announcement (Apr 8)">来源：UN / 巴基斯坦外交部公告（4月8日）</span></div>
+<div class="timeline-date">4月2日 — 美国145%关税令生效 🇺🇸</div>
+<div class="timeline-badge badge-major">【叠加冲击】</div>
+<div class="timeline-title">特朗普关税令生效，中国出口企业加速中东转口</div>
+<div class="timeline-desc">两股力量交汇：<strong>战争避险需求 + 关税规避需求</strong>。通过中东转口的货量呈爆发式增长，KHF 仓储和中转业务供不应求。</div>
+<div class="timeline-source">来源：Freightos Baltic Index / SCFI（4月初）</div>
 </div>
 
 <div class="timeline-item major">
 <div class="timeline-dot"></div>
-<div class="timeline-date"><span data-zh="4月2日 — 美国145%关税令生效 🇺🇸" data-en="Apr 2 — US 145% Tariff Order Takes Effect 🇺🇸">4月2日 — 美国145%关税令生效 🇺🇸</span></div>
-<div class="timeline-badge badge-major"><span data-zh="【叠加冲击】" data-en="[COMPOUND IMPACT]">【叠加冲击】</span></div>
-<div class="timeline-title"><span data-zh="特朗普关税令生效，中国出口企业加速中东转口" data-en="Trump tariff order effective; Chinese exporters accelerate Middle East transit">特朗普关税令生效，中国出口企业加速中东转口</span></div>
-<div class="timeline-desc"><span data-zh="两股力量交汇：&lt;strong&gt;战争避险需求 + 关税规避需求&lt;/strong&gt;。通过中东转口的货量呈爆发式增长，KHF 仓储和中转业务供不应求。" data-en="Two forces converge: &lt;strong&gt;war risk avoidance + tariff evasion demand&lt;/strong&gt;. Middle East transit volumes surged exponentially; KHF warehousing and transshipment capacity unable to meet demand.">两股力量交汇：<strong>战争避险需求 + 关税规避需求</strong>。通过中东转口的货量呈爆发式增长，KHF 仓储和中转业务供不应求。</span></div>
-<div class="timeline-source"><span data-zh="来源：Freightos Baltic Index / SCFI（4月初）" data-en="Source: Freightos Baltic Index / SCFI (Early Apr)">来源：Freightos Baltic Index / SCFI（4月初）</span></div>
+<div class="timeline-date">4月8日 — 美伊临时停火 🕊️</div>
+<div class="timeline-badge badge-major">【停火信号】</div>
+<div class="timeline-title">美伊宣布为期两周停火并开启谈判</div>
+<div class="timeline-desc">巴基斯坦斡旋下，美伊同意暂停直接军事对抗两周。但<strong>美方未解除对伊朗的海上封锁</strong>——这一细节成为后续反复的关键伏笔。市场对海峡重燃希望。</div>
+<div class="timeline-source">来源：UN / 巴基斯坦外交部公告（4月8日）</div>
 </div>
 
 <div class="timeline-item recovery">
 <div class="timeline-dot"></div>
-<div class="timeline-date"><span data-zh="3月16–17日 — KHF 复航确立替代枢纽地位 ✅" data-en="Mar 16-17 — KHF Resumes Service, Establishes Alternative Hub Status ✅">3月16–17日 — KHF 复航确立替代枢纽地位 ✅</span></div>
-<div class="timeline-badge badge-recovery"><span data-zh="【转机】" data-en="[TURNING POINT]">【转机】</span></div>
-<div class="timeline-title"><span data-zh="马士基率先恢复 KHF 订舱，达飞推&quot;阿拉伯海走廊&quot;方案" data-en="Maersk first to resume KHF bookings; CMA CGM launches &quot;Arabian Sea Corridor&quot;">马士基率先恢复 KHF 订舱，达飞推"阿拉伯海走廊"方案</span></div>
-<div class="timeline-desc"><span data-zh="KHF 因位于阿曼湾入口外、不进入霍尔木兹海峡内部而成为唯一可安全挂靠的中东集装箱大港。&lt;strong class=&quot;text-green&quot;&gt;KHF 正式从区域性港口跃升为战略级替代枢纽。&lt;/strong&gt;" data-en="KHF, located outside the Gulf of Oman entrance without entering the Strait of Hormuz, became the only safely accessible large container port in the Middle East. &lt;strong class=&quot;text-green&quot;&gt;KHF officially elevated from a regional port to a strategic alternative hub.&lt;/strong&gt;">KHF 因位于阿曼湾入口外、不进入霍尔木兹海峡内部而成为唯一可安全挂靠的中东集装箱大港。<strong class="text-green">KHF 正式从区域性港口跃升为战略级替代枢纽。</strong></span></div>
-<div class="timeline-source"><span data-zh="来源：Maersk Advisory / CMA CGM Notice（3月16~17日）" data-en="Source: Maersk Advisory / CMA CGM Notice (Mar 16-17)">来源：Maersk Advisory / CMA CGM Notice（3月16~17日）</span></div>
+<div class="timeline-date"><strong style="font-size:16px;color:var(--success)">4月17日 16:15 德黑兰时间 ✨ — 海峡"开放"</strong></div>
+<div class="timeline-badge badge-recovery">【戏剧性转折】</div>
+<div class="timeline-title">伊朗宣布霍尔木兹海峡对所有商船"完全开放"</div>
+<div class="timeline-desc">伊朗外长阿拉格齐在社交媒体宣布：鉴于黎巴嫩与以色列达成停火（当地时间17日零时生效），<strong>霍尔木兹海峡在停火期间对所有商船通行完全开放</strong>，通行路线依照伊朗指定协调路线。特朗普约20分钟后发帖确认并"感谢"伊朗。<br/><br/>
+<span style="display:inline-block;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:10px 14px;margin-top:8px;font-size:14px;line-height:1.7">💚 <strong>市场反应剧烈：</strong>国际原油期货暴跌超10%（WTI一度跌至$84.48/桶，布伦特跌至$88.76/桶）。现货金价5分钟内飙升至$4,890.78/盎司。当晚约<strong>20艘船只试探性驶向海峡</strong>——这是战事爆发以来规模最大的一批。</span></div>
+<div class="timeline-source">来源：伊朗外交部 / 特朗普社交媒体（4月17日16:35德黑兰时间）</div>
+</div>
+
+<div class="timeline-item major">
+<div class="timeline-dot"></div>
+<div class="timeline-date"><strong style="font-size:16px;color:var(--warning)">4月17日晚 — 变数出现 ⚠️</strong></div>
+<div class="timeline-badge badge-major">【暗流涌动】</div>
+<div class="timeline-title">特朗普"感谢"后立即反转："海上封锁继续有效"</div>
+<div class="timeline-desc">特朗普在确认海峡开放的帖文发出不到1小时内连发多条新帖，核心信息：<br/>✅ 声称"伊朗已同意不再关闭霍尔木兹海峡"<br/>❌ 但"<strong>针对伊朗的海上封锁将继续有效</strong>"<br/>❌ 宣称在美国协助下"已经或正在清除所有水雷"（伊方未证实）<br/>❌ 要求获得伊朗所有核材料且不支付任何款项<br/><br/>伊朗方面强烈反弹：外交部称美方继续海上封锁<strong class="text-red">视为违反停火协议</strong>；IRGC 海军同晚发布<strong>严格通行新规</strong>：民用船须走指定路线 + 军用船禁行 + 所有船必须与 IRGC 协调。</div>
+<div class="timeline-source">来源：Trump Social Media / IRGC Navy Statement / 伊朗外交部（4月17日晚）</div>
 </div>
 
 <div class="timeline-item critical">
 <div class="timeline-dot"></div>
-<div class="timeline-date"><span data-zh="3月14日 — 富查伊拉港遭无人机袭击 💥" data-en="Mar 14 — Fujairah Port Drone Attack 💥">3月14日 — 富查伊拉港遭无人机袭击 💥</span></div>
-<div class="timeline-badge badge-critical"><span data-zh="【本土遭袭】" data-en="[HOMELAND ATTACKED]">【本土遭袭】</span></div>
-<div class="timeline-title"><span data-zh="阿联酋富查伊拉港油轮锚地遇袭 — 首次波及阿联酋本土" data-en="Fujairah tanker anchorage attacked — first strike on UAE mainland">阿联酋富查伊拉港油轮锚地遇袭 — 首次波及阿联酋本土</span></div>
-<div class="timeline-desc"><span data-zh="疑似来自也门方向的无人机群袭击富查伊拉油轮锚地区域，至少 3 艘 VLCC 受损。&lt;strong class=&quot;text-red&quot;&gt;本次冲突中阿联酋港口首次被直接打击&lt;/strong&gt;，区域恐慌急剧升温。" data-en="Suspected drone swarm from Yemen struck Fujairah tanker anchorage; at least 3 VLCCs damaged. &lt;strong class=&quot;text-red&quot;&gt;First direct strike on UAE port facilities in this conflict&lt;/strong&gt;, regional panic escalated sharply.">疑似来自也门方向的无人机群袭击富查伊拉油轮锚地区域，至少 3 艘 VLCC 受损。<strong class="text-red">本次冲突中阿联酋港口首次被直接打击</strong>，区域恐慌急剧升温。</span></div>
-<div class="timeline-source"><span data-zh="来源：Emirates News Agency / Bloomberg（3月14日）" data-en="Source: Emirates News Agency / Bloomberg (Mar 14)">来源：Emirates News Agency / Bloomberg（3月14日）</span></div>
+<div class="timeline-date"><strong style="font-size:16px;color:var(--danger);animation:pulse-alert 2s infinite">4月18日傍晚 — 重新关闸 🔒💥</strong></div>
+<div class="timeline-badge badge-critical">【反转】</div>
+<div class="timeline-title">伊朗宣布恢复管控霍尔木兹海峡，并向试图通行的船只开火</div>
+<div class="timeline-desc">伊朗武装部队发言人声明：美国"屡次违背承诺，以所谓封锁为幌子继续行海上劫掠"，因此<strong>霍尔木兹海峡控制已恢复到先前状态</strong>，目前处于<strong>伊朗武装部队严格管控之下</strong>。<br/><br/>
+<span style="display:inline-block;background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;padding:10px 14px;margin-top:8px;font-size:14px;line-height:1.7"><strong style="color:var(--danger)">🔴 实际发生：</strong><br/>• 两艘试图穿越的<strong>印度籍商船被 IRCG 海军逼退，期间有开火情况</strong><br/>• 约 10 艘船只在伊朗拉腊克岛（Larak Island）附近水域折返<br/>• 英国海上贸易办公室(UKMTO)发布多份遇袭事件通报<br/>• 船舶追踪数据显示：大部分为油轮，目的地多为印度<br/>• 特朗普回应："伊朗想封锁但无法要挟我们"</span><br/><br/>伊朗最高国家安全委员会进一步表态：<strong>决心控制海峡通行直至战争彻底结束、地区实现持久和平</strong>。伊朗最高领袖哈梅内伊称海军"随时准备给敌人新的惨败"。《华尔街日报》报道美军计划将扣押范围扩展至中东以外。</div>
+<div class="timeline-source">来源：新华社（4月18日深夜）/ 央视新闻 / UKMTO 多起通报 / AP / WSJ</div>
+</div>
+
+<div class="timeline-item critical">
+<div class="timeline-dot"></div>
+<div class="timeline-date"><strong style="font-size:16px;color:var(--danger)">4月19日 — 全面封锁确认 🚫</strong></div>
+<div class="timeline-badge badge-critical">【当前状态】</div>
+<div class="timeline-title">霍尔木兹海峡全天零通行记录 — 完全切断</div>
+<div class="timeline-desc"><strong>基于船舶追踪数据，截至英国时间4月19日下午，霍尔木兹海峡当日未观测到任何船舶通行记录。</strong>4月18日至少 13 艘油轮在尝试驶离波斯湾过程中改变航向并掉头返航。<br/><br/>与此同时，以色列在美情报支持下扩大对伊朗打击范围至德黑兰工业核心区。伊朗革命卫队发言人警告：若不立即停火，将在72小时内采取"不可逆措施"。<br/><br/>截至 4 月 20 日，海峡持续处于完全封锁状态，无任何船只成功通行。</div>
+<div class="timeline-source">来源：央视新闻（4月19日）/ 财联社 / CNN / BBC Persian / Reuters（4月19~20日凌晨）</div>
 </div>
 
 </div><!-- /timeline -->
@@ -578,7 +568,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <div style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:20px">
 
 <div style="background:linear-gradient(135deg,#fef2f2 0%,#fee2e2 100%);border:2px solid #f87171;border-radius:14px;padding:22px">
-<h3 style="font-size:17px;font-weight:800;color:#991b1b;margin-bottom:14px;display:flex;align-items:center;gap:8px"><span data-zh="🔴 霍尔木兹海峡 — 当前状态（4月20日）" data-en="🔴 Strait of Hormuz — Current Status (Apr 20)">🔴 霍尔木兹海峡 — 当前状态（4月20日）</span></h3>
+<h3 style="font-size:17px;font-weight:800;color:#991b1b;margin-bottom:14px;display:flex;align-items:center;gap:8px">🔴 霍尔木兹海峡 — 当前状态（4月20日）</h3>
 <table style="width:100%;border-collapse:collapse;font-size:14px">
 <tr><td style="padding:8px 0;border-bottom:1px solid #fecaca;color:var(--gray500);font-weight:600">海峡状态</td><td style="padding:8px 0;border-bottom:1px solid #fecaca;text-align:right"><strong style="color:#dc2626;font-size:16px">❌ 完全封锁 / 严格管控中</strong></td></tr>
 <tr><td style="padding:8px 0;border-bottom:1px solid #fecaca;color:var(--gray500);font-weight:600">4月19日通行量</td><td style="padding:8px 0;border-bottom:1px solid #fecaca;text-align:right"><strong style="color:#dc2626">0 艘（全天零记录）</strong></td></tr>
@@ -597,7 +587,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <tr><td style="padding:6px 0;border-bottom:1px solid #bfdbfe;font-weight:700;color:var(--navy)">4/17 ~17:00</td><td style="padding:6px 0;border-bottom:1px solid #bfdbfe">特朗普确认感谢，油价暴跌10%+</td></tr>
 <tr><td style="padding:6px 0;border-bottom:1px solid #bfdbfe;font-weight:700;color:var(--navy)">4/17 晚间</td><td style="padding:6px 0;border-bottom:1px solid #bfdbfe">特朗普反转：<span style="color:#dc2626;font-weight:700">"海上封锁继续"</span></td></tr>
 <tr><td style="padding:6px 0;border-bottom:1px solid #bfdbfe;font-weight:700;color:var(--navy)">4/17 晚</td><td style="padding:6px 0;border-bottom:1px solid #bfdbfe">IRGC 发布严格通行新规（指定路线+协调）</td></tr>
-<tr><td style="padding:6px 0;border-bottom:1px solid #bfdbfe;font-weight:700;color:var(--navy)">4/17 夜</td><td style="padding:6px 0;border-bottom:1px solid #bfdbfel">~20艘船试探性驶向海峡（最大一批）</td></tr>
+<tr><td style="padding:6px 0;border-bottom:1px solid #bfdbfe;font-weight:700;color:var(--navy)">4/17 夜</td><td style="padding:6px 0;border-bottom:1px solid #bfdbfe">~20艘船试探性驶向海峡（最大一批）</td></tr>
 <tr><td style="padding:6px 0;border-bottom:1px solid #bfdbfe;font-weight:700;color:var(--navy)">4/18 傍晚</td><td style="padding:6px 0;border-bottom:1px solid #bfdbfe">伊朗宣布<span style="color:#dc2626;font-weight:700">"恢复管控/重新关闸"</span></td></tr>
 <tr><td style="padding:6px 0;border-bottom:1px solid #bfdbfe;font-weight:700;color:var(--navy)">4/18 全天</td><td style="padding:6px 0;border-bottom:1px solid #bfdbfe">≥10艘船折返，2艘印度船被逼退<span style="color:#dc2626;font-weight:700">+开火</span></td></tr>
 <tr><td style="padding:6px 0;border-bottom:1px solid #bfdbfe;font-weight:700;color:var(--navy)">4/19 全天</td><td style="padding:6px 0;border-bottom:1px solid #bfdbfe"><span style="color:#dc2626;font-weight:700">零船只通行记录</span></td></tr>
@@ -610,102 +600,102 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <!-- ═════ CARRIER DYNAMICS ═════ -->
 <section class="section">
-<div class="section-title"><span class="num">04</span><span class="icon">🚢</span> <span data-zh="主要承运商动态" data-en="Major Carrier Movements">主要承运商动态</span><span data-zh=" — 4月最新" data-en=" — April Latest"> — 4月最新</span></div>
+<div class="section-title"><span class="num">04</span><span class="icon">🚢</span> 主要承运商动态 — 4月最新</div>
 
 <div class="carrier-grid">
 
 <div class="carrier-card">
 <div class="carrier-header">
 <span class="carrier-name">🔵 Maersk 马士基</span>
-<span class="carrier-status status-ok"><span data-zh="✅ 正常接单" data-en="✅ Accepting Bookings">✅ 正常接单</span></span>
+<span class="carrier-status status-ok">✅ 正常接单</span>
 </div>
 <div class="carrier-body">
 <ul>
-<li><span data-zh="主力服务：AE-1/Shogun、AE-7/Condor 直航KHF" data-en="Key services: AE-1/Shogun, AE-7/Condor direct to KHF">主力服务：AE-1/Shogun、AE-7/Condor 直航KHF</span></li>
-<li><span data-zh="3月初暂停全部中东订舱后，3月16日率先恢复KHF" data-en="After suspending all Middle East bookings in early Mar, first to resume KHF on Mar 16">3月初暂停全部中东订舱后，3月16日率先恢复KHF</span></li>
-<li><span data-zh="上海/深圳/宁波均提供直发服务" data-en="Direct services from Shanghai/Shenzhen/Ningbo">上海/深圳/宁波均提供直发服务</span></li>
-<li><span data-zh="推出&lt;strong&gt;&quot;Arabian Express&quot;&lt;/strong&gt;快速通道产品" data-en="Launched &lt;strong&gt;&quot;Arabian Express&quot;&lt;/strong&gt; fast-track product">推出<strong>"Arabian Express"</strong>快速通道产品</span></li>
-<li><span data-zh="FM1航线临时调整全部改靠KHF" data-en="FM1 service temporarily adjusted to call KHF exclusively">FM1航线临时调整全部改靠KHF</span></li>
+<li>主力服务：AE-1/Shogun、AE-7/Condor 直航KHF</li>
+<li>3月初暂停全部中东订舱后，3月16日率先恢复KHF</li>
+<li>上海/深圳/宁波均提供直发服务</li>
+<li>推出<strong>"Arabian Express"</strong>快速通道产品</li>
+<li>FM1航线临时调整全部改靠KHF</li>
 </ul>
 </div>
-<div class="carrier-footer"><span data-zh="💰 战争险附加费：&lt;strong&gt;$800~$1,200/TEU&lt;/strong&gt; | 周班次：2~3班" data-en="💰 War risk surcharge: &lt;strong&gt;$800~$1,200/TEU&lt;/strong&gt; | Weekly freq: 2~3 sailings">💰 战争险附加费：<strong>$800~$1,200/TEU</strong> | 周班次：2~3班</span></div>
+<div class="carrier-footer">💰 战争险附加费：<strong>$800~$1,200/TEU</strong> | 周班次：2~3班</div>
 </div>
 
 <div class="carrier-card">
 <div class="carrier-header">
 <span class="carrier-name">🟣 MSC 地中海航运</span>
-<span class="carrier-status status-partial"><span data-zh="⚠️ 个案处理" data-en="⚠️ Case-by-Case">⚠️ 个案处理</span></span>
+<span class="carrier-status status-partial">⚠️ 个案处理</span>
 </div>
 <div class="carrier-body">
 <ul>
-<li><span data-zh="Phoenix/Aries/Eagle 服务线覆盖KHF" data-en="Phoenix/Aries/Eagle services cover KHF">Phoenix/Aries/Eagle 服务线覆盖KHF</span></li>
-<li><span data-zh="大客户优先策略：月≥200TEU可申请<span data-zh="绿色" data-en="Green">绿色</span>通道" data-en="Key account priority: ≥200 TEU/month can apply for green channel">大客户优先策略：月≥200TEU可申请绿色通道</span></li>
-<li><span data-zh="中小客户需逐票审批，舱位不确定性较高" data-en="SME customers require per-booking approval; space uncertainty high">中小客户需逐票审批，舱位不确定性较高</span></li>
-<li><span data-zh="4月增开一班加班船应对货量激增" data-en="Added extra sailing in Apr to handle surge in volumes">4月增开一班加班船应对货量激增</span></li>
+<li>Phoenix/Aries/Eagle 服务线覆盖KHF</li>
+<li>大客户优先策略：月≥200TEU可申请绿色通道</li>
+<li>中小客户需逐票审批，舱位不确定性较高</li>
+<li>4月增开一班加班船应对货量激增</li>
 </ul>
 </div>
-<div class="carrier-footer"><span data-zh="💰 附加费：&lt;strong&gt;$700~$1,100/TEU&lt;/strong&gt; | 周班次：2~3班 | ⚠️ 舱位紧张" data-en="💰 Surcharges: &lt;strong&gt;$700~$1,100/TEU&lt;/strong&gt; | Weekly freq: 2~3 | ⚠️ Space tight">💰 附加费：<strong>$700~$1,100/TEU</strong> | 周班次：2~3班 | ⚠️ 舱位紧张</span></div>
+<div class="carrier-footer">💰 附加费：<strong>$700~$1,100/TEU</strong> | 周班次：2~3班 | ⚠️ 舱位紧张</div>
 </div>
 
 <div class="carrier-card">
 <div class="carrier-header">
 <span class="carrier-name">🔴 CMA CGM 达飞</span>
-<span class="carrier-status status-ok"><span data-zh="✅ 陆桥通道" data-en="✅ Land Bridge Route">✅ 陆桥通道</span></span>
+<span class="carrier-status status-ok">✅ 陆桥通道</span>
 </div>
 <div class="carrier-body">
 <ul>
-<li><span data-zh="&quot;Arabian Sea Corridor&quot;品牌化中转方案" data-en="&quot;Arabian Sea Corridor&quot; branded transshipment solution">"Arabian Sea Corridor"品牌化中转方案</span></li>
-<li><span data-zh="PEARL/Dragon/FAL三条主线均停靠KHF" data-en="PEARL/Dragon/FAL three main services all call KHF">PEARL/Dragon/FAL三条主线均停靠KHF</span></li>
-<li><span data-zh="价格灵活度高，积极争取合约客户" data-en="High pricing flexibility; actively pursuing contract clients">价格灵活度高，积极争取合约客户</span></li>
-<li><span data-zh="与KHF港务局有战略合作协议" data-en="Strategic cooperation agreement with KHF Port Authority">与KHF港务局有战略合作协议</span></li>
+<li>"Arabian Sea Corridor"品牌化中转方案</li>
+<li>PEARL/Dragon/FAL三条主线均停靠KHF</li>
+<li>价格灵活度高，积极争取合约客户</li>
+<li>与KHF港务局有战略合作协议</li>
 </ul>
 </div>
-<div class="carrier-footer"><span data-zh="💰 附加费：&lt;strong&gt;$650~$1,000/TEU&lt;/strong&gt; | 周班次：2班 | 性价比优选" data-en="💰 Surcharges: &lt;strong&gt;$650~$1,000/TEU&lt;/strong&gt; | Weekly freq: 2 | Best value">💰 附加费：<strong>$650~$1,000/TEU</strong> | 周班次：2班 | 性价比优选</span></div>
+<div class="carrier-footer">💰 附加费：<strong>$650~$1,000/TEU</strong> | 周班次：2班 | 性价比优选</div>
 </div>
 
 <div class="carrier-card">
 <div class="carrier-header">
 <span class="carrier-name">🟢 COSCO / OOCL</span>
-<span class="carrier-status status-ok"><span data-zh="✅ 例外港接单" data-en="✅ Exception Port Booking">✅ 例外港接单</span></span>
+<span class="carrier-status status-ok">✅ 例外港接单</span>
 </div>
 <div class="carrier-body">
 <ul>
-<li><span data-zh="AEX/IPEX系列航线，中资背景优势明显" data-en="AEX/IPEX series; Chinese-background advantage">AEX/IPEX系列航线，中资背景优势明显</span></li>
-<li><span data-zh="国企采购渠道优先保障中资货主" data-en="SOE procurement channels prioritize Chinese shippers">国企采购渠道优先保障中资货主</span></li>
-<li><span data-zh="OOCL华南线补充深圳/广州出发选项" data-en="OOCL South China line supplements Shenzhen/Guangzhou departure options">OOCL华南线补充深圳/广州出发选项</span></li>
-<li><span data-zh="提供&quot;安全通道保证书&quot;增强客户信心" data-en="Provides &quot;Safe Passage Certificate&quot; to boost client confidence">提供"安全通道保证书"增强客户信心</span></li>
+<li>AEX/IPEX系列航线，中资背景优势明显</li>
+<li>国企采购渠道优先保障中资货主</li>
+<li>OOCL华南线补充深圳/广州出发选项</li>
+<li>提供"安全通道保证书"增强客户信心</li>
 </ul>
 </div>
-<div class="carrier-footer"><span data-zh="💰 附加费：&lt;strong&gt;$600~$950/TEU&lt;/strong&gt; | 周班次：1~2班 | 中资首选" data-en="💰 Surcharges: &lt;strong&gt;$600~$950/TEU&lt;/strong&gt; | Weekly freq: 1~2 | Top choice for Chinese shippers">💰 附加费：<strong>$600~$950/TEU</strong> | 周班次：1~2班 | 中资首选</span></div>
+<div class="carrier-footer">💰 附加费：<strong>$600~$950/TEU</strong> | 周班次：1~2班 | 中资首选</div>
 </div>
 
 <div class="carrier-card">
 <div class="carrier-header">
 <span class="carrier-name">🟡 Evergreen / Yang Ming / ONE</span>
-<span class="carrier-status status-ok"><span data-zh="✅ 正常运营" data-en="✅ Normal Operations">✅ 正常运营</span></span>
+<span class="carrier-status status-ok">✅ 正常运营</span>
 </div>
 <div class="carrier-body">
 <ul>
-<li><span data-zh="Evergreen：UME/CEM线稳定挂靠KHF" data-en="Evergreen: UME/CEM lines stably call KHF">Evergreen：UME/CEM线稳定挂靠KHF</span></li>
-<li><span data-zh="Yang Ming：CPX线动态调整，偶有跳港通知" data-en="Yang Ming: CPX line dynamically adjusted, occasional skip-port notices">Yang Ming：CPX线动态调整，偶有跳港通知</span></li>
-<li><span data-zh="ONE：PS系列保持周班准点率较高" data-en="ONE: PS series maintains high weekly on-time performance">ONE：PS系列保持周班准点率较高</span></li>
-<li><span data-zh="三家整体报价低于欧洲一线船司" data-en="All three quote lower than Tier-1 European carriers">三家整体报价低于欧洲一线船司</span></li>
+<li>Evergreen：UME/CEM线稳定挂靠KHF</li>
+<li>Yang Ming：CPX线动态调整，偶有跳港通知</li>
+<li>ONE：PS系列保持周班准点率较高</li>
+<li>三家整体报价低于欧洲一线船司</li>
 </ul>
 </div>
-<div class="carrier-footer"><span data-zh="💰 附加费：&lt;strong&gt;$550~$900/TEU&lt;/strong&gt; | 价格竞争力强" data-en="💰 Surcharges: &lt;strong&gt;$550~$900/TEU&lt;/strong&gt; | Strong price competitiveness">💰 附加费：<strong>$550~$900/TEU</strong> | 价格竞争力强</span></div>
+<div class="carrier-footer">💰 附加费：<strong>$550~$900/TEU</strong> | 价格竞争力强</div>
 </div>
 
 <div class="carrier-card">
 <div class="carrier-header">
 <span class="carrier-name">🟠 Hapag-Lloyd 赫伯罗特</span>
-<span class="carrier-status status-partial"><span data-zh="⚠️ +额外费用" data-en="⚠️ +Extra Charges">⚠️ +额外费用</span></span>
+<span class="carrier-status status-partial">⚠️ +额外费用</span>
 </div>
 <div class="carrier-body">
 <ul>
-<li><span data-zh="ME3/MENA服务线，欧标定位溢价服务" data-en="ME3/MENA services; European-standard premium positioning">ME3/MENA服务线，欧标定位溢价服务</span></li>
-<li><span data-zh="正常接单但每TEU额外收取$100~$200风险费" data-en="Accepting bookings but charges extra $100~$200/TEU risk fee">正常接单但每TEU额外收取$100~$200风险费</span></li>
-<li><span data-zh="高端制造业、外资工厂客户忠诚度高" data-en="High loyalty from premium manufacturing &amp;amp; foreign factory clients">高端制造业、外资工厂客户忠诚度高</span></li>
-<li><span data-zh="不打价格战，强调服务品质和安全承诺" data-en="No price wars; emphasizes service quality and safety commitment">不打价格战，强调服务品质和安全承诺</span></li>
+<li>ME3/MENA服务线，欧标定位溢价服务</li>
+<li>正常接单但每TEU额外收取$100~$200风险费</li>
+<li>高端制造业、外资工厂客户忠诚度高</li>
+<li>不打价格战，强调服务品质和安全承诺</li>
 </ul>
 </div>
 <div class="carrier-footer">💰 总附加费：<strong>$850~$1,300/TEU</strong> | 高端定位</div>
@@ -746,265 +736,9 @@ document.addEventListener('DOMContentLoaded',function(){
 </div><!-- /carrier-grid -->
 </section>
 
-<!-- ═════ REGIONAL MARKET RESEARCH ═════ -->
-<section class="section">
-<div class="section-title"><span class="num">05</span><span class="icon">🌐</span> <span data-zh="<strong>GTS航线调研</strong>" data-en="<strong>GTS Route Research</strong>"><strong>GTS航线调研</strong></span></div>
-
-<!-- GTS航线定义卡片 -->
-<div style="background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);border-radius:14px;padding:24px;margin-bottom:28px;color:#fff;overflow:hidden;position:relative">
-<div style="font-size:15px;font-weight:800;color:#fbbf24;margin-bottom:12px"><span data-zh="🚢 GTS" data-en="🚢 GTS">🚢 GTS</span></div>
-<p style="font-size:13.5px;line-height:1.8;color:#cbd5e1">
-<span data-zh="GTS是一条&lt;strong&gt;中国→东南亚→中东波斯湾&lt;/strong&gt;的大船干线航线。当前因霍尔木兹海峡紧张局势，在卡拉奇（Karachi, PKKHI）经停后需绕行或等待；待海峡完全开放后，将恢复&lt;strong&gt;Karachi → Dammam 直达&lt;/strong&gt;。" data-en="GTS is a &lt;strong&gt;China → Southeast Asia → Middle East Persian Gulf&lt;/strong&gt; mainline service. Currently, due to Strait of Hormuz tensions, after calling Karachi (PKKHI), vessels must detour or wait; once the strait fully reopens, &lt;strong&gt;Karachi → Dammam direct&lt;/strong&gt; will resume.">GTS是一条<strong>中国→东南亚→中东波斯湾</strong>的大船干线航线。当前因霍尔木兹海峡紧张局势，在卡拉奇（Karachi, PKKHI）经停后需绕行或等待；待海峡完全开放后，将恢复<strong>Karachi → Dammam 直达</strong>。</span>
-</p>
-<div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:16px;padding:16px;background:rgba(255,255,255,.08);border-radius:10px;font-family:'Courier New',monospace;font-size:13px">
-<span style="color:#94a3b8"><span data-zh="路径：" data-en="Route: ">路径：</span></span>
-<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNTAO</span><span>→</span>
-<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNSHA</span><span>→</span>
-<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNNGB</span><span>→</span>
-<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNNAS</span><span>→</span>
-<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNSHK</span><span>→</span>
-<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNXMN</span><span>→</span>
-<span style="background:#D97706;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">MYPKG</span><span>→</span>
-<span style="background:rgba(255,255,255,.25);padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">(CGX)</span><span>→</span>
-<span style="background:#2563EB;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">PKKHI</span><span>→</span>
-<span style="background:rgba(255,255,255,.25);padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">(WAT)</span><span>→</span>
-<span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">SADMM</span>
-</div>
-<div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:#94a3b8">
-<div><span style="color:#fbbf24">●</span> <strong style="color:#e2e8f0"><span data-zh="红色" data-en="Red">红色</span></strong>：<span data-zh="中国港口（青岛/上海/宁波/南沙/深圳/厦门）" data-en="China ports (Qingdao/Shanghai/Ningbo/Nansha/Shenzhen/Xiamen)">中国港口（青岛/上海/宁波/南沙/深圳/厦门）</span></div>
-<div><span style="color:#D97706">●</span> <strong style="color:#e2e8f0"><span data-zh="橙色" data-en="Orange">橙色</span></strong>：<span data-zh="东南亚（巴生港）" data-en="Southeast Asia (Port Klang)">东南亚（巴生港）</span></div>
-<div><span style="color:#2563EB">●</span> <strong style="color:#e2e8f0"><span data-zh="蓝色" data-en="Blue">蓝色</span></strong>：<span data-zh="南亚中转（卡拉奇）" data-en="South Asia transit (Karachi)">南亚中转（卡拉奇）</span></div>
-<div><span style="color:#16A34A">●</span> <strong style="color:#e2e8f0">绿色</strong>：<span data-zh="目的地（达曼）" data-en="Destination (Dammam)">目的地（达曼）</span></div>
-<div><span style="color:rgba(255,255,255,.35)">○</span> <span data-zh="(CGX)/(WAT) 为" data-en="(CGX)/(WAT) are">(CGX)/(WAT) 为</span><strong style="color:#e2e8f0"><span data-zh="可选中转" data-en="optional transit">可选中转</span></strong>航线</div>
-</div>
-</div>
-
-<p style="font-size:14px;color:var(--gray600);margin-bottom:24px;line-height:1.7">
-<span data-zh="本节围绕GTS航线挂港布局，聚焦各港口腹地市场的进出口结构、主要货类及目标客户群，为大船舱位填充和定向市场拓展提供数据支撑。" data-en="This section focuses on GTS route port coverage, examining import/export structures, major cargo types, and target customer groups in each port's hinterland market, providing data support for vessel capacity filling and targeted market expansion.">本节围绕GTS航线挂港布局，聚焦各港口腹地市场的进出口结构、主要货类及目标客户群，为大船舱位填充和定向市场拓展提供数据支撑。</span>
-</p>
-
-<div class="market-region-grid">
-
-<!-- 达曼 -->
-<div class="market-region-card">
-<div class="market-region-header">
-<div class="market-region-flag">🇸🇦</div>
-<div>
-<div class="market-region-title"><span data-zh="达曼（Dammam）" data-en="Dammam">达曼（Dammam）</span></div>
-<div class="market-region-subtitle"><span data-zh="波斯湾东部 · 沙特东海岸第一大港" data-en="Eastern Persian Gulf · Largest Port on Saudi East Coast">波斯湾东部 · 沙特东海岸第一大港</span></div>
-</div>
-</div>
-<div class="market-region-body">
-<span class="market-region-tag tag-import"><span data-zh="🔵 主要进口市场" data-en="🔵 Major Import Market">🔵 主要进口市场</span></span>
-<div class="market-region-flow">
-<span>中国/东南亚</span>
-<span class="flow-arrow">→</span>
-<span>达曼</span>
-</div>
-<div class="market-region-desc">
-<span data-zh="&lt;strong&gt;进口结构（重点！）：&lt;/strong&gt;沙特当地高度依赖进口消费品和工业原材料。达曼港腹地覆盖东部省（Sharqia）制造业集群，进口以&lt;strong&gt;机械设备、汽车配件、纺织品、塑料粒子、电子产品&lt;/strong&gt;为主。受&quot;2030愿景&quot;驱动，&lt;strong&gt;建材、钢铁、新能源设备进口量持续攀升&lt;/strong&gt;，重型<span data-zh="工程项目货" data-en="Project Cargo">工程项目货</span>是刚性需求。" data-en="&lt;strong&gt;Import Structure (Key!):&lt;/strong&gt; Saudi Arabia heavily relies on imported consumer goods and industrial raw materials. Dammam's hinterland covers the Eastern Province (Sharqia) manufacturing cluster, with imports dominated by &lt;strong&gt;machinery, auto parts, textiles, plastic resins, electronics&lt;/strong&gt;. Driven by &quot;Vision 2030&quot;, &lt;strong&gt;construction materials, steel, and new energy equipment imports continue to rise&lt;/strong&gt;; heavy project cargo is inelastic demand."><strong>进口结构（重点！）：</strong>沙特当地高度依赖进口消费品和工业原材料。达曼港腹地覆盖东部省（Sharqia）制造业集群，进口以<strong>机械设备、汽车配件、纺织品、塑料粒子、电子产品</strong>为主。受"2030愿景"驱动，<strong>建材、钢铁、新能源设备进口量持续攀升</strong>，重型工程项目货是刚性需求。</span>
-</div>
-<div class="market-region-desc" style="margin-top:8px">
-<span data-zh="&lt;strong&gt;出口潜力：&lt;/strong&gt;沙特石化产品（PE/PP）经达曼出口，但船公司主导舱位为进口方向。" data-en="&lt;strong&gt;Export Potential:&lt;/strong&gt; Saudi petrochemicals (PE/PP) exported via Dammam, but carrier capacity primarily serves import direction."><strong>出口潜力：</strong>沙特石化产品（PE/PP）经达曼出口，但船公司主导舱位为进口方向。</span><br/>
-<span data-zh="&lt;strong&gt;关键客户类型：&lt;/strong&gt;沙特进口批发商（龙城体系延伸）、工程承包商（NEOM/红海项目）、汽车经销商（进口整车/KD件）。" data-en="&lt;strong&gt;Key Client Types:&lt;/strong&gt; Saudi import wholesalers (Dragon Mart ecosystem extension), engineering contractors (NEOM/Red Sea projects), auto dealers (CBU/KD imports)."><strong>关键客户类型：</strong>沙特进口批发商（龙城体系延伸）、工程承包商（NEOM/红海项目）、汽车经销商（进口整车/KD件）。</span>
-</div>
-</div>
-<div class="market-action"><span data-zh="&lt;strong&gt;💡 GTS布局机会：&lt;/strong&gt;达曼是GTS航线最终目的地（SADMM），沙特进口需求旺盛，大船挂港可稳定吸货。建议与沙特当地清关行/拖车行建立合作，打通末端配送链路。待海峡开放后KHI→DMM直达恢复，达曼将成为GTS航线最关键的卸货港。" data-en="&lt;strong&gt;💡 GTS Opportunity:&lt;/strong&gt; Dammam is the GTS route's final destination (SADMM); Saudi import demand is robust. Large vessel calls can steadily absorb cargo. Recommend establishing partnerships with Saudi customs brokers/trucking companies. Once strait reopens and KHI→DMM direct resumes, Dammam will become the most critical discharge port on the GTS route."><strong>💡 GTS布局机会：</strong>达曼是GTS航线最终目的地（SADMM），沙特进口需求旺盛，大船挂港可稳定吸货。建议与沙特当地清关行/拖车行建立合作，打通末端配送链路。待海峡开放后KHI→DMM直达恢复，达曼将成为GTS航线最关键的卸货港。</span></div>
-</div>
-
-<!-- Jebel Ali -->
-<div class="market-region-card">
-<div class="market-region-header">
-<div class="market-region-flag">🇦🇪</div>
-<div>
-<div class="market-region-title"><span data-zh="杰贝阿里（Jebel Ali）" data-en="Jebel Ali">杰贝阿里（Jebel Ali）</span></div>
-<div class="market-region-subtitle"><span data-zh="迪拜 · 中东最大自由贸易港" data-en="Dubai · Middle East's Largest Free Trade Port">迪拜 · 中东最大自由贸易港</span></div>
-</div>
-</div>
-<div class="market-region-body">
-<span class="market-region-tag tag-import"><span data-zh="🔵 进口" data-en="🔵 Import">🔵 进口</span></span>
-<span class="market-region-tag tag-transit" style="margin-left:4px"><span data-zh="🔶 转口" data-en="🔶 Transit">🔶 转口</span></span>
-<div class="market-region-flow">
-<span>中国/越南/印度</span>
-<span class="flow-arrow">→</span>
-<span>Jebel Ali</span>
-<span class="flow-arrow">→</span>
-<span>中东/非洲/南亚</span>
-</div>
-<div class="market-region-desc">
-<span data-zh="&lt;strong&gt;市场核心：&lt;/strong&gt;迪拜龙城（Dragon Mart）是中东最大中国商品集散地，进口额占阿联酋对华贸易约60%。Jebel Ali虽受伊朗紧张局势影响部分航班暂停，但腹地需求未减，货主正分流至&lt;strong&gt;KHF和Sohar&lt;/strong&gt;。" data-en="&lt;strong&gt;Market Core:&lt;/strong&gt; Dubai Dragon Mart is the Middle East's largest Chinese goods distribution center, accounting for ~60% of UAE-China trade. Though some services paused due to Iran tensions, hinterland demand remains; shippers are diverting to &lt;strong&gt;KHF and Sohar&lt;/strong&gt;."><strong>市场核心：</strong>迪拜龙城（Dragon Mart）是中东最大中国商品集散地，进口额占阿联酋对华贸易约60%。Jebel Ali虽受伊朗紧张局势影响部分航班暂停，但腹地需求未减，货主正分流至<strong>KHF和Sohar</strong>。</span>
-</div>
-<div class="market-region-desc" style="margin-top:8px">
-<span data-zh="&lt;strong&gt;战时变化：&lt;/strong&gt;货主从Jebel Ali转移至KHF，带动KHF仓储和转口需求激增。迪拜<span data-zh="自贸区" data-en="Free Trade Zone">自贸区</span>的<span data-zh="转口贸易商" data-en="Re-export Traders">转口贸易商</span>利用Jebel Ali仓库进行分拨再出口。" data-en="&lt;strong&gt;Wartime Shift:&lt;/strong&gt; Shippers moving from Jebel Ali to KHF, driving surge in KHF warehousing and transit demand. Dubai FTZ re-exporters using Jebel Ali warehouses for distribution."><strong>战时变化：</strong>货主从Jebel Ali转移至KHF，带动KHF仓储和转口需求激增。迪拜自贸区的转口贸易商利用Jebel Ali仓库进行分拨再出口。</span><br/>
-<span data-zh="&lt;strong&gt;关键客户类型：&lt;/strong&gt;迪拜综合贸易商（占比最高）、阿联酋本地进口商（含沙特客户绕道采购）、跨境电商（Amazon AE/Noon卖家中转）。" data-en="&lt;strong&gt;Key Client Types:&lt;/strong&gt; Dubai general traders (largest share), UAE local importers (incl. Saudi clients purchasing via UAE), cross-border e-commerce (Amazon AE/Noon seller transit)."><strong>关键客户类型：</strong>迪拜综合贸易商（占比最高）、阿联酋本地进口商（含沙特客户绕道采购）、跨境电商（Amazon AE/Noon卖家中转）。</span>
-</div>
-</div>
-<div class="market-action"><span data-zh="&lt;strong&gt;💡 GTS布局机会：&lt;/strong&gt;Jebel Ali不在GTS主航线上，但作为中东最大转口港，GTS大船可提供&quot;KHI→KHF→迪拜陆桥&quot;的战时替代方案，承接从Jebel Ali转移过来的货量。待海峡开放后，部分客户可能仍偏好JEBEL ALI中转。" data-en="&lt;strong&gt;💡 GTS Opportunity:&lt;/strong&gt; Jebel Ali is not on the GTS main route, but as the ME's largest transit port, GTS can offer &quot;KHI→KHF→Dubai land bridge&quot; as a wartime alternative, capturing volumes diverted from Jebel Ali."><strong>💡 GTS布局机会：</strong>Jebel Ali不在GTS主航线上，但作为中东最大转口港，GTS大船可提供"KHI→KHF→迪拜陆桥"的战时替代方案，承接从Jebel Ali转移过来的货量。待海峡开放后，部分客户可能仍偏好JEBEL ALI中转。</span></div>
-</div>
-
-<!-- Sohar -->
-<div class="market-region-card">
-<div class="market-region-header">
-<div class="market-region-flag">🇴🇲</div>
-<div>
-<div class="market-region-title"><span data-zh="苏哈尔（Sohar）" data-en="Sohar">苏哈尔（Sohar）</span></div>
-<div class="market-region-subtitle"><span data-zh="阿曼 · 波斯湾入口战略要塞" data-en="Oman · Strategic Fortress at Persian Gulf Entrance">阿曼 · 波斯湾入口战略要塞</span></div>
-</div>
-</div>
-<div class="market-region-body">
-<span class="market-region-tag tag-highlight"><span data-zh="🔴 战略枢纽" data-en="🔴 Strategic Hub">🔴 战略枢纽</span></span>
-<div class="market-region-flow">
-<span>中国/东南亚</span>
-<span class="flow-arrow">→</span>
-<span>Sohar</span>
-<span class="flow-arrow">→</span>
-<span>阿曼本地/沙特/卡塔尔</span>
-</div>
-<div class="market-region-desc">
-<span data-zh="&lt;strong&gt;市场腹地：&lt;/strong&gt;Sohar是阿曼最大工业港，腹地覆盖阿曼全境及沙特西部、卡塔尔（通过陆路）。港口拥有大型自由贸易区（Sohar FTZ），吸引工业和制造业企业入驻。&lt;strong&gt;进口以工业原材料、机械设备、消费品为主&lt;/strong&gt;，出口以石油化工产品和铝锭为主。" data-en="&lt;strong&gt;Market Hinterland:&lt;/strong&gt; Sohar is Oman's largest industrial port; hinterland covers all of Oman plus western Saudi Arabia and Qatar (via land). The port features a large free trade zone (Sohar FTZ) attracting industrial and manufacturing enterprises. &lt;strong&gt;Imports dominated by industrial raw materials, machinery, consumer goods&lt;/strong&gt;; exports mainly petrochemicals and aluminum ingots."><strong>市场腹地：</strong>Sohar是阿曼最大工业港，腹地覆盖阿曼全境及沙特西部、卡塔尔（通过陆路）。港口拥有大型自由贸易区（Sohar FTZ），吸引工业和制造业企业入驻。<strong>进口以工业原材料、机械设备、消费品为主</strong>，出口以石油化工产品和铝锭为主。</span>
-</div>
-<div class="market-region-desc" style="margin-top:8px">
-<span data-zh="&lt;strong&gt;战略价值：&lt;/strong&gt;作为KHF的竞争/补充港口，Sohar与KHF形成双枢纽格局。GTS若布局Sohar，可同时覆盖阿曼本地+波斯湾西部+沙特西部市场。" data-en="&lt;strong&gt;Strategic Value:&lt;/strong&gt; As KHF's competitor/complement, Sohar forms a dual-hub pattern with KHF. If GTS adds Sohar, it can simultaneously cover Oman domestic + western Persian Gulf + western Saudi markets."><strong>战略价值：</strong>作为KHF的竞争/补充港口，Sohar与KHF形成双枢纽格局。GTS若布局Sohar，可同时覆盖阿曼本地+波斯湾西部+沙特西部市场。</span><br/>
-<span data-zh="&lt;strong&gt;关键客户类型：&lt;/strong&gt;阿曼工业进口商（SOAG等大型企业）、沙特西部承包商（避开波斯湾南部拥挤）、卡塔尔进口商（工程材料）。" data-en="&lt;strong&gt;Key Client Types:&lt;/strong&gt; Omani industrial importers (SOAG etc.), western Saudi contractors (avoiding crowded southern Gulf), Qatari importers (construction materials)."><strong>关键客户类型：</strong>阿曼工业进口商（SOAG等大型企业）、沙特西部承包商（避开波斯湾南部拥挤）、卡塔尔进口商（工程材料）。</span>
-</div>
-</div>
-<div class="market-action"><span data-zh="&lt;strong&gt;💡 GTS布局机会：&lt;/strong&gt;Sohar不在GTS主航线上，但作为阿曼战略港口，可作为GTS航线的&lt;strong&gt;战时替代挂靠港&lt;/strong&gt;（KHI后绕行至Sohar，再陆运至沙特）。若将Sohar纳入GTS可选挂港序列（类似CGX/WAT），可大幅增强航线灵活性和抗风险能力。" data-en="&lt;strong&gt;💡 GTS Opportunity:&lt;/strong&gt; Sohar is not on the GTS main route, but as Oman's strategic port, it can serve as a &lt;strong&gt;wartime alternative call port&lt;/strong&gt; (detour to Sohar after KHI, then overland to Saudi). Adding Sohar to GTS optional call sequence (like CGX/WAT) would significantly enhance route flexibility and risk resilience."><strong>💡 GTS布局机会：</strong>Sohar不在GTS主航线上，但作为阿曼战略港口，可作为GTS航线的<strong>战时替代挂靠港</strong>（KHI后绕行至Sohar，再陆运至沙特）。若将Sohar纳入GTS可选挂港序列（类似CGX/WAT），可大幅增强航线灵活性和抗风险能力。</span></div>
-</div>
-
-<!-- 东南亚 -->
-<div class="market-region-card">
-<div class="market-region-header">
-<div class="market-region-flag">🌏</div>
-<div>
-<div class="market-region-title"><span data-zh="东南亚 → 中东/红海出口走廊" data-en="Southeast Asia → Middle East/Red Sea Export Corridor">东南亚 → 中东/红海出口走廊</span></div>
-<div class="market-region-subtitle"><span data-zh="越南 · 泰国 · 印尼 · 马来西亚" data-en="Vietnam · Thailand · Indonesia · Malaysia">越南 · 泰国 · 印尼 · 马来西亚</span></div>
-</div>
-</div>
-<div class="market-region-body">
-<span class="market-region-tag tag-export"><span data-zh="🟢 主要出口至中东" data-en="🟢 Major Export to ME">🟢 主要出口至中东</span></span>
-<div class="market-region-flow">
-<span>越南/泰国/印尼</span>
-<span class="flow-arrow">→</span>
-<span>KHF/Sohar</span>
-<span class="flow-arrow">→</span>
-<span>沙特/阿联酋/红海</span>
-</div>
-<div class="market-region-desc">
-<span data-zh="&lt;strong&gt;越南（最大增量）：&lt;/strong&gt;越南制造业高速增长，纺织品、农产品、电子零部件出口中东大幅增加。越南胡志明港/海防港出货量年增20%+，主要目的地为沙特、阿联酋。战时霍尔木兹通行不确定性促使越南货主选择&lt;strong&gt;KHF中转+陆桥&lt;/strong&gt;路线。" data-en="&lt;strong&gt;Vietnam (Largest Growth):&lt;/strong&gt; Vietnam's manufacturing booming; textiles, agricultural products, electronics components exports to ME surged. HCMC/Haiphong shipments growing 20%+ YoY, mainly to Saudi and UAE. Wartime Hormuz uncertainty pushed Vietnamese shippers to choose &lt;strong&gt;KHF transit + land bridge&lt;/strong&gt;."><strong>越南（最大增量）：</strong>越南制造业高速增长，纺织品、农产品、电子零部件出口中东大幅增加。越南胡志明港/海防港出货量年增20%+，主要目的地为沙特、阿联酋。战时霍尔木兹通行不确定性促使越南货主选择<strong>KHF中转+陆桥</strong>路线。</span>
-</div>
-<div class="market-region-desc" style="margin-top:8px">
-<span data-zh="&lt;strong&gt;泰国：&lt;/strong&gt;橡胶、农产品、纺织品为出口主力，经KHF或Sohar进入中东市场。" data-en="&lt;strong&gt;Thailand:&lt;/strong&gt; Rubber, agricultural products, textiles as main exports, entering ME via KHF or Sohar."><strong>泰国：</strong>橡胶、农产品、纺织品为出口主力，经KHF或Sohar进入中东市场。</span><br/>
-<span data-zh="&lt;strong&gt;印尼：&lt;/strong&gt;棕榈油、食品、宗教消费品（斋月旺季）出口稳定，走Sohar路线较多。" data-en="&lt;strong&gt;Indonesia:&lt;/strong&gt; Palm oil, food, religious consumer goods (Ramadan peak) exports stable; mostly via Sohar route."><strong>印尼：</strong>棕榈油、食品、宗教消费品（斋月旺季）出口稳定，走Sohar路线较多。</span><br/>
-<span data-zh="&lt;strong&gt;马来西亚：&lt;/strong&gt;电子元器件、橡胶制品，通过KHF中转覆盖中东。" data-en="&lt;strong&gt;Malaysia:&lt;/strong&gt; Electronic components, rubber products, transshipping via KHF to ME."><strong>马来西亚：</strong>电子元器件、橡胶制品，通过KHF中转覆盖中东。</span>
-</div>
-</div>
-<div class="market-action"><span data-zh="&lt;strong&gt;💡 GTS布局机会：&lt;/strong&gt;GTS航线经停&lt;strong&gt;巴生港（MYPKG）&lt;/strong&gt;——这是东南亚货物汇聚GTS大船的关键节点。越南/泰国/印尼出口商可通过支线喂给至巴生后上GTS干线。建议与巴生当地NVOCC合作，开发东南亚→中东的整箱货源。" data-en="&lt;strong&gt;💡 GTS Opportunity:&lt;/strong&gt; GTS calls at &lt;strong&gt;Port Klang (MYPKG)&lt;/strong&gt; — the key node for Southeast Asian cargo to converge on GTS vessels. Vietnam/Thailand/Indonesia exporters can feed via feeder to Klang then board GTS mainline. Recommend partnering with local NVOCCs at Klang to develop SE Asia → ME FCL cargo."><strong>💡 GTS布局机会：</strong>GTS航线经停<strong>巴生港（MYPKG）</strong>——这是东南亚货物汇聚GTS大船的关键节点。越南/泰国/印尼出口商可通过支线喂给至巴生后上GTS干线。建议与巴生当地NVOCC合作，开发东南亚→中东的整箱货源。</span></div>
-</div>
-
-<!-- 印度/巴基斯坦 -->
-<div class="market-region-card">
-<div class="market-region-header">
-<div class="market-region-flag">🇮🇳</div>
-<div>
-<div class="market-region-title"><span data-zh="印巴 → 中东/红海出口走廊" data-en="India/Pakistan → Middle East/Red Sea Export Corridor">印巴 → 中东/红海出口走廊</span></div>
-<div class="market-region-subtitle"><span data-zh="印度 · 巴基斯坦 · 斯里兰卡" data-en="India · Pakistan · Sri Lanka">印度 · 巴基斯坦 · 斯里兰卡</span></div>
-</div>
-</div>
-<div class="market-region-body">
-<span class="market-region-tag tag-export">🟢 主要出口至中东</span>
-<span class="market-region-tag tag-highlight" style="margin-left:4px"><span data-zh="🔴 红海替代路线" data-en="🔴 Red Sea Alternative Route">🔴 红海替代路线</span></span>
-<div class="market-region-flow">
-<span>卡拉奇/孟买/皮帕瓦沃</span>
-<span class="flow-arrow">→</span>
-<span>KHF/Sohar</span>
-<span class="flow-arrow">→</span>
-<span>沙特/东非/红海</span>
-</div>
-<div class="market-region-desc">
-<span data-zh="&lt;strong&gt;巴基斯坦：&lt;/strong&gt;卡拉奇是南亚对中东出口的核心门户。巴基斯坦纺织品（全球重要纺织出口国）、汽车配件、化学品大量出口沙特和阿联酋。受霍尔木兹紧张局势影响，巴基斯坦出口商已大幅转向&lt;strong&gt;KHF陆桥路线&lt;/strong&gt;。" data-en="&lt;strong&gt;Pakistan:&lt;/strong&gt; Karachi is South Asia's core gateway for ME exports. Pakistani textiles (global textile export powerhouse), auto parts, and chemicals are heavily exported to Saudi and UAE. Hormuz tensions pushed Pakistani exporters to significantly shift to &lt;strong&gt;KHF land bridge route&lt;/strong&gt;."><strong>巴基斯坦：</strong>卡拉奇是南亚对中东出口的核心门户。巴基斯坦纺织品（全球重要纺织出口国）、汽车配件、化学品大量出口沙特和阿联酋。受霍尔木兹紧张局势影响，巴基斯坦出口商已大幅转向<strong>KHF陆桥路线</strong>。</span>
-</div>
-<div class="market-region-desc" style="margin-top:8px">
-<span data-zh="&lt;strong&gt;印度（高速增长）：&lt;/strong&gt;印度制造业崛起，纺织品、汽车配件、化学品出口中东持续增加。印度西海岸皮帕瓦沃(Pipavav)和蒙德拉(Mundra)港→KHF/Sohar航线运量激增。&lt;strong&gt;印度至沙特/阿联酋的TEU量年增约15~20%&lt;/strong&gt;。" data-en="&lt;strong&gt;India (High Growth):&lt;/strong&gt; Indian manufacturing rising; textiles, auto parts, chemicals exports to ME growing steadily. West coast Pipavav and Mundra ports → KHF/Sohar volumes surging. &lt;strong&gt;India→Saudi/UAE TEU volumes growing ~15~20% YoY&lt;/strong&gt;."><strong>印度（高速增长）：</strong>印度制造业崛起，纺织品、汽车配件、化学品出口中东持续增加。印度西海岸皮帕瓦沃(Pipavav)和蒙德拉(Mundra)港→KHF/Sohar航线运量激增。<strong>印度至沙特/阿联酋的TEU量年增约15~20%</strong>。</span><br/>
-<span data-zh="&lt;strong&gt;斯里兰卡：&lt;/strong&gt;茶叶、橡胶服装出口，量较小但稳定。" data-en="&lt;strong&gt;Sri Lanka:&lt;/strong&gt; Tea, rubber garments exports; smaller but stable volumes."><strong>斯里兰卡：</strong>茶叶、橡胶服装出口，量较小但稳定。</span>
-</div>
-</div>
-<div class="market-action"><span data-zh="&lt;strong&gt;💡 GTS布局机会：&lt;/strong&gt;GTS航线在&lt;strong&gt;卡拉奇（PKKHI）&lt;/strong&gt;经停——这是印巴货源上GTS大船的核心节点。巴基斯坦出口商（纺织/汽配）可直接在KHI装船；印度西海岸（皮帕瓦沃/蒙德拉）的货物可通过支线喂给至KHI后汇入GTS干线。建议重点开发卡拉奇当地大型NVOCC和直客。" data-en="&lt;strong&gt;💡 GTS Opportunity:&lt;/strong&gt; GTS calls at &lt;strong&gt;Karachi (PKKHI)&lt;/strong&gt; — the core node for India/Pakistan cargo to board GTS. Pakistani exporters (textiles/auto parts) can load directly at KHI; Indian west coast (Pipavav/Mundra) cargo can feed via feeder to KHI then join GTS mainline. Recommend focusing on major KHI-based NVOCCs and direct clients."><strong>💡 GTS布局机会：</strong>GTS航线在<strong>卡拉奇（PKKHI）</strong>经停——这是印巴货源上GTS大船的核心节点。巴基斯坦出口商（纺织/汽配）可直接在KHI装船；印度西海岸（皮帕瓦沃/蒙德拉）的货物可通过支线喂给至KHI后汇入GTS干线。建议重点开发卡拉奇当地大型NVOCC和直客。</span></div>
-</div>
-
-<!-- 东非/红海 -->
-<div class="market-region-card">
-<div class="market-region-header">
-<div class="market-region-flag">🌍</div>
-<div>
-<div class="market-region-title"><span data-zh="东非 &amp; 红海市场 — GTS反向货源" data-en="East Africa &amp; Red Sea Market — GTS Reverse Cargo">东非 & 红海市场 — GTS反向货源</span></div>
-<div class="market-region-subtitle"><span data-zh="肯尼亚 · 坦桑尼亚 · 吉布提 · 也门" data-en="Kenya · Tanzania · Djibouti · Yemen">肯尼亚 · 坦桑尼亚 · 吉布提 · 也门</span></div>
-</div>
-</div>
-<div class="market-region-body">
-<span class="market-region-tag tag-import">🔵 主要出口至中东</span>
-<div class="market-region-flow">
-<span>蒙巴萨/达累斯萨拉姆</span>
-<span class="flow-arrow">→</span>
-<span>KHF</span>
-<span class="flow-arrow">→</span>
-<span>迪拜/印度</span>
-</div>
-<div class="market-region-desc">
-<span data-zh="&lt;strong&gt;东非→KHF反向货流：&lt;/strong&gt;肯尼亚蒙巴萨港是东非最大港口，出口茶叶、咖啡、园艺产品（空运为主）、矿产；坦桑尼亚达累斯萨拉姆出口腰果、棉花。这些货物通过KHF中转至迪拜再出口至印度/欧洲。&lt;strong&gt;战时胡塞影响红海后，东非→中东反向货量有所增加。&lt;/strong&gt;" data-en="&lt;strong&gt;East Africa→KHF Reverse Flow:&lt;/strong&gt; Mombasa is East Africa's largest port; exports tea, coffee, horticulture (mostly airfreight), minerals; Dar es Salaam exports cashews, cotton. These goods transit via KHF to Dubai then re-export to India/Europe. &lt;strong&gt;Wartime Houthi impact on Red Sea increased East Africa→ME reverse volumes.&lt;/strong&gt;"><strong>东非→KHF反向货流：</strong>肯尼亚蒙巴萨港是东非最大港口，出口茶叶、咖啡、园艺产品（空运为主）、矿产；坦桑尼亚达累斯萨拉姆出口腰果、棉花。这些货物通过KHF中转至迪拜再出口至印度/欧洲。<strong>战时胡塞影响红海后，东非→中东反向货量有所增加。</strong></span>
-</div>
-<div class="market-region-desc" style="margin-top:8px">
-<span data-zh="&lt;strong&gt;吉布提：&lt;/strong&gt;埃塞俄比亚进出口门户，经吉布提港转运。埃塞俄比亚咖啡/豆类出口，走KHF中转到迪拜/印度的货量稳定。" data-en="&lt;strong&gt;Djibouti:&lt;/strong&gt; Ethiopia's import/export gateway via Djibouti port. Ethiopian coffee/legume exports with stable KHF transit volumes to Dubai/India."><strong>吉布提：</strong>埃塞俄比亚进出口门户，经吉布提港转运。埃塞俄比亚咖啡/豆类出口，走KHF中转到迪拜/印度的货量稳定。</span><br/>
-<span data-zh="&lt;strong&gt;红海替代：&lt;/strong&gt;因胡塞影响，原本走红海直达东非的航线改经KHF陆桥，形成&quot;东非→KHF→陆运→红海&quot;的替代路线。" data-en="&lt;strong&gt;Red Sea Alternative:&lt;/strong&gt; Due to Houthi impact, original Red Sea direct routes to East Africa rerouted via KHF land bridge, forming &quot;East Africa→KHF→Overland→Red Sea&quot; alternative."><strong>红海替代：</strong>因胡塞影响，原本走红海直达东非的航线改经KHF陆桥，形成"东非→KHF→陆运→红海"的替代路线。</span>
-</div>
-</div>
-<div class="market-action"><span data-zh="&lt;strong&gt;💡 GTS布局机会：&lt;/strong&gt;东非市场不在GTS主航线上，但可作为&lt;strong&gt;GTS航线的延伸服务&lt;/strong&gt;——GTS大船在达曼卸货后，部分舱位可安排支线至东非（蒙巴萨/吉布提）。建议与当地支线船公司建立合作，提供&quot;中国→中东→东非&quot;的联运方案，提升GTS航线附加值。" data-en="&lt;strong&gt;💡 GTS Opportunity:&lt;/strong&gt; East Africa is not on the GTS main route, but can serve as &lt;strong&gt;GTS extended service&lt;/strong&gt; — after GTS discharges at Dammam, some space can be allocated for feeder services to East Africa (Mombasa/Djibouti). Recommend partnering with local feeder operators for &quot;China→ME→East Africa&quot; combined transport, enhancing GTS route value."><strong>💡 GTS布局机会：</strong>东非市场不在GTS主航线上，但可作为<strong>GTS航线的延伸服务</strong>——GTS大船在达曼卸货后，部分舱位可安排支线至东非（蒙巴萨/吉布提）。建议与当地支线船公司建立合作，提供"中国→中东→东非"的联运方案，提升GTS航线附加值。</span></div>
-</div>
-
-</div><!-- /market-region-grid -->
-
-<div style="margin-top:32px;padding:20px 24px;background:linear-gradient(90deg,var(--navy) 0%,#234b78 100%);border-radius:14px;color:#fff">
-<div style="font-size:16px;font-weight:800;margin-bottom:12px"><span data-zh="🎯 区域市场调研 — GTS航线布局核心结论" data-en="🎯 Regional Market Research — GTS Route Layout Key Conclusions">🎯 区域市场调研 — GTS航线布局核心结论</span></div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;font-size:13.5px">
-<div>
-<div style="font-weight:700;margin-bottom:6px;color:#fbbf24"><span data-zh="🏆 优先深耕市场（沿GTS航线顺序）" data-en="🏆 Priority Markets (Along GTS Route Sequence)">🏆 优先深耕市场（沿GTS航线顺序）</span></div>
-<ul style="padding-left:16px;line-height:1.9">
-<li><strong>青岛/上海/宁波/南沙/深圳/厦门</strong>：<span data-zh="中国始发港，锁定大型直客和NVOCC" data-en="China origin ports — lock in large direct clients and NVOCCs">中国始发港，锁定大型直客和NVOCC</span></li>
-<li><strong>巴生（MYPKG）</strong>：<span data-zh="东南亚中转枢纽，开发马来/印尼出口商" data-en="SE Asia transit hub — develop Malaysian/Indonesian exporters">东南亚中转枢纽，开发马来/印尼出口商</span></li>
-<li><strong>卡拉奇（PKKHI）</strong>：<span data-zh="南亚关键节点，巴基斯坦+印度西海岸货源" data-en="South Asia key node — Pakistan + India west coast cargo">南亚关键节点，巴基斯坦+印度西海岸货源</span></li>
-<li><strong>达曼（SADMM）</strong>：<span data-zh="最终目的地，沙特进口刚需最强，大船填充首选" data-en="Final destination — Saudi import demand strongest, top choice for vessel filling">最终目的地，沙特进口刚需最强，大船填充首选</span></li>
-</ul>
-</div>
-<div>
-<div style="font-weight:700;margin-bottom:6px;color:#fbbf24"><span data-zh="⚡ GTS大船布局重点" data-en="⚡ GTS Vessel Layout Priorities">⚡ GTS大船布局重点</span></div>
-<ul style="padding-left:16px;line-height:1.9">
-<li><span data-zh="GTS航线当前状态：KHI后待海峡开放→DMM直达恢复" data-en="GTS current status: Post-KHI awaiting strait opening → DMM direct resume">GTS航线当前状态：KHI后待海峡开放→DMM直达恢复</span></li>
-<li><span data-zh="战时替代方案：KHF/Sohar作为临时终点或中转站" data-en="Wartime alternative: KHF/Sohar as temporary terminus or transit hub">战时替代方案：KHF/Sohar作为临时终点或中转站</span></li>
-<li><span data-zh="巴生（MYPKG）：东南亚货物集散点，提升舱位利用率的关键" data-en="Port Klang (MYPKG): SE Asia cargo consolidation point, key to improving utilization">巴生（MYPKG）：东南亚货物集散点，提升舱位利用率的关键</span></li>
-<li><span data-zh="卡拉奇（PKKHI）：印巴货源汇聚点，可建立支线喂给机制" data-en="Karachi (PKKHI): India/Pakistan cargo convergence point, can build feeder mechanism">卡拉奇（PKKHI）：印巴货源汇聚点，可建立支线喂给机制</span></li>
-<li><span data-zh="达曼（SADMM）：终极吸货港，重货/工程货为主" data-en="Dammam (SADMM): Ultimate cargo absorption port, heavy/project cargo dominated">达曼（SADMM）：终极吸货港，重货/工程货为主</span></li>
-</ul>
-</div>
-<div>
-<div style="font-weight:700;margin-bottom:6px;color:#fbbf24"><span data-zh="👥 沿线重点客户开发方向" data-en="👥 Key Client Development Directions Along Route">👥 沿线重点客户开发方向</span></div>
-<ul style="padding-left:16px;line-height:1.9">
-<li><span data-zh="中国段：华东/华南制造企业直客 + 大型NVOCC" data-en="China leg: East/South China manufacturing direct clients + major NVOCCs">中国段：华东/华南制造企业直客 + 大型NVOCC</span></li>
-<br/>
-<li><span data-zh="东南亚段：马来西亚/印尼出口商（经巴生集散）" data-en="SE Asia leg: Malaysian/Indonesian exporters (via Klang consolidation)">东南亚段：马来西亚/印尼出口商（经巴生集散）</span></li>
-<br/>
-<li><span data-zh="南亚段：巴基斯坦卡拉奇纺织/汽配出口商、印度NVOCC" data-en="South Asia leg: Karachi textile/auto parts exporters, Indian NVOCCs">南亚段：巴基斯坦卡拉奇纺织/汽配出口商、印度NVOCC</span></li>
-<br/>
-<li><span data-zh="沙特段：达曼进口批发商、NEOM项目承包商、沙特汽车经销商" data-en="Saudi leg: Dammam import wholesalers, NEOM project contractors, Saudi auto dealers">沙特段：达曼进口批发商、NEOM项目承包商、沙特汽车经销商</span></li>
-</ul>
-</div>
-</div>
-</div>
-
-</section>
-</section>
-
 <!-- ═════ SOHAR SECTION ═════ -->
 <section class="section">
-<div class="section-title"><span class="num">06</span><span class="icon">🟣</span> 战略讨论 — <span data-zh="<strong>Sohar（苏哈尔）港：双枢纽并行方案</strong>" data-en="<strong>Sohar Port: Dual-Hub Parallel Strategy</strong>"><strong>Sohar（苏哈尔）港：双枢纽并行方案</strong></span></div>
+<div class="section-title"><span class="num">05</span><span class="icon">🟣</span> 战略讨论 — <strong>Sohar（苏哈尔）港：双枢纽并行方案</strong></div>
 
 <div style="background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%);border:2px solid #a78bfa;border-radius:16px;padding:24px 28px;margin-bottom:28px">
   <h3 style="font-size:18px;font-weight:800;color:#5b21b6;margin-bottom:10px;display:flex;align-items:center;gap:8px">
@@ -1018,10 +752,10 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <div style="overflow-x:auto;margin-bottom:28px">
 <table class="compare-table">
-<thead><tr><th><span data-zh="对比维度" data-en="Dimension">对比维度</span></th><th>Khor Fakkan (KHF) 🔵</th><th>Sohar 🟣</th></tr></thead>
+<thead><tr><th>对比维度</th><th>Khor Fakkan (KHF) 🔵</th><th>Sohar 🟣</th></tr></thead>
 <tbody>
 <tr><td class="td-label"><strong>所属国 / 政治立场</strong></td><td>🇦🇪 阿联酋沙迦酋长国<br/><span style="font-size:12px;color:var(--gray500)">亲西方，保持区域平衡</span></td><td>🇴🇲 阿曼苏丹国<br/><span style="font-size:12px;color:var(--gray500)">永久中立国，不结盟政策</span></td></tr>
-<tr><td class="td-label"><strong><span data-zh="地理位置" data-en="Location">地理位置</span> / 航线距离</strong></td><td>阿曼湾入口处，扼守霍尔木兹东口<br/>中国→KHF 约 6,200~6,600 海里</td><td>阿曼北部海湾，距霍尔木兹更远<br/>中国→Sohar 比 KHF 多约 200~300 海里</td></tr>
+<tr><td class="td-label"><strong>地理位置 / 航线距离</strong></td><td>阿曼湾入口处，扼守霍尔木兹东口<br/>中国→KHF 约 6,200~6,600 海里</td><td>阿曼北部海湾，距霍尔木兹更远<br/>中国→Sohar 比 KHF 多约 200~300 海里</td></tr>
 <tr><td class="td-label"><strong>航道水深 / 接船能力</strong></td><td>16m 自然水深<br/>可接 18,000+ TEU 船型</td><td><strong>18m 超深航道</strong> ✨<br/>可接 22,000~24,000 TEU ULCV</td></tr>
 <tr><td class="td-label"><strong>集装箱码头运营方</strong></td><td>Gulftainer（迪拜世界港口集团）<br/>年吞吐 ~40万 TEU</td><td><strong>Hutchison Ports Sohar</strong>（和记黄埔）<br/>设计能力 150万 TEU/年</td></tr>
 <tr><td class="td-label"><strong>RoRo 汽车滚装码头</strong></td><td>无专业 RoRo 设施</td><td><strong>✅ Wallem Sohar 专业汽车码头</strong><br/>年吞吐超 50 万辆，中东最大之一 ✨</td></tr>
@@ -1057,35 +791,77 @@ document.addEventListener('DOMContentLoaded',function(){
 <div style="background:linear-gradient(135deg,#111827 0%,#1e293b 100%);border-radius:16px;padding:28px;color:#fff;margin-bottom:28px;position:relative;overflow:hidden">
 <div style="position:absolute;top:-30px;right:-30px;width:200px;height:200px;background:radial-gradient(circle,rgba(167,139,250,.15) 0%,transparent 70%)"></div>
 <h3 style="font-size:20px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:10px">⚔️ 综合判断</h3>
-<div style="display:flex;align-items:center;gap:16px;padding:18px;background:rgba(255,255,255,.06);border-radius:12px;border:1px solid rgba(255,255,255,.1);margin-bottom:18px"><span style="font-size:42px">🔵🟣</span><div><div style="font-size:20px;font-weight:800;color:#c4b5db"><span data-zh="KHF × Sohar = 双枢纽互补网络" data-en="KHF × Sohar = Dual-Hub Complementary Network">KHF × Sohar = 双枢纽互补网络</span></div><div style="font-size:14px;color:#94a3b8;margin-top:4px"><span data-zh="两港各有明确赛道，形成互补而非替代" data-en="Each port has a clear niche, complementary rather than substitutive">两港各有明确赛道，形成互补而非替代</span></div></div></div>
-<p style="line-height:1.9;color:#cbd5e1;font-size:15px"><span data-zh="KHF 与 Sohar 在中东航运版图中各司其职：&lt;strong style=&quot;color:#93c5fd&quot;&gt;KHF&lt;/strong&gt; 是面向阿联酋本土市场的&quot;近岸配送中枢&quot;，&lt;strong style=&quot;color:#c4b5fd&quot;&gt;Sohar&lt;/strong&gt; 则是面向阿曼本土、工业项目和转口贸易的&quot;战略深水港+自贸区跳板&quot;。" data-en="KHF and Sohar each serve distinct roles in the Middle East shipping landscape: &lt;strong style=&quot;color:#93c5fd&quot;&gt;KHF&lt;/strong&gt; is the &quot;nearshore distribution hub&quot; serving the UAE domestic market, while &lt;strong style=&quot;color:#c4b5fd&quot;&gt;Sohar&lt;/strong&gt; is the &quot;strategic deepwater port + FTZ springboard&quot; for Oman domestic, industrial projects, and transit trade.">KHF 与 Sohar 在中东航运版图中各司其职：<strong style="color:#93c5fd">KHF</strong> 是面向阿联酋本土市场的"近岸配送中枢"，<strong style="color:#c4b5fd">Sohar</strong> 则是面向阿曼本土、工业项目和转口贸易的"战略深水港+自贸区跳板"。</span></p>
-<p style="line-height:1.9;color:#cbd5e1;font-size:15px;margin-top:10px"><span data-zh="&lt;strong style=&quot;color:#fbbf24&quot;&gt;对销售的启示：&lt;/strong&gt;&lt;br/&gt;· 当客户货物发往阿联酋本土 → 优先推荐 &lt;strong style=&quot;color:#93c5fd&quot;&gt;KHF&lt;/strong&gt;&lt;br/&gt;· 当客户有 RoRo/化工/项目货/自贸区需求 → 重点推荐 &lt;strong style=&quot;color:#c4b5fd&quot;&gt;Sohar&lt;/strong&gt;&lt;br/&gt;· 当 KHF 旺季拥堵时 → Sohar 作为溢出方案告知客户" data-en="&lt;strong style=&quot;color:#fbbf24&quot;&gt;Sales Implications:&lt;/strong&gt;&lt;br/&gt;· When cargo destined for UAE domestic → prioritize &lt;strong style=&quot;color:#93c5fd&quot;&gt;KHF&lt;/strong&gt;&lt;br/&gt;· When client has RoRo/chemical/project cargo/FTZ needs → recommend &lt;strong style=&quot;color:#c4b5fd&quot;&gt;Sohar&lt;/strong&gt;&lt;br/&gt;· When KHF congested in peak season → offer Sohar as overflow option"><strong style="color:#fbbf24">对销售的启示：</strong><br/>· 当客户货物发往阿联酋本土 → 优先推荐 <strong style="color:#93c5fd">KHF</strong><br/>· 当客户有 RoRo/化工/项目货/自贸区需求 → 重点推荐 <strong style="color:#c4b5fd">Sohar</strong><br/>· 当 KHF 旺季拥堵时 → Sohar 作为溢出方案告知客户</span></p>
+<div style="display:flex;align-items:center;gap:16px;padding:18px;background:rgba(255,255,255,.06);border-radius:12px;border:1px solid rgba(255,255,255,.1);margin-bottom:18px"><span style="font-size:42px">🔵🟣</span><div><div style="font-size:20px;font-weight:800;color:#c4b5db">KHF × Sohar = 双枢纽互补网络</div><div style="font-size:14px;color:#94a3b8;margin-top:4px">两港各有明确赛道，形成互补而非替代</div></div></div>
+<p style="line-height:1.9;color:#cbd5e1;font-size:15px">KHF 与 Sohar 在中东航运版图中各司其职：<strong style="color:#93c5fd">KHF</strong> 是面向阿联酋本土市场的"近岸配送中枢"，<strong style="color:#c4b5fd">Sohar</strong> 则是面向阿曼本土、工业项目和转口贸易的"战略深水港+自贸区跳板"。</p>
+<p style="line-height:1.9;color:#cbd5e1;font-size:15px;margin-top:10px"><strong style="color:#fbbf24">对销售的启示：</strong><br/>· 当客户货物发往阿联酋本土 → 优先推荐 <strong style="color:#93c5fd">KHF</strong><br/>· 当客户有 RoRo/化工/项目货/自贸区需求 → 重点推荐 <strong style="color:#c4b5fd">Sohar</strong><br/>· 当 KHF 旺季拥堵时 → Sohar 作为溢出方案告知客户</p>
 </div>
+</section>
+
+<!-- ═════ FLOW DIAGRAM ═════ -->
+<section class="section">
+<div class="section-title"><span class="num">06</span><span class="icon">🔀</span> 物流流向 — KHF陆桥方案</div>
+<div class="flow-box">
+<h3 style="font-size:17px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px">✅ 当前推荐路径：中国 → 印度洋 → KHF → 陆桥 → 目的地</h3>
+<div class="flow-row">
+<div class="flow-node">🇨🇳 上海/深圳<br/>宁波/青岛</div>
+<div class="flow-arrow">━━━▶</div>
+<div class="flow-node warn">🌊 印度洋航道<br/>（避霍尔木兹）</div>
+<div class="flow-arrow">━━━▶</div>
+<div class="flow-node highlight">🟢 <strong>KHF</strong><br/>霍尔费坎港</div>
+<div class="flow-arrow">━━━▶</div>
+<div class="flow-node safe">🚛 陆桥转运<br/>130~180km</div>
+<div class="flow-arrow">━━━▶</div>
+<div class="flow-node safe">🏙️ 迪拜/沙迦<br/>阿布扎比</div>
+</div>
+<h3 style="font-size:15px;font-weight:700;margin:20px 0 10px;color:#fca5a5">⛔ 封锁/高危通道（当前回避）</h3>
+<div class="flow-danger-list">
+<div class="flow-danger-item">🔒 霍尔木兹海峡 — 封锁高危</div>
+<div class="flow-danger-item">🔴 红海/苏伊士 — 持续袭击</div>
+<div class="flow-danger-item">🟠 富查伊拉油轮区 — 受损/安保升级</div>
+<div class="flow-danger-item">🟠 波斯湾各港 — 服务大幅缩减</div>
+</div>
+</div>
+
+<table class="matrix-table mt">
+<thead>
+<tr><th>目的地</th><th>距KHF</th><th>运输时间</th><th>主要货类</th><th>市场规模</th></tr>
+</thead>
+<tbody>
+<tr><td>🏙️ 迪拜（JAFZA）</td><td>~180km</td><td>2~3小时拖车</td><td>消费电子/汽车/消费品</td><td><span class="text-green bold">最大</span></td></tr>
+<tr><td>🏖️ 沙迦/阿吉曼</td><td>~200km</td><td>2.5小时</td><td>纺织/家居/建材</td><td>较大</td></tr>
+<tr><td>🏛️ 阿布扎比</td><td>~300km</td><td>3~4小时</td><td>机械/设备/能源</td><td>大</td></tr>
+<tr><td>🏭 富查伊拉当地</td><td>~20km</td><td>30分钟</td><td>散货/项目货</td><td>中等</td></tr>
+<tr><td>🕌 阿曼马斯喀特</td><td>~170km</td><td>2小时</td><td>日用品/机械</td><td>中等</td></tr>
+<tr><td>🏗️ 沙特达曼</td><td>~550km+</td><td>5~6小时或支线</td><td>建材/汽车/工程</td><td><span class="text-green bold">增长快</span></td></tr>
+<tr><td>🌍 东非（蒙巴萨等）</td><td>支线</td><td>3~5天</td><td>消费品/纺织/建材</td><td>增长中</td></tr>
+</tbody>
+</table>
+</section>
 
 <!-- ═════ CUSTOMER ANALYSIS ═════ -->
 <section class="section">
-<div class="section-title"><span class="num">07</span><span class="icon">👥</span> <span data-zh="客户行为画像 — 战时模式" data-en="Customer Behavior Profiling — Wartime Mode">客户行为画像 — 战时模式</span></div>
+<div class="section-title"><span class="num">07</span><span class="icon">👥</span> 客户行为画像 — 战时模式</div>
 <div class="customer-grid">
 
 <div class="cust-card">
 <div class="cust-header">
 <div class="cust-icon" style="background:var(--info-bg)">🏪</div>
 <div>
-<div style="font-size:16px;font-weight:800;color:var(--gray900)"><span data-zh="综合贸易商/进口批发商" data-en="General Traders / Import Wholesalers">综合贸易商/进口批发商</span></div>
-<div style="font-size:12px;color:var(--gray500)"><span data-zh="占比 40~50% — 市场最大群体" data-en="Share 40~50% — Largest market segment">占比 40~50% — 市场最大群体</span></div>
+<div style="font-size:16px;font-weight:800;color:var(--gray900)">综合贸易商/进口批发商</div>
+<div style="font-size:12px;color:var(--gray500)">占比 40~50% — 市场最大群体</div>
 </div>
 </div>
 <div class="cust-body">
-<span class="cust-stat"><span data-zh="📍 迪拜龙城 / 沙迦商户" data-en="📍 Dubai Dragon Mart / Sharjah merchants">📍 迪拜龙城 / 沙迦商户</span></span>
-<span class="cust-stat"><span data-zh="📦 消费电子 / 服装 / 日百" data-en="📦 Consumer electronics / Apparel / Daily goods">📦 消费电子 / 服装 / 日百</span></span>
+<span class="cust-stat">📍 迪拜龙城 / 沙迦商户</span>
+<span class="cust-stat">📦 消费电子 / 服装 / 日百</span>
 <p style="font-size:13.5px;color:var(--gray600);margin-top:8px;line-height:1.6">
-<strong><span data-zh="⚔️ 战时动态：" data-en="⚔️ Wartime Dynamics:">⚔️ 战时动态：</span></strong><br/>
-<span data-zh="· 大量货物改走KHF，原JEBEL ALI订单转移" data-en="· Large volumes rerouted to KHF, original JEBEL ALI orders transferred">· 大量货物改走KHF，原JEBEL ALI订单转移</span><br/>
-<span data-zh="· 斋月备货 × 关税囤货 = 需求激增30~50%" data-en="· Ramadan stock-up × tariff hoarding = demand surge 30~50%">· 斋月备货 × 关税囤货 = 需求激增30~50%</span><br/>
-<span data-zh="· 运费上涨压缩利润，部分小贸易商推迟/缩减" data-en="· Rising freight squeezes margins; some small traders postponing/reducing">· 运费上涨压缩利润，部分小贸易商推迟/缩减</span><br/>
-<span data-zh="· 对&lt;strong class=&quot;text-red&quot;&gt;DDP到门服务&lt;/strong&gt;需求显著上升" data-en="· &lt;strong class=&quot;text-red&quot;&gt;DDP door-to-door service&lt;/strong&gt; demand significantly increased">· 对<strong class="text-red">DDP到门服务</strong>需求显著上升</span>
+<strong>⚔️ 战时动态：</strong><br/>
+· 大量货物改走KHF，原JEBEL ALI订单转移<br/>
+· 斋月备货 × 关税囤货 = 需求激增30~50%<br/>
+· 运费上涨压缩利润，部分小贸易商推迟/缩减<br/>
+· 对<strong class="text-red">DDP到门服务</strong>需求显著上升
 </p>
-<div class="cust-action"><span data-zh="&lt;strong&gt;销售策略：&lt;/strong&gt;主动推送KHF直达方案+DDP打包报价" data-en="&lt;strong&gt;Sales Strategy:&lt;/strong&gt; Proactively push KHF direct solutions + DDP package quotes"><strong>销售策略：</strong>主动推送KHF直达方案+DDP打包报价</span></div>
+<div class="cust-action"><strong>销售策略：</strong>主动推送KHF直达方案+DDP打包报价</div>
 </div>
 </div>
 
@@ -1093,21 +869,21 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="cust-header">
 <div class="cust-icon" style="background:var(--warning-bg)">🔧</div>
 <div>
-<div style="font-size:16px;font-weight:800;color:var(--gray900)"><span data-zh="工程建材采购商" data-en="Construction &amp; Building Material Buyers">工程建材采购商</span></div>
-<div style="font-size:12px;color:var(--gray500)"><span data-zh="占比 15~20%" data-en="Share 15~20%">占比 15~20%</span></div>
+<div style="font-size:16px;font-weight:800;color:var(--gray900)">工程建材采购商</div>
+<div style="font-size:12px;color:var(--gray500)">占比 15~20%</div>
 </div>
 </div>
 <div class="cust-body">
-<span class="cust-stat"><span data-zh="📍 沙特NEOM / 阿布扎比项目" data-en="📍 Saudi NEOM / Abu Dhabi projects">📍 沙特NEOM / 阿布扎比项目</span></span>
-<span class="cust-stat"><span data-zh="📦 钢材 / 铝材 / 工程设备" data-en="📦 Steel / Aluminum / Engineering equipment">📦 钢材 / 铝材 / 工程设备</span></span>
+<span class="cust-stat">📍 沙特NEOM / 阿布扎比项目</span>
+<span class="cust-stat">📦 钢材 / 铝材 / 工程设备</span>
 <p style="font-size:13.5px;color:var(--gray600);margin-top:8px;line-height:1.6">
 <strong>⚔️ 战时动态：</strong><br/>
-<span data-zh="· 刚性需求不受战争影响，项目不能停" data-en="· Inelastic demand unaffected by war; projects cannot stop">· 刚性需求不受战争影响，项目不能停</span><br/>
-<span data-zh="· 成本转嫁至业主方，对运价不敏感" data-en="· Costs passed to project owners; insensitive to freight rates">· 成本转嫁至业主方，对运价不敏感</span><br/>
-<span data-zh="· 开顶/平板箱需求上升" data-en="· Open-top/flat rack container demand rising">· 开顶/平板箱需求上升</span><br/>
-<span data-zh="· &lt;strong class=&quot;text-orange&quot;&gt;NEOM超级项目&lt;/strong&gt;拉动建材海运量持续走高" data-en="· &lt;strong class=&quot;text-orange&quot;&gt;NEOM megaproject&lt;/strong&gt; driving construction shipping volumes higher">· <strong class="text-orange">NEOM超级项目</strong>拉动建材海运量持续走高</span>
+· 刚性需求不受战争影响，项目不能停<br/>
+· 成本转嫁至业主方，对运价不敏感<br/>
+· 开顶/平板箱需求上升<br/>
+· <strong class="text-orange">NEOM超级项目</strong>拉动建材海运量持续走高
 </p>
-<div class="cust-action"><span data-zh="&lt;strong&gt;销售策略：&lt;/strong&gt;提供特种箱型+项目物流打包方案" data-en="&lt;strong&gt;Sales Strategy:&lt;/strong&gt; Offer special container types + project logistics packages"><strong>销售策略：</strong>提供特种箱型+项目物流打包方案</span></div>
+<div class="cust-action"><strong>销售策略：</strong>提供特种箱型+项目物流打包方案</div>
 </div>
 </div>
 
@@ -1115,21 +891,21 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="cust-header">
 <div class="cust-icon" style="background:var(--success-bg)">🚙</div>
 <div>
-<div style="font-size:16px;font-weight:800;color:var(--gray900)"><span data-zh="新能源汽车出口商" data-en="NEV Exporters">新能源汽车出口商</span></div>
-<div style="font-size:12px;color:var(--gray500)"><span data-zh="占比 5~8%（增速最快 🔥）" data-en="Share 5~8% (Fastest growing 🔥)">占比 5~8%（增速最快 🔥）</span></div>
+<div style="font-size:16px;font-weight:800;color:var(--gray900)">新能源汽车出口商</div>
+<div style="font-size:12px;color:var(--gray500)">占比 5~8%（增速最快 🔥）</div>
 </div>
 </div>
 <div class="cust-body">
-<span class="cust-stat"><span data-zh="📍 上海 / 深圳 / 西安" data-en="📍 Shanghai / Shenzhen / Xi'an">📍 上海 / 深圳 / 西安</span></span>
-<span class="cust-stat"><span data-zh="📦 整车 / KD件 / 充电桩" data-en="📦 CBU / KD kits / Charging stations">📦 整车 / KD件 / 充电桩</span></span>
+<span class="cust-stat">📍 上海 / 深圳 / 西安</span>
+<span class="cust-stat">📦 整车 / KD件 / 充电桩</span>
 <p style="font-size:13.5px;color:var(--gray600);margin-top:8px;line-height:1.6">
 <strong>⚔️ 战时动态：</strong><br/>
-<span data-zh="· 4月中国新能源车出口阿联酋同比增&lt;strong&gt;+62%&lt;/strong&gt;" data-en="· Apr China NEV exports to UAE up &lt;strong&gt;+62% YoY&lt;/strong&gt;">· 4月中国新能源车出口阿联酋同比增<strong>+62%</strong></span><br/>
-<span data-zh="· RoRo滚装船不足 → 改走FCL集装箱" data-en="· Insufficient RoRo vessels → shifting to FCL containers">· RoRo滚装船不足 → 改走FCL集装箱</span><br/>
-<span data-zh="· 阿联酋自贸区免税政策吸引集散" data-en="· UAE FTZ duty-free policies attract distribution">· 阿联酋自贸区免税政策吸引集散</span><br/>
-<span data-zh="· 单车约0.15~0.2 TEU，大批量发货" data-en="· ~0.15~0.2 TEU per vehicle; high-volume shipments">· 单车约0.15~0.2 TEU，大批量发货</span>
+· 4月中国新能源车出口阿联酋同比增<strong>+62%</strong><br/>
+· RoRo滚装船不足 → 改走FCL集装箱<br/>
+· 阿联酋自贸区免税政策吸引集散<br/>
+· 单车约0.15~0.2 TEU，大批量发货
 </p>
-<div class="cust-action"><span data-zh="&lt;strong&gt;销售策略：&lt;/strong&gt;对接车企海外事业部，提供整车物流方案" data-en="&lt;strong&gt;Sales Strategy:&lt;/strong&gt; Connect with automaker overseas divisions; provide vehicle logistics solutions"><strong>销售策略：</strong>对接车企海外事业部，提供整车物流方案</span></div>
+<div class="cust-action"><strong>销售策略：</strong>对接车企海外事业部，提供整车物流方案</div>
 </div>
 </div>
 
@@ -1138,20 +914,20 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="cust-icon" style="background:var(--danger-bg)">🔄</div>
 <div>
 <div style="font-size:16px;font-weight:800;color:var(--gray900)">转口贸易商</div>
-<div style="font-size:12px;color:var(--gray500)"><span data-zh="占比 5~8%（战时暴增）" data-en="Share 5~8% (Wartime surge)">占比 5~8%（战时暴增）</span></div>
+<div style="font-size:12px;color:var(--gray500)">占比 5~8%（战时暴增）</div>
 </div>
 </div>
 <div class="cust-body">
-<span class="cust-stat"><span data-zh="📍 迪拜自贸区 / 富查伊拉FTZ" data-en="📍 Dubai FTZ / Fujairah FTZ">📍 迪拜自贸区 / 富查伊拉FTZ</span></span>
-<span class="cust-stat"><span data-zh="📦 各类转口货（全品类）" data-en="📦 All categories of re-export cargo">📦 各类转口货（全品类）</span></span>
+<span class="cust-stat">📍 迪拜自贸区 / 富查伊拉FTZ</span>
+<span class="cust-stat">📦 各类转口货（全品类）</span>
 <p style="font-size:13.5px;color:var(--gray600);margin-top:8px;line-height:1.6">
 <strong>⚔️ 战时动态：</strong><br/>
-<span data-zh="· &lt;strong class=&quot;text-red&quot;&gt;关税规避需求爆发&lt;/strong&gt;：利用阿联酋转口改变原产地申报" data-en="· &lt;strong class=&quot;text-red&quot;&gt;Tariff evasion demand exploded&lt;/strong&gt;: using UAE re-export to change country of origin declaration">· <strong class="text-red">关税规避需求爆发</strong>：利用阿联酋转口改变原产地申报</span><br/>
-<span data-zh="· 小批量高频次订舱，要求快速响应" data-en="· Small-batch high-frequency bookings; requires rapid response">· 小批量高频次订舱，要求快速响应</span><br/>
-<span data-zh="· 关注合规灰色地带，需谨慎操作" data-en="· Compliance gray areas exist; operate with caution">· 关注合规灰色地带，需谨慎操作</span><br/>
-<span data-zh="· KHF仓储+转口一条龙服务需求旺盛" data-en="· KHF warehousing + re-export one-stop service demand strong">· KHF仓储+转口一条龙服务需求旺盛</span>
+· <strong class="text-red">关税规避需求爆发</strong>：利用阿联酋转口改变原产地申报<br/>
+· 小批量高频次订舱，要求快速响应<br/>
+· 关注合规灰色地带，需谨慎操作<br/>
+· KHF仓储+转口一条龙服务需求旺盛
 </p>
-<div class="cust-action"><span data-zh="&lt;strong&gt;销售策略：&lt;/strong&gt;提供仓储+清关+转口一体化方案（注意合规提示）" data-en="&lt;strong&gt;Sales Strategy:&lt;/strong&gt; Offer integrated warehousing + customs + re-export solutions (note compliance advisories)"><strong>销售策略：</strong>提供仓储+清关+转口一体化方案（注意合规提示）</span></div>
+<div class="cust-action"><strong>销售策略：</strong>提供仓储+清关+转口一体化方案（注意合规提示）</div>
 </div>
 </div>
 
@@ -1159,21 +935,21 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="cust-header">
 <div class="cust-icon" style="background:var(--info-bg)">🏭</div>
 <div>
-<div style="font-size:16px;font-weight:800;color:var(--gray900)"><span data-zh="中资制造企业（直客）" data-en="Chinese Manufacturers (Direct Clients)">中资制造企业（直客）</span></div>
-<div style="font-size:12px;color:var(--gray500)"><span data-zh="占比 8~12%" data-en="Share 8~12%">占比 8~12%</span></div>
+<div style="font-size:16px;font-weight:800;color:var(--gray900)">中资制造企业（直客）</div>
+<div style="font-size:12px;color:var(--gray500)">占比 8~12%</div>
 </div>
 </div>
 <div class="cust-body">
-<span class="cust-stat"><span data-zh="📍 华东 / 华南制造基地" data-en="📍 East / South China manufacturing bases">📍 华东 / 华南制造基地</span></span>
-<span class="cust-stat"><span data-zh="📦 化工原料 / 塑料粒子 / 机械" data-en="📦 Chemicals / Plastic resins / Machinery">📦 化工原料 / 塑料粒子 / 机械</span></span>
+<span class="cust-stat">📍 华东 / 华南制造基地</span>
+<span class="cust-stat">📦 化工原料 / 塑料粒子 / 机械</span>
 <p style="font-size:13.5px;color:var(--gray600);margin-top:8px;line-height:1.6">
 <strong>⚔️ 战时动态：</strong><br/>
-<span data-zh="· 囤积备货意识强，提前2~3个月锁舱" data-en="· Strong stockpiling mentality; lock space 2~3 months ahead">· 囤积备货意识强，提前2~3个月锁舱</span><br/>
-<span data-zh="· 偏好中资背景船司（COSCO/OOCL）" data-en="· Prefer Chinese-background carriers (COSCO/OOCL)">· 偏好中资背景船司（COSCO/OOCL）</span><br/>
-<span data-zh="· 月均200~2,000 TEU不等，属A级核心客户" data-en="· 200~2,000 TEU/month; Grade-A core clients">· 月均200~2,000 TEU不等，属A级核心客户</span><br/>
-<span data-zh="· 申请&quot;绿色通道&quot;优先配舱" data-en="· Apply for &quot;green channel&quot; priority space allocation">· 申请"绿色通道"优先配舱</span>
+· 囤积备货意识强，提前2~3个月锁舱<br/>
+· 偏好中资背景船司（COSCO/OOCL）<br/>
+· 月均200~2,000 TEU不等，属A级核心客户<br/>
+· 申请"绿色通道"优先配舱
 </p>
-<div class="cust-action"><span data-zh="&lt;strong&gt;销售策略：&lt;/strong&gt;签订年度框架合约+舱位保障条款" data-en="&lt;strong&gt;Sales Strategy:&lt;/strong&gt; Sign annual framework contracts + space guarantee clauses"><strong>销售策略：</strong>签订年度框架合约+舱位保障条款</span></div>
+<div class="cust-action"><strong>销售策略：</strong>签订年度框架合约+舱位保障条款</div>
 </div>
 </div>
 
@@ -1181,131 +957,430 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="cust-header">
 <div class="cust-icon" style="background:var(--warning-bg)">🛒</div>
 <div>
-<div style="font-size:16px;font-weight:800;color:var(--gray900)"><span data-zh="电商卖家 / 集运商" data-en="E-commerce Sellers / Consolidators">电商卖家 / 集运商</span></div>
-<div style="font-size:12px;color:var(--gray500)"><span data-zh="占比 10~15%" data-en="Share 10~15%">占比 10~15%</span></div>
+<div style="font-size:16px;font-weight:800;color:var(--gray900)">电商卖家 / 集运商</div>
+<div style="font-size:12px;color:var(--gray500)">占比 10~15%</div>
 </div>
 </div>
 <div class="cust-body">
-<span class="cust-stat"><span data-zh="📍 深圳 / 义乌 / 广州" data-en="📍 Shenzhen / Yiwu / Guangzhou">📍 深圳 / 义乌 / 广州</span></span>
-<span class="cust-stat"><span data-zh="📦 小家电 / 3C配件 / 快消品" data-en="📦 Small appliances / 3C accessories / FMCG">📦 小家电 / 3C配件 / 快消品</span></span>
+<span class="cust-stat">📍 深圳 / 义乌 / 广州</span>
+<span class="cust-stat">📦 小家电 / 3C配件 / 快消品</span>
 <p style="font-size:13.5px;color:var(--gray600);margin-top:8px;line-height:1.6">
 <strong>⚔️ 战时动态：</strong><br/>
-<span data-zh="· 利润空间被运费挤压，转向LCL拼箱或空运" data-en="· Margins squeezed by freight; shifting to LCL or air freight">· 利润空间被运费挤压，转向LCL拼箱或空运</span><br/>
-<span data-zh="· 对价格极度敏感，频繁比价" data-en="· Extremely price-sensitive; frequent price comparison">· 对价格极度敏感，频繁比价</span><br/>
-<span data-zh="· 中东跨境电商（Noon/Amazon AE）GMV仍在增长" data-en="· ME cross-border e-commerce (Noon/Amazon AE) GMV still growing">· 中东跨境电商（Noon/Amazon AE）GMV仍在增长</span><br/>
-<span data-zh="· 可考虑集运仓模式整合碎片化需求" data-en="· Consider consolidation warehouse model to aggregate fragmented demand">· 可考虑集运仓模式整合碎片化需求</span>
+· 利润空间被运费挤压，转向LCL拼箱或空运<br/>
+· 对价格极度敏感，频繁比价<br/>
+· 中东跨境电商（Noon/Amazon AE）GMV仍在增长<br/>
+· 可考虑集运仓模式整合碎片化需求
 </p>
-<div class="cust-action"><span data-zh="&lt;strong&gt;销售策略：&lt;/strong&gt;通过一级NVOCC间接覆盖，不直接服务散户" data-en="&lt;strong&gt;Sales Strategy:&lt;/strong&gt; Cover indirectly via Tier-1 NVOCCs; avoid serving individual shippers directly"><strong>销售策略：</strong>通过一级NVOCC间接覆盖，不直接服务散户</span></div>
+<div class="cust-action"><strong>销售策略：</strong>通过一级NVOCC间接覆盖，不直接服务散户</div>
+</div>
+</div>
+
+<div class="cust-card">
+<div class="cust-header">
+<div class="cust-icon" style="background:var(--success-bg)">🌏</div>
+<div>
+<div style="font-size:16px;font-weight:800;color:var(--gray900)">东南亚出口商</div>
+<div style="font-size:12px;color:var(--gray500)">占比 8~12% | 越南/泰国/印尼为主</div>
+</div>
+</div>
+<div class="cust-body">
+<span class="cust-stat">📍 胡志明市 / 曼谷 / 雅加达</span>
+<span class="cust-stat">📦 农产品 / 纺织原料 / 橡胶 / 食品</span>
+<p style="font-size:13.5px;color:var(--gray600);margin-top:8px;line-height:1.6">
+<strong>⚔️ 战时动态：</strong><br/>
+· 越南→中东航线出货量增长<strong class="text-red">+25% YoY</strong>，部分绕道霍尔木兹<br/>
+· 泰国纺织/橡胶货主大量转向KHF/Sohar中转<br/>
+· 印尼棕榈油/食品类稳定刚需，走Sohar路线较多<br/>
+· 战时陆桥打通：越南货→KHF→陆运→沙特/红海
+</p>
+<div class="cust-action"><strong>销售策略：</strong>与越南/泰国主要货代建立合作，推介Sohar/KHF双枢纽方案</div>
+</div>
+</div>
+
+<div class="cust-card">
+<div class="cust-header">
+<div class="cust-icon" style="background:var(--warning-bg)">🇮🇳</div>
+<div>
+<div style="font-size:16px;font-weight:800;color:var(--gray900)">印巴出口商</div>
+<div style="font-size:12px;color:var(--gray500)">占比 10~15% | 卡拉奇/孟买/科伦坡</div>
+</div>
+</div>
+<div class="cust-body">
+<span class="cust-stat">📍 卡拉奇 / 孟买 / 科伦坡 / 皮帕瓦沃</span>
+<span class="cust-stat">📦 纺织品 / 汽车配件 / 化学品 / 粮食</span>
+<p style="font-size:13.5px;color:var(--gray600);margin-top:8px;line-height:1.6">
+<strong>⚔️ 战时动态：</strong><br/>
+· 巴基斯坦卡拉奇出口商受霍尔木兹限制，大量改走陆路→KHF转运<br/>
+· 印度皮帕瓦沃(Pipavav)/蒙德拉(Mundra)→KHF/Sohar航线激增<br/>
+· 印度纺织品/汽车配件出口到沙特、阿联酋持续增长<br/>
+· <strong class="text-red">印巴→红海支线</strong>受胡塞影响改道KHF，陆桥再出口东非
+</p>
+<div class="cust-action"><strong>销售策略：</strong>对接印度主要NVOCC，提供KHF中转+末端配送全链路方案</div>
 </div>
 </div>
 
 </div><!-- /customer-grid -->
 </section>
 
+<!-- ═════ REGIONAL MARKET RESEARCH ═════ -->
+<section class="section">
+<div class="section-title"><span class="num">08</span><span class="icon">🌐</span> <strong>GTS航线调研</strong></div>
+
+<!-- GTS航线定义卡片 -->
+<div style="background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);border-radius:14px;padding:24px;margin-bottom:28px;color:#fff;overflow:hidden;position:relative">
+<div style="font-size:15px;font-weight:800;color:#fbbf24;margin-bottom:12px">🚢 GTS</div>
+<p style="font-size:13.5px;line-height:1.8;color:#cbd5e1">
+GTS是一条<strong>中国→东南亚→中东波斯湾</strong>的大船干线航线。当前因霍尔木兹海峡紧张局势，在卡拉奇（Karachi, PKKHI）经停后需绕行或等待；待海峡完全开放后，将恢复<strong>Karachi → Dammam 直达</strong>。
+</p>
+<div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:16px;padding:16px;background:rgba(255,255,255,.08);border-radius:10px;font-family:'Courier New',monospace;font-size:13px">
+<span style="color:#94a3b8">路径：</span>
+<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNTAO</span><span>→</span>
+<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNSHA</span><span>→</span>
+<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNNGB</span><span>→</span>
+<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNNAS</span><span>→</span>
+<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNSHK</span><span>→</span>
+<span style="background:#DC2626;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">CNXMN</span><span>→</span>
+<span style="background:#D97706;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">MYPKG</span><span>→</span>
+<span style="background:rgba(255,255,255,.25);padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">(CGX)</span><span>→</span>
+<span style="background:#2563EB;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">PKKHI</span><span>→</span>
+<span style="background:rgba(255,255,255,.25);padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">(WAT)</span><span>→</span>
+<span style="background:#16A34A;color:#fff;padding:2px 8px;border-radius:5px;font-weight:700;font-size:11.5px">SADMM</span>
+</div>
+<div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:#94a3b8">
+<div><span style="color:#fbbf24">●</span> <strong style="color:#e2e8f0">红色</strong>：中国港口（青岛/上海/宁波/南沙/深圳/厦门）</div>
+<div><span style="color:#D97706">●</span> <strong style="color:#e2e8f0">橙色</strong>：东南亚（巴生港）</div>
+<div><span style="color:#2563EB">●</span> <strong style="color:#e2e8f0">蓝色</strong>：南亚中转（卡拉奇）</div>
+<div><span style="color:#16A34A">●</span> <strong style="color:#e2e8f0">绿色</strong>：目的地（达曼）</div>
+<div><span style="color:rgba(255,255,255,.35)">○</span> (CGX)/(WAT) 为<strong style="color:#e2e8f0">可选中转</strong>航线</div>
+</div>
+</div>
+
+<p style="font-size:14px;color:var(--gray600);margin-bottom:24px;line-height:1.7">
+本节围绕GTS航线挂港布局，聚焦各港口腹地市场的进出口结构、主要货类及目标客户群，为大船舱位填充和定向市场拓展提供数据支撑。
+</p>
+
+<div class="market-region-grid">
+
+<!-- 达曼 -->
+<div class="market-region-card">
+<div class="market-region-header">
+<div class="market-region-flag">🇸🇦</div>
+<div>
+<div class="market-region-title">达曼（Dammam）</div>
+<div class="market-region-subtitle">波斯湾东部 · 沙特东海岸第一大港</div>
+</div>
+</div>
+<div class="market-region-body">
+<span class="market-region-tag tag-import">🔵 主要进口市场</span>
+<div class="market-region-flow">
+<span>中国/东南亚</span>
+<span class="flow-arrow">→</span>
+<span>达曼</span>
+</div>
+<div class="market-region-desc">
+<strong>进口结构（重点！）：</strong>沙特当地高度依赖进口消费品和工业原材料。达曼港腹地覆盖东部省（Sharqia）制造业集群，进口以<strong>机械设备、汽车配件、纺织品、塑料粒子、电子产品</strong>为主。受"2030愿景"驱动，<strong>建材、钢铁、新能源设备进口量持续攀升</strong>，重型工程项目货是刚性需求。
+</div>
+<div class="market-region-desc" style="margin-top:8px">
+<strong>出口潜力：</strong>沙特石化产品（PE/PP）经达曼出口，但船公司主导舱位为进口方向。<br/>
+<strong>关键客户类型：</strong>沙特进口批发商（龙城体系延伸）、工程承包商（NEOM/红海项目）、汽车经销商（进口整车/KD件）。
+</div>
+</div>
+<div class="market-action"><strong>💡 GTS布局机会：</strong>达曼是GTS航线最终目的地（SADMM），沙特进口需求旺盛，大船挂港可稳定吸货。建议与沙特当地清关行/拖车行建立合作，打通末端配送链路。待海峡开放后KHI→DMM直达恢复，达曼将成为GTS航线最关键的卸货港。</div>
+</div>
+
+<!-- Jebel Ali -->
+<div class="market-region-card">
+<div class="market-region-header">
+<div class="market-region-flag">🇦🇪</div>
+<div>
+<div class="market-region-title">杰贝阿里（Jebel Ali）</div>
+<div class="market-region-subtitle">迪拜 · 中东最大自由贸易港</div>
+</div>
+</div>
+<div class="market-region-body">
+<span class="market-region-tag tag-import">🔵 进口</span>
+<span class="market-region-tag tag-transit" style="margin-left:4px">🔶 转口</span>
+<div class="market-region-flow">
+<span>中国/越南/印度</span>
+<span class="flow-arrow">→</span>
+<span>Jebel Ali</span>
+<span class="flow-arrow">→</span>
+<span>中东/非洲/南亚</span>
+</div>
+<div class="market-region-desc">
+<strong>市场核心：</strong>迪拜龙城（Dragon Mart）是中东最大中国商品集散地，进口额占阿联酋对华贸易约60%。Jebel Ali虽受伊朗紧张局势影响部分航班暂停，但腹地需求未减，货主正分流至<strong>KHF和Sohar</strong>。
+</div>
+<div class="market-region-desc" style="margin-top:8px">
+<strong>战时变化：</strong>货主从Jebel Ali转移至KHF，带动KHF仓储和转口需求激增。迪拜自贸区的转口贸易商利用Jebel Ali仓库进行分拨再出口。<br/>
+<strong>关键客户类型：</strong>迪拜综合贸易商（占比最高）、阿联酋本地进口商（含沙特客户绕道采购）、跨境电商（Amazon AE/Noon卖家中转）。
+</div>
+</div>
+<div class="market-action"><strong>💡 GTS布局机会：</strong>Jebel Ali不在GTS主航线上，但作为中东最大转口港，GTS大船可提供"KHI→KHF→迪拜陆桥"的战时替代方案，承接从Jebel Ali转移过来的货量。待海峡开放后，部分客户可能仍偏好JEBEL ALI中转。</div>
+</div>
+
+<!-- Sohar -->
+<div class="market-region-card">
+<div class="market-region-header">
+<div class="market-region-flag">🇴🇲</div>
+<div>
+<div class="market-region-title">苏哈尔（Sohar）</div>
+<div class="market-region-subtitle">阿曼 · 波斯湾入口战略要塞</div>
+</div>
+</div>
+<div class="market-region-body">
+<span class="market-region-tag tag-highlight">🔴 战略枢纽</span>
+<div class="market-region-flow">
+<span>中国/东南亚</span>
+<span class="flow-arrow">→</span>
+<span>Sohar</span>
+<span class="flow-arrow">→</span>
+<span>阿曼本地/沙特/卡塔尔</span>
+</div>
+<div class="market-region-desc">
+<strong>市场腹地：</strong>Sohar是阿曼最大工业港，腹地覆盖阿曼全境及沙特西部、卡塔尔（通过陆路）。港口拥有大型自由贸易区（Sohar FTZ），吸引工业和制造业企业入驻。<strong>进口以工业原材料、机械设备、消费品为主</strong>，出口以石油化工产品和铝锭为主。
+</div>
+<div class="market-region-desc" style="margin-top:8px">
+<strong>战略价值：</strong>作为KHF的竞争/补充港口，Sohar与KHF形成双枢纽格局。GTS若布局Sohar，可同时覆盖阿曼本地+波斯湾西部+沙特西部市场。<br/>
+<strong>关键客户类型：</strong>阿曼工业进口商（SOAG等大型企业）、沙特西部承包商（避开波斯湾南部拥挤）、卡塔尔进口商（工程材料）。
+</div>
+</div>
+<div class="market-action"><strong>💡 GTS布局机会：</strong>Sohar不在GTS主航线上，但作为阿曼战略港口，可作为GTS航线的<strong>战时替代挂靠港</strong>（KHI后绕行至Sohar，再陆运至沙特）。若将Sohar纳入GTS可选挂港序列（类似CGX/WAT），可大幅增强航线灵活性和抗风险能力。</div>
+</div>
+
+<!-- 东南亚 -->
+<div class="market-region-card">
+<div class="market-region-header">
+<div class="market-region-flag">🌏</div>
+<div>
+<div class="market-region-title">东南亚 → 中东/红海出口走廊</div>
+<div class="market-region-subtitle">越南 · 泰国 · 印尼 · 马来西亚</div>
+</div>
+</div>
+<div class="market-region-body">
+<span class="market-region-tag tag-export">🟢 主要出口至中东</span>
+<div class="market-region-flow">
+<span>越南/泰国/印尼</span>
+<span class="flow-arrow">→</span>
+<span>KHF/Sohar</span>
+<span class="flow-arrow">→</span>
+<span>沙特/阿联酋/红海</span>
+</div>
+<div class="market-region-desc">
+<strong>越南（最大增量）：</strong>越南制造业高速增长，纺织品、农产品、电子零部件出口中东大幅增加。越南胡志明港/海防港出货量年增20%+，主要目的地为沙特、阿联酋。战时霍尔木兹通行不确定性促使越南货主选择<strong>KHF中转+陆桥</strong>路线。
+</div>
+<div class="market-region-desc" style="margin-top:8px">
+<strong>泰国：</strong>橡胶、农产品、纺织品为出口主力，经KHF或Sohar进入中东市场。<br/>
+<strong>印尼：</strong>棕榈油、食品、宗教消费品（斋月旺季）出口稳定，走Sohar路线较多。<br/>
+<strong>马来西亚：</strong>电子元器件、橡胶制品，通过KHF中转覆盖中东。
+</div>
+</div>
+<div class="market-action"><strong>💡 GTS布局机会：</strong>GTS航线经停<strong>巴生港（MYPKG）</strong>——这是东南亚货物汇聚GTS大船的关键节点。越南/泰国/印尼出口商可通过支线喂给至巴生后上GTS干线。建议与巴生当地NVOCC合作，开发东南亚→中东的整箱货源。</div>
+</div>
+
+<!-- 印度/巴基斯坦 -->
+<div class="market-region-card">
+<div class="market-region-header">
+<div class="market-region-flag">🇮🇳</div>
+<div>
+<div class="market-region-title">印巴 → 中东/红海出口走廊</div>
+<div class="market-region-subtitle">印度 · 巴基斯坦 · 斯里兰卡</div>
+</div>
+</div>
+<div class="market-region-body">
+<span class="market-region-tag tag-export">🟢 主要出口至中东</span>
+<span class="market-region-tag tag-highlight" style="margin-left:4px">🔴 红海替代路线</span>
+<div class="market-region-flow">
+<span>卡拉奇/孟买/皮帕瓦沃</span>
+<span class="flow-arrow">→</span>
+<span>KHF/Sohar</span>
+<span class="flow-arrow">→</span>
+<span>沙特/东非/红海</span>
+</div>
+<div class="market-region-desc">
+<strong>巴基斯坦：</strong>卡拉奇是南亚对中东出口的核心门户。巴基斯坦纺织品（全球重要纺织出口国）、汽车配件、化学品大量出口沙特和阿联酋。受霍尔木兹紧张局势影响，巴基斯坦出口商已大幅转向<strong>KHF陆桥路线</strong>。
+</div>
+<div class="market-region-desc" style="margin-top:8px">
+<strong>印度（高速增长）：</strong>印度制造业崛起，纺织品、汽车配件、化学品出口中东持续增加。印度西海岸皮帕瓦沃(Pipavav)和蒙德拉(Mundra)港→KHF/Sohar航线运量激增。<strong>印度至沙特/阿联酋的TEU量年增约15~20%</strong>。<br/>
+<strong>斯里兰卡：</strong>茶叶、橡胶服装出口，量较小但稳定。
+</div>
+</div>
+<div class="market-action"><strong>💡 GTS布局机会：</strong>GTS航线在<strong>卡拉奇（PKKHI）</strong>经停——这是印巴货源上GTS大船的核心节点。巴基斯坦出口商（纺织/汽配）可直接在KHI装船；印度西海岸（皮帕瓦沃/蒙德拉）的货物可通过支线喂给至KHI后汇入GTS干线。建议重点开发卡拉奇当地大型NVOCC和直客。</div>
+</div>
+
+<!-- 东非/红海 -->
+<div class="market-region-card">
+<div class="market-region-header">
+<div class="market-region-flag">🌍</div>
+<div>
+<div class="market-region-title">东非 & 红海市场 — GTS反向货源</div>
+<div class="market-region-subtitle">肯尼亚 · 坦桑尼亚 · 吉布提 · 也门</div>
+</div>
+</div>
+<div class="market-region-body">
+<span class="market-region-tag tag-import">🔵 主要出口至中东</span>
+<div class="market-region-flow">
+<span>蒙巴萨/达累斯萨拉姆</span>
+<span class="flow-arrow">→</span>
+<span>KHF</span>
+<span class="flow-arrow">→</span>
+<span>迪拜/印度</span>
+</div>
+<div class="market-region-desc">
+<strong>东非→KHF反向货流：</strong>肯尼亚蒙巴萨港是东非最大港口，出口茶叶、咖啡、园艺产品（空运为主）、矿产；坦桑尼亚达累斯萨拉姆出口腰果、棉花。这些货物通过KHF中转至迪拜再出口至印度/欧洲。<strong>战时胡塞影响红海后，东非→中东反向货量有所增加。</strong>
+</div>
+<div class="market-region-desc" style="margin-top:8px">
+<strong>吉布提：</strong>埃塞俄比亚进出口门户，经吉布提港转运。埃塞俄比亚咖啡/豆类出口，走KHF中转到迪拜/印度的货量稳定。<br/>
+<strong>红海替代：</strong>因胡塞影响，原本走红海直达东非的航线改经KHF陆桥，形成"东非→KHF→陆运→红海"的替代路线。
+</div>
+</div>
+<div class="market-action"><strong>💡 GTS布局机会：</strong>东非市场不在GTS主航线上，但可作为<strong>GTS航线的延伸服务</strong>——GTS大船在达曼卸货后，部分舱位可安排支线至东非（蒙巴萨/吉布提）。建议与当地支线船公司建立合作，提供"中国→中东→东非"的联运方案，提升GTS航线附加值。</div>
+</div>
+
+</div><!-- /market-region-grid -->
+
+<div style="margin-top:32px;padding:20px 24px;background:linear-gradient(90deg,var(--navy) 0%,#234b78 100%);border-radius:14px;color:#fff">
+<div style="font-size:16px;font-weight:800;margin-bottom:12px">🎯 区域市场调研 — GTS航线布局核心结论</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;font-size:13.5px">
+<div>
+<div style="font-weight:700;margin-bottom:6px;color:#fbbf24">🏆 优先深耕市场（沿GTS航线顺序）</div>
+<ul style="padding-left:16px;line-height:1.9">
+<li><strong>青岛/上海/宁波/南沙/深圳/厦门</strong>：中国始发港，锁定大型直客和NVOCC</li>
+<li><strong>巴生（MYPKG）</strong>：东南亚中转枢纽，开发马来/印尼出口商</li>
+<li><strong>卡拉奇（PKKHI）</strong>：南亚关键节点，巴基斯坦+印度西海岸货源</li>
+<li><strong>达曼（SADMM）</strong>：最终目的地，沙特进口刚需最强，大船填充首选</li>
+</ul>
+</div>
+<div>
+<div style="font-weight:700;margin-bottom:6px;color:#fbbf24">⚡ GTS大船布局重点</div>
+<ul style="padding-left:16px;line-height:1.9">
+<li>GTS航线当前状态：KHI后待海峡开放→DMM直达恢复</li>
+<li>战时替代方案：KHF/Sohar作为临时终点或中转站</li>
+<li>巴生（MYPKG）：东南亚货物集散点，提升舱位利用率的关键</li>
+<li>卡拉奇（PKKHI）：印巴货源汇聚点，可建立支线喂给机制</li>
+<li>达曼（SADMM）：终极吸货港，重货/工程货为主</li>
+</ul>
+</div>
+<div>
+<div style="font-weight:700;margin-bottom:6px;color:#fbbf24">👥 沿线重点客户开发方向</div>
+<ul style="padding-left:16px;line-height:1.9">
+<li>中国段：华东/华南制造企业直客 + 大型NVOCC</li>
+<br/>
+<li>东南亚段：马来西亚/印尼出口商（经巴生集散）</li>
+<br/>
+<li>南亚段：巴基斯坦卡拉奇纺织/汽配出口商、印度NVOCC</li>
+<br/>
+<li>沙特段：达曼进口批发商、NEOM项目承包商、沙特汽车经销商</li>
+</ul>
+</div>
+</div>
+</div>
+
+</section>
+
 <!-- ═════ CARGO TYPES ═════ -->
 <section class="section">
-<div class="section-title"><span class="num">08</span><span class="icon">📦</span> <span data-zh="货物种类分布" data-en="Cargo Type Distribution">货物种类分布</span><span data-zh=" &amp; 4月热点" data-en=" &amp; April Highlights"> & 4月热点</span></div>
+<div class="section-title"><span class="num">09</span><span class="icon">📦</span> 货物种类分布 & 4月热点</div>
 <div class="cargo-grid">
 <div class="cargo-item">
 <div class="cargo-icon">💻</div>
-<div class="cargo-name"><span data-zh="机电 / 电子设备" data-en="Electronics / Electrical Equipment">机电 / 电子设备</span></div>
-<div class="cargo-detail"><span data-zh="占比 28~32% | FCL整箱为主" data-en="Share 28~32% | FCL dominant">占比 28~32% | FCL整箱为主</span></div>
-<div class="cargo-tag" style="background:var(--danger-bg);color:var(--danger)"><span data-zh="🔥 4月最强增长 | 关税冲击最深" data-en="🔥 Strongest Apr growth | Deepest tariff impact">🔥 4月最强增长 | 关税冲击最深</span></div>
+<div class="cargo-name">机电 / 电子设备</div>
+<div class="cargo-detail">占比 28~32% | FCL整箱为主</div>
+<div class="cargo-tag" style="background:var(--danger-bg);color:var(--danger)">🔥 4月最强增长 | 关税冲击最深</div>
 </div>
 <div class="cargo-item">
 <div class="cargo-icon">👕</div>
-<div class="cargo-name"><span data-zh="纺织 / 服装 / 鞋类" data-en="Textiles / Apparel / Footwear">纺织 / 服装 / 鞋类</span></div>
-<div class="cargo-detail"><span data-zh="占比 18~22% | 季节性明显" data-en="Share 18~22% | Seasonal">占比 18~22% | 季节性明显</span></div>
-<div class="cargo-tag" style="background:var(--danger-bg);color:var(--danger)"><span data-zh="↑ 稳定增长 | 斋月备货叠加" data-en="↑ Steady growth | Ramadan stock-up overlay">↑ 稳定增长 | 斋月备货叠加</span></div>
+<div class="cargo-name">纺织 / 服装 / 鞋类</div>
+<div class="cargo-detail">占比 18~22% | 季节性明显</div>
+<div class="cargo-tag" style="background:var(--danger-bg);color:var(--danger)">↑ 稳定增长 | 斋月备货叠加</div>
 </div>
 <div class="cargo-item">
 <div class="cargo-icon">🚗</div>
-<div class="cargo-name"><span data-zh="汽车 / 新能源车 / 汽配" data-en="Auto / NEV / Auto Parts">汽车 / 新能源车 / 汽配</span></div>
-<div class="cargo-detail"><span data-zh="占比 10~13% | RoRo改FCL趋势" data-en="Share 10~13% | RoRo-to-FCL trend">占比 10~13% | RoRo改FCL趋势</span></div>
-<div class="cargo-tag" style="background:var(--danger-bg);color:var(--danger)"><span data-zh="🚀 爆发式增长 +62% YoY" data-en="🚀 Explosive growth +62% YoY">🚀 爆发式增长 +62% YoY</span></div>
+<div class="cargo-name">汽车 / 新能源车 / 汽配</div>
+<div class="cargo-detail">占比 10~13% | RoRo改FCL趋势</div>
+<div class="cargo-tag" style="background:var(--danger-bg);color:var(--danger)">🚀 爆发式增长 +62% YoY</div>
 </div>
 <div class="cargo-item">
 <div class="cargo-icon">🏗️</div>
-<div class="cargo-name"><span data-zh="建材 / 五金钢铁" data-en="Construction Materials / Hardware &amp; Steel">建材 / 五金钢铁</span></div>
-<div class="cargo-detail"><span data-zh="占比 8~10% | 重货多用20GP" data-en="Share 8~10% | Heavy cargo mostly 20GP">占比 8~10% | 重货多用20GP</span></div>
-<div class="cargo-tag" style="background:var(--warning-bg);color:var(--warning)"><span data-zh="↑ NEOM项目驱动" data-en="↑ NEOM project driven">↑ NEOM项目驱动</span></div>
+<div class="cargo-name">建材 / 五金钢铁</div>
+<div class="cargo-detail">占比 8~10% | 重货多用20GP</div>
+<div class="cargo-tag" style="background:var(--warning-bg);color:var(--warning)">↑ NEOM项目驱动</div>
 </div>
 <div class="cargo-item">
 <div class="cargo-icon">🧴</div>
-<div class="cargo-name"><span data-zh="化工 / 塑料 / 危险品" data-en="Chemicals / Plastics / DG Cargo">化工 / 塑料 / 危险品</span></div>
-<div class="cargo-detail"><span data-zh="占比 6~8% | 需IMO/MSDS证明" data-en="Share 6~8% | Requires IMO/MSDS certification">占比 6~8% | 需IMO/MSDS证明</span></div>
-<div class="cargo-tag" style="background:var(--success-bg);color:var(--success)"><span data-zh="→ 稳定 | B2B不受消费品税影响" data-en="→ Stable | B2B unaffected by consumer tariff">→ 稳定 | B2B不受消费品税影响</span></div>
+<div class="cargo-name">化工 / 塑料 / 危险品</div>
+<div class="cargo-detail">占比 6~8% | 需IMO/MSDS证明</div>
+<div class="cargo-tag" style="background:var(--success-bg);color:var(--success)">→ 稳定 | B2B不受消费品税影响</div>
 </div>
 <div class="cargo-item">
 <div class="cargo-icon">⚡</div>
-<div class="cargo-name"><span data-zh="光伏储能 / 新能源设备" data-en="Solar / BESS / New Energy Equipment">光伏储能 / 新能源设备</span></div>
-<div class="cargo-detail"><span data-zh="占比 4~6% | 2030愿景驱动" data-en="Share 4~6% | Vision 2030 driven">占比 4~6% | 2030愿景驱动</span></div>
-<div class="cargo-tag" style="background:var(--danger-bg);color:var(--danger)"><span data-zh="🔥 不受战争冲击 | 长期高增长" data-en="🔥 War-resistant | Long-term high growth">🔥 不受战争冲击 | 长期高增长</span></div>
+<div class="cargo-name">光伏储能 / 新能源设备</div>
+<div class="cargo-detail">占比 4~6% | 2030愿景驱动</div>
+<div class="cargo-tag" style="background:var(--danger-bg);color:var(--danger)">🔥 不受战争冲击 | 长期高增长</div>
 </div>
 <div class="cargo-item">
 <div class="cargo-icon">🍜</div>
-<div class="cargo-name"><span data-zh="食品 / 农产品 / 冷藏" data-en="Food / Agricultural Products / Reefer">食品 / 农产品 / 冷藏</span></div>
-<div class="cargo-detail"><span data-zh="占比 4~6% | 需清真认证" data-en="Share 4~6% | Halal certification required">占比 4~6% | 需清真认证</span></div>
-<div class="cargo-tag" style="background:var(--info-bg);color:var(--info)"><span data-zh="→ 稳定 | 斋月前需求小幅上升" data-en="→ Stable | Slight pre-Ramadan demand increase">→ 稳定 | 斋月前需求小幅上升</span></div>
+<div class="cargo-name">食品 / 农产品 / 冷藏</div>
+<div class="cargo-detail">占比 4~6% | 需清真认证</div>
+<div class="cargo-tag" style="background:var(--info-bg);color:var(--info)">→ 稳定 | 斋月前需求小幅上升</div>
 </div>
 <div class="cargo-item">
 <div class="cargo-icon">🛋️</div>
-<div class="cargo-name"><span data-zh="家具 / 家居日用" data-en="Furniture / Home &amp; Daily Use">家具 / 家居日用</span></div>
-<div class="cargo-detail"><span data-zh="占比 7~9% | 轻抛货偏好40HQ" data-en="Share 7~9% | Light cargo prefers 40HQ">占比 7~9% | 轻抛货偏好40HQ</span></div>
-<div class="cargo-tag" style="background:var(--warning-bg);color:var(--warning)"><span data-zh="→ 平稳 | 部分品类受关税冲击" data-en="→ Steady | Some categories hit by tariffs">→ 平稳 | 部分品类受关税冲击</span></div>
+<div class="cargo-name">家具 / 家居日用</div>
+<div class="cargo-detail">占比 7~9% | 轻抛货偏好40HQ</div>
+<div class="cargo-tag" style="background:var(--warning-bg);color:var(--warning)">→ 平稳 | 部分品类受关税冲击</div>
 </div>
 <div class="cargo-item">
 <div class="cargo-icon">⚙️</div>
 <div class="cargo-name">工程项目货</div>
-<div class="cargo-detail"><span data-zh="占比 3~5% | 开顶/框架箱" data-en="Share 3~5% | Open-top/flat rack">占比 3~5% | 开顶/框架箱</span></div>
-<div class="cargo-tag" style="background:var(--info-bg);color:var(--info)"><span data-zh="→ 刚需 | 不受战争/关税双重影响" data-en="→ Inelastic | Unaffected by war or tariffs">→ 刚需 | 不受战争/关税双重影响</span></div>
+<div class="cargo-detail">占比 3~5% | 开顶/框架箱</div>
+<div class="cargo-tag" style="background:var(--info-bg);color:var(--info)">→ 刚需 | 不受战争/关税双重影响</div>
 </div>
 </div><!-- /cargo-grid -->
 </section>
 
 <!-- ═════ RISK & OPPORTUNITY ═════ -->
 <section class="section">
-<div class="section-title"><span class="num">09</span><span class="icon">⚖️</span> <span data-zh="机遇 vs 风险矩阵" data-en="Opportunity vs Risk Matrix">机遇 vs 风险矩阵</span></div>
+<div class="section-title"><span class="num">10</span><span class="icon">⚖️</span> 机遇 vs 风险矩阵</div>
 <div class="ro-matrix">
 <div class="ro-col">
-<div class="ro-header opportunity"><span data-zh="✅ 当前市场机遇" data-en="✅ Current Market Opportunities">✅ 当前市场机遇</span></div>
+<div class="ro-header opportunity">✅ 当前市场机遇</div>
 <div class="ro-body">
 <div class="ro-item">
 <span class="ro-emoji">🏆</span>
-<div class="ro-text"><h4><span data-zh="安全枢纽价值空前" data-en="Safe Hub Value at Unprecedented Level">安全枢纽价值空前</span></h4><p><span data-zh="KHF是阿联酋唯一全面运营的集装箱港，所有竞争对手（JEBEL ALI等）均受限。议价能力和客户粘性达到历史高点。" data-en="KHF is the UAE's only fully operational container port; all competitors (JEBEL ALI etc.) are restricted. Pricing power and customer stickiness at all-time highs.">KHF是阿联酋唯一全面运营的集装箱港，所有竞争对手（JEBEL ALI等）均受限。议价能力和客户粘性达到历史高点。</span></p></div>
+<div class="ro-text"><h4>安全枢纽价值空前</h4><p>KHF是阿联酋唯一全面运营的集装箱港，所有竞争对手（JEBEL ALI等）均受限。议价能力和客户粘性达到历史高点。</p></div>
 </div>
 <div class="ro-item">
 <span class="ro-emoji">🔗</span>
-<div class="ro-text"><h4><span data-zh="陆桥转运需求暴增 40%~60%" data-en="Land Bridge Transit Demand Surged 40%~60%">陆桥转运需求暴增 40%~60%</span></h4><p><span data-zh="KHF→迪拜/阿布扎比的拖车和铁路运输供不应求。可捆绑销售末端配送服务，提升综合毛利。" data-en="KHF→Dubai/Abu Dhabi trucking and rail transport unable to meet demand. Can bundle last-mile delivery services to improve comprehensive margins.">KHF→迪拜/阿布扎比的拖车和铁路运输供不应求。可捆绑销售末端配送服务，提升综合毛利。</span></p></div>
+<div class="ro-text"><h4>陆桥转运需求暴增 40%~60%</h4><p>KHF→迪拜/阿布扎比的拖车和铁路运输供不应求。可捆绑销售末端配送服务，提升综合毛利。</p></div>
 </div>
 <div class="ro-item">
 <span class="ro-emoji">🔄</span>
-<div class="ro-text"><h4><span data-zh="转口枢纽地位确立" data-en="Transit Hub Status Established">转口枢纽地位确立</span></h4><p><span data-zh="印度/巴基斯坦/东非/东非支线货量激增。KHF正在从&quot;目的地港&quot;向&quot;区域中转枢纽&quot;转型。" data-en="India/Pakistan/East Africa feeder volumes surging. KHF is transforming from a &quot;destination port&quot; to a &quot;regional transit hub&quot;.">印度/巴基斯坦/东非/东非支线货量激增。KHF正在从"目的地港"向"区域中转枢纽"转型。</span></p></div>
+<div class="ro-text"><h4>转口枢纽地位确立</h4><p>印度/巴基斯坦/东非支线货量激增。KHF正在从"目的地港"向"区域中转枢纽"转型。</p></div>
 </div>
 <div class="ro-item">
 <span class="ro-emoji">⚡</span>
-<div class="ro-text"><h4><span data-zh="新能源/光伏赛道不受战争冲击" data-en="NEV/Solar Sector Immune to War Impact">新能源/光伏赛道不受战争冲击</span></h4><p><span data-zh="阿联酋2050碳中和战略持续推进，光伏板、储能系统、电动车进口需求刚性且高速增长。" data-en="UAE 2050 carbon neutrality strategy advancing steadily; solar panels, BESS, and EV import demand remains inelastic and growing rapidly.">阿联酋2050碳中和战略持续推进，光伏板、储能系统、电动车进口需求刚性且高速增长。</span></p></div>
+<div class="ro-text"><h4>新能源/光伏赛道不受战争冲击</h4><p>阿联酋2050碳中和战略持续推进，光伏板、储能系统、电动车进口需求刚性且高速增长。</p></div>
 </div>
 </div>
 </div>
 <div class="ro-col">
-<div class="ro-header risk"><span data-zh="⚠️ 核心风险警示" data-en="⚠️ Core Risk Warnings">⚠️ 核心风险警示</span></div>
+<div class="ro-header risk">⚠️ 核心风险警示</div>
 <div class="ro-body">
 <div class="ro-item">
 <span class="ro-emoji">🚨</span>
-<div class="ro-text"><h4><span data-zh="战争升级至阿曼湾 = 灾难性后果" data-en="War Escalation to Gulf of Oman = Catastrophic Consequence">战争升级至阿曼湾 = 灾难性后果</span></h4><p><span data-zh="若冲突蔓延至阿曼湾或伊朗实际封锁霍尔木兹，KHF本身的安全也将受到威胁。这是&lt;strong class=&quot;text-red&quot;&gt;最高级别的尾部风险&lt;/strong&gt;。" data-en="If conflict spreads to the Gulf of Oman or Iran actually blocks Hormuz, KHF's own safety will be threatened. This is the &lt;strong class=&quot;text-red&quot;&gt;highest-level tail risk&lt;/strong&gt;.">若冲突蔓延至阿曼湾或伊朗实际封锁霍尔木兹，KHF本身的安全也将受到威胁。这是<strong class="text-red">最高级别的尾部风险</strong>。</span></p></div>
+<div class="ro-text"><h4>战争升级至阿曼湾 = 灾难性后果</h4><p>若冲突蔓延至阿曼湾或伊朗实际封锁霍尔木兹，KHF本身的安全也将受到威胁。这是<strong class="text-red">最高级别的尾部风险</strong>。</p></div>
 </div>
 <div class="ro-item">
 <span class="ro-emoji">💰</span>
-<div class="ro-text"><h4><span data-zh="运价剧烈波动 + 附加费失控" data-en="Severe Freight Rate Volatility + Surcharge Spiral">运价剧烈波动 + 附加费失控</span></h4><p><span data-zh="战争险(WRS)最高已达$400/TEU，加上BAF/PSS/DGF等，总附加费可能超过$1,500/TEU。客户成本承受力逼近极限。" data-en="War risk surcharge (WRS) up to $400/TEU; combined with BAF/PSS/DGF etc., total surcharges may exceed $1,500/TEU. Client cost tolerance approaching limits.">战争险(WRS)最高已达$400/TEU，加上BAF/PSS/DGF等，总附加费可能超过$1,500/TEU。客户成本承受力逼近极限。</span></p></div>
+<div class="ro-text"><h4>运价剧烈波动 + 附加费失控</h4><p>战争险(WRS)最高已达$400/TEU，加上BAF/PSS/DGF等，总附加费可能超过$1,500/TEU。客户成本承受力逼近极限。</p></div>
 </div>
 <div class="ro-item">
 <span class="ro-emoji">📦</span>
-<div class="ro-text"><h4><span data-zh="港口拥堵加剧" data-en="Port Congestion Worsening">港口拥堵加剧</span></h4><p><span data-zh="等泊时间从正常2~3天延长至4~6天。拖车需提前72小时预约。仓储容量利用率已超85%。" data-en="Berthing wait extended from normal 2~3 days to 4~6 days. Trucking requires 72-hour advance booking. Warehouse capacity utilization exceeds 85%.">等泊时间从正常2~3天延长至4~6天。拖车需提前72小时预约。仓储容量利用率已超85%。</span></p></div>
+<div class="ro-text"><h4>港口拥堵加剧</h4><p>等泊时间从正常2~3天延长至4~6天。拖车需提前72小时预约。仓储容量利用率已超85%。</p></div>
 </div>
 <div class="ro-item">
 <span class="ro-emoji">📋</span>
-<div class="ro-text"><h4><span data-zh="合规审查趋严" data-en="Stricter Compliance Scrutiny">合规审查趋严</span></h4><p><span data-zh="海关要求声明未停靠以色列/伊朗相关港口。文件瑕疵可能导致滞港3~7天甚至退运。转口操作存在法律灰色地带。" data-en="Customs requires declaration of no calls at Israel/Iran-related ports. Documentation flaws may cause 3~7 day detention or even return shipments. Re-export operations exist in legal gray areas.">海关要求声明未停靠以色列/伊朗相关港口。文件瑕疵可能导致滞港3~7天甚至退运。转口操作存在法律灰色地带。</span></p></div>
+<div class="ro-text"><h4>合规审查趋严</h4><p>海关要求声明未停靠以色列/伊朗相关港口。文件瑕疵可能导致滞港3~7天甚至退运。转口操作存在法律灰色地带。</p></div>
 </div>
 </div>
 </div>
@@ -1318,10 +1393,10 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <!-- ═════ FOOTER ═════ -->
 <footer class="footer">
-<p><strong><span data-zh="📡 情报简报 | 中国→霍尔费坎(KHF)航运市场 — 含 Sohar 战略对标分析" data-en="📡 Intelligence Briefing | China→Khor Fakkan (KHF) Shipping Market — incl. Sohar Strategic Benchmarking">📡 情报简报 | 中国→霍尔费坎(KHF)航运市场 — 含 Sohar 战略对标分析</span></strong></p>
-<p><span data-zh="数据截止：2026年4月20日 15:16 CST" data-en="Data as of: April 20, 2026 15:16 CST">数据截止：2026年4月20日 15:16 CST</span> &nbsp;|&nbsp; 情报等级：CRITICAL（危机级）&nbsp;|&nbsp; <span data-zh="更新频率：实时追踪" data-en="Update Frequency: Real-time tracking">更新频率：实时追踪</span></p>
-<p><span data-zh="数据来源：Alphaliner · Freightos Baltic Index · SCFI · UKMTO · US Navy Fifth Fleet · Lloyd's List · Reuters/AP/BBC/CNN · 各船公司官方公告 · Gulftainer KHF Terminal" data-en="Sources: Alphaliner · Freightos Baltic Index · SCFI · UKMTO · US Navy Fifth Fleet · Lloyd's List · Reuters/AP/BBC/CNN · Carrier Official Notices · Gulftainer KHF Terminal">数据来源：Alphaliner · Freightos Baltic Index · SCFI · UKMTO · US Navy Fifth Fleet · Lloyd's List · Reuters/AP/BBC/CNN · 各船公司官方公告 · Gulftainer KHF Terminal</span></p>
-<p style="margin-top:8px;font-size:12px;opacity:.6"><span data-zh="⚠️ 免责声明：本报告仅供船司销售内部参考，不构成投资或交易建议。战争形势瞬息万变，请以最新官方信息为准。涉及转口操作的合规风险由货主自行承担。" data-en="⚠️ Disclaimer: This report is for internal carrier sales reference only and does not constitute investment or trading advice. War conditions change rapidly; please refer to latest official information. Compliance risks related to re-export operations are borne by the cargo owner.">⚠️ 免责声明：本报告仅供船司销售内部参考，不构成投资或交易建议。战争形势瞬息万变，请以最新官方信息为准。涉及转口操作的合规风险由货主自行承担。</span></p>
+<p><strong>📡 情报简报 | 中国→霍尔费坎(KHF)航运市场 — 含 Sohar 战略对标分析</strong></p>
+<p>数据截止：2026年4月20日 15:16 CST &nbsp;|&nbsp; 情报等级：CRITICAL（危机级）&nbsp;|&nbsp; 更新频率：实时追踪</p>
+<p>数据来源：Alphaliner · Freightos Baltic Index · SCFI · UKMTO · US Navy Fifth Fleet · Lloyd's List · Reuters/AP/BBC/CNN · 各船公司官方公告 · Gulftainer KHF Terminal</p>
+<p style="margin-top:8px;font-size:12px;opacity:.6">⚠️ 免责声明：本报告仅供船司销售内部参考，不构成投资或交易建议。战争形势瞬息万变，请以最新官方信息为准。涉及转口操作的合规风险由货主自行承担。</p>
 </footer>
 
 </body>
