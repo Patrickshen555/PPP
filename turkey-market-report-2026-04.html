@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>土耳其市场情报 — 站在土耳其看世界 | Türkiye Market Intelligence — Turkey's View of the World</title>
+<style>
+  :root {
+    --bg-primary: #0a0e17;
+    --bg-secondary: #111827;
+    --bg-card: #1a2332;
+    --bg-card-hover: #1f2b3d;
+    --accent-gold: #d4a853;
+    --accent-red: #c0392b;
+    --accent-green: #27ae60;
+    --accent-blue: #2980b9;
+    --text-primary: #e8e6e3;
+    --text-secondary: #9ca3af;
+    --border-color: #2a3544;
+    --shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(10,14,23,0.95) 0%, rgba(26,35,50,0.92) 50%, rgba(192,57,43,0.15) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="%232a3544" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="1200" height="600" fill="url(%23grid)"/></svg>');
+    background-size: cover;
+    padding: 2rem;
+  }
+  .hero-content { max-width: 900px; }
+  .hero-badge {
+    display: inline-block;
+    padding: 6px 18px;
+    border: 1px solid var(--accent-gold);
+    border-radius: 30px;
+    font-size: 0.8rem;
+    color: var(--accent-gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero h2 {
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+    color: var(--accent-gold);
+    font-size: 1.5rem;
+  }
+
+  /* ===== NAV BAR (sticky) ===== */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,14,23,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.7rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+  .nav-bar::-webkit-scrollbar { display: none; }
+  .nav-item {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    border: 1px solid transparent;
+    flex-shrink: 0;
+  }
+  .nav-item:hover, .nav-item.active {
+    color: var(--accent-gold);
+    background: rgba(212,168,83,0.08);
+    border-color: rgba(212,168,83,0.3);
+  }
+
+  /* ===== SECTION LAYOUT ===== */
+  .section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+  .section-title-wrap {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .section-num {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .section-title-en {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+  }
+  .section-title-zh {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 300;
+    color: var(--text-secondary);
+  }
+
+  /* ===== CARDS GRID ===== */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 1.8rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    background: var(--bg-card-hover);
+    border-color: rgba(212,168,83,0.3);
+  }
+  .card-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .card h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: var(--text-primary);
+  }
+  .card h4 {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+  .card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ===== TABLES ===== */
+  .data-table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin-top: 1.5rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    min-width: 600px;
+  }
+  thead th {
+    background: var(--bg-secondary);
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--accent-gold);
+    border-bottom: 2px solid var(--accent-gold);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  tbody tr:hover td { background: rgba(212,168,83,0.04); }
+  tbody tr:last-child td { border-bottom: none; }
+  .val-up { color: var(--accent-green); font-weight: 600; }
+  .val-down { color: var(--accent-red); font-weight: 600; }
+  .val-neutral { color: var(--accent-blue); font-weight: 600; }
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 500;
+  }
+  .tag-hot { background: rgba(192,57,43,0.15); color: #e74c3c; }
+  .tag-key { background: rgba(39,174,96,0.15); color: #2ecc71; }
+  .tag-new { background: rgba(41,128,185,0.15); color: #3498db; }
+
+  /* ===== KPI STRIP ===== */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .kpi-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .kpi-val {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent-gold);
+  }
+  .kpi-label {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-top: 0.4rem;
+  }
+  .kpi-sub {
+    font-size: 0.72rem;
+    color: var(--accent-green);
+    margin-top: 0.2rem;
+  }
+
+  /* ===== MAP / DIAGRAM AREA ===== */
+  .map-area {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  .map-svg { max-width: 100%; height: auto; }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+    margin-top: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-color);
+  }
+  .tl-item {
+    position: relative;
+    padding-bottom: 2rem;
+  }
+  .tl-dot {
+    position: absolute;
+    left: -26px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    box-shadow: 0 0 0 4px rgba(212,168,83,0.2);
+  }
+  .tl-date {
+    font-size: 0.78rem;
+    color: var(--accent-gold);
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .tl-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+  }
+  .tl-content h4 { font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.4rem; }
+  .tl-content p { font-size: 0.85rem; color: var(--text-secondary); }
+
+  /* ===== INSIGHT BOX ===== */
+  .insight-box {
+    background: linear-gradient(135deg, rgba(212,168,83,0.08) 0%, rgba(192,57,43,0.06) 100%);
+    border-left: 4px solid var(--accent-gold);
+    border-radius: 0 10px 10px 0;
+    padding: 1.5rem 1.8rem;
+    margin: 2rem 0;
+  }
+  .insight-box strong { color: var(--accent-gold); }
+  .insight-box p { font-size: 0.92rem; color: var(--text-primary); }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+  }
+  .footer a { color: var(--accent-gold); text-decoration: none; }
+
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(-10px);} }
+
+  @media (max-width:768px) {
+    .cards-grid { grid-template-columns: 1fr; }
+    .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+    .nav-bar { padding: 0.5rem 1rem; }
+    .section { padding: 2.5rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">Market Intelligence Report</span>
+    <h1>站在土耳其看世界</h1>
+    <h2>Türkiye Market Intelligence — Turkey's View on Global Trade Corridors</h2>
+    <div class="hero-meta">
+      <span>📅 2026年4月</span>
+      <span>🌍 东地中海 / 中东 / 北非 / 东南亚</span>
+      <span>🐍 一字长蛇阵：中国五港→北非</span>
+    </div>
+  </div>
+  <div class="scroll-hint">▼</div>
+</section>
+
+<!-- ========== NAV BAR ========== -->
+<nav class="nav-bar">
+  <a class="nav-item active" href="#s01">01 战况总览</a>
+  <a class="nav-item" href="#s02">02 港口地图</a>
+  <a class="nav-item" href="#s03">03 主力航线</a>
+  <a class="nav-item" href="#s04">04 进出口结构</a>
+  <a class="nav-item" href="#s05">05 红海穿越</a>
+  <a class="nav-item" href="#s06">06 一字长蛇格局</a>
+  <a class="nav-item" href="#s07">07 承运商动态</a>
+  <a class="nav-item" href="#s08">08 运费走势</a>
+  <a class="nav-item" href="#s09">09 竞争港口对比</a>
+  <a class="nav-item" href="#s10">10 市场机会洞察</a>
+</nav>
+
+<!-- ================================================================ -->
+<!-- 01 战况总览 -->
+<!-- ================================================================ -->
+<section id="s01" class="section">
+  <div class="section-title-wrap">
+    <div class="section-num">Section 01</div>
+    <h2 class="section-title-en">Strategic Overview — Turkey at the Crossroads</h2>
+    <p class="section-title-zh">战况总览：东西方十字路口的战略位置</p>
+  </div>
+
+
+
+  <div class="kpi-strip">
+    <div class="kpi-box">
+      <div class="kpi-val">8,500万+</div>
+      <div class="kpi-label">总人口 Population</div>
+      <div class="kpi-sub">G20成员国</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val">$4,500亿</div>
+      <div class="kpi-label">2024年进口总额 Total Imports</div>
+      <div class="kpi-sub">世界第6大制造国</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val">~900万TEU</div>
+      <div class="kpi-label">全国港口年吞吐量 Container Volume</div>
+      <div class="kpi-sub">2024年估算</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val">15亿+</div>
+      <div class="kpi-label">4小时飞行半径覆盖消费者 Consumers in Range</div>
+      <div class="kpi-sub">欧洲+独联体+北非+海湾</div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>🎯 核心定位：</strong>土耳其是全球供应链中唯一同时连接欧洲、中亚、中东、东地中海和黑海的国家。控制博斯普鲁斯海峡（全球约15%海运贸易通道），梅尔辛港是红海—苏伊士—东地中海航线的天然中继站。2023-2025年红海危机期间，土耳其港口转运量显著上升，成为亚洲—欧洲贸易的重要替代节点。</p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <span class="card-icon">🌍</span>
+      <h3>地缘战略价值 Geopolitical Value</h3>
+      <h4>G20成员 · NATO盟友 · 欧盟关税同盟国</h4>
+      <p>位于三大洲交界，博斯普鲁斯海峡是连接黑海与地中海的唯一水道。同时推进中间走廊（Middle Corridor）与阿拉伯开发公路（Arab Development Road），成为亚欧陆桥的关键一环。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🏭</span>
+      <h3>制造业基地 Manufacturing Hub</h3>
+      <h4>汽车、纺织、白色家电、建材出口大国</h4>
+      <p>全球第六大制造业国家，汽车产量超150万辆/年（欧洲第三），纺织品出口全球前五。震后重建拉动建材需求暴增，2024-2025年持续高景气。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">⚡</span>
+      <h3>能源枢纽 Energy Crossroads</h3>
+      <h4>俄罗斯→欧洲天然气过境 + TANAP管道</h4>
+      <p>俄罗斯原油和天然气主要陆路过境国之一。TANAP管道将阿塞拜疆天然气经土耳其输送至欧洲。能源转型加速中，可再生能源装机快速增长。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 02 关键港口地图 -->
+<!-- ================================================================ -->
+<section id="s02" class="section">
+  <div class="section-title-wrap">
+    <div class="section-num">Section 02</div>
+    <h2 class="section-title-en">Key Ports Map — The Four Pillars</h2>
+    <p class="section-title-zh">关键港口地图：四大支柱港口详解</p>
+  </div>
+
+  <div class="data-table-wrap">
+    <table>
+      <thead><tr><th>港口 Port</th><th>区域 Region</th><th>2024吞吐量 TEU</th><th>YoY 增速</th><th>核心功能 Core Function</th><th>运营方 Operator</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Ambarlı 阿姆巴利</strong></td><td>马尔马拉海 Marmara</td>
+          <td class="val-neutral">~300万</td><td class="val-down">-5%</td>
+          <td>伊斯坦布尔最大集装箱港<br/>欧亚中转核心</td>
+          <td>Kumport / Marport</td>
+        </tr>
+        <tr>
+          <td><strong>Mersin 梅尔辛 ⭐</strong></td><td>东南走廊 Southeast</td>
+          <td class="val-up">~200万</td><td class="val-up">+9% 🔥</td>
+          <td>地中海最大门户<br/>中东过境枢纽 | 农产品出口</td>
+          <td>MIP (PSA+Akfen)</td>
+        </tr>
+        <tr>
+          <td><strong>İzmir 伊兹密尔</strong></td><td>爱琴海 Aegean</td>
+          <td class="val-neutral">~110万</td><td class="val-neutral">稳定</td>
+          <td>冷链物流 | 电商 fulfillment<br/>多式联运枢纽</td>
+          <td>TCDD Liman / Yilport</td>
+        </tr>
+        <tr>
+          <td><strong>Aliaga 阿利亚加</strong></td><td>伊兹密尔湾</td>
+          <td class="val-neutral">~90万</td><td class="val-neutral">稳定</td>
+          <td>散货+集装箱 | 石化产品<br/>工业原料进出口</td>
+          <td>DP World</td>
+        </tr>
+        <tr>
+          <td><strong>İskenderun 伊斯肯德伦</strong></td>
+          <td>东南走廊</td>
+          <td class="val-up">~80万</td><td class="val-up">↑ 转运增长</td>
+          <td>震后重建物资入口<br/>叙利亚/伊拉克过境</td>
+          <td>TCDD Liman</td>
+        </tr>
+        <tr>
+          <td><strong>Tekirdağ 泰基尔达</strong></td>
+          <td>马尔马拉海西岸</td>
+          <td class="val-up">~180万</td><td class="val-up">+20% 🚀</td>
+          <td>新兴集装箱港<br/>分流马尔马拉拥堵</td>
+          <td>Evolport</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>💡 梅尔辛港亮点：</strong>2024年增速最快的土耳其主要港口（+9% YoY），一期扩建已竣工（投资超$4.5亿），当前能力260万TEU → 扩建目标350万TEU。可停靠ULCV超大型集装箱船，距伊拉克仅800公里、距叙利亚400公里，是中东贸易的最佳海上门户。</p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <span class="card-icon">🔴</span>
+      <h3>马尔马拉海集群 Marmara Cluster</h3>
+      <h4>Ambarlı + Kumport + DP World Yarımca + Tekirdağ</h4>
+      <p>围绕伊斯坦布尔形成的港口群，总吞吐量占全国50%以上。优势在于博斯普鲁斯海峡直连黑海，但受制于海峡通行能力上限和季节性拥堵。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🟢</span>
+      <h3>东南走廊集群 SE Corridor Cluster</h3>
+      <h4>Mersin + İskenderun</h3>
+      <p>红海危机的最大受益者——船舶绕行好望角后，部分货物选择在梅尔辛卸载再通过陆路运输至目的地，转运量激增。也是农产品出口的核心出海口。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔵</span>
+      <h3>爱琴海集群 Aegean Cluster</h3>
+      <h4>İzmir + Aliaga</h4>
+      <p>面向希腊和南欧市场，冷链物流优势突出（水果、乳制品、药品等冷藏货）。电商仓储和分拨中心快速扩张，吸引亚马逊、Trendyol等入驻。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 03 主力航线图 -->
+<!-- ================================================================ -->
+<section id="s03" class="section">
+  <div class="section-title-wrap">
+    <div class="section-num">Section 03</div>
+    <h2 class="section-title-en">Main Shipping Routes & Trade Lanes</h2>
+    <p class="section-title-zh">主力航线图：从东南亚到土耳其的多维物流路径</p>
+  </div>
+
+  <div class="data-table-wrap">
+    <table>
+      <thead><tr><th>航线 Route</th><th>起点 Origin</th><th>终点 Destination</th><th>航程 Transit Time</th><th>当前状态 Status</th><th>主要承运商 Carriers</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>远东—东地中海 FEM</strong><br/><span class="tag tag-key">核心航线</span></td>
+          <td>上海/宁波/蛇口/新加坡</td>
+          <td>梅尔辛 / 伊斯坦布尔 / 比雷埃夫斯</td>
+          <td>28-32天</td>
+          <td class="val-neutral">正常运营<br/><small>受红海影响班次调整</small></td>
+          <td>MSC / CMA CGM / Maersk / COSCO / ONE</td>
+        </tr>
+        <tr>
+          <td><strong>东南亚—红海—东地中海</strong><br/><span class="tag tag-hot">红海走廊</span></td>
+          <td>越南/泰国/马来西亚</td>
+          <td>吉达/苏伊士 → 梅尔辛/塞得港</td>
+          <td>18-24天</td>
+          <td class="val-down">风险偏高<br/><small>Houthi袭击持续</small></td>
+          <td>MSC / Maersk / Hapag-Lloyd / OOCL</td>
+        </tr>
+        <tr>
+          <td><strong>印度洋—中东—东地中海</strong></td>
+          <td>科伦坡/孟买/杰贝阿里</td>
+          <td>迪拜/阿布扎比 → 梅尔辛</td>
+          <td>10-16天</td>
+          <td class="val-up">活跃</td>
+          <td>MSC / CMA CGM / Maersk / ZIM</td>
+        </tr>
+        <tr>
+          <td><strong>欧洲—土耳其支线 Feeder</strong><br/><span class="tag tag-new">高频次</span></td>
+          <td>鹿特丹/安特卫普/比雷埃夫斯</td>
+          <td>伊斯坦布尔 / 梅尔辛</td>
+          <td>2-5天</td>
+          <td class="val-up">密集运营</td>
+          <td>Turkon / Arkas / MSC / Maersk</td>
+        </tr>
+        <tr>
+          <td><strong>黑海—地中海穿梭</strong><br/></td>
+          <td>康斯坦察 / 敖德萨 / 新罗西斯克</td>
+          <td>伊斯坦布尔（博斯普鲁斯）</td>
+          <td>1-3天</td>
+          <td class="val-normal">正常</td>
+          <td>区域承运商为主</td>
+        </tr>
+        <tr>
+          <td><strong>中东—土耳其短途</strong><br/></td>
+          <td>迪拜/杰贝阿里/哈马德</td>
+          <td>梅尔辛 / 梅尔辛</td>
+          <td>4-7天</td>
+          <td class="val-up">增长中</td>
+          <td>CMA CGM / MSC / Maersk</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>🔄 红海危机对航线的影响：</strong>自2023年10月胡塞武装开始袭击商船以来（截至2024年10月超过190起袭击事件），远东到地中海的航线面临两难选择——<br/>
+    <strong>① 苏伊士路线：</strong>航程最短但保险费暴涨、战争险溢价高达货值0.5%-1.5%，部分船公司暂停挂靠<br/>
+    <strong>② 好望角绕行：</strong>航程增加10-14天，成本上升$1500-$3000/FEU，但安全性更高<br/>
+    <strong>③ 土耳其中转方案：</strong>部分船公司在梅尔辛卸载后再由支线船或铁路分发，成为折中选择</p>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 04 进出口结构 -->
+<!-- ================================================================ -->
+<section id="s04" class="section">
+  <div class="section-title-wrap">
+    <div class="section-num">Section 04</div>
+    <h2 class="section-title-en">Import & Export Structure</h2>
+    <p class="section-title-zh">进出口结构：土耳其的贸易画像</p>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi-box">
+      <div class="kpi-val">$4,502亿</div>
+      <div class="kpi-label">2024年总进口 Total Imports</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val">$2,640亿</div>
+      <div class="kpi-label">2024年总出口 Total Exports</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val">-$1,862亿</div>
+      <div class="kpi-label">贸易逆差 Trade Deficit</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val">81%</div>
+      <div class="kpi-label">进口为制造业产品 Manufacturing Share</div>
+    </div>
+  </div>
+
+  <h3 style="color:#d4a853;margin:2rem 0 1rem;font-size:1.1rem;">📦 Top 6 Import Products — 六大进口品类 (H1 2025)</h3>
+  <div class="data-table-wrap">
+    <table>
+      <thead><tr><th>排名 Rank</th><th>产品类别 Product</th><th>HS编码</th><th>金额 (USD Billion)</th><th>占比 Share</th><th>主要来源国 Source</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>矿物燃料 / Mineral Fuels</strong></td><td>HS 27</td><td>$315.96</td><td>17.53%</td><td>🇷🇺 俄罗斯 (~90%)</td></tr>
+        <tr><td>2</td><td><strong>机械设备 / Machinery</strong></td><td>HS 84</td><td>$199.19</td><td>11.05%</td><td>🇨🇳 中国 / 🇩🇪 德国</td></tr>
+        <tr><td>3</td><td><strong>车辆及零部件 / Vehicles</strong></td><td>HS 87</td><td>$177.23</td><td>9.83%</td><td>🇩🇪 德国 / 🇨🇳 中国 / 🇰🇷 韩国</td></tr>
+        <tr><td>4</td><td><strong>贵金属珠宝 / Precious Metals</strong></td><td>HS 71</td><td>$143.81</td><td>7.98%</td><td>🇨🇭 瑞士 / 🇮🇹 意大利 / UAE</td></tr>
+        <tr><td>5</td><td><strong>电气设备 / Electrical Equipment</strong></td><td>HS 85</td><td>$140.88</td><td>7.82%</td><td>🇨🇳 中国 / 🇩🇪 德国</td></tr>
+        <tr><td>6</td><td><strong>钢铁 / Steel</strong></td><td>HS 72</td><td>$111.83</td><td>6.21%</td><td>🇷🇺 俄罗斯 / 🇨🇳 中国 / 🇺🇦 乌克兰</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="color:#d4a853;margin:2rem 0 1rem;font-size:1.1rem;">🤝 Top 6 Import Partners — 六大进口来源国 (2024)</h3>
+  <div class="data-table-wrap">
+    <table>
+      <thead><tr><th>排名 Rank</th><th>国家 Country</th><th>进口额 USD</th><th>占比 %</th><th>核心进口品 Key Products</th><th>趋势 Trend</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1</td><td><strong>🇨🇳 中国 China</strong></td>
+          <td class="val-up">$440.16亿</td><td>12.88%</td>
+          <td>电话机($113亿)、机械($103.5亿)、钢铁($32.7亿)、车辆($31.9亿)</td>
+          <td class="val-up">↗ 持续增长</td>
+        </tr>
+        <tr>
+          <td>2</td><td><strong>🇷🇺 俄罗斯 Russia</strong></td>
+          <td class="val-up">$439.57亿</td>
+          <td>12.86%</td><td>矿物燃料($322.9亿)、钢铁($26.8亿)、小麦($13.6亿)、铜($12亿)</td>
+          <td class="val-neutral">→ 能源依赖度高</td>
+        </tr>
+        <tr>
+          <td>3</td><td><strong>🇩🇪 德国 Germany</strong></td>
+          <td>$269.70亿</td><td>7.89%</td>
+          <td>车辆零部件($113亿)、发动机部件($103.5亿)、电气设备($22.9亿)</td>
+          <td class="val-neutral">→ 稳定</td>
+        </tr>
+        <tr>
+          <td>4</td><td><strong>🇮🇹 意大利 Italy</strong></td>
+          <td>$192.49亿</td><td>5.63%</td>
+          <td>珠宝首饰、机械器具、车辆零部件、化工品</td>
+          <td class="val-neutral">→ 稳定</td>
+        </tr>
+        <tr>
+          <td>5</td><td><strong>🇺🇸 美国 USA</strong></td>
+          <td>$160.63亿</td><td>4.70%</td>
+          <td>机械、钢铁、矿物燃料、航空器</td>
+          <td class="val-up">↗ 增长</td>
+        </tr>
+        <tr>
+          <td>6</td><td><strong>🇫🇷 法国 France</strong></td>
+          <td>$124.17亿</td><td>3.63%</td>
+          <td>车辆、航空航天、机械、医药</td>
+          <td class="val-neutral">→ 稳定</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>🔑 关键发现：</strong><br/>
+    1️⃣ <strong>中国 vs 俄罗斯并驾齐驱：</strong>两者合计占土耳其进口总额的25.74%，几乎四分之一的进口来自这两国。<br/>
+    2️⃣ <strong>能源是最大软肋：</strong>仅矿物燃料一项就占总进口17.53%（$315.96亿），其中90%以上来自俄罗斯，地缘政治敏感度极高。<br/>
+    3️⃣ <strong>制造业对外依存度高：</strong>81%的进口为制造业中间产品和设备，高科技产品占比11%。任何全球供应链中断都会直接影响土耳其生产。<br/>
+    4️⃣ <strong>全球销售团队的启示：</strong>中国制造的电子产品、机械设备在土耳其有巨大市场份额，东南亚产地的同类产品存在替代空间。</p>
+  </div>
+
+  <h3 style="color:#d4a853;margin:2rem 0 1rem;font-size:1.1rem;">✈️ 土耳其主要出口品类 Major Exports</h3>
+  <div class="cards-grid">
+    <div class="card">
+      <span class="card-icon">🚗</span>
+      <h3>汽车及零部件 Automotive</h3>
+      <h4>出口额 ~$350亿/年 | 全球第7大汽车生产国</h4>
+      <p>福特、雷诺、丰田、现代均在土设厂。主要出口德国、法国、意大利、英国。电动车转型加速中——TOGG国产电动车已量产。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">👗</span>
+      <h3>纺织品服装 Textiles & Apparel</h3>
+      <h4>出口额 ~$300亿/年 | 全球前五大出口国</h4>
+      <p>家纺、成衣、面料为核心品类。主要出口欧盟（占60%+）、美国、中东。棉花主要自产+进口，劳动力成本低于东欧。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🏠</span>
+      <h3>家电 Home Appliances</h3>
+      <h4>出口额 ~$200亿/年 | Arçelik/Beko全球领先</h4>
+      <p>白色家电（冰箱、洗衣机、空调）是王牌产业。Arçelik集团（Koç旗下）在欧洲市占率领先，在中东和非洲快速扩张。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🍊</span>
+      <h3>农产品 Agricultural Products</h3>
+      <h4>出口额 ~$300亿+/年 | 柑橘/榛子/无花果/干果</h4>
+      <p>柑橘年出口180万吨，70%产自地中海地区（经梅尔辛发运）。主要出口俄罗斯、欧盟、中东。榛子占全球供应的70%。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🏗️</span>
+      <h3>钢材与建材 Steel & Construction Materials</h3>
+      <h4>2023地震后进口暴增 → 2024转出口</h4>
+      <p>土耳其是全球前十大钢铁生产国。震后重建需求巨大，2024年起建材开始恢复出口周边国家（伊拉克、叙利亚、北非）。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">💎</span>
+      <h3>黄金珠宝 Precious Metals & Jewelry</h3>
+      <h4>黄金进口加工后出口 | 中东重要需求来源</h4>
+      <p>土耳其是全球重要的黄金加工中心，从瑞士/阿联酋进口原料金锭，加工首饰后出口中东（尤其是伊朗、阿联酋、沙特）。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 05 红海穿越
+<!-- ================================================================ -->
+<section id="s05" class="section">
+  <div class="section-title-wrap">
+    <div class="section-num">Section 05</div>
+    <h2 class="section-title-en">Red Sea Crossing — 2026 Q1-Q2 Deep Dive</h2>
+    <p class="section-title-zh">红海穿越：2026年1-4月最新局势深度解析</p>
+  </div>
+
+  <!-- 核心KPI快照 -->
+  <div class="kpi-strip" style="margin-top:1rem;">
+    <div class="kpi-box">
+      <div class="kpi-val" style="font-size:1.5rem;color:#e74c3c;">-86%</div>
+      <div class="kpi-label">苏伊士运河集装箱通行量降幅<br/><span style="color:#9ca3af;font-size:0.72rem;">vs 2023.10峰值(583艘/月 → 120艘/月)</span></div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="font-size:1.5rem;color:#d4a853;">$2,172</div>
+      <div class="kpi-label">WCI全球综合运价指数<br/><span style="color:#9ca3af;font-size:0.72rem;">2026年3月 / FEU基准</span></div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="font-size:1.5rem;color:#27ae60;">+27%</div>
+      <div class="kpi-label">土耳其进口箱量增幅<br/><span style="color:#9ca3af;font-size:0.72rem;">Feb→Mar 2026 (16.5万→21万TEU)</span></div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="font-size:1.5rem;color:#c0392b;">⚠️ 双危机</div>
+      <div class="kpi-label">红海 + 霍尔木兹海峡同时受阻<br/><span style="color:#9ca3af;font-size:0.72rem;">2026年Q1罕见局面</span></div>
+    </div>
+  </div>
+
+  <!-- 时间线：2026年1-4月 -->
+  <h3 style="color:#e74c3c;margin:2rem 0 0.8rem;font-size:1.15rem;">📅 2026年1-4月 红海局势时间轴 Timeline</h3>
+  <div class="timeline">
+
+    <!-- 1月 -->
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#3498db;"></div>
+      <div class="tl-date" style="color:#3498db;">🔵 2026年1月 — 高峰开局</div>
+      <div class="tl-content">
+        <h4>春节前抢运 + 红海持续受阻 = 运价暴涨</h4>
+        <ul style="font-size:0.85rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.4rem;line-height:1.7;">
+          <li><strong>中国农历年前出货高峰</strong>叠加红海绕行，跨太平洋和亚欧航线运价大幅攀升</li>
+          <li><strong>CMA CGM</strong>引入旺季附加费PSS；中国头部承运商预计创纪录利润</li>
+          <li>主流策略仍为<strong>全面绕行好望角</strong>或合恩角；Hapag-Lloyd、ONE因绕行获得超额收益</li>
+          <li>SOLAS新规生效（IMO MSC.550(108)）：强制报告海上丢失集装箱——<strong>2024年丢失量激增181%</strong>，南非海域占35%</li>
+        </ul>
+        <p style="margin-top:0.5rem;"><span class="tag tag-hot">关键数据：苏伊士运河仅120艘次/月（vs 正常500+）</span></p>
+      </div>
+    </div>
+
+    <!-- 2月 -->
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#e67e22;"></div>
+      <div class="tl-date" style="color:#e67e22;">🟠 2026年2月 — 袭击升级</div>
+      <div class="tl-content">
+        <h4>胡塞武装重启大规模袭击行动</h4>
+        <ul style="font-size:0.85rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.4rem;line-height:1.7;">
+          <li>经过2025年底短暂"观望期"后，胡塞武装于<strong>2月初恢复对商船的系统性袭击</strong></li>
+          <li>目标范围扩大：<strong>美国船只全面禁入</strong>红海，以色列关联船只持续锁定，部分欧洲船旗也受威胁</li>
+          <li><strong>Magic Seas号散货船</strong>遭袭导致船员弃船，出现海员失踪和受伤</li>
+          <li>美国军方在亚丁湾持续拦截无人机和导弹攻击</li>
+          <li><strong>CMA CGM曾尝试1月底部分恢复苏伊士通行</strong>，但数周内因安全威胁被迫撤回</li>
+        </ul>
+        <p style="margin-top:0.5rem;"><span class="tag tag-hot">⚠️ 市场情绪急转直下，复航希望破灭</span></p>
+      </div>
+    </div>
+
+    <!-- 3月 -->
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#c0392b;"></div>
+      <div class="tl-date" style="color:#c0392b;">🔴 2026年3月 — 双重危机</div>
+      <div class="tl-content">
+        <h4>伊朗冲突升级 + 马士基两次尝试失败 = 最差月份</h4>
+        <ul style="font-size:0.85rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.4rem;line-height:1.7;">
+          <li><strong>3月5日</strong>：马士基在ME11航线尝试恢复苏伊士路由 → 数日后被迫逆转，重新绕行</li>
+          <li><strong>3月12日</strong>：马士基第二次尝试 → 再次失败。两次尝试间隔仅一周</li>
+          <li><strong>伊朗-美国在霍尔木兹海峡冲突升级</strong>：伊朗出口下降、船只遭袭，形成<strong>红海+霍尔木兹双重咽喉同时受阻</strong>的极端局面</li>
+          <li><strong>3月底</strong>：俄罗斯太平洋舰队两艘军舰通过曼德海峡进入红海——据称基于与胡塞武装的政治安排</li>
+          <li>市场普遍预期：<strong>2026年内苏伊士运河难以恢复正常通航</strong></li>
+        </ul>
+        <p style="margin-top:0.5rem;"><span class="tag tag-hot" style="background:rgba(192,57,43,0.15);color:#e74c3c;">🚨 史诗级危机：两大能源/贸易通道同时受阻</span></p>
+      </div>
+    </div>
+
+    <!-- 4月 -->
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#9b59b6;"></div>
+      <div class="tl-date" style="color:#9b59b6;">🟣 2026年4月（截至中旬）— 胶着状态</div>
+      <div class="tl-content">
+        <h4>部分复航信号 vs 政策收紧，方向不明</h4>
+        <ul style="font-size:0.85rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.4rem;line-height:1.7;">
+          <li><strong>4月7日</strong>：苏伊士运河管理局(SCA)取消大型集装箱船15%过境费折扣——应对霍尔木兹交通量下降的战略调整</li>
+          <li><strong>4月中旬</strong>：有迹象显示部分承运人开始谨慎恢复红海/苏伊士航线，但规模有限且随时可能逆转</li>
+          <li>Xeneta数据显示运价从高位回落，<strong>货主开始优先考虑成本节约而非单纯追求供应链可靠性</strong></li>
+          <li>合同费率较年初有所下降，但仍显著高于无危机情景的理论水平($1,200-1,500/FEU)</li>
+          <li>土耳其港口继续受益：梅尔辛港Q1 2026<strong>超越全国平均增长水平</strong></li>
+        </ul>
+        <p style="margin-top:0.5rem;"><span class="tag tag-new">💡 局势关键词：胶着、不确定、双向信号</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 三条路径对比表（更新数据） -->
+  <h3 style="color:#d4a853;margin:2.5rem 0 1rem;font-size:1.1rem;">📊 三条路径对比（2026年4月最新）</h3>
+  <div class="data-table-wrap">
+    <table>
+      <thead><tr><th>路径 Route Option</th><th>航程 Days</th><th>当前状态 Status</th><th>成本 Impact (2026.04)</th><th>适合 Cargo Type</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>苏伊士直达</strong> Suez Direct</td>
+          <td class="val-up">28-32天 ✓ 最快</td>
+          <td class="val-down"><strong>极高风险 🔴</strong><br/>仅少数船司试探性复航</td>
+          <td>基准价 + 战争险<br/>+$500-1,500/TEU<br/>SCA折扣已取消↑</td>
+          <td>高利润时效敏感货<br/>需买高额战争险</td>
+        </tr>
+        <tr>
+          <td><strong>好望角绕行</strong> Cape Route</td>
+          <td class="val-down">38-42天 ✗ +10-14天</td>
+          <td class="val-up"><strong>主流方案 🟢</strong><br/>~90%远东-欧洲/地东货</td>
+          <td>每航次额外燃油<br/>$100-200万美元<br/>往返油耗+30%</td>
+          <td>大宗货/低成本货<br/>不急货首选方案</td>
+        </tr>
+        <tr>
+          <td><strong>土耳其中转</strong> Turkey Hub</td>
+          <td class="val-neutral">30-36天</td>
+          <td class="val-neutral"><strong>快速崛起 🟡</strong><br/>进口量+27%/月</td>
+          <td>海运+陆运组合<br/>中等成本<br/>舱位趋紧</td>
+          <td>中东/东南欧/黑海<br/>多目的地拼箱</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 深度分析卡片 -->
+  <h3 style="color:#e74c3c;margin:2.5rem 0 1rem;font-size:1.15rem;">🔥 2026核心洞察：为什么运价没有崩盘？</h3>
+  <div class="cards-grid">
+    <div class="card" style="border-left:4px solid #e74c3c;">
+      <span class="card-icon">📈</span>
+      <h3>运力过剩 vs 绕行消耗 = 奇妙平衡</h3>
+      <p><strong>一个反直觉的事实：</strong>2021-2026全球船队扩张+28%（新增800+艘船、700万TEU），理论上运价应暴跌30-35%。但实际上WCI维持在$2,172/FEU——为什么？</p>
+      <p style="margin-top:0.5rem;color:#e74c3c;font-weight:bold;">因为好望角绕行"吃掉"了过剩运力！</p>
+      <ul style="font-size:0.84rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.5rem;line-height:1.65;">
+        <li>每艘船绕行好望角 → 有效运力损失<strong>~26%</strong></li>
+        <li>上海-鹿特丹：从28天拉长到38-42天</li>
+        <li>每年少跑1.5个航次（5.8次→4.3次）</li>
+        <li>全行业有效运力损耗约<strong>10%</strong>（≈300万TEU/年被"蒸发"）</li>
+        <li><strong>恰好抵消了结构性过剩的10%</strong></li>
+      </ul>
+      <p style="margin-top:0.5rem;"><span class="tag tag-key">结论：除非苏伊士复航或需求崩溃，运价将维持当前位置</span></p>
+    </div>
+
+    <div class="card" style="border-left:4px solid #27ae60;">
+      <span class="card-icon">🇹🇷</span>
+      <h3>土耳其成为最大赢家之一</h3>
+      <p>红海危机持续两年后，土耳其的<strong>"第三选项"</strong>价值已被市场充分认知：</p>
+      <ul style="font-size:0.84rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.5rem;line-height:1.65;">
+        <li><strong>进口箱量环比暴增</strong>：2026年2月→3月，从约16.5万TEU增至21万TEU（<strong>+27%</strong>）</li>
+        <li><strong>梅尔辛港Q1 2026表现优异</strong>：集装箱吞吐量增速超过土耳其全国平均水平</li>
+        <li>原因：绕行好望角的亚洲大船选择在梅尔辛提前卸载 → 再由支线/铁路/公路分拨至目的地</li>
+        <li><strong>双危机红利</strong>：霍尔木兹紧张使海湾出发的货也部分改走土耳其陆桥</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left:4px solid #f39c12;">
+      <span class="card-icon">⏳</span>
+      <h3>接下来会怎样？三种情景推演</h3>
+      <ol style="font-size:0.84rem;color:#e8e6e3;padding-left:1.3rem;margin-top:0.5rem;line-height:1.75;">
+        <li><strong style="color:#27ae60;">乐观情景（概率20%）：</strong>年中停火协议达成 → 苏伊士逐步恢复 → 4-6周内释放10%运力 → 运价骤跌30%+ → 土耳其中转需求回落</li>
+        <li><strong style="color:#d4a853;">基准情景（概率55%）：</strong>低强度冲突延续全年 → 好望角绕行常态化 → 运价维持$1,800-2,500区间 → 土耳其稳步受益</li>
+        <li><strong style="color:#e74c3c;">悲观情景（概率25%）：</strong>霍尔木兹冲突升级导致波斯湾全面封锁 → 全球供应链冲击超2020COVID → 运价失控飙涨 → 所有路线均受影响</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- 策略建议 -->
+  <div class="insight-box" style="margin-top:2rem;">
+    <p><strong>🎯 全球销售团队 · 红海实操策略（2026年4月版）：</strong></p>
+    <div style="margin-top:0.8rem;display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;">
+      <div style="padding:0.8rem;background:rgba(231,76,60,0.08);border-radius:6px;border:1px solid rgba(231,76,60,0.2);">
+        <strong style="color:#e74c3c;">❌ 不要做的事</strong>
+        <ul style="font-size:0.82rem;color:#9ca3af;padding-left:1rem;margin-top:0.4rem;line-height:1.6;">
+          <li>不要承诺固定运价（周波动可达15-20%）</li>
+          <li>不要默认苏伊士路线报价</li>
+          <li>不要忽视霍尔木兹风险对中东货的影响</li>
+        </ul>
+      </div>
+      <div style="padding:0.8rem;background:rgba(39,174,96,0.08);border-radius:6px;border:1px solid rgba(39,174,96,0.2);">
+        <strong style="color:#27ae60;">✅ 推荐做法</strong>
+        <ul style="font-size:0.82rem;color:#9ca3af;padding-left:1rem;margin-top:0.4rem;line-height:1.6;">
+          <li>报价提供三套方案（苏伊士/好望角/土耳其中转）</li>
+          <li>主动推荐梅尔辛中转作为差异化卖点</li>
+          <li>提前3-4周锁舱位，尤其是FEM航线</li>
+          <li>关注SCA政策变化（折扣/附加费调整）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 06 一字长蛇格局
+<!-- ================================================================ -->
+<section id="s06" class="section">
+  <div class="section-title-wrap">
+    <div class="section-num">Section 06</div>
+    <h2 class="section-title-en">The "Long Serpent" Trade Corridor</h2>
+    <p class="section-title-zh">一字长蛇阵：中国五港 → 东南亚 → 印度 → 中东 → 地东 → 北非</p>
+  </div>
+
+  <!-- 蛇头：中国五港总览 -->
+  <div class="kpi-strip" style="margin-top:1rem;">
+    <div class="kpi-box">
+      <div class="kpi-val" style="font-size:1.4rem;">青岛 Qingdao</div>
+      <div class="kpi-label" style="font-size:0.72rem;">山东半岛 · 重工业基地 · 日韩中转</div>
+      <div class="kpi-sub">~2,600万 TEU/年</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="font-size:1.4rem;">上海 Shanghai</div>
+      <div class="kpi-label" style="font-size:0.72rem;">世界第一大港 · 长三角枢纽</div>
+      <div class="kpi-sub">~4,700万 TEU/年</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="font-size:1.4rem;">宁波 Ningbo</div>
+      <div class="kpi-label" style="font-size:0.72rem;">长三角深水港 · 制造业出口主力</div>
+      <div class="kpi-sub">~3,300万 TEU/年</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="font-size:1.4rem;">南沙 Nansha</div>
+      <div class="kpi-label" style="font-size:0.72rem;">粤港澳大湾区 · 珠江口西岸</div>
+      <div class="kpi-sub">~2,400万 TEU/年</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="font-size:1.4rem;">蛇口 Shekou</div>
+      <div class="kpi-label" style="font-size:0.72rem;">深圳西部 · 高科技出口 · 越南连接点</div>
+      <div class="kpi-sub">~1,500万 TEU/年</div>
+    </div>
+  </div>
+
+  <!-- 一字长蛇地图 SVG -->
+  <div class="map-area" style="padding:1.5rem;">
+<svg viewBox="0 0 920 420" style="max-height:400px;background:#0d1520;border-radius:8px;width:100%;">
+  <rect width="920" height="420" fill="#0d1520"/>
+
+  <!-- Ocean hint -->
+  <path d="M30,220 Q200,205 360,225 Q520,245 680,228 Q820,215 900,230 L900,420 L30,420Z" fill="rgba(41,128,185,0.07)"/>
+  <path d="M30,0 L900,0 L900,218 Q750,198 600,222 Q380,250 180,218 L30,208Z" fill="rgba(42,54,63,0.25)"/>
+
+  <!-- ====== NODE 0: 中国五港 (Serpent Head) ====== -->
+  <g transform="translate(55,175)">
+    <rect x="-42" y="-28" width="84" height="56" rx="8" fill="rgba(231,76,60,0.15)" stroke="#e74c3c" stroke-width="1.5"/>
+    <text x="0" y="-10" fill="#e74c3c" font-size="9" text-anchor="middle" font-weight="bold">🇨🇳 中国五港</text>
+    <text x="0" y="4" fill="#e8e6e3" font-size="8" text-anchor="middle">China Five Ports</text>
+    <text x="0" y="18" fill="#9ca3af" font-size="7" text-anchor="middle">青·沪·甬·南·蛇</text>
+    <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- ====== NODE 1: 东南亚 ====== -->
+  <g transform="translate(175,188)">
+    <circle cx="0" cy="0" r="9" fill="#e67e22"><animate attributeName="r" values="9;11;9" dur="2s" repeatCount="indefinite"/></circle>
+    <text x="0" y="-15" fill="#e67e22" font-size="10" text-anchor="middle" font-weight="bold">① 东南亚</text>
+    <text x="0" y="18" fill="#9ca3af" font-size="7.5" text-anchor="middle">Singapore / HCM / Jakarta</text>
+    <text x="0" y="29" fill="#9ca3af" font-size="7" text-anchor="middle">Bangkok / Port Klang</text>
+  </g>
+
+  <!-- ====== NODE 2: 印度/南亚 ====== -->
+  <g transform="translate(305,200)">
+    <circle cx="0" cy="0" r="8" fill="#f1c40f"/>
+    <text x="0" y="-14" fill="#f1c40f" font-size="10" text-anchor="middle" font-weight="bold">② 印度 · 南亚</text>
+    <text x="0" y="17" fill="#9ca3af" font-size="7.5" text-anchor="middle">Colombo / Mumbai / JNPT</text>
+    <text x="0" y="28" fill="#9ca3af" font-size="7" text-anchor="middle">Chennai / Nhava Sheva</text>
+  </g>
+
+  <!-- ====== NODE 3: 中东/波斯湾 ====== -->
+  <g transform="translate(450,212)">
+    <circle cx="0" cy="0" r="8" fill="#27ae60"/>
+    <text x="0" y="-14" fill="#27ae60" font-size="10" text-anchor="middle" font-weight="bold">③ 中东 · 海湾</text>
+    <text x="0" y="17" fill="#9ca3af" font-size="7.5" text-anchor="middle">Jebel Ali / Hamad / Doha</text>
+    <text x="0" y="28" fill="#9ca3af" font-size="7" text-anchor="middle">Khor Fakkan / Sohar</text>
+  </g>
+
+  <!-- ====== NODE 4: 红海 ====== -->
+  <g transform="translate(580,222)">
+    <circle cx="0" cy="0" r="8" fill="#c0392b"/>
+    <text x="0" y="-13" fill="#c0392b" font-size="10" text-anchor="middle" font-weight="bold">④ 红海</text>
+    <text x="0" y="16" fill="#9ca3af" font-size="7.5" text-anchor="middle">Jeddah / Sokhna</text>
+    <text x="0" y="26" fill="#e74c3c" font-size="7" text-anchor="middle">⚠️ 风险区</text>
+  </g>
+
+  <!-- ====== NODE 5: 东地中海 ★ Turkey ★ ====== -->
+  <g transform="translate(710,228)">
+    <circle cx="0" cy="0" r="12" fill="#d4a853"><animate attributeName="r" values="12;15;12" dur="1.5s" repeatCount="indefinite"/></circle>
+    <text x="0" y="-18" fill="#d4a853" font-size="11" text-anchor="middle" font-weight="bold">★ ⑤ 地东 · 土耳其</text>
+    <text x="0" y="20" fill="#d4a853" font-size="8" text-anchor="middle" font-weight="bold">Mersin / Istanbul</text>
+    <text x="0" y="31" fill="#d4a853" font-size="7" text-anchor="middle">Izmir / Aliaga</text>
+  </g>
+
+  <!-- ====== NODE 6: 北非 ====== -->
+  <g transform="transform: translate(840,234)">
+    <circle cx="840" cy="234" r="8" fill="#9b59b6"/>
+    <text x="840" y="219" fill="#9b59b6" font-size="10" text-anchor="middle" font-weight="bold">⑥ 北非</text>
+    <text x="840" y="253" fill="#9ca3af" font-size="7.5" text-anchor="middle">Alexandria / Port Said</text>
+    <text x="840" y="264" fill="#9ca3af" font-size="7" text-anchor="middle">Tripoli / Benghazi</text>
+  </g>
+
+  <!-- Connecting lines (the serpent body) -->
+  <path d="M97,177 Q130,180 166,186" fill="none" stroke="rgba(231,76,60,0.55)" stroke-width="2.5"/>
+  <path d="M184,189 Q235,193 297,199" fill="none" stroke="rgba(230,126,34,0.5)" stroke-width="2.2"/>
+  <path d="M313,201 Q370,205 442,211" fill="none" stroke="rgba(241,196,15,0.5)" stroke-width="2.2"/>
+  <path d="M458,213 Q510,217 572,221" fill="none" stroke="rgba(39,174,96,0.5)" stroke-width="2.2"/>
+  <path d="M588,223 Q640,225 698,227" fill="none" stroke="rgba(192,57,43,0.55)" stroke-width="2.8"/>
+  <path d="M722,229 Q775,231 832,233" fill="none" stroke="rgba(155,89,182,0.5)" stroke-width="2.2"/>
+
+  <!-- Flow direction arrow at bottom -->
+  <text x="470" y="290" fill="#9ca3af" font-size="9" text-anchor="middle" font-style="italic">━━━ 主流向 Westbound (China → N. Africa) ━━━</text>
+
+  <!-- Title banner -->
+  <rect x="260" y="8" width="400" height="36" rx="18" fill="rgba(212,168,83,0.1)" stroke="rgba(212,168,83,0.35)"/>
+  <text x="460" y="31" fill="#d4a853" font-size="12" text-anchor="middle" font-weight="bold">🐍 一字长蛇阵 — The Long Serpent Corridor 🐍</text>
+
+  <!-- Legend -->
+  <g transform="translate(30,365)">
+    <rect x="0" y="0" width="340" height="46" rx="8" fill="rgba(17,24,39,0.85)" stroke="#2a3544"/>
+    <text x="170" y="14" fill="#d4a853" font-size="8" text-anchor="middle" font-weight="bold">图例 LEGEND</text>
+    <circle cx="18" cy="28" r="4" fill="#e74c3c"/><text x="26" y="31" fill="#9ca3af" font-size="7.5">蛇头 Head: 中国五港</text>
+    <circle cx="118" cy="28" r="4" fill="#d4a853"/><text x="126" y="31" fill="#9ca3af" font-size="7.5">腰部 Core: 土耳其</text>
+    <circle cx="218" cy="28" r="4" fill="#9b59b6"/><text x="226" y="31" fill="#9ca3af" font-size="7.5">蛇尾 Tail: 北非</text>
+  </g>
+</svg>
+<p style="margin-top:8px;color:#9ca3af;font-size:0.8rem;">图示：一字长蛇阵 — 以中国五港为起点，经东南亚、印度、中东、红海、地东至北非的完整海上贸易走廊</p>
+  </div>
+
+  <!-- ===== 各段详细分析 ===== -->
+  <h3 style="color:#d4a853;margin:2rem 0 1rem;font-size:1.15rem;">🐍 七段式详解：从蛇头到蛇尾</h3>
+  <div class="cards-grid">
+
+    <!-- 段0: 蛇头·中国五港集结 -->
+    <div class="card" style="border-left:4px solid #e74c3c;">
+      <span class="card-icon">🐉</span>
+      <h3>段₀: 蛇头 · 中国五港集结 The Head — China's Big Five</h3>
+      <h4>青岛 → 上海 → 宁波 → 南沙 → 蛇口 — 世界工厂的总阀门</h4>
+      <p><strong>战略定位：</strong>全球最大的集装箱港口集群，一字长蛇的<strong>货物起源地</strong></p>
+      <ul style="font-size:0.84rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.5rem;line-height:1.65;">
+        <li><strong>上海 (4,700万 TEU)</strong>：世界第一港，长三角所有腹地的出海口，电子产品/机械/成衣集散中心</li>
+        <li><strong>宁波 (3,300万 TEU)</strong>：深水良港，可停靠2.4万TEU级ULCV，制造业出口首选</li>
+        <li><strong>青岛 (2,600万 TEU)</strong>：北方最大港，日韩中转节点，重化工/家电/轮胎出口主力</li>
+        <li><strong>南沙 (2,400万 TEU)</strong>：大湾区核心港，珠三角制造业（电子/家具/玩具）出海主通道</li>
+        <li><strong>蛇口 (1,500万 TEU)</strong>：深圳西部，高科技/跨境电商密集，<strong>越南连接桥头堡</strong>（距越南最近的大港）</li>
+      </ul>
+      <p style="margin-top:0.6rem;font-size:0.84rem;color:#d4a853;"><strong>→ 五港合计年吞吐超1.45亿TEU，占全球集装箱量约15%</strong></p>
+    </div>
+
+    <!-- 段1: 五港→东南亚 -->
+    <div class="card" style="border-left:4px solid #e67e22;">
+      <span class="card-icon">🌴</span>
+      <h3>段₁: 五港 → 东南亚 China → Southeast Asia</h3>
+      <h4>产能转移 · 产业链协作 · 区域集拼</h4>
+      <p><strong>航程：</strong>2-6天 | <strong>运价：</strong>$150-$400/TEU</p>
+      <p><strong>西向货流（主）：</strong></p>
+      <ul style="font-size:0.84rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.3rem;">
+        <li>中国中间品/零部件 → 东南亚组装（"China Plus One"模式）</li>
+        <li>纺织面料/辅料 → 越南/柬埔寨服装厂</li>
+        <li>电子元器件 → 马来西亚/菲律宾半导体封装</li>
+        <li>机械设备/模具 → 泰国/印尼工厂</li>
+      </ul>
+      <p><strong>东向回程（返）：</strong>东南亚农产品（水果/橡胶/棕榈油）、热带木材、半成品回流中国加工</p>
+      <p style="margin-top:0.5rem;"><span class="tag tag-new">💡 关键洞察：蛇口是五港中最靠近东南亚的节点，大量对越/对泰货物在此集结后出发</span></p>
+    </div>
+
+    <!-- 段2: 东南亚→印度 -->
+    <div class="card" style="border-left:4px solid #f1c40f;">
+      <span class="card-icon">🕌</span>
+      <h3>段₂: 东南亚 → 印度·南亚 SEA → India & South Asia</h3>
+      <h4>新兴消费市场 · 竞合关系 · 原材料交换</h4>
+      <p><strong>航程：</strong>4-9天 | <strong>运价：</strong>$200-$550/TEU</p>
+      <p><strong>西向货流：</strong></p>
+      <ul style="font-size:0.84rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.3rem;">
+        <li>中国/越南产消费品（手机/家电/日用品）→ 印度14亿人口市场</li>
+        <li>东南亚纺织品 → 印度/巴基斯坦/斯里兰卡</li>
+        <li>化工原料/塑料粒子 → 印度制造业</li>
+      </ul>
+      <p><strong>东向货流：</strong>印度棉花/宝石/铁矿石/药品原料 → 中国/东南亚</p>
+      <p><strong>关键港口：</strong>新加坡（必经枢纽）、科伦坡（印度洋转运王）、孟买/那瓦舍瓦/金奈<br/><span class="tag tag-hot">⚡ 科伦坡港是整个一字长蛇在印度洋的关键中继站</span></p>
+    </div>
+
+    <!-- 段3: 印度→中东 -->
+    <div class="card" style="border-left:4px solid #27ae60;">
+      <span class="card-icon">🏗️</span>
+      <h3>段₃: 印度 → 中东·海湾 India → Middle East / Gulf</h3>
+      <h4>能源换制造 · 建设热潮 · 石化走廊</h4>
+      <p><strong>航程：</strong>5-10天 | <strong>运价：</strong>$300-$800/TEU</p>
+      <p><strong>西向货流（主）：</strong></p>
+      <ul style="font-size:0.84rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.3rem;">
+        <li>亚洲全品类制成品 → 海湾六国（沙特/阿联酋/卡塔尔/科威特/巴林/阿曼）</li>
+        <li>建材/工程机械 → 2030世界杯后续项目/NEOM新城建设</li>
+        <li>食品/日用品/家具 → 大量外籍劳工消费需求</li>
+      </ul>
+      <p><strong>东向货流：</strong>海湾原油/LNG/石化产品/铝锭 → 印度/东南亚（能源进口）</p>
+      <p><strong>关键港口：</strong>杰贝阿里(DP World旗舰)、哈马德(卡塔尔)、豪尔法坎(UAE东岸)、索哈尔(阿曼)<br/><span class="tag tag-key">★ 注意：KHF(豪尔法坎)与SOH(索哈尔)正是我们此前报告覆盖的核心市场</span></p>
+    </div>
+
+    <!-- 段4: 中东→红海 -->
+    <div class="card" style="border-left:4px solid #c0392b;">
+      <span class="card-icon">🌊</span>
+      <h3>段₄: 中东 → 红海 Gulf → Red Sea ⚠️</h3>
+      <h4>风险最高的一段！苏伊士运河的前哨战</h4>
+      <p><strong>航程：</strong>3-6天 | <strong>运价：</strong>$250-$550/TEU (+战争险溢价 $300-$800)</p>
+      <p><strong>西向货流：</strong></p>
+      <ul style="font-size:0.84rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.3rem;">
+        <li>海湾石化产品 → 埃及/苏丹/也门</li>
+        <li>中东建材/车辆 → 非洲之角</li>
+        <li>过境集装箱（亚洲→欧洲经苏伊士）</li>
+      </ul>
+      <p><strong>当前风险等级：<span style="color:#e74c3c;font-weight:bold;">HIGH 🔴</span></strong></p>
+      <ul style="font-size:0.82rem;color:#e74c3c;padding-left:1.2rem;margin-top:0.3rem;">
+        <li>胡塞武装袭击持续（截至2024.10已超190起）</li>
+        <li>战争险保费飙升至货值0.5%-1.5%</li>
+        <li>部分承运商暂停挂靠，改道好望角</li>
+      </ul>
+      <p><strong>关键港口：</strong>吉达(Jeddah/沙特)、索赫纳(Sokhna/埃及)、苏丹港</p>
+    </div>
+
+    <!-- 段5: 红海→地东·土耳其 ⭐ 核心! -->
+    <div class="card" style="border-left:4px solid #d4a853;background:linear-gradient(135deg, rgba(212,168,83,0.05), rgba(192,57,43,0.04));">
+      <span class="card-icon">⭐</span>
+      <h3>段₅: 红海 → 东地中海 · 土耳其 ⭐ 蛇之心脏 Red Sea → East Med · Türkiye</h3>
+      <h4>全线汇聚于此！一字长蛇最关键的枢纽节点</h4>
+      <p><strong>航程：</strong>4-8天（经苏伊士）/ 14-20天（绕好望角再分拨）| <strong>运价：</strong>$400-$1,200/TEU</p>
+      <p><strong>为什么这是最关键的段？</strong></p>
+      <ol style="font-size:0.84rem;color:#e8e6e3;padding-left:1.3rem;margin-top:0.4rem;line-height:1.7;">
+        <li><strong>全部来自中国五港的远洋大船在此分流</strong>——或直挂梅尔辛/伊斯坦布尔，或在比雷埃夫斯卸载后由支线转驳</li>
+        <li><strong>土耳其是消费端 + 中转端 + 供应端三位一体</strong></li>
+        <li><strong>红海危机使土耳其中转价值暴增</strong>——绕行好望角的船只部分选择在此提前卸载</li>
+        <li><strong>博斯普鲁斯海峡控制黑海门户</strong>——乌克兰粮食、高加索能源、独联体矿产均经此</li>
+      </ol>
+      <p><strong>西向进入地东的货品：</strong>中国全品类制造(电子/机械/纺织/家电) + 东南亚橡胶/木材/农产品 → 土耳其消费 / 转运北非&东南欧 / 经铁路深入巴尔干</p>
+      <p><strong>东向离开地东的货品：</strong>土耳其汽车(TOGG/Ford/Renault)、家电(Arcelik/Beko)、纺织、农产品(柑橘/榛子) → 中东/北非/俄罗斯</p>
+      <p><strong>关键港口：</strong><span style="color:#27ae60;font-weight:bold;">梅尔辛 Mersin</span>(中东门户+增长最快) / 伊斯坦布尔(Ambarlı欧亚中枢) / 伊兹密尔(冷链+电商) / 阿利亚加(散货+石化)</p>
+      <p style="margin-top:0.5rem;"><span class="tag tag-key">★★★ 本报告焦点所在：土耳其在地东节点的完整分析见S02-S05章节 ★★★</span></p>
+    </div>
+
+    <!-- 段6: 地东→北非 -->
+    <div class="card" style="border-left:4px solid #9b59b6;">
+      <span class="card-icon">🏜️</span>
+      <h3>段₆: 地东 → 北非 East Med → North Africa · The Tail</h3>
+      <h4>蛇尾摆动：发展中市场的最后一块拼图</h4>
+      <p><strong>航程：</strong>2-5天 | <strong>运价：</strong>$150-$400/TEU（全线最便宜的一段！）</p>
+      <p><strong>南向货流（主）：</strong></p>
+      <ul style="font-size:0.84rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.3rem;">
+        <li>土耳其/欧洲汽车&零部件 → 利比亚(战后重建)/突尼斯/阿尔及利亚</li>
+        <li>建材(钢材/水泥/管材) → 北非基建项目</li>
+        <li>食品&消费品 → 北非快速增长的中产阶级</li>
+        <li>中国/东南亚经地中海中转的货物最终抵达</li>
+      </ul>
+      <p><strong>北向货流：</strong>北非原油(利比亚)、磷矿石(摩洛哥/突尼斯)、天然气(阿尔及利亚) → 欧洲/土耳其精炼</p>
+      <p><strong>关键港口：</strong>亚历山大港(Egypt/传统枢纽)、塞得港(Suez Canal北口)、的黎波里&班加西(Libya)、阿尔及尔</p>
+      <p style="margin-top:0.5rem;"><span class="tag tag-new">💡 机会点：这段运价最低、航程最短，适合作为回程带货的"补舱段"</span></p>
+    </div>
+  </div>
+
+  <!-- 回程段 -->
+  <h3 style="color:#9ca3af;margin:2rem 0 1rem;font-size:1rem;">🔄 回程段：北非 → 远东 Return Leg — North Africa Back to China</h3>
+  <div class="cards-grid">
+    <div class="card">
+      <span class="card-icon">↩️</span>
+      <h3>跨洋回程 Return Voyage</h3>
+      <h4>空箱调运 + 资源回运 + 少量成品</h4>
+      <p><strong>特点：</strong>回程装载率仅30-50%，主要以空箱调运为主。但存在以下机会性货源：</p>
+      <ul style="font-size:0.84rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.5rem;">
+        <li>🪨 北非磷矿/化肥 → 东南亚农业（越南/泰国水稻种植）</li>
+        <li>🛢️ 利比亚原油 → 远东炼厂（需绕行好望角，航程+20天）</li>
+        <li>🌾 埃及/苏丹棉花 → 中国/越南/印尼纺织厂</li>
+        <li>♻️ 欧洲废纸/废塑料 → 中国/东南亚再生资源处理</li>
+        <li>📦 大量空箱急需回调中国五港（旺季前尤其紧迫）</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 核心逻辑总结 -->
+  <div class="insight-box" style="margin-top:2rem;">
+    <p><strong>🐍 一字长蛇阵核心逻辑 — 为什么这条线如此重要？</strong></p>
+    <p style="margin-top:0.8rem;line-height:1.85;">
+    这条以<strong>中国五港为蛇头</strong>、<strong>北非为蛇尾</strong>的海上贸易走廊，本质上是<strong>全球制造业供应链的主动脉</strong>。<br/><br/>
+
+    <strong>① 蛇头（中国五港）= 产能源头：</strong>青岛的重工、上海的精密制造、宁波的泛家居、南沙的消费电子、蛇口的跨境商品——五港 collectively 代表了"世界工厂"的全部输出能力。任何从中国发出的货物，无论目的地是哪里，都从这里起步。<br/><br/>
+
+    <strong>② 蛇身前三段 = 产能梯度转移：</strong>中国→东南亚（产业链下移）→ 印度（新兴制造中心）→ 中东（消费升级+工业化），每一层都在消化上一层的产出同时创造新的需求。<br/><br/>
+
+    <strong>③ 红海段 = 风险瓶颈：</strong>整条蛇最细的腰身。一旦受阻（如当前局势），整条供应链被迫绕道，成本和时间急剧上升。<br/><br/>
+
+    <strong>④ 地东/土耳其 = 蛇之心脏 💛：</strong>这里是整条航线上<strong>唯一同时具备大规模消费市场、成熟工业基础和战略地理位置</strong>的节点。中国制造的货物流到这里后，有三个去向——①被土耳其8500万消费者消化掉 ②被转运到北非/东南欧/黑海 ③被加工后再出口。这种<strong>三重身份</strong>使土耳其成为一字长蛇上不可替代的一环。<br/><br/>
+
+    <strong>⑤ 北非蛇尾 = 增长 frontier：</strong>虽然目前市场规模最小，但利比亚战后重建、非洲大陆自贸区(AfCFTA)推进、欧洲近岸外包趋势，正在让这个"尾巴"越来越有分量。
+    </p>
+  </div>
+
+  <!-- 各段数据速查表 -->
+  <h3 style="color:#d4a853;margin:2rem 0 1rem;font-size:1.1rem;">📋 一字长蛇各段速查表 Quick Reference</h3>
+  <div class="data-table-wrap">
+    <table>
+      <thead><tr><th>段 Segment</th><th>路线 Route</th><th>航程 Days</th><th>参考运价 $/TEU</th><th>风险 Risk</th><th>主要货品 Cargo</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>₀ 蛇头</strong></td>
+          <td>中国五港内部调配</td>
+          <td>1-3天（支线/卡车）</td>
+          <td>$50-150</td>
+          <td class="val-up">低 🟢</td>
+          <td>全国货物汇集</td>
+        </tr>
+        <tr>
+          <td><strong>₁ 五港→东南亚</strong></td>
+          <td>蛇口/南沙 → 新加坡/胡志明/雅加达</td>
+          <td>2-6天</td>
+          <td>$150-400</td>
+          <td class="val-up">低 🟢</td>
+          <td>中间品/零部件/面料 → 组装</td>
+        </tr>
+        <tr>
+          <td><strong>₂ 东南亚→印度</strong></td>
+          <td>新加坡/越南 → 科伦坡/孟买/金奈</td>
+          <td>4-9天</td>
+          <td>$200-550</td>
+          <td class="val-neutral">中 🟡</td>
+          <td>消费品/纺织品/化工 ↔ 棉花/矿石</td>
+        </tr>
+        <tr>
+          <td><strong>₃ 印度→中东</strong></td>
+          <td>科伦坡 → 杰贝阿里/哈马德/豪尔法坎</td>
+          <td>5-10天</td>
+          <td>$300-800</td>
+          <td class="val-neutral">中 🟡</td>
+          <td>全品类制造品 → 能源/石化回运</td>
+        </tr>
+        <tr>
+          <td><strong>₄ 中东→红海</strong></td>
+          <td>杰贝阿里 → 吉达/索赫纳</td>
+          <td>3-6天</td>
+          <td>$250-550<span style="color:#e74c3c">+保费</span></td>
+          <td class="val-down">高 🔴</td>
+          <td>石化/建材 → 过境集装箱</td>
+        </tr>
+        <tr>
+          <td><strong>₅ 红海→地东 ⭐</strong></td>
+          <td>苏伊士 → 梅尔辛/伊斯坦布尔</td>
+          <td>4-8天</td>
+          <td>$400-1,200</td>
+          <td class="val-neutral">中偏高 🟠</td>
+          <td><strong>全品类汇聚</strong> ↔ 汽车/家电/农产品</td>
+        </tr>
+        <tr>
+          <td><strong>₆ 地东→北非</strong></td>
+          <td>梅尔辛 → 亚历山大/的黎波里</td>
+          <td>2-5天</td>
+          <td>$150-400</td>
+          <td class="val-up">低 🟢</td>
+          <td>汽车/建材/食品 ↔ 原油/磷矿</td>
+        </tr>
+        <tr>
+          <td colspan="2"><strong>全程总计 Total</strong></td>
+          <td class="val-neutral"><strong>~28-45天</strong></td>
+          <td colspan="2">(取决于是否绕行好望角)</td>
+          <td>青岛 → 北非端到端</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 07 承运商动态
+<!-- ================================================================ -->
+<section id="s07" class="section">
+  <div class="section-title-wrap">
+    <div class="section-num">Section 07</div>
+    <h2 class="section-title-en">Carrier Dynamics — Who Controls the Lanes?</h2>
+    <p class="section-title-zh">承运商动态：谁在控制土耳其航线？</p>
+  </div>
+
+  <div class="data-table-wrap">
+    <table>
+      <thead><tr><th>承运商 Carrier</th><th>在土耳其布局 Turkey Presence</th><th>涉及土耳其的主要服务 Services via Turkey</th><th>近期动态 Recent Moves</th><th>竞争力评分 Score</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>MSC 地中海航运</strong> 🥇</td>
+          <td>伊斯坦布尔/伊兹密尔/梅尔辛均有办事处；梅尔辛港战略合作方</td>
+          <td>FEM（远东-东地中海）、Turkey Express（欧洲支线）、Turkey-Malta-Libya新航线</td>
+          <td>2025年推出Turkey-Adriatic-Malta-Libya新周班服务，使用1300TEU型船</td>
+          <td><span class="tag tag-key">★★★★★</span></td>
+        </tr>
+        <tr>
+          <td><strong>Maersk 马士基</strong> 🥈</td>
+          <td>伊斯坦布尔总部 + 伊兹密尔/梅尔辛/哈塔伊办事处；3座自有仓库</td>
+          <td>AE1/AE2（远东-欧洲）、EMC（欧洲-地中海）、内陆多式联运</td>
+          <td>持续投资土耳其物流基建；提供完整的端到端物流解决方案（海运+铁路+仓储）</td>
+          <td><span class="tag tag-key">★★★★☆</span></td>
+        </tr>
+        <tr>
+          <td><strong>CMA CGM 达飞轮船</strong> 🥉</td>
+          <td>全面覆盖土耳其各主要港口；FAK费率定期发布</td>
+          <td>MEX（地中海俱乐部快航）、FAL（远东航线）、亚洲→地中海/黑海直航</td>
+          <td>2025年2月发布亚洲→地中海/黑海新FAK费率；MEX服务加密班次</td>
+          <td><span class="tag tag-key">★★★★☆</span></td>
+        </tr>
+        <tr>
+          <td><strong>COSCO 中远海运</strong></td>
+          <td>通过控股比雷埃夫斯港间接影响东地中海格局</td>
+          <td>远东-地中海/远东-西北欧（经苏伊士）、SEAX服务</td>
+          <td>比雷埃夫斯港2024年处理560万TEU（地中海第一大港）；对梅尔辛构成竞争</td>
+          <td><span class="tag tag-new">★★★☆☆</span></td>
+        </tr>
+        <tr>
+          <td><strong>ONE 海洋网联</strong></td>
+          <td>土耳其代理网络覆盖</td>
+          <td>远东-地中海（FEM）、远东-红海服务</td>
+          <td>官网提供实时船期查询覆盖土耳其所有主要港口</td>
+          <td><span class="tag tag-new">★★★☆☆</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hapag-Lloyd 赫伯罗特</strong></td>
+          <td>土耳其代理网络</td>
+          <td>MD1/MD2/MD3（地中海服务）、TEX（土耳其快航）</td>
+          <td>红海航线调整积极；与Maersk合作 Gemini合作联盟</td>
+          <td><span class="tag tag-new">★★★☆☆</span></td>
+        </tr>
+        <tr>
+          <td><strong>ZIM 以星</strong></td>
+          <td>专注于地中海区域内贸易</td>
+          <td>以色列-土耳其-希腊支线、冷箱专线</td>
+          <td>在东地中海冷箱市场有差异化优势</td>
+          <td><span class="tag tag-new">★★☆☆☆</span></td>
+        </tr>
+        <tr>
+          <td><strong>本土承运商 Local</strong></td>
+          <td><strong>Turkon Lines</strong> / <strong>Arkas Line</strong> / <strong>YILPORT</strong></td>
+          <td>地中海区域内支线、黑海穿梭、近洋贸易</td>
+          <td>Turkon是美国-土耳其航线主力；Arkas深耕地中海支线；YILPORT兼营码头</td>
+          <td><span class="tag tag-key">★★★★☆（区域）</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>🏆 承运商格局要点：</strong><br/>
+    ① <strong>MSC是土耳其航线的绝对王者</strong>——港口合作关系最深、服务网络最广、新航线投放最积极<br/>
+    ② <strong>Maersk胜在综合物流</strong>——不只是海运，还提供铁路联运和仓储，适合需要门到门服务的客户<br/>
+    ③ <strong>COSCO通过比雷埃夫斯港间接施压</strong>——中远控股的比雷埃夫斯是地中海第一大港（560万TEU），对梅尔辛形成直接竞争，但也意味着经比雷埃夫斯中转到土耳其的支线选择增多<br/>
+    ④ <strong>本土承运商不可忽视</strong>——Turkon在美国-土耳其线上有垄断性优势，Arkas在区域支线上价格极具竞争力</p>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 08 运费走势
+<!-- ================================================================ -->
+<section id="s08" class="section">
+  <div class="section-title-wrap">
+    <div class="section-num">Section 08</div>
+    <h2 class="section-title-en">Freight Rate Trends</h2>
+    <p class="section-title-zh">运费走势：历史回顾与当前水平</p>
+  </div>
+
+  <div class="map-area" style="padding:2rem;">
+<h4 style="color:#d4a853;margin-bottom:1rem;">📈 远东→东地中海 (FEM) 参考运价走势 (USD/40'HC)</h4>
+<svg viewBox="0 0 800 300" style="width:100%;background:#0d1520;border-radius:8px;">
+  <rect width="800" height="300" fill="#0d1520"/>
+  <!-- Grid lines -->
+  <g stroke="#2a3544" stroke-width="0.5">
+    <line x1="70" y1="40" x2="70" y2="250"/>
+    <line x1="70" y1="250" x2="780" y2="250"/>
+    <line x1="70" y1="205" x2="780" y2="205" stroke-dasharray="3,3"/>
+    <line x1="70" y1="160" x2="780" y2="160" stroke-dasharray="3,3"/>
+    <line x1="70" y1="115" x2="780" y2="115" stroke-dasharray="3,3"/>
+    <line x1="70" y1="70" x2="780" y2="70" stroke-dasharray="3,3"/>
+  </g>
+  <!-- Y-axis labels -->
+  <g fill="#9ca3af" font-size="9">
+    <text x="60" y="254" text-anchor="end">$1,000</text>
+    <text x="60" y="209" text-anchor="end">$3,000</text>
+    <text x="60" y="164" text-anchor="end">$5,000</text>
+    <text x="60" y="119" text-anchor="end">$7,000</text>
+    <text x="60" y="74" text-anchor="end">$9,000</text>
+    <text x="60" y="44" text-anchor="end">$10,000+</text>
+  </g>
+  <!-- X-axis labels -->
+  <g fill="#9ca3af" font-size="9">
+    <text x="100" y="268" text-anchor="middle">2022.Q1</text>
+    <text x="190" y="268" text-anchor="middle">Q2</text>
+    <text x="280" y="268" text-anchor="middle">Q3</text>
+    <text x="370" y="268" text-anchor="middle">Q4</text>
+    <text x="460" y="268" text-anchor="middle">2023.Q1</text>
+    <text x="550" y="268" text-anchor="middle">Q3</text>
+    <text x="640" y="268" text-anchor="middle">2024.Q1</text>
+    <text x="730" y="268" text-anchor="middle">2025→2026</text>
+  </g>
+
+  <!-- Rate curve (approximate trend) -->
+  <polyline points="
+    100,70   130,58  160,55  190,62  220,75  250,95  280,130 310,165 340,195 370,210
+    400,220  430,215 460,210 490,205 520,200 550,195 580,185 610,160 640,140
+    670,125  700,118  730,122  760,128  780,132"
+    fill="none" stroke="#d4a853" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Area under curve -->
+  <polyline points="
+    100,70   130,58  160,55  190,62  220,75  250,95  280,130 310,165 340,195 370,210
+    400,220  430,215 460,210 490,205 520,200 550,195 580,185 610,160 640,140
+    670,125  700,118  730,122  760,128  780,132  780,250  100,250"
+    fill="url(#areaGrad)" opacity="0.3"/>
+
+  <!-- Event markers -->
+  <g font-size="8">
+    <line x1="160" y1="55" x2="160" y2="250" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+    <text x="160" y="38" fill="#e74c3c" text-anchor="middle">峰值期</text>
+
+    <line x1="370" y1="210" x2="370" y2="250" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+    <text x="370" y="38" fill="#27ae60" text-anchor="middle">后疫情回落</text>
+
+    <line x1="610" y1="160" x2="610" y2="250" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+    <text x="610" y="38" fill="#e74c3c" text-anchor="middle">红海危机</text>
+  </g>
+
+  <defs>
+    <linearGradient id="areaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d4a853" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#d4a853" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <text x="400" y="290" fill="#9ca3af" font-size="9" text-anchor="middle">数据源: FBX13 (Freightos Baltic Index), SCFI 综合参考 | 仅供参考不代表实时报价</text>
+</svg>
+  </div>
+
+  <h3 style="color:#d4a853;margin:2rem 0 1rem;font-size:1.1rem;">📋 各航线参考运价表 (2025-2026 Q1)</h3>
+  <div class="data-table-wrap">
+    <table>
+      <thead><tr><th>航线 Lane</th><th>起点 Origin</th><th>终点 Dest</th><th>20'DV ($)</th><th>40'HC ($)</th><th>同比 YoY</th><th>备注 Note</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>远东—东地中海 FEM</td>
+          <td>上海/宁波/深圳</td>
+          <td>梅尔辛/伊斯坦布尔</td>
+          <td>$2,200-2,800</td>
+          <td>$3,800-4,800</td>
+          <td class="val-down">↓ 较峰值降60%</td>
+          <td>红海危机后回升但仍低于2022高点</td>
+        </tr>
+        <tr>
+          <td>远东—西北欧（经苏伊士）</td>
+          <td>上海/宁波/青岛</td>
+          <td>鹿特丹/汉堡/安特卫普</td>
+          <td>$2,500-3,200</td>
+          <td>$4,500-5,500</td>
+          <td class="val-neutral">→ 波动中</td>
+          <td>受红海/好望角双重影响波动剧烈</td>
+        </tr>
+        <tr>
+          <td>东南亚—中东</td>
+          <td>曼谷/胡志明/雅加达</td>
+          <td>迪拜/杰贝阿里</td>
+          <td>$1,200-1,800</td>
+          <td>$2,000-3,000</td>
+          <td class="val-up">↗ 温和上涨</td>
+          <td>相对稳定，旺季小幅上浮</td>
+        </tr>
+        <tr>
+          <td>东南亚—红海</td>
+          <td>新加坡/巴生</td>
+          <td>吉达/索赫纳</td>
+          <td>$1,800-2,500</td>
+          <td>$3,000-4,200</td>
+          <td class="val-up">↑ 含战争险溢价</td>
+          <td>风险溢价 $300-$800/TEU 不等</td>
+        </tr>
+        <tr>
+          <td>中东—土耳其</td>
+          <td>迪拜/杰贝阿里</td>
+          <td>梅尔辛/梅尔辛</td>
+          <td>$800-1,200</td>
+          <td>$1,400-2,000</td>
+          <td class="val-neutral">→ 平稳</td>
+          <td>短途航线，舱位充足</td>
+        </tr>
+        <tr>
+          <td>欧洲—土耳其（支线）</td>
+          <td>比雷埃夫斯/的里雅斯特</td>
+          <td>伊斯坦布尔/梅尔辛</td>
+          <td>$300-600</td>
+          <td>$500-1,000</td>
+          <td class="val-neutral">→ 平稳</td>
+          <td>高频次，灵活配载</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>📊 运价走势判断：</strong><br/>
+    ① <strong>长期看下行压力仍存：</strong>2022年的超高运价（FEM峰值$10,000+/40'HQ）不会重现，新船集中交付（2024-2026年预计交付200万+TEU运力）将持续压制运价<br/>
+    ② <strong>短期看红海是最大变量：</strong>只要红海局势不缓解，FEM航线就维持"风险溢价底"，预计较常态高出$500-$1,200/FEU<br/>
+    ③ <strong>土耳其中转航线值得关注：</strong>中东→土耳其短途运价稳定且舱位充裕，可作为降低整体物流成本的杠杆点</p>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 09 竞争港口对比
+<!-- ================================================================ -->
+<section id="s09" class="section">
+  <div class="section-title-wrap">
+    <div class="section-num">Section 09</div>
+    <h2 class="section-title-en">Competitive Port Comparison</h2>
+    <p class="section-title-zh">竞争港口对比：东地中海港口军备竞赛</p>
+  </div>
+
+  <div class="data-table-wrap">
+    <table>
+      <thead><tr><th>维度 Dimension</th><th>🇹🇷 梅尔辛 Mersin</th><th>🇬🇷 比雷埃夫斯 Piraeus</th><th>🇪🇬 塞得港 Port Said</th><th>🇪🇸 阿尔赫西拉斯 Algeciras</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>2024吞吐量 TEU</strong></td>
+          <td class="val-up">~200万 (+9% 🔥)</td>
+          <td>~560万 (地中海No.1)</td>
+          <td>~750万 (苏伊士门户)</td>
+          <td>~1,080万 (欧洲Top 5)</td>
+        </tr>
+        <tr>
+          <td><strong>战略位置</strong></td>
+          <td>东地中海东部，近中东</td>
+          <td>东地中海西部，近欧洲</td>
+          <td>苏伊士运河北口</td>
+          <td>直布罗陀海峡入口</td>
+        </tr>
+        <tr>
+          <td><strong>核心优势</strong></td>
+          <td>距伊拉克/叙利亚最近<br/>农产品出口枢纽<br/>扩建潜力大</td>
+          <td>中远控股，亚欧主航道<br/>铁路联通巴尔干<br/>修船配套完善</td>
+          <td>苏伊士必经之地<br/>转运效率极高<br/>双港区（东/西）</td>
+          <td>大西洋入口<br/>欧洲最大转运港<br/>深水良港</td>
+        </tr>
+        <tr>
+          <td><strong>主要短板</strong></td>
+          <td>规模偏小<br/>铁路基础设施待升级</td>
+          <td>劳工问题频发<br/>罢工风险较高</td>
+          <td>完全依赖苏伊士通航<br/>红海危机重创</td>
+          <td>离亚洲太远</td>
+        </tr>
+        <tr>
+          <td><strong>扩建计划</strong></td>
+          <td class="val-up">一期已完成 → 350万TEU</td>
+          <td>持续推进自动化</td>
+          <td>二期规划中</td>
+          <td>已达瓶颈</td>
+        </tr>
+        <tr>
+          <td><strong>对土耳其的意义</strong></td>
+          <td class="val-tag key">本国核心资产 ⭐</td>
+          <td class="val-neutral">竞合关系 — 支线伙伴+竞争者</td>
+          <td class="val-neutral">上游互补 — 经苏伊士来的货在此分流</td>
+          <td class="val-neutral">间接竞争 — 替代性不强</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>🔍 港口竞争格局解读：</strong><br/>
+    • <strong>梅尔辛 vs 比雷埃夫斯：</strong>不是零和博弈。很多亚洲到东地中海的大船先挂比雷埃夫斯，再用支线船分拨到梅尔辛。两者更像是"接力"关系而非纯粹竞争。<br/>
+    • <strong>塞得港的脆弱性：</strong>高度依赖苏伊士运河通航。2023-2024年红海危机导致塞得港吞吐量大幅下滑，反而利好梅尔辛。<br/>
+    • <strong>梅尔辛的独特护城河：</strong>"靠近中东"这一地理优势无法复制。当叙利亚/伊拉克战后重建启动时，梅尔辛将是唯一的海上门户。</p>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 10 市场机会洞察
+<!-- ================================================================ -->
+<section id="s10" class="section">
+  <div class="section-title-wrap">
+    <div class="section-num">Section 10</div>
+    <h2 class="section-title-en">Market Opportunity Insights</h2>
+    <p class="section-title-zh">市场机会洞察：全球销售的土耳其战略机遇</p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card" style="border-left:4px solid #27ae60;">
+      <span class="card-icon">💡</span>
+      <h3>机会 1: 中国产品的"第二货源"定位</h3>
+      <h4>The Alternative Source Play</h4>
+      <p>土耳其从中国年进口$440亿（电子产品$113亿、机械$103.5亿）。东南亚（越南/泰国/马来西亚/印尼）生产的同类产品可以以<strong>"非中国产地"</strong>作为卖点，规避潜在的关税风险和供应链集中度问题。特别是：</p>
+      <ul style="font-size:0.85rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.5rem;">
+        <li>越南/泰国的消费电子产品 → 对标中国手机/平板</li>
+        <li>印尼/马来西亚的橡胶/棕榈制品 → 对标中国原料</li>
+        <li>菲律宾/越南的纺织品 → 对标中国成衣</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left:4px solid #d4a853;">
+      <span class="card-icon">🏗️</span>
+      <h3>机会 2: 震后重建 + 建材需求窗口</h3>
+      <h4>Post-Earthquake Reconstruction Demand</h4>
+      <p>2023年2月地震后，土耳其南部进入长达数年的重建周期。梅尔辛港成为建材入境核心通道：</p>
+      <ul style="font-size:0.85rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.5rem;">
+        <li>钢材/水泥/玻璃/卫浴 — 东南亚均有产能</li>
+        <li>家具/灯具/装饰材料 — 越南/印尼家具产业集群成熟</li>
+        <li>工程机械/工具 — 泰国/日本合资工厂产品</li>
+        <li>重建高峰预计持续至2027-2028年，窗口期仍在</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left:4px solid #2980b9;">
+      <span class="card-icon">🚢</span>
+      <h3>机会 3: 利用土耳其中转开拓中东/北非市场</h3>
+      <h4>Use Turkey as Springboard to MENA</h4>
+      <p>与其直航中东/北非洲小港口，不如将土耳其作为<strong>区域分拨中心</strong>：</p>
+      <ul style="font-size:0.85rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.5rem;">
+        <li>东南亚 → 梅尔辛（海运）→ 伊拉克/叙利亚（卡车，800km以内）</li>
+        <li>东南亚 → 伊斯坦布尔（海运）→ 黑海沿岸/高加索（多式联运）</li>
+        <li>东南亚 → 梅尔辛（海运）→ 利比亚/突尼斯（短途海运）</li>
+        <li>土耳其海关保税区政策友好，可延迟缴税</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left:4px solid #e74c3c;">
+      <span class="card-icon">⚡</span>
+      <h3>机会 4: 红海危机下的"第三条路"销售话术</h3>
+      <h4>The "Third Way" Pitch During Red Sea Crisis</h4>
+      <p>当客户在"苏伊士（贵且危险）vs 好望角（慢）"之间纠结时，你可以提供：</p>
+      <ul style="font-size:0.85rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.5rem;">
+        <li><strong>Option A:</strong> 红海直达 — 最快28天，但有风险溢价</li>
+        <li><strong>Option B:</strong> 好望角绕行 — 最安全，+12-14天</li>
+        <li><strong>Option C (你的差异化):</strong> 土耳其中转 — 平衡方案</li>
+        <li>能提供三个选项的销售顾问，客户信任度更高</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left:4px solid #9b59b6;">
+      <span class="card-icon">🌾</span>
+      <h3>机会 5: 农产品反向贸易</h3>
+      <h4>Agricultural Products Reverse Flow</h4>
+      <p>不只是把货运去土耳其，还可以把土耳其的产品带回东南亚：</p>
+      <ul style="font-size:0.85rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.5rem;">
+        <li>土耳其榛子（全球70%供应）→ 东南亚食品加工厂</li>
+        <li>无花果/葡萄干/杏干 → 东南亚烘焙/零食行业</li>
+        <li>橄榄油 → 东南亚高端餐饮/零售渠道</li>
+        <li>回程货装载率提升 = 往返利润优化</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left:4px solid #1abc9c;">
+      <span class="card-icon">🚗</span>
+      <h3>机会 6: 关注TOGG与电动车产业链</h3>
+      <h4>EV Supply Chain Opportunities</h4>
+      <p>土耳其国产电动车TOGG已量产，政府大力推动电动化：</p>
+      <ul style="font-size:0.85rem;color:#9ca3af;padding-left:1.2rem;margin-top:0.5rem;">
+        <li>电池/电机/电控系统 — 东南亚电子产业链可切入</li>
+        <li>充电桩/储能设施 — 越南/泰国新能源设备</li>
+        <li>汽车内饰/塑料件 — 泰国/印尼汽车零部件集群</li>
+        <li>目标2030年电动车渗透率达30%，供应链缺口巨大</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insight-box" style="margin-top:2rem;">
+    <p><strong>🎯 总结 — 全球销售团队的土耳其行动清单：</strong></p>
+    <ol style="font-size:0.92rem;color:#e8e6e3;line-height:1.9;padding-left:1.5rem;margin-top:0.8rem;">
+      <li><strong>立即行动：</strong>梳理手头客户中有土耳其/东地中海/中东业务的公司，主动发送本报告摘要</li>
+      <li><strong>本周内：</strong>联系MSC/Maersk/CMA获取最新的东南亚→土耳其航线费率和舱位情况</li>
+      <li><strong>本月内：</strong>筛选1-2个重点客户，设计"土耳其中转方案"的定制报价</li>
+      <li><strong>持续跟踪：</strong>关注红海局势变化（直接影响FEM运价）和梅尔辛扩建进度（影响舱位供给）</li>
+      <li><strong>中长期：</strong>考虑建立土耳其本地合作伙伴关系（报关行/拖车行/仓库），为深度介入做准备</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <p><strong>Türkiye Market Intelligence Report</strong> — 站在土耳其看世界</p>
+  <p>Generated: 2026-04-26 | Data Sources: OEC, WITS World Bank, TradeInt, CSS Group Lighthouse, Ballast Markets, Freightos, Maersk Official</p>
+  <p style="margin-top:0.5rem;">For internal use by Southeast Asia Sales Team | 仅供内部参考</p>
+  <p style="margin-top:1rem;color:#555;">© 2026 Market Intelligence Division</p>
+</footer>
+
+<script>
+// Smooth scroll for nav items
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href').substring(1);
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      this.classList.add('active');
+    }
+  });
+});
+// Update active nav on scroll
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('[id^="s"]');
+  let current = '';
+  sections.forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top <= 150) current = s.id;
+  });
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
