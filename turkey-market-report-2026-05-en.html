@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CUL Türkiye Route Intelligence | AEM·MES·NAF Deep-Dive Report — April 2026</title>
+<style>
+  :root {
+    --bg-deep: #0b1120;
+    --bg-main: #111827;
+    --bg-card: #1a2332;
+    --bg-card-hover: #212d42;
+    --bg-highlight: rgba(212,168,83,0.06);
+    --accent-gold: #d4a853;
+    --accent-gold-dim: rgba(212,168,83,0.15);
+    --accent-red: #ef4444;
+    --accent-red-dim: rgba(239,68,68,0.12);
+    --accent-green: #10b981;
+    --accent-green-dim: rgba(16,185,129,0.12);
+    --accent-blue: #3b82f6;
+    --accent-blue-dim: rgba(59,130,246,0.12);
+    --accent-purple: #8b5cf6;
+    --accent-orange: #f59e0b;
+    --accent-cyan: #06b6d4;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border: #1e293b;
+    --border-light: #334155;
+    --shadow: 0 8px 32px rgba(0,0,0,0.35);
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: -apple-system, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg-deep); color: var(--text-primary); line-height: 1.65; overflow-x: hidden;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative; min-height: 88vh; display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212,168,83,0.08) 0%, transparent 60%),
+      linear-gradient(180deg, var(--bg-deep) 0%, #0f172a 70%, #131c31 100%);
+    padding: 2rem; border-bottom: 1px solid var(--border); overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top:0; left:0; right:0; bottom:0;
+    background:
+      repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(212,168,83,0.02) 80px, rgba(212,168,83,0.02) 81px),
+      repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(212,168,83,0.015) 80px, rgba(212,168,83,0.015) 81px);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px;
+    border: 1px solid var(--accent-gold); border-radius: 30px; font-size: 0.78rem; color: var(--accent-gold);
+    letter-spacing: 3px; text-transform: uppercase; background: rgba(212,168,83,0.06);
+    margin-bottom: 1.8rem; backdrop-filter: blur(8px);
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 5.5vw, 4.2rem); font-weight: 800; letter-spacing: -1.5px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent-gold) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.8rem;
+  }
+  .hero h2 {
+    font-size: clamp(1rem, 2vw, 1.35rem); font-weight: 400; color: var(--text-secondary);
+    letter-spacing: 0.5px; max-width: 700px; margin: 0 auto 2rem;
+  }
+  .hero-routes { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 2rem; }
+  .route-tag {
+    padding: 8px 18px; border-radius: 8px; font-size: 0.82rem; font-weight: 600;
+    border: 1px solid var(--border-light); background: var(--bg-card);
+  }
+  .route-tag.em { border-color: var(--accent-gold); color: var(--accent-gold); background: var(--accent-gold-dim); }
+  .route-tag.mes { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(6,182,212,0.08); }
+  .route-tag.naf { border-color: var(--accent-purple); color: var(--accent-purple); background: rgba(139,92,246,0.08); }
+  .hero-meta {
+    display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap;
+    font-size: 0.82rem; color: var(--text-muted);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ===== NAV ===== */
+  .nav-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(11,17,32,0.92); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border); padding: 0.8rem 2rem;
+    display: flex; align-items: center; gap: 6px; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+  }
+  .nav-bar::-webkit-scrollbar { display: none; }
+  .nav-item {
+    padding: 7px 16px; border-radius: 22px; font-size: 0.76rem; color: var(--text-secondary); cursor: pointer;
+    transition: all 0.25s ease; text-decoration: none; border: 1px solid transparent; white-space: nowrap; font-weight: 500;
+  }
+  .nav-item:hover { color: var(--accent-gold); background: var(--accent-gold-dim); }
+  .nav-item.active { color: var(--accent-gold); background: var(--accent-gold-dim); border-color: rgba(212,168,83,0.25); }
+
+  /* ===== SECTIONS ===== */
+  .section { max-width: 1280px; margin: 0 auto; padding: 5rem 2rem; }
+  .section-head { text-align: center; margin-bottom: 3.5rem; }
+  .section-num {
+    font-size: 0.72rem; letter-spacing: 5px; color: var(--accent-gold);
+    text-transform: uppercase; font-weight: 600; margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 700; color: var(--text-primary);
+    letter-spacing: -0.5px; margin-bottom: 0.4rem;
+  }
+  .section-sub { font-size: 1rem; color: var(--text-secondary); font-weight: 300; }
+
+  /* ===== KPI STRIP ===== */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2.5rem 0; }
+  .kpi-box {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 1.5rem; text-align: center; transition: transform 0.25s, border-color 0.25s;
+  }
+  .kpi-box:hover { transform: translateY(-3px); border-color: var(--border-light); }
+  .kpi-val { font-size: 1.9rem; font-weight: 800; color: var(--accent-gold); }
+  .kpi-label { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.3rem; }
+  .kpi-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+  /* ===== CARDS ===== */
+  .card-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem; margin-top: 2rem;
+  }
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 2rem; transition: all 0.3s ease; box-shadow: var(--shadow);
+  }
+  .card:hover { transform: translateY(-5px); border-color: var(--border-light); box-shadow: 0 12px 40px rgba(0,0,0,0.45); }
+  .card-icon { font-size: 2.2rem; display: block; margin-bottom: 1rem; }
+  .card h3 { font-size: 1.15rem; font-weight: 650; margin-bottom: 0.4rem; }
+  .card h4 { font-size: 0.82rem; color: var(--text-muted); font-weight: 400; margin-bottom: 1rem; }
+  .card p { font-size: 0.89rem; color: var(--text-secondary); line-height: 1.7; }
+  .card ul { font-size: 0.86rem; color: var(--text-secondary); padding-left: 1.2rem; line-height: 1.75; }
+  .card li::marker { color: var(--accent-gold); }
+  .card .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.8rem; }
+
+  /* ===== TABLES ===== */
+  .table-wrap {
+    overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border);
+    margin-top: 1.5rem; background: var(--bg-card);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 700px; }
+  thead th {
+    background: var(--bg-main); padding: 14px 16px; text-align: left; font-weight: 600;
+    color: var(--accent-gold); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--accent-gold); white-space: nowrap;
+  }
+  tbody td { padding: 13px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: top; }
+  tbody tr:hover td { background: rgba(255,255,255,0.02); }
+  tbody tr:last-child td { border-bottom: none; }
+  .up { color: var(--accent-green); font-weight: 600; }
+  .down { color: var(--accent-red); font-weight: 600; }
+  .neutral { color: var(--accent-blue); font-weight: 600; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 500; }
+  .tag-hot { background: var(--accent-red-dim); color: #f87171; }
+  .tag-key { background: var(--accent-green-dim); color: #34d399; }
+  .tag-new { background: var(--accent-blue-dim); color: #60a5fa; }
+  .tag-warn { background: rgba(245,158,11,0.12); color: #fbbf24; }
+
+  /* ===== INSIGHT BOX ===== */
+  .insight {
+    background: linear-gradient(135deg, var(--accent-gold-dim) 0%, rgba(239,68,68,0.04) 100%);
+    border-left: 4px solid var(--accent-gold); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 1.5rem 1.8rem; margin: 2rem 0;
+  }
+  .insight strong { color: var(--accent-gold); }
+  .insight p { font-size: 0.91rem; color: var(--text-primary); line-height: 1.8; }
+
+  /* ===== SOURCE GRID (Cargo Structure Cards) ===== */
+  .source-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 1.5rem;
+  }
+  .source-grid .flow-card { padding: 1.3rem; }
+  .flow-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+  .flow-fromto { font-size: 0.88rem; font-weight: 600; flex: 1; min-width: 0; }
+  .flow-val { font-size: 1.2rem; text-align: right; white-space: nowrap; }
+  .flow-val small { font-size: 0.7rem; color: var(--text-muted); font-weight:400; }
+  .src-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.84rem; }
+  .src-table td { padding: 0.45rem 0.35rem; border-bottom: 1px solid rgba(0,0,0,0.06); vertical-align: middle; }
+  .src-table td:nth-child(1) { width: 40%; text-align: left; }
+  .src-table td:nth-child(2) { width: 24%; text-align: right; font-size: 0.8rem; }
+  .src-table td:nth-child(3) { width: 36%; text-align: right; font-weight: 600; }
+  .flow-items { margin-top: 1rem; font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; }
+  .flow-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.5rem;
+    border-top: 3px solid var(--accent-gold);
+  }
+
+  /* Hormuz Crisis Cards */
+  .hormuz-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem; }
+  @media (max-width: 900px) { .hormuz-cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .hormuz-cards { grid-template-columns: 1fr; } }
+  @media (max-width: 800px) { .source-grid { grid-template-columns: 1fr; } }
+
+  /* ===== TIMELINE ===== */
+  .timeline { padding-left: 28px; margin-top: 2rem; position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .tl-item { position: relative; padding-bottom: 2rem; }
+  .tl-dot { position: absolute; left: -24px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-gold); box-shadow: 0 0 0 4px rgba(212,168,83,0.15); }
+  .tl-date { font-size: 0.78rem; color: var(--accent-gold); font-weight: 600; margin-bottom: 0.3rem; }
+  .tl-body {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.5rem;
+  }
+  .tl-body h4 { font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.4rem; }
+  .tl-body p, .tl-body li { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.7; }
+  .tl-body ul { padding-left: 1.1rem; margin-top: 0.4rem; }
+
+  .comp-table thead th { font-size: 0.75rem; }
+  .comp-table tbody td { font-size: 0.82rem; }
+  .star-rating { color: var(--accent-gold); font-size: 0.8rem; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center; padding: 3.5rem 2rem; border-top: 1px solid var(--border);
+    color: var(--text-muted); font-size: 0.82rem;
+  }
+  footer a { color: var(--accent-gold); text-decoration: none; }
+  footer .footer-brand { color: var(--accent-gold); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; }
+
+  @media (max-width: 768px) {
+    .card-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .section { padding: 3rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div style="position:relative;z-index:1;">
+    <div class="hero-badge">🚢 CUL Route Intelligence · Q2 2026</div>
+    <h1>Türkiye Shipping Market Intelligence</h1>
+    <h2>AEM Far-East Direct to East-Med &middot; MES North Africa Feeder &middot; NAF Mediterranean Feeder<br/>Cargo Flows, Products &amp; Opportunities along the Suez Corridor</h2>
+    <div class="hero-routes">
+      <span class="route-tag em">AEM Far East — East-Med Mainline</span>
+      <span class="route-tag mes">MES Libya Feeder</span>
+      <span class="route-tag naf">NAF Algeria Feeder</span>
+    </div>
+    <div class="hero-meta">
+      <span>📅 April 2026</span>
+      <span>🌍 Red Sea / East Mediterranean / Middle East / North Africa</span>
+      <span>🎯 Global Sales Team</span>
+      <span>📊 Data Sources: ShipHub / DynaMar / Ballast Markets / Econdb / Vizion TradeView / CTS / FBX13</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== NAV ========== -->
+<nav class="nav-bar">
+  <a class="nav-item active" href="#s01">01 Service Overview</a>
+  <a class="nav-item" href="#s02">02 Ports &amp; Volume</a>
+  <a class="nav-item" href="#s03">03 Export Profile</a>
+  <a class="nav-item" href="#s04">04 ME·Red Sea Cargo Flow</a>
+  <a class="nav-item" href="#s05">05 Freight Rates &amp; Market</a>
+  <a class="nav-item" href="#s06">06 Suez Direct Competitors</a>
+  <a class="nav-item" href="#s07">07 Sales Opportunities</a>
+</nav>
+
+<!-- ============================================================ -->
+<!-- 01 CUL ROUTE SERVICE MATRIX -->
+<!-- ============================================================ -->
+<section id="s01" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 01</div>
+    <h2 class="section-title">CUL Service Matrix</h2>
+    <p class="section-sub">AEM Mainline + MES/NAF Feeders — Complete Coverage Network</p>
+  </div>
+
+  <!-- KPI Overview -->
+  <div class="kpi-grid" style="margin-top:3rem;">
+    <div class="kpi-box"><div class="kpi-val">14,000,000</div><div class="kpi-label">Türkiye Total Port Throughput (TEU)</div><div class="kpi-sub">2025 · YoY +3.5% 📈 · 5 Ports in Global TOP100</div></div>
+    <div class="kpi-box"><div class="kpi-val">1,930,000</div><div class="kpi-label">Mersin Port Throughput TEU</div><div class="kpi-sub">#5 Nationwide · +2.1% in 2025 · AEM Destination</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:#10b981;">+27% ⬆</div><div class="kpi-label">Türkiye Import Volume Surge</div><div class="kpi-sub">Feb→Mar 165K→210K TEU (Hormuz Effect)</div></div>
+    <div class="kpi-box"><div class="kpi-val">$3,527</div><div class="kpi-label">FBX13 China → Mediterranean</div><div class="kpi-sub">USD/40'HQ · Apr 2026</div></div>
+    <div class="kpi-box"><div class="kpi-val">+13.9%</div><div class="kpi-label">Ambarlı Growth Rate 🔥</div><div class="kpi-sub">3.43M TEU · Nation's #1 · Global TOP72</div></div>
+  </div>
+
+  <div class="insight" style="margin-top:2.5rem;"></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 02 PORTS & THROUGHPUT -->
+<!-- ============================================================ -->
+<section id="s02" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 02</div>
+    <h2 class="section-title">Türkiye Ports &amp; Throughput Distribution</h2>
+    <p class="section-sub">CUL-Covered Ports · Precise TEU Data · Hormuz Crisis Real-Time Impact</p>
+  </div>
+
+  <!-- Three Key Port Cards -->
+  <div class="card-grid">
+    <!-- MERSIN -->
+    <div class="card" style="border-top:3px solid var(--accent-green);">
+      <span class="card-icon">⭐</span>
+      <h3>Mersin</h3>
+      <h4>Southeast Corridor Hub · Middle East Gateway · AEM Destination</h4>
+      <ul>
+        <li><strong>2025 Throughput:</strong> <strong>~1,930,000 TEU</strong> <span class="up">(YoY +2.1%)</span> Türkiye's #5 port</li>
+        <li><strong>Operator:</strong> MIP (PSA International + Akfen JV)</li>
+        <li><strong>Design Capacity:</strong> 2.5M TEU → Expansion target 3.5M TEU</li>
+        <li><strong>Distance to Iraq:</strong> Only 800km (land bridge trucking within 2 days)</li>
+        <li><strong>Distance to Syria:</strong> Only 400km (post-war reconstruction entry point)</li>
+        <li><strong>Historical Peak:</strong> Syrian transit trade exceeded $5B/year (pre-2011)</li>
+        <li><strong>Agri Peak Season:</strong> Citrus export season (Oct–Mar) boosts throughput by 8–10%</li>
+      </ul>
+      <div class="tag-list">
+        <span class="tag tag-key">AEM Destination Port</span>
+        <span class="tag tag-hot">Best Gateway to Middle East</span>
+        <span class="tag tag-new">Expansion Underway</span>
+      </div>
+    </div>
+
+    <!-- AMBARLI -->
+    <div class="card" style="border-top:3px solid var(--accent-blue);">
+      <span class="card-icon">🌉</span>
+      <h3>Ambarlı (Istanbul)</h3>
+      <h4>Eurasian Hub · Marmara Sea's Largest Port · MES/NAF Origin</h4>
+      <ul>
+        <li><strong>2025 Throughput:</strong> <strong>3,428,048 TEU</strong> <span class="up">(YoY +13.9%)</span> 🔥 Nation's #1 · Global TOP72</li>
+        <li><strong>Function:</strong> Container hub south of Bosphorus Strait</li>
+        <li><strong>Operators:</strong> Kumport / Marport multi-terminal operations</li>
+        <li><strong>Advantages:</strong> Bosphorus control + Eurasia distribution center</li>
+        <li><strong>Challenges:</strong> Strait capacity bottleneck + intensifying regional competition</li>
+        <li><strong>Feeder Role:</strong> Both MES and NAF loops originate here</li>
+      </ul>
+      <div class="tag-list">
+        <span class="tag tag-key">MES/NAF Hub Port</span>
+        <span class="tag tag-new">AEM 7th Call</span>
+      </div>
+    </div>
+
+    <!-- ALIAGA -->
+    <div class="card" style="border-top:3px solid var(--accent-purple);">
+      <span class="card-icon">🏭</span>
+      <h3>Aliaga</h3>
+      <h4>Izmir Bay Industrial Port · Multi-Purpose · Feeder Mandatory Stop</h4>
+      <ul>
+        <li><strong>2025 Throughput:</strong> <strong>~2,250,000 TEU</strong> <span class="up">(YoY +6.2%)</span> 🔥 Leading growth rate</li>
+        <li><strong>National Rank:</strong> Türkiye's <strong>#3 container port</strong> (surpassing Mersin)</li>
+        <li><strong>Operator:</strong> DP World</li>
+        <li><strong>Core Cargo:</strong> Petrochemicals + industrial raw materials + steel + containers</li>
+        <li><strong>Location Edge:</strong> Aegean coast industrial zone support</li>
+        <li><strong>Feeder Value:</strong> Shared call for both MES and NAF loops</li>
+        <li><strong>Growth Driver:</strong> Post-earthquake reconstruction materials continue flowing in</li>
+      </ul>
+      <div class="tag-list">
+        <span class="tag tag-key">MES/NAF Joint Call</span>
+        <span class="tag tag-new">AEM 6th Call</span>
+        <span class="tag tag-warn">DP World Operated</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP 6 RANKING TABLE (2025 DATA) -->
+  <h3 style="color:var(--accent-gold);margin:3.5rem 0 1.5rem;font-size:1.15rem;">🏆 Türkiye Container Port Throughput TOP 6 (2025 · Precise TEU)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Rank</th><th>Port Name</th><th>Code</th><th><strong>2025 TEU</strong></th><th><strong>YoY Growth</strong></th><th>Region</th><th>Operator / Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td style="font-size:1.3rem;">🥇</td>
+          <td><strong>Ambarlı (Istanbul)</strong></td><td>TRAMR</td>
+          <td class="up" style="color:#10b981;font-weight:700;"><strong>3,428,048</strong></td>
+          <td class="up" style="color:#10b981;font-weight:800;">▲ 13.9% 🔥</td>
+          <td>Marmara Sea · European Side</td>
+          <td>Kumport/Marport · Nation's largest · Global TOP72</td>
+        </tr>
+        <tr>
+          <td style="font-size:1.3rem;">🥈</td>
+          <td><strong>Kocaeli (Izmit Bay)</strong></td><td>TRIZT</td>
+          <td class="up"><strong>~2,520,000*</strong></td><td class="up">▲ ~8.5%</td>
+          <td>East Marmara · Gebze</td>
+          <td>Multi-terminal cluster · Auto &amp; chemicals focus · Global TOP86</td>
+        </tr>
+        <tr>
+          <td style="font-size:1.3rem;">🥉</td>
+          <td><strong>Aliaga</strong></td><td>TRALI</td>
+          <td class="up"><strong>~2,250,000*</strong></td><td class="up">▲ +6.2%</td>
+          <td>Aegean · Izmir Bay</td>
+          <td>DP World operated · Reconstruction-driven growth</td>
+        </tr>
+        <tr>
+          <td style="font-size:1.3rem;">4</td>
+          <td><strong>Tekirdağ (Asyaport)</strong></td><td>TRTEK</td>
+          <td class="up"><strong>~2,120,000*</strong></td><td class="up">▲ +4.3%</td>
+          <td>Marmara · Saros Bay</td>
+          <td>MSC hub port · Global TOP94 · Shore power installed</td>
+        </tr>
+        <tr>
+          <td style="font-size:1.3rem;color:var(--accent-green);">5 ⭐</td>
+          <td><strong>Mersin</strong></td><td>TRMER</td>
+          <td class="up"><strong>~1,930,000*</strong></td><td class="up">▲ +2.1%</td>
+          <td>East Med · Çukurova</td>
+          <td><span class="tag tag-key">AEM Destination</span> Middle East gateway · PSA operated · Global TOP98</td>
+        </tr>
+        <tr>
+          <td style="font-size:1.3rem;">6</td>
+          <td><strong>İskenderun</strong></td><td>TRISK</td>
+          <td class="up"><strong>>780,000*</strong></td><td class="up">▲ ~10%+</td>
+          <td>East Med · Hatay</td>
+          <td>Fully recovered post-earthquake, hitting new highs · Iraq alternative entry</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.6rem;">
+    * 2025 data: Kocaeli/Tekirdağ/Aliaga/Mersin/İskenderun are estimates based on publicly available industry figures.
+    Ambarlı is the official published figure (3,428,048 TEU). National total: <strong>14,000,000 TEU</strong> (+3.5%).
+    5 ports rank in Lloyd's List Global TOP100.
+    Sources: Turkish Ministry of Transport &amp; Infrastructure / Lloyd's List One Hundred Ports 2025 / Port Europe / MegaProject.
+  </p>
+
+  <!-- HORMUZ CRISIS IMPACT -->
+  <div class="insight" style="margin-top:3rem;border-left-color:#ef4444;background:linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(245,158,11,0.04) 100%);">
+    <p><strong>🔴 Hormuz Strait Crisis — Real-Time Impact on Türkiye Import Volumes (Vizion TradeView · Apr 2026):</strong></p>
+    <p style="margin-top:0.8rem;">
+    <strong>Türkiye as an alternative land bridge sees import volumes surge +27%:</strong>
+    Feb ~165,000 TEU → Mar ~<strong>210,500 TEU</strong>.<br/>
+    <strong>Key transshipment ports:</strong> Mersin (TRMER) + Iskenderun (TRISK), primarily serving Iran/Iraq/Levant directions.<br/>
+    <strong>Gulf exports cliff-dived:</strong> UAE −73.5% (73K→19.5K TEU), Kuwait −75.6%, Qatar −60%;
+    only Oman gained +29% due to geography (Salalah/Sohar bypasses Hormuz).<br/>
+    <strong>Iraq alternative route confirmed:</strong> Northern Iraq cargo → via <strong>Mersin land bridge to sea</strong> (officially recommended by CMA CGM); Southern Iraq → via Aqaba (Jordan) land bridge.
+    </p>
+  </div>
+
+  <!-- CAPACITY DEPLOYMENT -->
+  <h3 style="color:var(--accent-gold);margin:3.5rem 0 1.5rem;font-size:1.15rem;">🚢 Far East → Mediterranean/Middle East Capacity Deployment (2025–2026)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Trade Lane</th><th>Avg Vessel Size (TEU/vessel)</th><th>YoY Change</th><th>CUL AEM Linkage</th><th>Key Ports of Call</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Far East → Mediterranean (FEM)</strong></td>
+          <td class="up"><strong>16,137</strong></td>
+          <td class="up">▲ +6.9%</td>
+          <td><span class="tag tag-key">AEM Comparable</span></td>
+          <td>Shanghai/Ningbo/Yantian → Piraeus · Marseille · Barcelona · <span style="color:#d4a853;font-weight:700;">Mersin·Istanbul</span></td>
+        </tr>
+        <tr>
+          <td><strong>Far East → Middle East</strong></td>
+          <td class="up" style="font-size:1.05em;color:#10b981;"><strong>11,985</strong></td>
+          <td class="up" style="color:#10b981;font-weight:700;">🚀 ▲ +20.6%</td>
+          <td><span class="tag tag-new">AEM 5th Port Jeddah</span></td>
+          <td>China main ports → Jebel Ali · Hamad · Dammam · <span style="color:#d4a853;font-weight:700;">Jeddah (SAJED)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Far East → N. Europe (via Cape of Good Hope)</strong></td>
+          <td class="neutral"><strong>18,184</strong></td>
+          <td class="up">▲ +5.4%</td>
+          <td>— Competitor alternative</td>
+          <td>Shanghai/Qingdao → Rotterdam · Hamburg · Antwerp (+12~14 days)</td>
+        </tr>
+        <tr>
+          <td><strong>Türkiye Feeder (MES/NAF)</strong></td>
+          <td class="neutral"><strong>2,000 ~ 4,500</strong></td>
+          <td class="up">Growing demand</td>
+          <td><span class="tag tag-hot">CUL Own Product</span></td>
+          <td>MES: Istanbul→Izmit→Aliaga→Misurata (loop 5-7 days)<br/>NAF: Istanbul→Izmit→Aliaga→Algiers (loop 4-6 days)</td>
+        </tr>
+        <tr>
+          <td><strong>CMA CGM OCR Cape of Good Hope New Service</strong> 🆕</td>
+          <td class="neutral"><strong>7,000 ~ 10,000 × 14 vessels</strong></td>
+          <td>Inaugurated Apr 2026</td>
+          <td>— Competitor reroute option</td>
+          <td>Yokohama→Rotterdam 38 days / Yantian→Rotterdam 32 days (naturally avoids Suez risk)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TRADE FLOW ESTIMATES -->
+  <h3 style="color:var(--accent-gold);margin:3.5rem 0 1.5rem;font-size:1.15rem;">📦 Türkiye → Destinations Cargo Flow Distribution (Trade Value + Estimated TEU)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Destination</th><th>Key Ports</th><th>Value</th><th><strong>Est. TEU*</strong></th><th>% of TR Exports</th><th>CUL Linkage</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>🇮🇶 Iraq</strong> <span class="tag tag-hot">Largest Single Market</span></td>
+          <td>UMM Qasr / Basrah / Land border (Mersin)</td>
+          <td>$13.0 Billion</td>
+          <td class="up"><strong>~650,000~720,000 TEU/yr*</strong></td>
+          <td>4.97% (National #4)</td>
+          <td>Mersin land bridge / AEM indirect</td>
+        </tr>
+        <tr>
+          <td><strong>🇸🇦 Saudi Arabia</strong></td>
+          <td><strong>Jeddah (SAJED)</strong> / Dammam</td>
+          <td>$3.99 Billion</td>
+          <td class="up"><strong>~200,000~220,000 TEU/yr*</strong></td>
+          <td>1.52%</td>
+          <td><span class="tag tag-key">AEM 5th Port Direct Call!</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇪🇬 Egypt</strong></td>
+          <td><strong>Alexandria (EGALY)</strong> / Port Said</td>
+          <td>$4.18 Billion</td>
+          <td class="up"><strong>~210,000~230,000 TEU/yr*</strong></td>
+          <td>1.60%</td>
+          <td><span class="tag tag-key">AEM 6th Port Direct Call!</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇦🇪 UAE</strong></td>
+          <td>Jebel Ali / Hamad / Jeddah transship</td>
+          <td>$8.3 Billion</td>
+          <td class="up"><strong>~415,000~460,000 TEU/yr*</strong></td>
+          <td>3.17%</td>
+          <td>Jeddah tranship / AEM return leg</td>
+        </tr>
+        <tr>
+          <td><strong>🇩🇿 Algeria</strong></td>
+          <td><strong>Algiers</strong> / Oran</td>
+          <td>$2.88 Billion</td>
+          <td class="neutral"><strong>~144,000~160,000 TEU/yr*</strong></td>
+          <td>1.10%</td>
+          <td><span class="tag tag-new">NAF Feeder Direct</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇱🇾 Libya</strong></td>
+          <td><strong>Misurata</strong> / Benghazi</td>
+          <td>~$276M/mo → ~$3.3B/yr</td>
+          <td class="neutral"><strong>~13,800~17,000 TEU/mo*</strong></td>
+          <td>Post-war reconstruction high growth</td>
+          <td><span class="tag tag-new">MES Feeder Direct</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇮🇳 India</strong> (Bilateral)</td>
+          <td>Nhava Sheva / Chennai / Mundra</td>
+          <td>Bilateral $8.7B (FY25)</td>
+          <td class="up"><strong>~430,000~480,000 TEU/yr*</strong></td>
+          <td>Target 5-year double to $20B</td>
+          <td>FEM/IMX services · Mid-section lane</td>
+        </tr>
+        <tr>
+          <td><strong>🇮🇷 Iran</strong></td>
+          <td>Bandar Abbas / Bushehr / Mersin land bridge</td>
+          <td>$3.23 Billion</td>
+          <td class="neutral"><strong>~162,000~180,000 TEU/yr*</strong></td>
+          <td>1.23%</td>
+          <td>Hormuz alternative route via Türkiye</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.6rem;">
+    * TEU estimate method: Trade value ÷ average per-container value ($18,000–22,000/TEU), adjusted by product mix.
+    Precise port-pair TEU data requires Alphaliner/CTS paid subscriptions.
+  </p>
+
+  <div class="insight">
+    <p><strong>💡 Key Findings (Throughput Lens):</strong><br/>
+    ① <strong>Iraq is Türkiye's single largest export destination (~650K–720K TEU/year)</strong> — accounting for over half of Türkiye's Middle East exports. The vast majority transits via Mersin land-truck (800km), or Umm Qasr sea freight (designed capacity 600K TEU/year).<br/>
+    ② <strong>Saudi (~200K TEU) and Egypt (~210K–230K TEU) happen to be AEM's two intermediate ports of call (Jeddah + Alexandria)</strong> — meaning AEM is not just a one-way Far East→Türkiye service, but a bidirectional trade corridor.<br/>
+    ③ <strong>Libya has a small base (~14K–17K TEU/month) but explosive post-war reconstruction growth</strong> — MES feeder targets Misurata's growth window.<br/>
+    ④ <strong>Hormuz crisis effect: Mar 2026 Türkiye import volume surged +27% (165K→210K TEU/month)</strong> — Mersin and Iskenderun have become the Gulf's alternative exit points.</p>
+  </div>
+</section>
+
+<script>
+// Smooth scroll nav
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href').substring(1);
+    const el = document.getElementById(targetId);
+    if (el) { el.scrollIntoView({ behavior:'smooth', block:'start' }); }
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+// Active nav on scroll
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('[id^="s"]');
+  let current = '';
+  sections.forEach(s => { if (s.getBoundingClientRect().top <= 150) current = s.id; });
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.getAttribute('href') === '#' + current));
+});
+</script>
+
+<!-- ============================================================ -->
+<!-- 03 EXPORT PRODUCT STRUCTURE -->
+<!-- ============================================================ -->
+<section id="s03" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 03</div>
+    <h2 class="section-title">Türkiye Export Product Structure</h2>
+  </div>
+
+  <!-- Overall KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi-box"><div class="kpi-val">14,000,000</div><div class="kpi-label">National Port Throughput (TEU)</div><div class="kpi-sub">2025 +3.5% · 5 Ports in Global TOP100</div></div>
+    <div class="kpi-box"><div class="kpi-val">#15</div><div class="kpi-label">Global Export Ranking</div><div class="kpi-sub">G20 Member · Manufacturing 81% of GDP</div></div>
+    <div class="kpi-box"><div class="kpi-val">~733K TEU*</div><div class="kpi-label">Mersin Monthly Avg Import/Export</div><div class="kpi-sub">Export ~61K + Import ~72K/month</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:#10b981;">+27%</div><div class="kpi-label">Hormuz Effect Import Surge</div><div class="kpi-sub">165K → 210K TEU (Feb→Mar)</div></div>
+  </div>
+
+  <!-- Key Market × Product Matrix -->
+  <h3 style="color:var(--accent-gold);margin:3rem 0 1.5rem;font-size:1.15rem;">🔍 Key Markets × Product Detail Matrix</h3>
+
+  <!-- IRAQ CARD -->
+  <div class="card" style="margin-bottom:1.5rem;border-left:4px solid var(--accent-green);">
+    <h3>🇮🇶 Türkiye → Iraq Product Breakdown ($13.0B / ~650–720K TEU/yr* / 4.97% of TR Exports)</h3>
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr><th>Rank</th><th>Product Category</th><th>Value USD</th><th><strong>Est. TEU*</strong></th><th>% Share</th><th>HS Code</th><th>Transport Mode</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>Food &amp; Agriculture (Combined)</strong></td><td><strong>>$3,500M</strong></td><td class="up"><strong>>175,000*</strong></td><td>>27%</td><td>HS 02/07/10/11</td><td>Reefer/Dry 🥶</td></tr>
+          <tr><td>2</td><td><strong>Precious Metals/Jewelry</strong></td><td><strong>$1,010M</strong></td><td class="neutral"><strong>~2,000*</strong></td><td>7.77%</td><td>HS 71</td><td>Air/land (high-value small volume)</td></tr>
+          <tr><td>3</td><td><strong>Textiles &amp; Apparel (Combined)</strong></td><td><strong>$813M</strong></td><td class="up"><strong>~54,000*</strong></td><td>6.25%</td><td>HS 61/62/57</td><td><span class="tag tag-key">Container主力 Cargo</span></td></tr>
+          <tr><td>4</td><td><strong>Electrical &amp; Electronic Equipment</strong></td><td><strong>$751M</strong></td><td class="up"><strong>~42,000*</strong></td><td>5.78%</td><td>HS 85</td><td><span class="tag tag-key">Container</span></td></tr>
+          <tr><td>5</td><td><strong>Machinery &amp; Mechanical Equipment</strong></td><td><strong>$721M</strong></td><td class="up"><strong>~36,000*</strong></td><td>5.55%</td><td>HS 84</td><td><span class="tag tag-key">Container/Breakbulk</span></td></tr>
+          <tr><td>6</td><td><strong>Furniture/Prefab Buildings (Building Materials)</strong></td><td><strong>$612M</strong></td><td class="up"><strong>~45,000*</strong></td><td>4.70%</td><td>HS 94</td><td><span class="tag tag-key">Container</span> 🏗️</td></tr>
+          <tr><td>7</td><td><strong>Plastics Products</strong></td><td><strong>$551M</strong></td><td class="up"><strong>~37,000*</strong></td><td>4.24%</td><td>HS 39</td><td><span class="tag tag-key">Container</span></td></tr>
+          <tr><td>8</td><td><strong>Iron &amp; Steel Products</strong></td><td><strong>$530M</strong></td><td class="neutral"><strong>~22,000*</strong></td><td>4.08%</td><td>HS 73</td><td>Container/Bulk</td></tr>
+          <tr><td>9</td><td><strong>Vehicles/Automobiles</strong></td><td><strong>$307M</strong></td><td class="neutral"><strong>~10,000*</strong></td><td>2.36%</td><td>HS 87</td><td>Ro-Ro/Container</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:0.8rem;font-size:0.84rem;color:var(--text-muted);">
+      💡 <strong>TEU Insight:</strong> Food &amp; agriculture is the absolute #1 category (>175K TEU, 27%+), peak season requires large reefer capacity;
+      building materials (furniture+plastics+steel >100K TEU) benefit from Iraq's post-war reconstruction;
+      textiles/apparel (~54K TEU) and electronics (~42K TEU) form a stable container base.
+      Key players: Tofas Automotive, Vestel Appliances.<br/>
+      <em>* TEU estimates based on per-container value of $15,000–$25,000 by category; high-value items (jewelry) yield lower TEU counts, bulky items (building materials) higher.</em>
+    </p>
+  </div>
+
+  <!-- SAUDI ARABIA CARD -->
+  <div class="card" style="margin-bottom:1.5rem;border-left:4px solid var(--accent-orange);">
+    <h3>🇸🇦 Türkiye → Saudi Arabia Product Breakdown ($3.99B)</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.8rem;margin-top:1rem;">
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$358M</div><div style="font-size:0.8rem;color:var(--text-secondary);">Copper &amp; Copper Products</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$350M</div><div style="font-size:0.8rem;color:var(--text-secondary);">Machinery &amp; Equipment</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$343M</div><div style="font-size:0.8rem;color:var(--text-secondary);">Vehicles &amp; Parts</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$320M</div><div style="font-size:0.8rem;color:var(--text-secondary);">Electrical &amp; Electronic Equipment</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$289M</div><div style="font-size:0.8rem;color:var(--text-secondary);">Carpets &amp; Textile Floor Coverings</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$203M</div><div style="font-size:0.8rem;color:var(--text-secondary);">Iron &amp; Steel Products</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$171M</div><div style="font-size:0.8rem;color:var(--text-secondary);">Non-Knit Apparel</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$145M</div><div style="font-size:0.8rem;color:var(--text-secondary);">Knit Apparel</div>
+      </div>
+    </div>
+    <p style="margin-top:1rem;font-size:0.84rem;color:var(--text-muted);">
+      💡 <strong>Saudi Profile:</strong> Industrial manufactured goods dominate (machinery + electronics + autos + steel >$1.2B combined);
+      traditional strengths like carpets ($289M) and apparel ($316M) remain strong.
+      <strong>Jeddah (SAJED) is the critical AEM intermediate port</strong>, also the primary sea corridor for Türkiye-Saudi trade.
+    </p>
+  </div>
+
+  <!-- INDIA-TURKEY BILATERAL CARD -->
+  <div class="card" style="margin-bottom:1.5rem;border-left:4px solid var(--accent-cyan);">
+    <h3>🇮🇳 India ↔ Türkiye Bilateral Trade Breakdown ($8.71B / FY2025 Apr-Feb)</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.2rem;">
+      <div>
+        <h4 style="color:#06b6d4;font-size:0.95rem;margin-bottom:0.8rem;">📤 India → Türkiye ($5.2B Exports · Apr-Feb 2025)</h4>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;background:rgba(6,182,212,0.05);padding:8px 12px;border-radius:6px;"><span>Engineering Goods</span><span style="color:#06b6d4;font-weight:700;">$3,037M (54.8%)</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(6,182,212,0.05);padding:8px 12px;border-radius:6px;"><span>Organic/Inorganic Chemicals</span><span style="color:#06b6d4;font-weight:700;">$514M (9.3%)</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(6,182,212,0.05);padding:8px 12px;border-radius:6px;"><span>Electronic Goods</span><span style="color:#06b6d4;font-weight:700;">$427M (7.7%)</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(6,182,212,0.05);padding:8px 12px;border-radius:6px;"><span>Man-Made Yarn</span><span style="color:#06b6d4;font-weight:700;">$265M (4.8%)</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(6,182,212,0.05);padding:8px 12px;border-radius:6px;"><span>Cotton Yarn/Fabric</span><span style="color:#06b6d4;font-weight:700;">$139M (2.5%)</span></div>
+        </div>
+      </div>
+      <div>
+        <h4 style="color:#f59e0b;font-size:0.95rem;margin-bottom:0.8rem;">📥 Türkiye → India (~$2.84B Exports · Apr-Feb 2025)</h4>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;background:rgba(245,158,11,0.05);padding:8px 12px;border-radius:6px;"><span>Mineral Fuels &amp; Oils</span><span style="color:#f59e0b;font-weight:700;">$783M</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(245,158,11,0.05);padding:8px 12px;border-radius:6px;"><span>Precious Metals / Jewels</span><span style="color:#f59e0b;font-weight:700;">$309M</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(245,158,11,0.05);padding:8px 12px;border-radius:6px;"><span>Nuclear Reactors / Parts</span><span style="color:#f59e0b;font-weight:700;">$314M</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(245,158,11,0.05);padding:8px 12px;border-radius:6px;"><span>Aircraft / Spacecraft</span><span style="color:#f59e0b;font-weight:700;">$180M</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(245,158,11,0.05);padding:8px 12px;border-radius:6px;"><span>Salt / Plaster / Building Materials</span><span style="color:#f59e0b;font-weight:700;">$275M</span></div>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:1rem;font-size:0.84rem;color:var(--text-muted);">
+      💡 <strong>Bilateral Trade Profile:</strong> India's exports are dominated by engineering goods (over half), followed by chemicals and electronics;
+      Türkiye exports energy, gold/jewelry, and high-end manufacturing equipment as its mainstays.
+      FY2025 (Apr–Feb) bilateral trade totaled approximately **$8.04B** (a decline from FY24, due to geopolitical tensions).
+      Both sides remain committed to doubling trade to $20B within five years, focusing on textiles, pharmaceuticals, agriculture, automotive, and metals.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 04 TÜRKIYE ↔ MIDDLE EAST·RED SEA CARGO FLOW DEEP DIVE -->
+<!-- ============================================================ -->
+<section id="s04" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 04</div>
+    <h2 class="section-title">Türkiye ↔ Middle East · Red Sea</h2>
+    <p class="section-sub">Regional Volume · Freight Rates · Cargo Structure — Three-Dimensional Focus</p>
+  </div>
+
+  <!-- DIMENSION 1: VOLUME MATRIX -->
+  <h3 style="color:var(--accent-gold);margin:3rem 0 1.5rem;font-size:1.15rem;display:flex;align-items:center;gap:0.5rem;">
+    📊 I. Bidirectional Volume Matrix (2025 Data · Actual + Estimated)
+  </h3>
+
+  <!-- Core KPIs -->
+  <div class="kpi-grid" style="margin-bottom:2rem;">
+    <div class="kpi-box">
+      <div class="kpi-val" style="color:#10b981;font-size:1.6em;">~1.6–1.8M</div>
+      <div class="kpi-label">TR→ME·Red Sea Annual Export Volume (TEU)*</div>
+      <div class="kpi-sub">Iraq accounts for 40%+ as largest single flow</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="color:#3b82f6;font-size:1.6em;">~210,500</div>
+      <div class="kpi-label">TR Import Volume (TEU) — Mar 2026 Monthly</div>
+      <div class="kpi-sub">vs Feb <strong style="color:#ef4444;">↑+27%</strong> Hormuz Effect 🔴</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="font-size:1.4em;">650,000–720,000</div>
+      <div class="kpi-label">Turkey → Iraq Annual Volume (TEU)*</div>
+      <div class="kpi-sub">70%+ via Mersin land bridge transshipment</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="color:#f59e0b;font-size:1.4em;">~61,000 / ~72,000</div>
+      <div class="kpi-label">Mersin Monthly Export / Import TEU</div>
+      <div class="kpi-sub">Mar 2026 data · Econdb real-time</div>
+    </div>
+  </div>
+
+  <!-- Detailed Table -->
+  <h4 style="color:#d4a853;margin:2rem 0 1rem;font-size:1rem;font-weight:600;">🔀 Türkiye ↔ ME·Red Sea Major Trade Pair Volume Table</h4>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2">Direction</th><th rowspan="2">Port of Call / Origin</th><th rowspan="2">Annual Est. TEU*</th>
+          <th rowspan="2">% of Region</th><th colspan="2">Transport Mode Split</th><th rowspan="2">AEM/CUL Linkage</th>
+        </tr>
+        <tr><th>Direct Sea Call</th><th>Land Bridge / Transship</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>🇹🇷→🇮🇶 Iraq</strong> <span class="tag tag-hot">Largest</span></td>
+          <td>Mersin→Land / Umm Qasr Sea</td>
+          <td class="up" style="font-weight:700;color:#10b981;"><strong>650,000 – 720,000</strong></td>
+          <td>40%+</td><td>~25–30% (Umm Qasr ICT)</td>
+          <td><strong style="color:#ef4444;">~70% Mersin truck land bridge</strong></td>
+          <td><span class="tag tag-key">AEM destination Mersin handles nearly all indirect volume</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇹🇷→🇸🇦 Saudi Arabia</strong></td>
+          <td>Jeddah(SAJED) / Dammam</td>
+          <td class="up"><strong>200,000 – 220,000</strong></td>
+          <td>~13%</td>
+          <td><strong style="color:#10b981;">~90%</strong></td>
+          <td>Jeddah tranship ~10%</td>
+          <td><span class="tag tag-key">AEM 5th Port Jeddah Direct!</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇹🇷→🇪🇬 Egypt</strong></td>
+          <td>Alexandria(EGALY) / Port Said</td>
+          <td class="up"><strong>210,000 – 230,000</strong></td>
+          <td>~14%</td>
+          <td><strong style="color:#10b981;">~95%</strong></td>
+          <td>Sokhna feeder ~5%</td>
+          <td><span class="tag tag-key">AEM 6th Port Alexandria Direct!</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇹🇷→🇦🇪 UAE</strong></td>
+          <td>Jebel Ali / Hamad</td>
+          <td class="up"><strong>415,000 – 460,000</strong></td>
+          <td>~26%</td>
+          <td>~80%</td>
+          <td>Jeddah/Hamad tranship 20%</td>
+          <td><span class="tag tag-new">Connected via ME trunk services</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇹🇷→🇮🇷 Iran</strong></td>
+          <td>Bandar Abbas / Mersin Land Bridge</td>
+          <td class="neutral"><strong>162,000 – 180,000</strong></td>
+          <td>~10%</td>
+          <td>~35%</td>
+          <td><strong style="color:#f59e0b;">~65% via Mersin/Van land bridge</strong> (Hormuz bypass)</td>
+          <td>Alternative route growth underway</td>
+        </tr>
+        <tr>
+          <td><strong>🇮🇶🇸🇦🇪🇬→🇹🇷 ME→TR</strong> <span style="color:#ef4444;">⚡Surge</span></td>
+          <td>Mersin / Iskenderun import</td>
+          <td class="up" style="color:#ef4444;font-weight:700;"><strong>~210,500/mo (Mar 2026)</strong></td>
+          <td>—</td>
+          <td colspan="2">Feb 165K → Mar 210.5K <strong style="color:#ef4444;">↑+27%</strong></td>
+          <td><span class="tag tag-hot">Hormuz Crisis Driven</span> Gulf→Med alternative entry point</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.6rem;">
+    * TEU estimates based on trade value ÷ average container value ($18,000–$22,000/TEU), adjusted for product mix. Precise port-pair data from Alphaliner/CTS paid subscriptions. Direct sea call ratios estimated by geographic feasibility of trade lanes.
+  </p>
+
+  <!-- HORMUZ CRISIS IMPACT BOX -->
+  <div class="insight" style="margin-top:2.5rem;border-left-color:#ef4444;background:linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(245,158,11,0.04) 100%);">
+    <p><strong>🔴 Hormuz Strait Crisis — Immediate Impact on Türkiye Container Volumes (Vizion TradeView · Apr 2026):</strong></p>
+    <div class="hormuz-cards">
+      <div class="kpi-box" style="border-top:3px solid #ef4444;">
+        <strong style="font-size:0.82rem;">Türkiye Import Volume</strong>
+        <div class="kpi-val" style="color:#ef4444;font-size:1.5em;">+27% ⬆</div>
+        <div class="kpi-sub" style="font-size:0.72rem;">165K → 210.5K TEU/mo (Feb→Mar)</div>
+      </div>
+      <div class="kpi-box" style="border-top:3px solid #f59e0b;">
+        <strong style="font-size:0.82rem;">Key Receiving Ports</strong>
+        <div class="kpi-val" style="color:#f59e0b;font-size:1.2em;">Mersin + Iskenderun</div>
+        <div class="kpi-sub" style="font-size:0.72rem;">Serving Iran/Iraq/Levant · Alternative exit gateway</div>
+      </div>
+      <div class="kpi-box" style="border-top:3px solid #10b981;">
+        <strong style="font-size:0.82rem;">Sole Beneficiary Nation</strong>
+        <div class="kpi-val" style="color:#10b981;font-size:1.2em;">Oman ↑29%</div>
+        <div class="kpi-sub" style="font-size:0.72rem;">Salalah/Sohar bypass Hormuz Strait</div>
+      </div>
+      <div class="kpi-box" style="border-top:3px solid #6366f1;">
+        <strong style="font-size:0.82rem;">Gulf Export Collapse</strong>
+        <div class="kpi-val" style="color:#6366f1;font-size:1.2em;">UAE -73.5% | KWT -75.6%</div>
+        <div class="kpi-sub" style="font-size:0.72rem;">Unable to pass Hormuz · Severe cargo backlog</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIMENSION 2: FREIGHT RATE SYSTEM -->
+  <h3 style="color:var(--accent-gold);margin:3.5rem 0 1.5rem;font-size:1.15rem;display:flex;align-items:center;gap:0.5rem;">
+    💰 II. Türkiye ↔ ME·Red Sea Regional Freight Rates (April 2026)
+  </h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Route</th><th>Origin</th><th>Destination</th><th>20'GP ($)</th><th>40'HQ ($)</th><th>Transit Time</th><th>Trend</th><th>CUL Linkage</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Far East → Mediterranean (FEM)</strong></td>
+          <td>Shanghai/Ningbo/Yantian</td><td>Mersin/Istanbul</td>
+          <td>$2,000–2,600</td><td class="up" style="font-weight:700;color:#10b981;"><strong>$3,500–4,500</strong></td>
+          <td>28–32 days</td><td class="neutral">Declining post-Red Sea reopening</td>
+          <td><span class="tag tag-key">AEM Comparable Benchmark</span></td>
+        </tr>
+        <tr>
+          <td><strong>Far East → Middle East</strong></td>
+          <td>China main ports</td><td>Jebel Ali/Jeddah/Dammam</td>
+          <td>$1,600–2,300</td><td class="up"><strong>$2,800–3,900</strong></td>
+          <td>18–24 days</td><td class="up">Hormuz risk premium $300–800/TEU</td>
+          <td>AEM 5th Port Jeddah on this lane</td>
+        </tr>
+        <tr>
+          <td><strong>🔑 Türkiye → Red Sea / Saudi</strong> <span class="tag tag-key">Core Short-Haul</span></td>
+          <td><strong>Mersin / Istanbul</strong></td><td><strong>Jeddah / Dammam / Yanbu</strong></td>
+          <td class="neutral"><strong>$900–1,400</strong></td><td class="neutral"><strong>$1,500–2,400</strong></td>
+          <td><strong>4–7 days</strong></td><td class="neutral">Relatively stable · High frequency</td>
+          <td><span class="tag tag-hot">CUL AEM Direct Coverage — Core Segment</span></td>
+        </tr>
+        <tr>
+          <td><strong>🔑 Türkiye → Egypt</strong> <span class="tag tag-key">Core Short-Haul</span></td>
+          <td><strong>Mersin / Istanbul</strong></td><td><strong>Alexandria / Port Said</strong></td>
+          <td class="neutral"><strong>$750–1,200</strong></td><td class="neutral"><strong>$1,300–2,100</strong></td>
+          <td><strong>2–4 days</strong></td><td class="neutral">One of shortest segments</td>
+          <td><span class="tag tag-hot">CUL AEM Direct Coverage — Core Segment</span></td>
+        </tr>
+        <tr>
+          <td><strong>ME → Türkiye (Return Leg)</strong></td>
+          <td>Jebel Ali / Jeddah</td><td>Mersin / Iskenderun</td>
+          <td>$800–1,300</td><td>$1,400–2,200</td><td>4–7 days</td>
+          <td class="up">Rising return demand (Hormuz effect)</td>
+          <td>AEM can carry return cargo</td>
+        </tr>
+        <tr>
+          <td><strong>Türkiye → Libya (MES Feeder)</strong></td>
+          <td>Istanbul → Izmit → Aliaga</td><td>Misurata</td>
+          <td>$300–600</td><td>$550–1,000</td><td>5–7 day loop</td>
+          <td class="up">Strong reconstruction demand</td>
+          <td><span class="tag tag-new">MES Feeder Exclusive</span></td>
+        </tr>
+        <tr>
+          <td><strong>Europe → Türkiye (Feeder)</strong></td>
+          <td>Piraeus / Trieste</td><td>Istanbul / Mersin</td>
+          <td>$300–600</td><td>$500–1,000</td><td>2–4 days</td>
+          <td class="neutral">Stable</td>
+          <td>FEM mainline discharge → feeder to Türkiye</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight" style="margin-top:2rem;">
+    <p><strong>💡 Freight Rate Takeaways:</strong></p>
+    <p style="margin-top:0.8rem;">
+    ① <strong>Türkiye→Red Sea/Saudi/Egypt short-haul segments offer high margin</strong> — $1,500–2,400/40HQ with only 4–7 days transit,
+    weekly frequency can reach 3–5 sailings. Per-time-unit revenue far exceeds long-haul routes.<br/>
+    ② <strong>Red Sea reopening is pressuring FEM long-haul rates downward</strong> — but Türkiye↔ME/Red Sea short-haul segments
+    show stronger price resilience due to inelastic demand (construction materials, food, automobiles).<br/>
+    ③ <strong>Hormuz crisis creates new return-leg demand</strong> — Gulf→Türkiye import surge of +27%
+    means improved return-cargo utilization = healthier two-way balance.<br/>
+    ④ <strong>CUL AEM strategic positioning:</strong> Rather than competing head-on with FEM on long-haul pricing,
+    AEM should focus on securing <span style="color:#d4a853;font-weight:700;">regional pricing power and slot control</span>
+    over the Med↔Red Sea↔Middle East short-haul, high-frequency corridor.
+    </p>
+  </div>
+
+  <!-- DIMENSION 3: CARGO SOURCE STRUCTURE -->
+  <h3 style="color:var(--accent-gold);margin:3.5rem 0 1.5rem;font-size:1.15rem;display:flex;align-items:center;gap:0.5rem;">
+    📦 III. Türkiye → ME·Red Sea Cargo Source Structure (By Flow × By Category)
+  </h3>
+
+  <div class="source-grid">
+
+    <!-- Card 1: Iraq -->
+    <div class="flow-card" style="border-top:4px solid #10b981;">
+      <div class="flow-header">
+        <span class="flow-fromto">🇹🇷 → 🇮🇶 Iraq <span class="tag tag-hot">Largest Flow</span></span>
+        <span class="flow-val" style="color:#10b981;">~65–72K TEU/yr<br><small>$13.0B · 4.97% of TR Exports</small></span>
+      </div>
+      <div style="margin:0.7rem 0;">
+        <table class="src-table">
+          <tr><td>🥩 <strong>Food &amp; Agriculture</strong></td><td>&gt;$3.5B</td><td style="color:#10b981;">&gt;175,000 TEU <span style="font-size:0.7rem;font-weight:400;">(27%)</span></td></tr>
+          <tr><td>🧵 <strong>Textiles &amp; Apparel</strong></td><td>$813M</td><td style="color:#10b981;">~54,000 TEU <span style="font-size:0.7rem;font-weight:400;">(8%)</span></td></tr>
+          <tr><td>📱 <strong>Electronics &amp; Appliances</strong></td><td>$1.472B</td><td style="color:#06b6d4;">~79,000 TEU <span style="font-size:0.7rem;font-weight:400;">(11%)</span></td></tr>
+          <tr><td>🏗️ <strong>Building Materials (Furn+Plastic+Steel)</strong></td><td>&gt;$1.7B</td><td style="color:#f59e0b;">&gt;104,000 TEU <span style="font-size:0.7rem;font-weight:400;">(15%)</span></td></tr>
+          <tr><td>💎 <strong>Precious Metals/Jewelry</strong></td><td>$1.01B</td><td style="color:#999;">~2,000 TEU <span style="font-size:0.7rem;font-weight:400;">High-value small vol</span></td></tr>
+        </table>
+      </div>
+      <div class="flow-items">
+        <strong>Transport Characteristics:</strong> Large reefer demand for food 🥶; building materials dominate as heavy cargo;
+        <strong>70%+ transits via Mersin truck land bridge</strong> (800km, 2 days to Baghdad); Peak season Q3–Q4
+      </div>
+    </div>
+
+    <!-- Card 2: Saudi Arabia -->
+    <div class="flow-card" style="border-top:4px solid #f59e0b;">
+      <div class="flow-header">
+        <span class="flow-fromto">🇹🇷 → 🇸🇦 Saudi Arabia <span class="tag tag-key">AEM Direct</span></span>
+        <span class="flow-val" style="color:#f59e0b;">~20–22K TEU/yr<br><small>$3.99B · Jeddah SAJED</small></span>
+      </div>
+      <div style="margin:0.7rem 0;">
+        <table class="src-table">
+          <tr><td>🔧 <strong>Machinery &amp; Equipment</strong></td><td>$350M</td><td style="color:#10b981;">~19,000 TEU</td></tr>
+          <tr><td>🚗 <strong>Vehicles &amp; Parts</strong></td><td>$343M</td><td style="color:#10b981;">~21,000 TEU</td></tr>
+          <tr><td>⚡ <strong>Copper &amp; Metal Products</strong></td><td>$358M</td><td style="color:#f59e0b;">~12,000 TEU</td></tr>
+          <tr><td>🏠 <strong>Carpets/Home Textiles</strong></td><td>$289M</td><td style="color:#10b981;">~22,000 TEU</td></tr>
+          <tr><td>📦 <strong>Electronic Products</strong></td><td>$320M</td><td style="color:#06b6d4;">~19,000 TEU</td></tr>
+        </table>
+      </div>
+      <div class="flow-items">
+        <strong>Transport Characteristics:</strong> Vision 2030 construction drives demand; auto complete vehicle exports growing fast;
+        <strong>Via Jeddah (SAJED) direct call</strong> — AEM 5th port of call
+      </div>
+    </div>
+
+    <!-- Card 3: Egypt -->
+    <div class="flow-card" style="border-top:4px solid #3b82f6;">
+      <div class="flow-header">
+        <span class="flow-fromto">🇹🇷 → 🇪🇬 Egypt <span class="tag tag-key">AEM Direct</span></span>
+        <span class="flow-val" style="color:#3b82f6;">~21–23K TEU/yr<br><small>$4.18B · Alexandria EGALY</small></span>
+      </div>
+      <div style="margin:0.7rem 0;">
+        <table class="src-table">
+          <tr><td>🚘 <strong>Auto Parts &amp; Components</strong></td><td>#1</td><td style="color:#10b981;">~28,000 TEU</td></tr>
+          <tr><td>🔩 <strong>Steel &amp; Iron Products</strong></td><td>#2</td><td style="color:#f59e0b;">~24,000 TEU</td></tr>
+          <tr><td>👕 <strong>Finished Textiles</strong></td><td>#3</td><td style="color:#10b981;">~26,000 TEU</td></tr>
+          <tr><td>🏗️ <strong>Building Materials</strong></td><td>Rapid Growth</td><td style="color:#f59e0b;">~20,000 TEU</td></tr>
+          <tr><td>📱 <strong>Electronic Products</strong></td><td>Steady Growth</td><td style="color:#06b6d4;">~18,000 TEU</td></tr>
+        </table>
+      </div>
+      <div class="flow-items">
+        <strong>Transport Characteristics:</strong> Egypt's 110M consumer market; automotive supply chain integration;
+        <strong>Via Alexandria (EGALY) direct call</strong> — AEM 6th port of call; Suez Canal North Africa distribution hub
+      </div>
+    </div>
+
+    <!-- Card 4: UAE -->
+    <div class="flow-card" style="border-top:4px solid #fbbf24;">
+      <div class="flow-header">
+        <span class="flow-fromto">🇹🇷 → 🇦🇪 UAE</span>
+        <span class="flow-val" style="color:#fbbf24;">~42–46K TEU/yr<br><small>$8.3B · Jebel Ali</small></span>
+      </div>
+      <div style="margin:0.7rem 0;">
+        <table class="src-table">
+          <tr><td>💎 <strong>Gold &amp; Jewelry</strong></td><td>$358M</td><td style="color:#999;">~5,000 TEU <span style="font-size:0.7rem;font-weight:400;">High Value</span></td></tr>
+          <tr><td>🔧 <strong>Machinery &amp; Equipment</strong></td><td>$350M</td><td style="color:#10b981;">~19,000 TEU</td></tr>
+          <tr><td>🚗 <strong>Automobiles</strong></td><td>$343M</td><td style="color:#10b981;">~21,000 TEU</td></tr>
+          <tr><td>🏠 <strong>Carpets/Home Textiles</strong></td><td>$2.9B+</td><td style="color:#10b981;">~24,000 TEU</td></tr>
+          <tr><td>📺 <strong>Consumer Electronics</strong></td><td>$320M</td><td style="color:#06b6d4;">~19,000 TEU</td></tr>
+        </table>
+      </div>
+      <div class="flow-items">
+        <strong>Transport Characteristics:</strong> Dubai re-export hub strength (some redistributed to Africa);
+        Jebel Ali transshipment center; <strong>Tourism + real estate drives building material demand</strong>
+      </div>
+    </div>
+
+    <!-- Card 5: Iran -->
+    <div class="flow-card" style="border-top:4px solid #8b5cf6;">
+      <div class="flow-header">
+        <span class="flow-fromto">🇹🇷 → 🇮🇷 Iran <span style="color:#ef4444;">⚡Alt Route</span></span>
+        <span class="flow-val" style="color:#8b5cf6;">~16–18K TEU/yr<br><small>$3.23B · Land Bridge Share ↑</small></span>
+      </div>
+      <div style="margin:0.7rem 0;">
+        <table class="src-table">
+          <tr><td>🚗 <strong>Automotive / Transport Equip.</strong></td><td>#1</td><td style="color:#10b981;">~22,000 TEU</td></tr>
+          <tr><td>🏗️ <strong>Construction Materials</strong></td><td>#2</td><td style="color:#f59e0b;">~26,000 TEU</td></tr>
+          <tr><td>🍎 <strong>Food &amp; Agriculture</strong></td><td>#3</td><td style="color:#10b981;">~35,000 TEU</td></tr>
+          <tr><td>🧵 <strong>Textiles</strong></td><td>Steady Demand</td><td style="color:#10b981;">~24,000 TEU</td></tr>
+          <tr><td>🧪 <strong>Chemical Products</strong></td><td>Industrial Raw Material</td><td style="color:#06b6d4;">~18,000 TEU</td></tr>
+        </table>
+      </div>
+      <div class="flow-items">
+        <strong>Transport Characteristics:</strong> <span style="color:#ef4444;font-weight:700;">Land bridge ratio surges under Hormuz crisis</span>
+        — via Van border crossing / Mersin sea-rail into northern Iran; Bandar Abbas constrained; CUL AEM <strong>growth opportunity</strong>
+      </div>
+    </div>
+
+    <!-- Card 6: Libya (MES) -->
+    <div class="flow-card" style="border-top:4px solid #ec4899;">
+      <div class="flow-header">
+        <span class="flow-fromto">🇹🇷 → 🇱🇾 Libya <span class="tag tag-new">MES Feeder</span></span>
+        <span class="flow-val" style="color:#ec4899;">~14–17K TEU/mo ⬆<br><small>~$3.3B/yr · Misurata</small></span>
+      </div>
+      <div style="margin:0.7rem 0;">
+        <table class="src-table">
+          <tr><td>🧱 <strong>Building Materials</strong> <span style="color:#ef4444;font-size:0.72rem;">#1 Rebuild Driver!</span></td><td>#1</td><td style="color:#ef4444;">&gt;50% of TEU</td></tr>
+          <tr><td>🍞 <strong>Food &amp; Consumer Goods</strong></td><td>#2</td><td style="color:#10b981;">~25%</td></tr>
+          <tr><td>💊 <strong>Medical / Daily Supplies</strong></td><td>#3</td><td style="color:#3b82f6;">~15%</td></tr>
+        </table>
+      </div>
+      <div class="flow-items">
+        <strong>Transport Characteristics:</strong> <span style="color:#ec4899;">Post-war reconstruction drives explosive growth</span>
+        — Misurata is fastest-growing port on eastern Med coast; building materials absolutely dominant; MES loop 5–7 days
+      </div>
+    </div>
+
+  </div><!-- end grid -->
+
+  <!-- CONCLUSIONS -->
+  <div class="insight" style="margin-top:3rem;">
+    <p><strong>🎯 Core Conclusions:</strong></p>
+    <p style="margin-top:0.8rem;">
+    ① <strong>Volume Scale: Türkiye→ME·Red Sea annual shipments ~1.6–1.8M TEU</strong>, with Iraq alone commanding 40%+ (650–720K TEU) as the overwhelming #1 market, primarily delivered through Mersin.<br/>
+    ② <strong>Freight Rate Advantage: Türkiye↔Red Sea/Saudi/Egypt short-haul segments ($1,500–2,400/40HQ, 4–7 days)</strong>
+    deliver exceptional per-time-unit revenue and weekly frequency flexibility. CUL AEM should focus on securing <span style="color:#d4a853;font-weight:700;">pricing power and slot control</span> rather than engaging in FEM long-haul rate wars.<br/>
+    ③ <strong>Cargo Mix: Food &amp; agriculture (large reefer demand), building materials (heavy cargo dominant), automotive parts (high-value containerizable), textiles &amp; apparel (stable baseline)</strong> — these four categories account for over 75% of total volume.<br/>
+    ④ <strong>Hormuz Crisis = Structural Opportunity:</strong> Türkiye import volume surged +27%/month (+45,500 TEU),
+    with Iran/Iraq land-bridge ratios soaring. Mersin is upgrading from "export port" to "<strong>regional transshipment hub</strong>"
+    — this is an incremental-growth window that CUL AEM cannot afford to miss.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 05 FREIGHT RATES & MARKET DYNAMICS -->
+<!-- ============================================================ -->
+<section id="s05" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 05</div>
+    <h2 class="section-title">Freight Rates &amp; Market Dynamics</h2>
+    <p class="section-sub">April 2026 Latest Rates · Geopolitical Impact · Cost Structure</p>
+  </div>
+
+  <!-- Rate KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi-box"><div class="kpi-val" style="color:#10b981;">$3,527</div><div class="kpi-label">FBX13 China → Mediterranean</div><div class="kpi-sub">USD/40'HQ · Freightos Index</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:#3b82f6;">~$2,900</div><div class="kpi-label">Far East → N. Europe</div><div class="kpi-sub">USD/FEU · Mid-April</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:#f59e0b;">~$2,420</div><div class="kpi-label">Far East → US West Coast</div><div class="kpi-sub">USD/FEU · +40% vs late Feb</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:#ef4444;">⚠️ Dual Crisis</div><div class="kpi-label">Red Sea + Hormuz</div><div class="kpi-sub">Both straits blocked simultaneously — extreme situation</div></div>
+  </div>
+
+  <!-- Reference Rate Table -->
+  <h3 style="color:var(--accent-gold);margin:3rem 0 1.5rem;font-size:1.15rem;">📊 AEM-Related Route Reference Rates (April 2026)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Trade Lane</th><th>Origin</th><th>Destination</th><th>20'DV ($)</th><th>40'HC ($)</th><th>Status</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Far East—East Med (FEM)</strong> <span class="tag tag-key">AEM Comparable</span></td>
+          <td>Shanghai/Ningbo/Shenzhen</td>
+          <td>Mersin/Istanbul/Ashdod</td>
+          <td>$2,000–2,600</td>
+          <td>$3,500–4,500</td>
+          <td class="neutral">Fluctuating</td>
+          <td>FBX13 benchmark $3,527/40'HQ; Suez direct premium applies</td>
+        </tr>
+        <tr>
+          <td><strong>Far East—N.W. Europe (via Suez)</strong></td>
+          <td>Shanghai/Ningbo/Qingdao</td>
+          <td>Rotterdam/Hamburg/Antwerp</td>
+          <td>$2,500–3,200</td>
+          <td>$4,500–5,500</td>
+          <td class="up">↑ ~20% in Apr</td>
+          <td>Bunker surcharge surge driving increase</td>
+        </tr>
+        <tr>
+          <td><strong>S.E. Asia—Middle East / Red Sea</strong></td>
+          <td>Singapore/Port Klang/Ho Chi Minh</td>
+          <td>Jeddah/Jebel Ali/Sokhna</td>
+          <td>$1,500–2,200</td>
+          <td>$2,500–3,800</td>
+          <td class="up">War risk included</td>
+          <td>Risk premium $300–$800/TEU varies by carrier</td>
+        </tr>
+        <tr>
+          <td><strong>ME—Türkiye (Short-Haul)</strong> <span class="tag tag-new">Regional Segment</span></td>
+          <td>Dubai / Jebel Ali</td>
+          <td>Mersin / Istanbul</td>
+          <td>$800–1,300</td>
+          <td>$1,400–2,200</td>
+          <td class="neutral">Stable</td>
+          <td>Sufficient slot availability · 4–7 day transit</td>
+        </tr>
+        <tr>
+          <td><strong>Türkiye—N. Africa (Feeder)</strong> <span class="tag tag-new">MES/NAF</span></td>
+          <td>Istanbul / Aliaga</td>
+          <td>Misurata / Algiers</td>
+          <td>$300–600</td>
+          <td>$550–1,000</td>
+          <td class="up">Growing demand</td>
+          <td>Short-haul loops · High margin rates</td>
+        </tr>
+        <tr>
+          <td><strong>Europe—Türkiye (Feeder)</strong></td>
+          <td>Piraeus / Trieste</td>
+          <td>Istanbul / Mersin</td>
+          <td>$300–600</td>
+          <td>$500–1,000</td>
+          <td class="neutral">Stable</td>
+          <td>High frequency flexible stowage</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Market Timeline -->
+  <h3 style="color:var(--accent-red);margin:3rem 0 1.2rem;font-size:1.1rem;">🔥 2026 Q1-Q2 Key Market Events</h3>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#3b82f6;"></div>
+      <div class="tl-date">🔵 Jan–Feb 2026 — Pre-CNY Rush</div>
+      <div class="tl-body">
+        <h4>CNY Shipping Peak + Ongoing Red Sea Disruption</h4>
+        <ul>
+          <li>Pre-CNY export rush combined with Red Sea diversion pushed Asia-Europe rates higher</li>
+          <li>CMA CGM introduced Peak Season Surcharge (PSS); mainstream strategy remained full Cape routing</li>
+          <li>SOLAS new regulation effective: mandatory reporting of lost containers at sea (container loss surged 181% in 2024)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#f59e0b;"></div>
+      <div class="tl-date">🟠 Feb–Mar 2026 — Houthi Attacks Resume</div>
+      <div class="tl-body">
+        <h4>Maersk's Two Failed Suez Resumption Attempts + Hormuz Escalation</h4>
+        <ul>
+          <li>Houthi forces resumed systematic attacks on commercial vessels in early February</li>
+          <li>Maersk ME11 service attempted Suez restoration on Mar 5 and Mar 12; both reversed within days</li>
+          <li>Iran-U.S. Hormuz conflict escalation → created <strong>dual chokepoint crisis: Red Sea + Hormuz simultaneously blocked</strong></li>
+          <li>~130 container vessels trapped inside Persian Gulf or anchored off Gulf of Oman</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#ef4444;"></div>
+      <div class="tl-date">🔴 April 2026 — Stalemate</div>
+      <div class="tl-body">
+        <h4>Bunker Price Surge + War Risk Premium Dispute + Rates at Elevated Volatility</h4>
+        <ul>
+          <li>VLSFO fuel spiked from $430/mt to peak $960/mt (+123%)</li>
+          <li>Forwarders criticized carriers' war risk surcharges as "excessive and non-standardized," some exceeding base freight cost itself</li>
+          <li>CMA CGM officially restored partial Suez services (FAL1/FAL3/INDAMEX)</li>
+          <li>Far East→USWC rates surged ~40% vs late Feb; Far East→N. Europe up ~20%</li>
+          <li>Industry-wide schedule reliability declined; most Top 10 carriers saw MoM deterioration</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <p><strong>📈 Freight Rate Assessment:</strong><br/>
+    ① <strong>Short-term (1–3 months): Cost-driven increases will persist</strong> — Bunker Adjustment Factor (BAF) and War Risk Surcharge (WRS) dominate, not demand-driven.
+    If VLSFO retreats from highs, May may see partial surcharge pullback.<br/>
+    ② <strong>Scarcity value of Suez direct service is now clear:</strong> — With 90% of Far East-Med cargo forced around Cape of Good Hope,
+    AEM's stable <strong>Suez direct capability represents a significant competitive edge</strong> (10–14 day time advantage).<br/>
+    ③ <strong>Hormuz factor is a new variable:</strong> — If the strait remains closed, the capacity shortfall from ~130 trapped Gulf vessels will transmit globally,
+    further lifting floor rates across all trade lanes.<br/>
+    ④ <strong>Contract season (2026–27) supports elevated rate levels:</strong> — Carriers have strong incentive to maintain current levels entering annual contract negotiations;
+    blank sailings expected at ~6% to manage capacity.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 06 SUEZ DIRECT COMPETITOR ANALYSIS -->
+<!-- ============================================================ -->
+<section id="s06" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 06</div>
+    <h2 class="section-title">Suez Direct Competitor Analysis</h2>
+    <p class="section-sub">Market comparison of similar Far East → Mediterranean/Middle East direct services</p>
+  </div>
+
+  <div class="table-wrap">
+    <table class="comp-table">
+      <thead><tr><th>Carrier/Alliance</th><th>Service Name</th><th>Far East Origin</th><th>Med/ME Ports of Call</th><th>Via Suez?</th><th>AEM Overlap</th><th>Competitive Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>🥇 MSC</strong></td>
+          <td>Turkey Express / MED Service</td>
+          <td>Shanghai/Ningbo/Yantian/Xiamen</td>
+          <td>Mersin · Istanbul · Izmir · Iskenderun · Mersin</td>
+          <td class="up"><strong>✓ Yes</strong> Partially Restored</td>
+          <td><span class="tag tag-hot">High Overlap</span></td>
+          <td>Türkiye market leader; deepest port coverage; new Turkey-Adriatic-Malta-Libya weekly service launched</td>
+        </tr>
+        <tr>
+          <td><strong>🥈 CMA CGM</strong></td>
+          <td>FAL1 / FAL3 / MEX / INDAMEX</td>
+          <td>Shanghai/Ningbo/Yantian</td>
+          <td>Piraeus · Marseille · Barcelona · Beirut · Mersin (partial)</td>
+          <td class="up"><strong>✓ Restored</strong> Officially Confirmed</td>
+          <td><span class="tag tag-hot">High Overlap</span></td>
+          <td>Since Feb 2026 officially restored FAL1/FAL3/INDAMEX Suez transit; FAK rates published regularly</td>
+        </tr>
+        <tr>
+          <td><strong>🥉 Maersk</strong></td>
+          <td>AE1/AE2 / EMC</td>
+          <td>Shanghai/Ningbo/Qingdao</td>
+          <td>Felixstowe · Bremerhaven · Port Said · Ashdod</td>
+          <td class="down"><strong>✗ Paused After 2 Failures</strong></td>
+          <td><span class="tag tag-warn">Moderate Overlap</span></td>
+          <td>Both March resumption attempts failed; currently maintaining Cape routing; end-to-end logistics solutions remain competitive</td>
+        </tr>
+        <tr>
+          <td><strong>Ocean Alliance</strong></td>
+          <td>3 Far East – Middle East Loops</td>
+          <td>China main ports</td>
+          <td>Jebel Ali · Hamad · Dammam · Jubail</td>
+          <td class="neutral">Route-dependent</td>
+          <td><span class="tag tag-new">ME Segment Overlap</span></td>
+          <td>COSCO announced 3 Far East-ME direct loops starting Apr 2026 to meet growing demand</td>
+        </tr>
+        <tr>
+          <td><strong>Hapag-Lloyd</strong></td>
+          <td>MD1/MD2/MD3 / TEX</td>
+          <td>Asia main ports</td>
+          <td>Port Said · Beirut · Mersin · Istanbul</td>
+          <td class="neutral">Partial Restoration</td>
+          <td><span class="tag tag-warn">Moderate Overlap</span></td>
+          <td>Active Med service adjustments; Gemini Alliance partnership with Maersk; global #1 schedule reliability at 67.4%</td>
+        </tr>
+        <tr>
+          <td><strong>ONE</strong></td>
+          <td>FEM / Red Sea Services</td>
+          <td>Shanghai/Ningbo/Shenzhen/Taipei</td>
+          <td>Ashdod · Mersin · Port Said · Sokhna</td>
+          <td class="up">Gradual Restoration</td>
+          <td><span class="tag tag-warm">Moderate Overlap</span></td>
+          <td>Official real-time sailing schedules cover all major Türkiye ports</td>
+        </tr>
+        <tr>
+          <td><strong>ZIM</strong></td>
+          <td>Mediterranean Reefer Express / Feeders</td>
+          <td>—</td>
+          <td>Israel-Türkiye-Greece feeder loop</td>
+          <td class="up">Regional Normal</td>
+          <td><span class="tag tag-new">Differentiated Complement</span></td>
+          <td>Differentiated advantage in East Med reefer market; heavily affected by Suez disruption</td>
+        </tr>
+        <tr>
+          <td><strong>🏠 CUL (Us)</strong></td>
+          <td><strong style="color:var(--accent-gold);">AEM</strong></td>
+          <td><strong>Qingdao · Shanghai · Ningbo · Nansha</strong></td>
+          <td><strong style="color:var(--accent-gold);">Jeddah · Alexandria · Aliaga · Istanbul · Mersin</strong></td>
+          <td class="up"><strong style="color:var(--accent-green);">✓ Suez Direct</strong></td>
+          <td><span class="tag tag-key">— Self</span></td>
+          <td><strong>Unique Value: Only service covering all three key nodes — Red Sea (Jeddah) + Egypt (Alexandria) + Türkiye triple port — as an East-Med direct service; combined with MES/NAF feeders forms a complete network</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight">
+    <p><strong>🏆 Competitive Landscape Summary:</strong></p>
+    <p style="margin-top:0.8rem;line-height:1.9;">
+    <strong>① CMA CGM is currently the most aggressive Suez restorer</strong> — FAL1/FAL3/INDAMEX three core services have officially resumed Suez transit, posing direct competition to AEM.
+    However CMA's routes lean more toward West Mediterranean (Piraeus/Marseille/Barcelona), with less density on East Med Türkiye's three ports than AEM's focused coverage.<br/><br/>
+    <strong>② MSC remains the undisputed dominant player in the Türkiye market</strong> — but MSC's strength lies more in regional feeders and port partnerships rather than Far East direct services.
+    AEM can differentiate as a "Far East Direct Specialist."<br/><br/>
+    <strong>③ Maersk's two failed resumption attempts are a signal</strong> — proving that not every carrier can reliably execute Suez transit.
+    The ability to provide <strong>stable</strong> direct service is itself a core competitive advantage.<br/><br/>
+    <strong>④ CUL AEM's unique moat = Jeddah + Alexandria + Türkiye Triple Port</strong> — Few market services can cover all three key nodes simultaneously.
+    This means AEM is not just a Türkiye shipping route, but a <strong>"Red Sea-Egypt-Türkiye" tri-corridor product</strong>.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 07 SALES OPPORTUNITIES & ACTION PLAN -->
+<!-- ============================================================ -->
+<section id="s07" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 07</div>
+    <h2 class="section-title">Sales Opportunities &amp; Action Plan</h2>
+    <p class="section-sub">Actionable recommendations based on data and network analysis</p>
+  </div>
+
+  <div class="card-grid">
+    <!-- Opportunity 1 -->
+    <div class="card" style="border-left:4px solid var(--accent-green);">
+      <span class="card-icon">💡</span>
+      <h3>Opportunity 1: Suez Direct Service as Core Selling Point</h3>
+      <h4>The Suez Direct Advantage</h4>
+      <p>In a market where 90% of Far East-Mediterranean cargo is forced to route via Cape of Good Hope, AEM's <strong>Suez Direct</strong> is a scarce resource:</p>
+      <ul>
+        <li><strong>Transit Advantage:</strong> 10–14 days faster than Cape routing — highly attractive for time-sensitive customers</li>
+        <li><strong>Cost Advantage:</strong> Saves additional bunker costs (~$1–2M per voyage)</li>
+        <li><strong>Reliability:</strong> Avoids severe weather risks and delays around South African waters</li>
+        <li><strong>Sales Pitch:</strong> "While others are still rounding Africa, your cargo has already arrived"</li>
+      </ul>
+    </div>
+
+    <!-- Opportunity 2 -->
+    <div class="card" style="border-left:4px solid var(--accent-gold);">
+      <span class="card-icon">🏗️</span>
+      <h3>Opportunity 2: Iraq Reconstruction Market</h3>
+      <h4>$130B+ Türkiye→Iraq Trade Corridor</h4>
+      <p>Iraq is Türkiye's #4 export market ($13B/year), with mid-term target growth to $18B:</p>
+      <ul>
+        <li><strong>Strong Building Materials Demand:</strong> Furniture/steel/plastics/aluminum total $2.5B+ — earthquake recovery + reconstruction double driver</li>
+        <li><strong>Massive Food Exports:</strong> Grains/fruits/meats/vegetables >$3.5B — Iraq heavily dependent on food imports</li>
+        <li><strong>Auto Brands:</strong> Tofas(Fiat) and OYAK Renault dominate the market — supporting parts transport demand</li>
+        <li><strong>CUL Entry Point:</strong> AEM to Mersin + land-truck transshipment into southern Iraq</li>
+      </ul>
+    </div>
+
+    <!-- Opportunity 3 -->
+    <div class="card" style="border-left:4px solid var(--accent-cyan);">
+      <span class="card-icon">🏜️</span>
+      <h3>Opportunity 3: N. Africa Post-War Reconstruction (MES/NAF)</h3>
+      <h4>Libya &amp; Algeria — The Mediterranean's Last Growth Frontier</h4>
+      <p>Two feeder-served target markets sit on the cusp of high-growth acceleration:</p>
+      <ul>
+        <li><strong>MES → Misurata (Libya):</strong> Post-war reconstruction demand exploding; construction materials/medical/consumer goods in acute shortage; monthly exports grew from near-zero to $276M</li>
+        <li><strong>NAF → Algiers (Algeria):</strong> North Africa's 2nd-largest market ($2.88B/year), oil economy drives infrastructure and consumption upgrade</li>
+        <li><strong>Return Cargo Opportunity:</strong> Algerian phosphate/crude oil → Türkiye/Europe refining</li>
+        <li><strong>Differentiation:</strong> Most international carriers do not serve these two ports; CUL has first-mover advantage</li>
+      </ul>
+    </div>
+
+    <!-- Opportunity 4 -->
+    <div class="card" style="border-left:4px solid var(--accent-blue);">
+      <span class="card-icon">🇮🇳</span>
+      <h3>Opportunity 4: India–Türkiye Trade Growth</h3>
+      <h4>$8.7B → $20B Target Logistics Dividend</h4>
+      <p>Both governments have set clear targets to double bilateral trade within five years:</p>
+      <ul>
+        <li><strong>India→Türkiye ($5.2B):</strong> Engineering equipment ($3.04B) · Chemicals ($514M) · Electronics ($427M) — high-value containerizable cargo</li>
+        <li><strong>Türkiye→India ($2.84B):</strong> Energy ($783M) · Gold/jewelry ($309M) · Aircraft ($180M)</li>
+        <li><strong>Target Sectors:</strong> Textiles · Pharmaceuticals · Agriculture · Automotive · Metals — all container-friendly categories</li>
+        <li><strong>CUL Entry Point:</strong> Indian ports (Cochin/Chennai/Nhava Sheva) → FEM/IMX service connection</li>
+      </ul>
+    </div>
+
+    <!-- Opportunity 5 -->
+    <div class="card" style="border-left:4px solid var(--accent-purple);">
+      <span class="card-icon">⚡</span>
+      <h3>Opportunity 5: "The Third Option" Sales Strategy</h3>
+      <h4>When Customers Debate Suez vs Cape...</h4>
+      <p>When customers are torn between "Suez (expensive &amp; risky)" vs "Cape of Good Hope (slow)":</p>
+      <ul>
+        <li><strong>Option A:</strong> Red Sea Direct — Fastest 28 days, but carries risk premium</li>
+        <li><strong>Option B:</strong> Cape Routing — Safest option, +12–14 days</li>
+        <li><strong><span style="color:var(--accent-gold);">Option C (CUL):</span></strong> AEM Suez Direct — Balanced approach, stable schedule commitment</li>
+        <li><strong>Key Message:</strong> Emphasize that AEM isn't gambling — it's a planned, committed direct-service guarantee</li>
+      </ul>
+    </div>
+
+    <!-- Opportunity 6 -->
+    <div class="card" style="border-left:4px solid var(--accent-orange);">
+      <span class="card-icon">🔄</span>
+      <h3>Opportunity 6: Return Cargo Optimization</h3>
+      <h4>Return Cargo Optimization</h4>
+      <p>Not just about getting cargo there — leverage return leg capacity:</p>
+      <ul>
+        <li><strong>Türkiye → Far East:</strong> Hazelnuts (70% global share)/figs/raisins/olive oil → SE Asian food processors</li>
+        <li><strong>N. Africa → Far East:</strong> Algerian phosphate/fertilizer → Vietnam/Thailand agriculture</li>
+        <li><strong>Red Sea → Far East:</strong> Egyptian cotton → China/Vietnam/Indonesia textile mills</li>
+        <li>Higher return-leg utilization = optimized round-trip profitability</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ACTION ITEMS -->
+  <div class="insight" style="margin-top:3rem;">
+    <p><strong>🎯 Global Sales Team — Action Items:</strong></p>
+    <ol style="font-size:0.93rem;color:var(--text-primary);line-height:2;padding-left:1.6rem;margin-top:1rem;">
+      <li><strong>Immediate:</strong> Review current customer portfolio for companies with Türkiye/ME/N.Africa business; send report summary + AEM service introduction</li>
+      <li><strong>This Month:</strong> For each high-growth market (Iraq/Libya/Algeria), identify 1–2 target customers; customize "MES/NAF Feeder + Land Bridge" combo proposals</li>
+      <li><strong>Ongoing Monitoring:</strong> Track CMA CGM Suez resumption stability (directly impacts competitive landscape) and Hormuz Strait situation (affects overall rate levels)</li>
+      <li><strong>Medium-to-Long Term:</strong> Establish Mersin local partner relationships (customs brokers/truckers/warehouses); prepare for deeper engagement in Türkiye-Iraq land bridge operations</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="footer-brand">CUL Route Intelligence Report</div>
+  <p>Türkiye Market Intelligence — AEM · MES · NAF Deep-Dive Shipping Report</p>
+  <p>Generated: 2026-04-29 | Data Sources: ShipHub / DynaMar / Container News / Ballast Markets / Econdb / Vizion TradeView / Freightos FBX13 / CMA CGM / Mighty Shipping</p>
+  <p style="margin-top:0.5rem;">For Internal Use by Global Sales Team | TEU Data Primary · Trade Value Supplementary | *Estimates Marked</p>
+  <p style="margin-top:1.2rem;color:#334155;">© 2026 CUL Market Intelligence Division</p>
+</footer>
+</body>
+</html>

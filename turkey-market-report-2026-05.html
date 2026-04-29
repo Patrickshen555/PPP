@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CUL Türkiye Route Intelligence | AEM·MES·NAF 航线货流深度报告</title>
+<style>
+  :root {
+    --bg-deep: #0b1120;
+    --bg-main: #111827;
+    --bg-card: #1a2332;
+    --bg-card-hover: #212d42;
+    --bg-highlight: rgba(212,168,83,0.06);
+    --accent-gold: #d4a853;
+    --accent-gold-dim: rgba(212,168,83,0.15);
+    --accent-red: #ef4444;
+    --accent-red-dim: rgba(239,68,68,0.12);
+    --accent-green: #10b981;
+    --accent-green-dim: rgba(16,185,129,0.12);
+    --accent-blue: #3b82f6;
+    --accent-blue-dim: rgba(59,130,246,0.12);
+    --accent-purple: #8b5cf6;
+    --accent-orange: #f59e0b;
+    --accent-cyan: #06b6d4;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border: #1e293b;
+    --border-light: #334155;
+    --shadow: 0 8px 32px rgba(0,0,0,0.35);
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: -apple-system, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212,168,83,0.08) 0%, transparent 60%),
+      linear-gradient(180deg, var(--bg-deep) 0%, #0f172a 70%, #131c31 100%);
+    padding: 2rem;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(212,168,83,0.02) 80px, rgba(212,168,83,0.02) 81px),
+      repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(212,168,83,0.015) 80px, rgba(212,168,83,0.015) 81px);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 20px;
+    border: 1px solid var(--accent-gold); border-radius: 30px;
+    font-size: 0.78rem; color: var(--accent-gold);
+    letter-spacing: 3px; text-transform: uppercase;
+    background: rgba(212,168,83,0.06);
+    margin-bottom: 1.8rem;
+    backdrop-filter: blur(8px);
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+    font-weight: 800; letter-spacing: -1.5px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent-gold) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 0.8rem;
+  }
+  .hero h2 {
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    font-weight: 400; color: var(--text-secondary);
+    letter-spacing: 0.5px; max-width: 700px; margin: 0 auto 2rem;
+  }
+  .hero-routes {
+    display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 2rem;
+  }
+  .route-tag {
+    padding: 8px 18px; border-radius: 8px;
+    font-size: 0.82rem; font-weight: 600;
+    border: 1px solid var(--border-light);
+    background: var(--bg-card);
+  }
+  .route-tag.em { border-color: var(--accent-gold); color: var(--accent-gold); background: var(--accent-gold-dim); }
+  .route-tag.mes { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(6,182,212,0.08); }
+  .route-tag.naf { border-color: var(--accent-purple); color: var(--accent-purple); background: rgba(139,92,246,0.08); }
+  .hero-meta {
+    display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap;
+    font-size: 0.82rem; color: var(--text-muted);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ===== NAV ===== */
+  .nav-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(11,17,32,0.92); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.8rem 2rem;
+    display: flex; align-items: center; gap: 6px;
+    overflow-x: auto; white-space: nowrap;
+    scrollbar-width: none;
+  }
+  .nav-bar::-webkit-scrollbar { display: none; }
+  .nav-item {
+    padding: 7px 16px; border-radius: 22px; font-size: 0.76rem;
+    color: var(--text-secondary); cursor: pointer; transition: all 0.25s ease;
+    text-decoration: none; border: 1px solid transparent; white-space: nowrap;
+    font-weight: 500;
+  }
+  .nav-item:hover { color: var(--accent-gold); background: var(--accent-gold-dim); }
+  .nav-item.active { color: var(--accent-gold); background: var(--accent-gold-dim); border-color: rgba(212,168,83,0.25); }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    max-width: 1280px; margin: 0 auto; padding: 5rem 2rem;
+  }
+  .section-head {
+    text-align: center; margin-bottom: 3.5rem;
+  }
+  .section-num {
+    font-size: 0.72rem; letter-spacing: 5px; color: var(--accent-gold);
+    text-transform: uppercase; font-weight: 600; margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 700;
+    color: var(--text-primary); letter-spacing: -0.5px; margin-bottom: 0.4rem;
+  }
+  .section-sub { font-size: 1rem; color: var(--text-secondary); font-weight: 300; }
+
+  /* ===== KPI STRIP ===== */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem; margin: 2.5rem 0;
+  }
+  .kpi-box {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 1.5rem; text-align: center;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+  .kpi-box:hover { transform: translateY(-3px); border-color: var(--border-light); }
+  .kpi-val { font-size: 1.9rem; font-weight: 800; color: var(--accent-gold); }
+  .kpi-label { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.3rem; }
+  .kpi-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+  /* ===== CARDS ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem; margin-top: 2rem;
+  }
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+    transition: all 0.3s ease; box-shadow: var(--shadow);
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    border-color: var(--border-light);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  }
+  .card-icon { font-size: 2.2rem; display: block; margin-bottom: 1rem; }
+  .card h3 { font-size: 1.15rem; font-weight: 650; margin-bottom: 0.4rem; }
+  .card h4 { font-size: 0.82rem; color: var(--text-muted); font-weight: 400; margin-bottom: 1rem; }
+  .card p { font-size: 0.89rem; color: var(--text-secondary); line-height: 1.7; }
+  .card ul { font-size: 0.86rem; color: var(--text-secondary); padding-left: 1.2rem; line-height: 1.75; }
+  .card li::marker { color: var(--accent-gold); }
+  .card .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.8rem; }
+
+  /* ===== TABLES ===== */
+  .table-wrap {
+    overflow-x: auto; border-radius: var(--radius);
+    border: 1px solid var(--border); margin-top: 1.5rem;
+    background: var(--bg-card);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 700px; }
+  thead th {
+    background: var(--bg-main); padding: 14px 16px; text-align: left;
+    font-weight: 600; color: var(--accent-gold); font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--accent-gold); white-space: nowrap;
+  }
+  tbody td { padding: 13px 16px; border-bottom: 1px solid var(--border); color: var(--text-secondary); vertical-align: top; }
+  tbody tr:hover td { background: rgba(255,255,255,0.02); }
+  tbody tr:last-child td { border-bottom: none; }
+  .up { color: var(--accent-green); font-weight: 600; }
+  .down { color: var(--accent-red); font-weight: 600; }
+  .neutral { color: var(--accent-blue); font-weight: 600; }
+  .hot { color: var(--accent-red); }
+  .tag {
+    display: inline-block; padding: 3px 10px; border-radius: 6px;
+    font-size: 0.7rem; font-weight: 500;
+  }
+  .tag-hot { background: var(--accent-red-dim); color: #f87171; }
+  .tag-key { background: var(--accent-green-dim); color: #34d399; }
+  .tag-new { background: var(--accent-blue-dim); color: #60a5fa; }
+  .tag-warn { background: rgba(245,158,11,0.12); color: #fbbf24; }
+
+  /* ===== INSIGHT BOX ===== */
+  .insight {
+    background: linear-gradient(135deg, var(--accent-gold-dim) 0%, rgba(239,68,68,0.04) 100%);
+    border-left: 4px solid var(--accent-gold);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 1.5rem 1.8rem; margin: 2rem 0;
+  }
+  .insight strong { color: var(--accent-gold); }
+  .insight p { font-size: 0.91rem; color: var(--text-primary); line-height: 1.8; }
+
+  /* ===== ROUTE VISUAL ===== */
+  .route-viz {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 2rem; margin: 2rem 0; text-align: center;
+  }
+  .route-path {
+    display: flex; align-items: center; justify-content: center; gap: 0;
+    flex-wrap: wrap; padding: 1.5rem 0;
+  }
+  .port-node {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 10px 14px; border-radius: 10px; min-width: 85px;
+    font-size: 0.73rem; font-weight: 600; position: relative;
+  }
+  .port-node .code { font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; font-weight: 400; }
+  .arrow { color: var(--text-muted); font-size: 1.3rem; padding: 0 4px; }
+
+  /* ===== TRADE FLOW DIAGRAM ===== */
+  .flow-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem; margin: 2rem 0;
+  }
+  .flow-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 1.5rem;
+    border-top: 3px solid var(--accent-gold);
+  }
+  .flow-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .flow-fromto { font-size: 0.82rem; font-weight: 600; }
+  .flow-val { font-size: 1.4rem; font-weight: 800; color: var(--accent-gold); }
+  .flow-bar { height: 6px; background: var(--bg-main); border-radius: 3px; overflow: hidden; margin-top: 0.8rem; }
+  .flow-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+  .flow-items { margin-top: 1rem; font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; }
+
+  /* 货源结构卡片网格 */
+  .source-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .source-grid .flow-card { padding: 1.3rem; }
+  .source-grid .flow-header {
+    flex-wrap: wrap; gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+  .source-grid .flow-fromto {
+    font-size: 0.88rem; flex: 1; min-width: 0;
+  }
+  .source-grid .flow-val {
+    font-size: 1.2rem; text-align: right; white-space: nowrap;
+  }
+  .source-grid .flow-val small { font-size: 0.7rem; color: var(--text-muted); font-weight:400; }
+  /* 卡片内明细表统一样式 */
+  .src-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 0.84rem; }
+  .src-table td { padding: 0.45rem 0.35rem; border-bottom: 1px solid rgba(0,0,0,0.06); vertical-align: middle; }
+  .src-table td:nth-child(1) { width: 40%; text-align: left; }
+  .src-table td:nth-child(2) { width: 24%; text-align: right; font-size: 0.8rem; }
+  .src-table td:nth-child(3) { width: 36%; text-align: right; font-weight: 600; }
+  .source-grid .flow-items { font-size: 0.8rem; line-height: 1.65; margin-top: 0.75rem; }
+
+  /* 霍尔木兹危机四格数据 */
+  .hormuz-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  @media (max-width: 900px) { .hormuz-cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .hormuz-cards { grid-template-columns: 1fr; } }
+
+  @media (max-width: 800px) {
+    .source-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline { padding-left: 28px; margin-top: 2rem; position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .tl-item { position: relative; padding-bottom: 2rem; }
+  .tl-dot {
+    position: absolute; left: -24px; top: 4px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent-gold);
+    box-shadow: 0 0 0 4px rgba(212,168,83,0.15);
+  }
+  .tl-date { font-size: 0.78rem; color: var(--accent-gold); font-weight: 600; margin-bottom: 0.3rem; }
+  .tl-body {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.2rem 1.5rem;
+  }
+  .tl-body h4 { font-size: 0.95rem; color: var(--text-primary); margin-bottom: 0.4rem; }
+  .tl-body p, .tl-body li { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.7; }
+  .tl-body ul { padding-left: 1.1rem; margin-top: 0.4rem; }
+
+  /* ===== COMPETITOR TABLE SPECIAL ===== */
+  .comp-table thead th { font-size: 0.75rem; }
+  .comp-table tbody td { font-size: 0.82rem; }
+  .star-rating { color: var(--accent-gold); font-size: 0.8rem; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center; padding: 3.5rem 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted); font-size: 0.82rem;
+  }
+  footer a { color: var(--accent-gold); text-decoration: none; }
+  footer .footer-brand { color: var(--accent-gold); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; }
+
+  @media (max-width: 768px) {
+    .card-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .section { padding: 3rem 1.2rem; }
+    .route-path { flex-direction: column; align-items: center; }
+    .arrow { transform: rotate(90deg); }
+  }
+
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+</style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div style="position:relative;z-index:1;">
+    <div class="hero-badge">🚢 CUL Route Intelligence · 2026 Q2</div>
+    <h1>土耳其航线货流深度报告</h1>
+    <h2>AEM 远东直航地东 &middot; MES 北非支线 &middot; NAF 地中海支线<br/>苏伊士走廊上的货物、产品与机会</h2>
+    <div class="hero-routes">
+      <span class="route-tag em">AEM 远东&mdash;地东主干</span>
+      <span class="route-tag mes">MES 利比亚支线</span>
+      <span class="route-tag naf">NAF 阿尔及利亚支线</span>
+    </div>
+    <div class="hero-meta">
+      <span>📅 2026年4月</span>
+      <span>🌍 红海 / 东地中海 / 中东 / 北非</span>
+      <span>🎯 全球销售团队专用</span>
+      <span>📊 数据源：ShipHub / DynaMar / Ballast Markets / Econdb / Vizion TradeView / CTS / FBX13</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== NAV ========== -->
+<nav class="nav-bar">
+  <a class="nav-item active" href="#s01">01 航线服务全景</a>
+  <a class="nav-item" href="#s02">02 港口与箱量</a>
+  <a class="nav-item" href="#s03">03 土耳其出口画像</a>
+  <a class="nav-item" href="#s04">04 蛇身中段货流</a>
+  <a class="nav-item" href="#s05">05 运价与市场</a>
+  <a class="nav-item" href="#s06">06 直航竞品分析</a>
+  <a class="nav-item" href="#s07">07 销售机会与行动</a>
+</nav>
+
+<!-- ================================================================ -->
+<!-- 01 航线服务全景 -->
+<!-- ================================================================ -->
+<section id="s01" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 01</div>
+    <h2 class="section-title">CUL 航线服务矩阵</h2>
+    <p class="section-sub">AEM 主干 + MES/NAF 支线的完整覆盖网络</p>
+  </div>
+
+  <!-- KPI 快速概览 - TEU箱量驱动 -->
+  <div class="kpi-grid" style="margin-top:3rem;">
+    <div class="kpi-box"><div class="kpi-val">14,000,000</div><div class="kpi-label">土耳其港口年吞吐量(TEU)</div><div class="kpi-sub">2025年 · YoY +3.5% 📈 · 5港进全球TOP100</div></div>
+    <div class="kpi-box"><div class="kpi-val">1,930,000</div><div class="kpi-label">梅尔辛港年吞吐量 TEU</div><div class="kpi-sub">全国第5 · 2025年+2.1% · AEM终点港</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:#10b981;">+27% ⬆</div><div class="kpi-label">土耳其进口箱量增幅</div><div class="kpi-sub">2月→3月 165K→210K TEU (霍尔木兹效应)</div></div>
+    <div class="kpi-box"><div class="kpi-val">$3,527</div><div class="kpi-label">FBX13 中国→地中海 运价</div><div class="kpi-sub">USD/40'HQ · 2026.04</div></div>
+    <div class="kpi-box"><div class="kpi-val">+13.9%</div><div class="kpi-label">Ambarlı港增长率 🔥</div><div class="kpi-sub">342.8万TEU · 全国No.1 · 全球TOP72</div></div>
+  </div>
+
+  <div class="insight" style="margin-top:2.5rem;">
+
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 02 港口与箱量 -->
+<!-- ================================================================ -->
+<section id="s02" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 02</div>
+    <h2 class="section-title">土耳其港口与箱量分布</h2>
+    <p class="section-sub">CUL航线覆盖的土耳其港口 · 精确TEU吞吐量数据 · 霍尔木兹危机实时影响</p>
+  </div>
+
+  <!-- 三大港口卡片 -->
+  <div class="card-grid">
+    <div class="card" style="border-top:3px solid var(--accent-green);">
+      <span class="card-icon">⭐</span>
+      <h3>Mersin 梅尔辛</h3>
+      <h4>东南走廊核心 · 中东门户 · AEM终点港</h4>
+      <ul>
+        <li><strong>2025吞吐量：</strong><strong>~1,930,000 TEU</strong> <span class="up">(YoY +2.1%)</span> 土耳其第5大港</li>
+        <li><strong>运营商：</strong>MIP (PSA International + Akfen 合资)</li>
+        <li><strong>设计产能：</strong>250万TEU → 扩建目标350万TEU</li>
+        <li><strong>距伊拉克：</strong>仅800km（陆桥卡车2天内达）</li>
+        <li><strong>距叙利亚：</strong>仅400km（战后重建入口）</li>
+        <li><strong>历史峰值：</strong>叙过境贸易曾超$50亿/年（2011年前）</li>
+        <li><strong>农产品旺季：</strong>柑橘出口季(10-3月) 吞吐量提升8-10%</li>
+      </ul>
+      <div class="tag-list">
+        <span class="tag tag-key">AEM终点港</span>
+        <span class="tag tag-hot">中东最佳门户</span>
+        <span class="tag tag-new">扩建进行中</span>
+      </div>
+    </div>
+
+    <div class="card" style="border-top:3px solid var(--accent-blue);">
+      <span class="card-icon">🌉</span>
+      <h3>Ambarlı (Istanbul) 伊斯坦布尔</h3>
+      <h4>欧亚中枢 · 马尔马拉海最大港 · MES/NAF起点</h4>
+      <ul>
+        <li><strong>2025吞吐量：</strong><strong>3,428,048 TEU</strong> <span class="up">(YoY +13.9%)</span> 🔥 全国No.1 · 全球TOP72</li>
+        <li><strong>功能定位：</strong>博斯普鲁斯海峡南端集装箱枢纽</li>
+        <li><strong>运营方：</strong>Kumport / Marport 多码头运营</li>
+        <li><strong>优势：</strong>黑海通道控制权 + 欧亚分拨中心</li>
+        <li><strong>挑战：</strong>海峡通行能力瓶颈 + 区域竞争加剧</li>
+        <li><strong>支线角色：</strong>MES/NAF两条环线均从此出发</li>
+      </ul>
+      <div class="tag-list">
+        <span class="tag tag-key">MES/NAF枢纽港</span>
+        <span class="tag tag-new">AEM第7挂靠</span>
+      </div>
+    </div>
+
+    <div class="card" style="border-top:3px solid var(--accent-purple);">
+      <span class="card-icon">🏭</span>
+      <h3>Aliaga 阿利亚加</h3>
+      <h4>伊兹密尔湾工业港 · 散集两用 · 支线必停</h4>
+      <ul>
+        <li><strong>2025吞吐量：</strong><strong>~2,250,000 TEU</strong> <span class="up">(YoY +6.2%)</span> 🔥 全国增速领先</li>
+        <li><strong>全国排名：</strong>土耳其<strong>第3大集装箱港</strong>（超过Mersin）</li>
+        <li><strong>运营方：</strong>DP World（迪拜环球港务）</li>
+        <li><strong>核心货种：</strong>石化产品 + 工业原料 + 钢材 + 集装箱</li>
+        <li><strong>区位优势：</strong>爱琴海沿岸工业区配套</li>
+        <li><strong>支线价值：</strong>MES/NAF双线共享挂靠港</li>
+        <li><strong>增长驱动：</strong>震后重建物资持续入境</li>
+      </ul>
+      <div class="tag-list">
+        <span class="tag tag-key">MES/NAF共停靠</span>
+        <span class="tag tag-new">AEM第6挂靠</span>
+        <span class="tag tag-warn">DP World运营</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 土耳其港口吞吐量排名表（2025年精确TEU数据） -->
+  <h3 style="color:var(--accent-gold);margin:3.5rem 0 1.5rem;font-size:1.15rem;">🏆 土耳其集装箱港口吞吐量 TOP 6（2025年 · 精确TEU）</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>排名</th><th>港口名称</th><th>代码</th><th><strong>2025年 TEU</strong></th><th><strong>YoY 增长率</strong></th><th>区域</th><th>运营方 / 备注</th></tr></thead>
+      <tbody>
+        <tr>
+          <td style="font-size:1.3rem;">🥇</td>
+          <td><strong>Ambarlı (伊斯坦布尔)</strong></td>
+          <td>TRAMR</td>
+          <td class="up" style="color:#10b981;font-weight:700;"><strong>3,428,048</strong></td>
+          <td class="up" style="color:#10b981;font-weight:800;">▲ 13.9% 🔥</td>
+          <td>马尔马拉海·欧洲侧</td>
+          <td>Kumport/Marport · 全国最大 · 全球TOP72</td>
+        </tr>
+        <tr>
+          <td style="font-size:1.3rem;">🥈</td>
+          <td><strong>Kocaeli (伊兹密特湾)</strong></td>
+          <td>TRIZT</td>
+          <td class="up"><strong>~2,520,000*</strong></td>
+          <td class="up">▲ ~8.5%</td>
+          <td>东马尔马拉·Gebze</td>
+          <td>多码头集群区 · 汽车化工为主 · 全球TOP86</td>
+        </tr>
+        <tr>
+          <td style="font-size:1.3rem;">🥉</td>
+          <td><strong>Aliaga (阿利亚加)</strong></td>
+          <td>TRALI</td>
+          <td class="up"><strong>~2,250,000*</strong></td>
+          <td class="up">▲ +6.2%</td>
+          <td>爱琴海·伊兹密尔湾</td>
+          <td>DP World运营 · 震后重建物资驱动</td>
+        </tr>
+        <tr>
+          <td style="font-size:1.3rem;">4</td>
+          <td><strong>Tekirdağ (Asyaport)</strong></td>
+          <td>TRTEK</td>
+          <td class="up"><strong>~2,120,000*</strong></td>
+          <td class="up">▲ +4.3%</td>
+          <td>马尔马拉海·萨罗斯湾</td>
+          <td>MSC枢纽港 · 全球TOP94 · 岸电系统</td>
+        </tr>
+        <tr>
+          <td style="font-size:1.3rem;color:var(--accent-green);">5 ⭐</td>
+          <td><strong>Mersin (梅尔辛)</strong></td>
+          <td>TRMER</td>
+          <td class="up"><strong>~1,930,000*</strong></td>
+          <td class="up">▲ +2.1%</td>
+          <td>东地中海·Çukurova</td>
+          <td><span class="tag tag-key">AEM终点港</span> 中东门户 · PSA运营 · 全球TOP98</td>
+        </tr>
+        <tr>
+          <td style="font-size:1.3rem;">6</td>
+          <td><strong>İskenderun (伊斯肯德伦)</strong></td>
+          <td>TRISK</td>
+          <td class="up"><strong>>780,000*</strong></td>
+          <td class="up">▲ ~10%+</td>
+          <td>东地中海·哈塔伊</td>
+          <td>地震后完全恢复并创新高 · 伊拉克替代入口</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.6rem;">* 2025年数据：Kocaeli/Tekirdağ/Aliaga/Mersin/İskenderun 为基于行业公开数据的估算值，Ambarlı 为官方公布精确值(3,428,048 TEU)。全国总计 **14,000,000 TEU** (+3.5%)。5港进入 Lloyd's List 全球TOP100。数据来源：土耳其交通与基础设施部 / Lloyd's List One Hundred Ports 2025 / Port Europe / MegaProject。</p>
+
+  <!-- 霍尔木兹危机实时箱量影响 -->
+  <div class="insight" style="margin-top:3rem;border-left-color:#ef4444;background:linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(245,158,11,0.04) 100%);">
+    <p><strong>🔴 霍尔木兹海峡危机 — 对土耳其进口箱量的实时影响（Vizion TradeView 数据 · 2026.04）：</strong></p>
+    <p style="margin-top:0.8rem;">
+    <strong>土耳其作为替代陆桥，进口箱量暴增 +27%：</strong> 2月 ~165,000 TEU → 3月 ~<strong>210,500 TEU</strong>。<br/>
+    <strong>关键中转港：</strong>Mersin（TRMER）+ Iskenderun（TRISK），主要服务伊朗/伊拉克/黎凡特方向。<br/>
+    <strong>海湾出口断崖式下跌：</strong> 阿联酋 -73.5%（73K→19.5K TEU）、科威特 -75.6%、卡塔尔 -60%；仅阿曼因地理优势 +29%（萨拉拉/苏哈尔绕过霍尔木兹）。<br/>
+    <strong>伊拉克替代路线确认：</strong> 北伊拉克货物 → 经<strong>Mersin陆桥出海</strong>（达飞CMA CGM官方推荐）；南伊拉克 → 经亚喀巴(Aqaba,约旦)陆桥。
+    </p>
+  </div>
+
+  <!-- 航线运力部署数据 -->
+  <h3 style="color:var(--accent-gold);margin:3.5rem 0 1.5rem;font-size:1.15rem;">🚢 远东→地中海/中东 航线运力部署（2025-2026）</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>航线方向 Trade Lane</th><th>平均船型 (TEU/船)</th><th>YoY 增长</th><th>CUL AEM 关联</th><th>主要挂靠港</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>远东 → 地中海 FEM</strong></td>
+          <td class="up"><strong>16,137</strong></td>
+          <td class="up">▲ +6.9%</td>
+          <td><span class="tag tag-key">AEM同类</span></td>
+          <td>上海/宁波/盐田 → 比雷埃夫斯 · 马赛 · 巴塞罗那 · <span style="color:#d4a853;font-weight:700;">梅尔辛·伊斯坦布尔</span></td>
+        </tr>
+        <tr>
+          <td><strong>远东 → 中东 Middle East</strong></td>
+          <td class="up" style="font-size:1.05em;color:#10b981;"><strong>11,985</strong></td>
+          <td class="up" style="color:#10b981;font-weight:700;">🚀 ▲ +20.6%</td>
+          <td><span class="tag tag-new">AEM第5港Jeddah</span></td>
+          <td>中国主要港 → 杰贝阿里 · 哈马德 · 达曼 · <span style="color:#d4a853;font-weight:700;">吉达(SAJED)</span></td>
+        </tr>
+        <tr>
+          <td><strong>远东 → 北欧 (经好望角)</strong></td>
+          <td class="neutral"><strong>18,184</strong></td>
+          <td class="up">▲ +5.4%</td>
+          <td>— 竞品替代方案</td>
+          <td>上海/青岛 → 鹿特丹 · 汉堡 · 安特卫普（+12~14天）</td>
+        </tr>
+        <tr>
+          <td><strong>土耳其支线 (MES/NAF)</strong></td>
+          <td class="neutral"><strong>2,000 ~ 4,500</strong></td>
+          <td class="up">需求增长中</td>
+          <td><span class="tag tag-hot">CUL自有产品</span></td>
+          <td>MES: Istanbul→Izmit→Aliaga→Misurata(环线5-7天)<br/>NAF: Istanbul→Izmit→Aliaga→Algiers(环线4-6天)</td>
+        </tr>
+        <tr>
+          <td><strong>CMA CGM OCR 好望角新航线</strong> 🆕</td>
+          <td class="neutral"><strong>7,000 ~ 10,000 × 14艘</strong></td>
+          <td>2026.04首航</td>
+          <td>— 竞品绕行方案</td>
+          <td>横滨→鹿特丹38天 / 盐田→鹿特丹32天（天然规避苏伊士风险）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 各方向货流估算 -->
+  <h3 style="color:var(--accent-gold);margin:3.5rem 0 1.5rem;font-size:1.15rem;">📦 土耳其 → 目的地 货流箱量分布（贸易额 + 估算TEU）</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>流向方向 Destination</th><th>主要港口 Ports</th><th>贸易额 Value</th><th><strong>估算TEU*</strong></th><th>占土出口比</th><th>CUL关联航线</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>🇮🇶 伊拉克 Iraq</strong> <span class="tag tag-hot">最大单一市场</span></td>
+          <td>UMM Qasr / Basrah / 陆路口岸(Mersin)</td>
+          <td>$13.0 Billion</td>
+          <td class="up"><strong>~650,000~720,000 TEU/年*</strong></td>
+          <td>4.97%（全国No.4）</td>
+          <td>Mersin陆桥 / AEM间接</td>
+        </tr>
+        <tr>
+          <td><strong>🇸🇦 沙特 Saudi Arabia</strong></td>
+          <td><strong>Jeddah (SAJED)</strong> / Dammam</td>
+          <td>$3.99 Billion</td>
+          <td class="up"><strong>~200,000~220,000 TEU/年*</strong></td>
+          <td>1.52%</td>
+          <td><span class="tag tag-key">AEM第5港直靠!</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇪🇬 埃及 Egypt</strong></td>
+          <td><strong>Alexandria (EGALY)</strong> / Port Said</td>
+          <td>$4.18 Billion</td>
+          <td class="up"><strong>~210,000~230,000 TEU/年*</strong></td>
+          <td>1.60%</td>
+          <td><span class="tag tag-key">AEM第6港直靠!</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇦🇪 阿联酋 UAE</strong></td>
+          <td>Jebel Ali / Hamad / Jeddah中转</td>
+          <td>$8.3 Billion</td>
+          <td class="up"><strong>~415,000~460,000 TEU/年*</strong></td>
+          <td>3.17%</td>
+          <td>Jeddah中转 / AEM回程</td>
+        </tr>
+        <tr>
+          <td><strong>🇩🇿 阿尔及利亚 Algeria</strong></td>
+          <td><strong>Algiers</strong> / Oran</td>
+          <td>$2.88 Billion</td>
+          <td class="neutral"><strong>~144,000~160,000 TEU/年*</strong></td>
+          <td>1.10%</td>
+          <td><span class="tag tag-new">NAF支线直达</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇱🇾 利比亚 Libya</strong></td>
+          <td><strong>Misurata</strong> / Benghazi</td>
+          <td>~$276M/月 → ~$3.3B/年</td>
+          <td class="neutral"><strong>~13,800~17,000 TEU/月*</strong></td>
+          <td>战后重建高增长</td>
+          <td><span class="tag tag-new">MES支线直达</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇮🇳 印度 India</strong> (Bilateral)</td>
+          <td>Nhava Sheva / Chennai / Mundra</td>
+          <td>Bilateral $8.7B (FY25)</td>
+          <td class="up"><strong>~430,000~480,000 TEU/年*</strong></td>
+          <td>目标五年翻倍至$20B</td>
+          <td>FEM/IMX航线 · 蛇身中段</td>
+        </tr>
+        <tr>
+          <td><strong>🇮🇷 伊朗 Iran</strong></td>
+          <td>Bandar Abbas / Bushehr / Mersin陆桥</td>
+          <td>$3.23 Billion</td>
+          <td class="neutral"><strong>~162,000~180,000 TEU/年*</strong></td>
+          <td>1.23%</td>
+          <td>霍尔木兹替代路线经土耳其</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.6rem;">* TEU估算方法：贸易额 ÷ 平均每柜货值($18,000~22,000/TEU)，按产品结构微调。精确港口对(Port Pair)TEU数据需Alphaliner/CTS付费版。</p>
+
+  <div class="insight">
+    <p><strong>💡 关键发现（箱量视角）：</strong><br/>
+    ① <strong>伊拉克是土耳其最大的单一出口流向（~65-72万TEU/年）</strong>——占土对中东出口的一半以上。绝大部分通过Mersin陆路卡车转运（800km），或通过Umm Qasr海运（设计产能60万TEU/年）。<br/>
+    ② <strong>沙特(~20万TEU)和埃及(~21万TEU)恰好是AEM航线中间的两个挂靠港(Jeddah + Alexandria)</strong>——这意味着AEM不只是单向的远东→土耳其航线，更是双向的贸易通道。<br/>
+    ③ <strong>利比亚虽然基数小(~1.4-1.7万TEU/月)，但战后重建驱动增速极快</strong>——MES支线正瞄准Misurata港的增长窗口期。<br/>
+    ④ <strong>霍尔木兹危机效应：2026年3月土耳其进口箱量暴增+27%（16.5万→21万TEU/月）</strong>——Mersin和Iskenderun成为波斯湾替代出海口。</p>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 03 土耳其出口画像 -->
+<!-- ================================================================ -->
+<section id="s03" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 03</div>
+    <h2 class="section-title">土耳其出口产品结构</h2>
+
+  </div>
+
+  <!-- 总体出口结构 KPI -->
+  <div class="kpi-grid">
+    <div class="kpi-box"><div class="kpi-val">14,000,000</div><div class="kpi-label">全国港口年吞吐量(TEU)</div><div class="kpi-sub">2025年 +3.5% · 5港进全球TOP100</div></div>
+    <div class="kpi-box"><div class="kpi-val">#15</div><div class="kpi-label">全球出口排名</div><div class="kpi-sub">G20成员国 · 制造业占比81%</div></div>
+    <div class="kpi-box"><div class="kpi-val">~733K TEU*</div><div class="kpi-label">Mersin月均进出口</div><div class="kpi-sub">出口~6.1万 + 进口~7.2万/月</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:#10b981;">+27%</div><div class="kpi-label">霍尔木兹效应进口增幅</div><div class="kpi-sub">165K → 210K TEU (2→3月)</div></div>
+  </div>
+
+  <!-- 按重点市场的产品明细 -->
+  <h3 style="color:var(--accent-gold);margin:3rem 0 1.5rem;font-size:1.15rem;">🔍 重点市场 × 产品明细矩阵</h3>
+
+  <!-- 伊拉克 -->
+  <div class="card" style="margin-bottom:1.5rem;border-left:4px solid var(--accent-green);">
+    <h3>🇮🇶 土耳其 → 伊拉克 产品明细 ($13.0B / ~65-72万TEU/年* / 占土出口4.97%)</h3>
+    <div class="table-wrap" style="margin-top:1rem;">
+      <table>
+        <thead><tr><th>排名</th><th>产品类别 Product</th><th>金额 USD</th><th><strong>估算TEU*</strong></th><th>占比</th><th>HS编码</th><th>运输方式</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>食品农产品（综合）</strong></td><td><strong>>$3,500M</strong></td><td class="up"><strong>>175,000*</strong></td><td>>27%</td><td>HS 02/07/10/11</td><td>冷藏箱/干货箱 🥶</td></tr>
+          <tr><td>2</td><td><strong>贵金属/珠宝</strong></td><td><strong>$1,010M</strong></td><td class="neutral"><strong>~2,000*</strong></td><td>7.77%</td><td>HS 71</td><td>空运/陆运(高值小体积)</td></tr>
+          <tr><td>3</td><td><strong>纺织品服装（综合）</strong></td><td><strong>$813M</strong></td><td class="up"><strong>~54,000*</strong></td><td>6.25%</td><td>HS 61/62/57</td><td><span class="tag tag-key">集装箱主力货品</span></td></tr>
+          <tr><td>4</td><td><strong>电气电子设备</strong></td><td><strong>$751M</strong></td><td class="up"><strong>~42,000*</strong></td><td>5.78%</td><td>HS 85</td><td><span class="tag tag-key">集装箱</span></td></tr>
+          <tr><td>5</td><td><strong>机械设备</strong></td><td><strong>$721M</strong></td><td class="up"><strong>~36,000*</strong></td><td>5.55%</td><td>HS 84</td><td><span class="tag tag-key">集装箱/件杂货</span></td></tr>
+          <tr><td>6</td><td><strong>家具/预制建筑（建材）</strong></td><td><strong>$612M</strong></td><td class="up"><strong>~45,000*</strong></td><td>4.70%</td><td>HS 94</td><td><span class="tag tag-key">集装箱</span> 🏗️</td></tr>
+          <tr><td>7</td><td><strong>塑料制品</strong></td><td><strong>$551M</strong></td><td class="up"><strong>~37,000*</strong></td><td>4.24%</td><td>HS 39</td><td><span class="tag tag-key">集装箱</span></td></tr>
+          <tr><td>8</td><td><strong>钢铁制品</strong></td><td><strong>$530M</strong></td><td class="neutral"><strong>~22,000*</strong></td><td>4.08%</td><td>HS 73</td><td>集装箱/散货</td></tr>
+          <tr><td>9</td><td><strong>车辆/汽车</strong></td><td><strong>$307M</strong></td><td class="neutral"><strong>~10,000*</strong></td><td>2.36%</td><td>HS 87</td><td>Ro-Ro/集装箱</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:0.8rem;font-size:0.84rem;color:var(--text-muted);">
+      💡 <strong>箱量洞察：</strong>食品农产品是绝对第一大品类（>17.5万TEU，占27%+），旺季需大量冷藏柜；建材相关（家具+塑料+钢铁合计>10万TEU）受益于伊拉克战后重建；纺织品服装(~5.4万TEU)和电子电器(~4.2万TEU)为稳定集装箱货流。头部企业：Tofas汽车、Vestel家电。<br/>
+      <em>* TEU估算：按各品类平均每柜$15,000-$25,000推算，高值品(珠宝)TEU偏低，大件货(建材)偏高。</em>
+    </p>
+  </div>
+
+  <!-- 沙特阿拉伯 -->
+  <div class="card" style="margin-bottom:1.5rem;border-left:4px solid var(--accent-orange);">
+    <h3>🇸🇦 土耳其 → 沙特阿拉伯 产品明细 ($3.99B)</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.8rem;margin-top:1rem;">
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$358M</div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">铜及铜制品</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$350M</div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">机械设备</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$343M</div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">车辆及零部件</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$320M</div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">电气电子设备</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$289M</div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">地毯及纺织铺地物</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$203M</div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">钢铁制品</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$171M</div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">非针织服装</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.06);padding:1rem;border-radius:8px;border:1px solid rgba(245,158,11,0.15);">
+        <div style="font-weight:700;color:#fbbf24;">$145M</div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">针织服装</div>
+      </div>
+    </div>
+    <p style="margin-top:1rem;font-size:0.84rem;color:var(--text-muted);">
+      💡 <strong>沙特特点：</strong>工业制成品占比极高（机械+电子+汽车+钢铁合计超$12亿），同时传统优势产品地毯($2.89亿)和服装($3.16亿)保持强势。<strong>SAJED(吉达)是AEM航线的关键中间港</strong>，也是土耳其-沙特贸易的海上主通道。
+    </p>
+  </div>
+
+  <!-- 印度-土耳其双边 -->
+  <div class="card" style="margin-bottom:1.5rem;border-left:4px solid var(--accent-cyan);">
+    <h3>🇮🇳 印度 ↔ 土耳其 双边产品明细 (Bilateral $8.71B / FY2025 Apr-Feb)</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.2rem;">
+      <div>
+        <h4 style="color:#06b6d4;font-size:0.95rem;margin-bottom:0.8rem;">📤 印度 → 土耳其 ($5.2B 出口 · Apr-Feb 2025)</h4>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;background:rgba(6,182,212,0.05);padding:8px 12px;border-radius:6px;"><span>工程制成品 Engineering Goods</span><span style="color:#06b6d4;font-weight:700;">$3,037M (54.8%)</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(6,182,212,0.05);padding:8px 12px;border-radius:6px;"><span>有机/无机化学品 Chemicals</span><span style="color:#06b6d4;font-weight:700;">$514M (9.3%)</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(6,182,212,0.05);padding:8px 12px;border-radius:6px;"><span>电子制品 Electronic Goods</span><span style="color:#06b6d4;font-weight:700;">$427M (7.7%)</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(6,182,212,0.05);padding:8px 12px;border-radius:6px;"><span>人造纱线 Man-Made Yarn</span><span style="color:#06b6d4;font-weight:700;">$265M (4.8%)</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(6,182,212,0.05);padding:8px 12px;border-radius:6px;"><span>棉纱棉布 Cotton Yarn/Fabric</span><span style="color:#06b6d4;font-weight:700;">$139M (2.5%)</span></div>
+        </div>
+      </div>
+      <div>
+        <h4 style="color:#f59e0b;font-size:0.95rem;margin-bottom:0.8rem;">📥 土耳其 → 印度 (~$2.84B 出口 · Apr-Feb 2025)</h4>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;background:rgba(245,158,11,0.05);padding:8px 12px;border-radius:6px;"><span>矿物燃料和油 Mineral Fuels/Oils</span><span style="color:#f59e0b;font-weight:700;">$783M</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(245,158,11,0.05);padding:8px 12px;border-radius:6px;"><span>天然珍珠/贵金属 Precious Metals</span><span style="color:#f59e0b;font-weight:700;">$309M</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(245,158,11,0.05);padding:8px 12px;border-radius:6px;"><span>核反应堆及零件 Nuclear Reactors/Parts</span><span style="color:#f59e0b;font-weight:700;">$314M</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(245,158,11,0.05);padding:8px 12px;border-radius:6px;"><span>航空航天器 Aircraft/Spacecraft</span><span style="color:#f59e0b;font-weight:700;">$180M</span></div>
+          <div style="display:flex;justify-content:space-between;background:rgba(245,158,11,0.05);padding:8px 12px;border-radius:6px;"><span>石膏/建材 Salt/Plaster Materials</span><span style="color:#f59e0b;font-weight:700;">$275M</span></div>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:1rem;font-size:0.84rem;color:var(--text-muted);">
+      💡 <strong>印土贸易特征：</strong>印度以工程制成品为主导(超半数)，化工和电子产品紧随其后；土耳其则以能源、黄金珠宝和高端制造设备为出口主力。FY2025(Apr-Feb)双边贸易总额约**$80.4亿**(较FY24同期有所回落)，受地缘政治紧张影响。双方仍致力于五年内将贸易额翻倍至$200亿，聚焦纺织、医药、农业、汽车和金属五大领域。
+    </p>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 04 土耳其 ↔ 中东·红海 货流全析 -->
+<!-- ================================================================ -->
+<section id="s04" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 04</div>
+    <h2 class="section-title">土耳其 ↔ 中东·红海</h2>
+    <p class="section-sub">区域箱量 · 运价水平 · 货源结构 —— 三维聚焦</p>
+  </div>
+
+  <!-- ──── 第一维度：箱量矩阵 ──── -->
+  <h3 style="color:var(--accent-gold);margin:3rem 0 1.5rem;font-size:1.15rem;display:flex;align-items:center;gap:0.5rem;">
+    📊 一、双向箱量矩阵（2025年数据 · 实际 + 估算）
+  </h3>
+
+  <!-- 核心KPI：土耳其↔中东总览 -->
+  <div class="kpi-grid" style="margin-bottom:2rem;">
+    <div class="kpi-box">
+      <div class="kpi-val" style="color:#10b981;font-size:1.6em;">~160-180万</div>
+      <div class="kpi-label">土→中东·红海 年出口箱量(TEU)*</div>
+      <div class="kpi-sub">伊拉克占40%+为最大单一流向</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="color:#3b82f6;font-size:1.6em;">~210,500</div>
+      <div class="kpi-label">土进口箱量(TEU) · 2026.03单月</div>
+      <div class="kpi-sub">较2月 <strong style="color:#ef4444;">↑+27%</strong> 霍尔木兹效应 🔴</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="font-size:1.4em;">650,000-720,000</div>
+      <div class="kpi-label">Turkey → Iraq 年箱量(TEU)*</div>
+      <div class="kpi-sub">70%+ 经 Mersin 陆桥转运</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-val" style="color:#f59e0b;font-size:1.4em;">~61,000 / ~72,000</div>
+      <div class="kpi-label">Mersin 月均 出口 / 进口 TEU</div>
+      <div class="kpi-sub">2026.03数据 · Econdb实时</div>
+    </div>
+  </div>
+
+  <!-- 双向箱量详细表 -->
+  <h4 style="color:#d4a853;margin:2rem 0 1rem;font-size:1rem;font-weight:600;">🔀 土耳其 ↔ 中东·红海 主要贸易对 箱量表</h4>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2">贸易方向</th>
+          <th rowspan="2">目的港/来源地</th>
+          <th rowspan="2">年估算 TEU*</th>
+          <th rowspan="2">占区域比</th>
+          <th colspan="2">运输方式拆分</th>
+          <th rowspan="2">AEM/CUL 关联度</th>
+        </tr>
+        <tr>
+          <th>海运直挂</th>
+          <th>陆桥/中转</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>🇹🇷→🇮🇶 伊拉克</strong> <span class="tag tag-hot">最大</span></td>
+          <td>Mersin→陆运 / Umm Qasr海</td>
+          <td class="up" style="font-weight:700;color:#10b981;"><strong>650,000 - 720,000</strong></td>
+          <td>40%+</td>
+          <td>~25-30%（Umm Qasr ICT）</td>
+          <td><strong style="color:#ef4444;">~70% Mersin卡车陆桥</strong></td>
+          <td><span class="tag tag-key">AEM终点Mersin间接承接近乎全部</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇹🇷→🇸🇦 沙特</strong></td>
+          <td>Jeddah(SAJED) / Dammam</td>
+          <td class="up"><strong>200,000 - 220,000</strong></td>
+          <td>~13%</td>
+          <td><strong style="color:#10b981;">~90%</strong></td>
+          <td>Jeddah中转~10%</td>
+          <td><span class="tag tag-key">AEM第5港Jeddah直靠!</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇹🇷→🇪🇬 埃及</strong></td>
+          <td>Alexandria(EGALY) / Port Said</td>
+          <td class="up"><strong>210,000 - 230,000</strong></td>
+          <td>~14%</td>
+          <td><strong style="color:#10b981;">~95%</strong></td>
+          <td>Sokhna支线~5%</td>
+          <td><span class="tag tag-key">AEM第6港Alexandria直靠!</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇹🇷→🇦🇪 阿联酋</strong></td>
+          <td>Jebel Ali / Hamad</td>
+          <td class="up"><strong>415,000 - 460,000</strong></td>
+          <td>~26%</td>
+          <td>~80%</td>
+          <td>Jeddah/Hamad中转20%</td>
+          <td><span class="tag tag-new">经中东干线接驳</span></td>
+        </tr>
+        <tr>
+          <td><strong>🇹🇷→🇮🇷 伊朗</strong></td>
+          <td>Bandar Abbas / Mersin陆桥</td>
+          <td class="neutral"><strong>162,000 - 180,000</strong></td>
+          <td>~10%</td>
+          <td>~35%</td>
+          <td><strong style="color:#f59e0b;">~65% 经Mersin/Van陆桥</strong>（霍尔木兹绕行）</td>
+          <td>替代路线增量中</td>
+        </tr>
+        <tr>
+          <td><strong>🇮🇶🇸🇦🇪🇬→🇹🇷 中东→土耳其</strong> <span style="color:#ef4444;">⚡激增</span></td>
+          <td>Mersin / Iskenderun 进口</td>
+          <td class="up" style="color:#ef4444;font-weight:700;"><strong>~210,500/月 (2026.03)</strong></td>
+          <td>—</td>
+          <td colspan="2">2月165K → 3月210.5K <strong style="color:#ef4444;">↑+27%</strong></td>
+          <td><span class="tag tag-hot">霍尔木兹危机驱动</span> 波斯湾→地中海替代入口</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.6rem;">
+    * TEU估算基于贸易额÷平均每柜货值($18,000-$22,000/TEU)，按产品结构微调。精确港口对数据需Alphaliner/CTS付费版。
+    海运直挂比例根据航线地理可行性推算。
+  </p>
+
+  <!-- 霍尔木兹危机影响框 -->
+  <div class="insight" style="margin-top:2.5rem;border-left-color:#ef4444;background:linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(245,158,11,0.04) 100%);">
+    <p><strong>🔴 霍尔木兹海峡危机 — 对土耳其箱量的即时影响（Vizion TradeView · 2026.04）：</strong></p>
+    <div class="hormuz-cards">
+      <div class="kpi-box" style="border-top:3px solid #ef4444;">
+        <strong style="font-size:0.82rem;">Turkey 进口箱量</strong>
+        <div class="kpi-val" style="color:#ef4444;font-size:1.5em;">+27% ⬆</div>
+        <div class="kpi-sub" style="font-size:0.72rem;">165K → 210.5K TEU/月 (2→3月)</div>
+      </div>
+      <div class="kpi-box" style="border-top:3px solid #f59e0b;">
+        <strong style="font-size:0.82rem;">关键接收港</strong>
+        <div class="kpi-val" style="color:#f59e0b;font-size:1.2em;">Mersin + Iskenderun</div>
+        <div class="kpi-sub" style="font-size:0.72rem;">服务伊朗/伊拉克/黎凡特 · 替代出海口</div>
+      </div>
+      <div class="kpi-box" style="border-top:3px solid #10b981;">
+        <strong style="font-size:0.82rem;">唯一受益国</strong>
+        <div class="kpi-val" style="color:#10b981;font-size:1.2em;">阿曼 Oman ↑29%</div>
+        <div class="kpi-sub" style="font-size:0.72rem;">萨拉拉/苏哈尔绕过霍尔木兹</div>
+      </div>
+      <div class="kpi-box" style="border-top:3px solid #6366f1;">
+        <strong style="font-size:0.82rem;">海湾出口暴跌</strong>
+        <div class="kpi-val" style="color:#6366f1;font-size:1.2em;">UAE -73.5% | KWT -75.6%</div>
+        <div class="kpi-sub" style="font-size:0.72rem;">无法通过霍尔木兹海峡 · 货物积压严重</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ──── 第二维度：区域运价体系 ──── -->
+  <h3 style="color:var(--accent-gold);margin:3.5rem 0 1.5rem;font-size:1.15rem;display:flex;align-items:center;gap:0.5rem;">
+    💰 二、土耳其 ↔ 中东·红海 区域运价（2026年4月）
+  </h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>航段 Route</th><th>起运港</th><th>目的港</th><th>20'GP ($)</th><th>40'HQ ($)</th><th>航程</th><th>运价趋势</th><th>CUL关联</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>远东 → 地中海 FEM</strong></td>
+          <td>上海/宁波/盐田</td>
+          <td>梅尔辛·伊斯坦布尔</td>
+          <td>$2,000-2,600</td>
+          <td class="up" style="font-weight:700;color:#10b981;"><strong>$3,500-4,500</strong></td>
+          <td>28-32天</td>
+          <td class="neutral">红海复航后回落中</td>
+          <td><span class="tag tag-key">AEM同类基准线</span></td>
+        </tr>
+        <tr>
+          <td><strong>远东 → 中东</strong></td>
+          <td>中国主要港</td>
+          <td>杰贝阿里·吉达·达曼</td>
+          <td>$1,600-2,300</td>
+          <td class="up"><strong>$2,800-3,900</strong></td>
+          <td>18-24天</td>
+          <td class="up">霍尔木兹风险溢价 $300-800/TEU</td>
+          <td>AEM第5港Jeddah在此链路上</td>
+        </tr>
+        <tr>
+          <td><strong>🔑 土耳其 → 红海/沙特</strong> <span class="tag tag-key">核心短途段</span></td>
+          <td><strong>Mersin / Istanbul</strong></td>
+          <td><strong>Jeddah / Dammam / Yanbu</strong></td>
+          <td class="neutral"><strong>$900-1,400</strong></td>
+          <td class="neutral"><strong>$1,500-2,400</strong></td>
+          <td><strong>4-7天</strong></td>
+          <td class="neutral">相对稳定 · 高频次</td>
+          <td><span class="tag tag-hot">CUL AEM直接覆盖的核心航段</span></td>
+        </tr>
+        <tr>
+          <td><strong>🔑 土耳其 → 埃及</strong> <span class="tag tag-key">核心短途段</span></td>
+          <td><strong>Mersin / Istanbul</strong></td>
+          <td><strong>Alexandria / Port Said</strong></td>
+          <td class="neutral"><strong>$750-1,200</strong></td>
+          <td class="neutral"><strong>$1,300-2,100</strong></td>
+          <td><strong>2-4天</strong></td>
+          <td class="neutral">最短途段之一</td>
+          <td><span class="tag tag-hot">CUL AEM直接覆盖的核心航段</span></td>
+        </tr>
+        <tr>
+          <td><strong>中东 → 土耳其（回程）</strong></td>
+          <td>Jebel Ali / Jeddah</td>
+          <td>Mersin / Iskenderun</td>
+          <td>$800-1,300</td>
+          <td>$1,400-2,200</td>
+          <td>4-7天</td>
+          <td class="up">回程需求上升（霍尔木兹效应）</td>
+          <td>AEM可承接回程货</td>
+        </tr>
+        <tr>
+          <td><strong>土耳其 → 利比亚 (MES)</strong></td>
+          <td>Istanbul → Izmit → Aliaga</td>
+          <td>Misurata</td>
+          <td>$300-600</td>
+          <td>$550-1,000</td>
+          <td>5-7天环线</td>
+          <td class="up">战后重建需求旺盛</td>
+          <td><span class="tag tag-new">MES支线专属产品</span></td>
+        </tr>
+        <tr>
+          <td><strong>欧洲 → 土耳其（ feeder ）</strong></td>
+          <td>Piraeus / Trieste</td>
+          <td>Istanbul / Mersin</td>
+          <td>$300-600</td>
+          <td>$500-1,000</td>
+          <td>2-4天</td>
+          <td class="neutral">平稳</td>
+          <td>FEM主干卸货后feeder至土耳其</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 运价分析洞察 -->
+  <div class="insight" style="margin-top:2rem;">
+    <p><strong>💡 运价要点：</strong></p>
+    <p style="margin-top:0.8rem;">
+    ① <strong>土耳其→红海/沙特/埃及 是高利润短途航段</strong>——$1,500-2,400/40HQ，仅4-7天航程，周频次可达3-5班。单位时间收益远超长程航线。<br/>
+    ② <strong>红海复航正在压低FEM长程价格</strong>——但土耳其↔中东/红海的短途段因需求刚性（建材、食品、汽车），价格抗跌性明显更强。<br/>
+    ③ <strong>霍尔木兹危机创造了新的回程需求</strong>——海湾国家→土耳其的进口箱量激增+27%，回程舱位利用率提升意味着更健康的双向平衡。<br/>
+    ④ <strong>CUL AEM的战略定位</strong>：不与FEM正面拼长程价格，而是聚焦<strong>地中海↔红海↔中东</strong>这一短途高频段的<span style="color:#d4a853;font-weight:700;">区域定价权</span>。</p>
+  </div>
+
+
+  <!-- ──── 第三维度：货源结构深度拆解 ──── -->
+  <h3 style="color:var(--accent-gold);margin:3.5rem 0 1.5rem;font-size:1.15rem;display:flex;align-items:center;gap:0.5rem;">
+    📦 三、土耳其→中东·红海 货源结构（按流向 × 按品类）
+  </h3>
+
+  <!-- 按流向的货源卡片 -->
+  <div class="source-grid">
+
+    <!-- 卡片1: Iraq -->
+    <div class="flow-card" style="border-top:4px solid #10b981;">
+      <div class="flow-header">
+        <span class="flow-fromto">🇹🇷 → 🇮🇶 伊拉克 <span class="tag tag-hot">最大流</span></span>
+        <span class="flow-val" style="color:#10b981;">~65-72万 TEU/年<br><small>$13.0B · 占土出口4.97%</small></span>
+      </div>
+      <div style="margin:0.7rem 0;">
+        <table class="src-table">
+          <tr><td>🥩 <strong>食品农产品</strong></td><td>&gt;$35亿</td><td style="color:#10b981;">&gt;175,000 TEU <span style="font-size:0.7rem;font-weight:400;">(27%)</span></td></tr>
+          <tr><td>🧵 <strong>纺织品服装</strong></td><td>$8.13亿</td><td style="color:#10b981;">~54,000 TEU <span style="font-size:0.7rem;font-weight:400;">(8%)</span></td></tr>
+          <tr><td>📱 <strong>电子电器</strong></td><td>$14.72亿</td><td style="color:#06b6d4;">~79,000 TEU <span style="font-size:0.7rem;font-weight:400;">(11%)</span></td></tr>
+          <tr><td>🏗️ <strong>建材(家具+塑料+钢铁)</strong></td><td>&gt;$17亿</td><td style="color:#f59e0b;">&gt;104,000 TEU <span style="font-size:0.7rem;font-weight:400;">(15%)</span></td></tr>
+          <tr><td>💎 <strong>贵金属/珠宝</strong></td><td>$10.1亿</td><td style="color:#999;">~2,000 TEU <span style="font-size:0.7rem;font-weight:400;">高值小体积</span></td></tr>
+        </table>
+      </div>
+      <div class="flow-items">
+        <strong>运输特征：</strong>食品需大量冷藏柜 🥶；建材为大件主力货；<strong>70%+经Mersin陆桥卡车转运</strong>(800km, 2天达巴格达)；旺季Q3-Q4
+      </div>
+    </div>
+
+    <!-- 卡片2: Saudi Arabia -->
+    <div class="flow-card" style="border-top:4px solid #f59e0b;">
+      <div class="flow-header">
+        <span class="flow-fromto">🇹🇷 → 🇸🇦 沙特 <span class="tag tag-key">AEM直靠</span></span>
+        <span class="flow-val" style="color:#f59e0b;">~20-22万 TEU/年<br><small>$3.99B · Jeddah SAJED</small></span>
+      </div>
+      <div style="margin:0.7rem 0;">
+        <table class="src-table">
+          <tr><td>🔧 <strong>机械设备</strong></td><td>$3.5亿</td><td style="color:#10b981;">~19,000 TEU</td></tr>
+          <tr><td>🚗 <strong>汽车及零部件</strong></td><td>$3.43亿</td><td style="color:#10b981;">~21,000 TEU</td></tr>
+          <tr><td>⚡ <strong>铜及金属制品</strong></td><td>$3.58亿</td><td style="color:#f59e0b;">~12,000 TEU</td></tr>
+          <tr><td>🏠 <strong>地毯/家纺</strong></td><td>$2.89亿</td><td style="color:#10b981;">~22,000 TEU</td></tr>
+          <tr><td>📦 <strong>电子产品</strong></td><td>$3.2亿</td><td style="color:#06b6d4;">~19,000 TEU</td></tr>
+        </table>
+      </div>
+      <div class="flow-items">
+        <strong>运输特征：</strong>Vision 2030建设拉动需求；汽车整车出口增长快；<strong>经Jeddah(SAJED)直挂</strong>——AEM第5港
+      </div>
+    </div>
+
+    <!-- 卡片3: Egypt -->
+    <div class="flow-card" style="border-top:4px solid #3b82f6;">
+      <div class="flow-header">
+        <span class="flow-fromto">🇹🇷 → 🇪🇬 埃及 <span class="tag tag-key">AEM直靠</span></span>
+        <span class="flow-val" style="color:#3b82f6;">~21-23万 TEU/年<br><small>$4.18B · Alexandria EGALY</small></span>
+      </div>
+      <div style="margin:0.7rem 0;">
+        <table class="src-table">
+          <tr><td>🚘 <strong>汽车零部件</strong></td><td>Top 1</td><td style="color:#10b981;">~28,000 TEU</td></tr>
+          <tr><td>🔩 <strong>钢材/钢铁制品</strong></td><td>Top 2</td><td style="color:#f59e0b;">~24,000 TEU</td></tr>
+          <tr><td>👕 <strong>纺织成品</strong></td><td>Top 3</td><td style="color:#10b981;">~26,000 TEU</td></tr>
+          <tr><td>🏗️ <strong>建筑材料</strong></td><td>快速增长</td><td style="color:#f59e0b;">~20,000 TEU</td></tr>
+          <tr><td>📱 <strong>电子产品</strong></td><td>稳步增长</td><td style="color:#06b6d4;">~18,000 TEU</td></tr>
+        </table>
+      </div>
+      <div class="flow-items">
+        <strong>运输特征：</strong>Egypt拥有1.1亿人口消费市场；汽车供应链整合；<strong>经Alexandria(EGALY)直挂</strong>——AEM第6港；苏伊士运河北非分拨中心
+      </div>
+    </div>
+
+    <!-- 卡片4: UAE -->
+    <div class="flow-card" style="border-top:4px solid #fbbf24;">
+      <div class="flow-header">
+        <span class="flow-fromto">🇹🇷 → 🇦🇪 阿联酋</span>
+        <span class="flow-val" style="color:#fbbf24;">~42-46万 TEU/年<br><small>$8.3B · Jebel Ali</small></span>
+      </div>
+      <div style="margin:0.7rem 0;">
+        <table class="src-table">
+          <tr><td>💎 <strong>黄金珠宝</strong></td><td>$3.58亿</td><td style="color:#999;">~5,000 TEU <span style="font-size:0.7rem;font-weight:400;">高值</span></td></tr>
+          <tr><td>🔧 <strong>机械设备</strong></td><td>$3.5亿</td><td style="color:#10b981;">~19,000 TEU</td></tr>
+          <tr><td>🚗 <strong>汽车</strong></td><td>$3.43亿</td><td style="color:#10b981;">~21,000 TEU</td></tr>
+          <tr><td>🏠 <strong>地毯/家居</strong></td><td>$2.9亿+</td><td style="color:#10b981;">~24,000 TEU</td></tr>
+          <tr><td>📺 <strong>电子家电</strong></td><td>$3.2亿</td><td style="color:#06b6d4;">~19,000 TEU</td></tr>
+        </table>
+      </div>
+      <div class="flow-items">
+        <strong>运输特征：</strong>Dubai转口贸易强（部分再分拨非洲）；Jebel Ali中转枢纽；<strong>旅游+房地产带动建材需求</strong>
+      </div>
+    </div>
+
+    <!-- 卡片5: Iran (霍尔木兹替代路线重点) -->
+    <div class="flow-card" style="border-top:4px solid #8b5cf6;">
+      <div class="flow-header">
+        <span class="flow-fromto">🇹🇷 → 🇮🇷 伊朗 <span style="color:#ef4444;">⚡替代路线</span></span>
+        <span class="flow-val" style="color:#8b5cf6;">~16-18万 TEU/年<br><small>$3.23B · 陆桥占比↑</small></span>
+      </div>
+      <div style="margin:0.7rem 0;">
+        <table class="src-table">
+          <tr><td>🚗 <strong>汽车/交通设备</strong></td><td>Top 1</td><td style="color:#10b981;">~22,000 TEU</td></tr>
+          <tr><td>🏗️ <strong>建筑建材</strong></td><td>Top 2</td><td style="color:#f59e0b;">~26,000 TEU</td></tr>
+          <tr><td>🍎 <strong>食品农产品</strong></td><td>Top 3</td><td style="color:#10b981;">~35,000 TEU</td></tr>
+          <tr><td>🧵 <strong>纺织品</strong></td><td>稳定需求</td><td style="color:#10b981;">~24,000 TEU</td></tr>
+          <tr><td>🧪 <strong>化工产品</strong></td><td>工业原料</td><td style="color:#06b6d4;">~18,000 TEU</td></tr>
+        </table>
+      </div>
+      <div class="flow-items">
+        <strong>运输特征：</strong><span style="color:#ef4444;font-weight:700;">霍尔木兹危机下陆桥比例大幅提升</span> —— 经Van口岸/Mersin海铁联运入伊朗北；Bandar Abbas受制约；CUL AEM<strong>增量机会</strong>
+      </div>
+    </div>
+
+    <!-- 卡片6: Libya (MES支线) -->
+    <div class="flow-card" style="border-top:4px solid #ec4899;">
+      <div class="flow-header">
+        <span class="flow-fromto">🇹🇷 → 🇱🇾 利比亚 <span class="tag tag-new">MES支线</span></span>
+        <span class="flow-val" style="color:#ec4899;">~1.4-1.7万 TEU/月 ⬆<br><small>~$3.3B/年 · Misurata</small></span>
+      </div>
+      <div style="margin:0.7rem 0;">
+        <table class="src-table">
+          <tr><td>🧱 <strong>建筑材料</strong> <span style="color:#ef4444;font-size:0.72rem;">重建主力!</span></td><td>#1</td><td style="color:#ef4444;">&gt;50% of TEU</td></tr>
+          <tr><td>🍞 <strong>食品消费品</strong></td><td>#2</td><td style="color:#10b981;">~25%</td></tr>
+          <tr><td>💊 <strong>医疗用品/日用</strong></td><td>#3</td><td style="color:#3b82f6;">~15%</td></tr>
+        </table>
+      </div>
+      <div class="flow-items">
+        <strong>运输特征：</strong><span style="color:#ec4899;">战后重建驱动爆发式增长</span> —— Misurata为地中海东岸最快增长港；建材为绝对主导；MES环线5-7天
+      </div>
+    </div>
+
+  </div><!-- end grid -->
+
+  <!-- 综合结论 -->
+  <div class="insight" style="margin-top:3rem;">
+    <p><strong>🎯 核心结论：</strong></p>
+    <p style="margin-top:0.8rem;">
+    ① <strong>箱量规模：土耳其→中东·红海年出货约160-180万TEU</strong>，其中伊拉克独占40%+(65-72万TEU)为压倒性第一大市场，主要通过Mersin完成交付。<br/>
+    ② <strong>运价优势：土耳其↔红海/沙特/埃及短途段($1,500-2,400/40HQ, 4-7天)</strong>具有极高的单位时间收益和周频次灵活性，CUL AEM应聚焦此区域的<span style="color:#d4a853;font-weight:700;">定价权和舱位控制力</span>而非卷入FEM长程价格战。<br/>
+    ③ <strong>货源结构：食品农产(冷藏柜需求大)、建材(重货主导)、汽车汽配(高值适箱)、纺织品服装(稳定基本盘)</strong>四大品类合计占总箱量75%以上。<br/>
+    ④ <strong>霍尔木兹危机 = 结构性机遇</strong>：土耳其进口箱量单月+27%(+45,500 TEU)，伊朗/伊拉克方向陆桥比例飙升，Mersin从"出口港"升级为"<strong>区域中转枢纽</strong>"——这是CUL AEM不可错过的增量窗口。</p>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 05 运价与市场动态 -->
+<!-- ================================================================ -->
+<section id="s05" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 05</div>
+    <h2 class="section-title">运价水平与市场动态</h2>
+    <p class="section-sub">2026年4月最新运价 · 地缘影响 · 成本结构</p>
+  </div>
+
+  <!-- 运价 KPI -->
+  <div class="kpi-grid">
+    <div class="kpi-box"><div class="kpi-val" style="color:#10b981;">$3,527</div><div class="kpi-label">FBX13 中国→地中海</div><div class="kpi-sub">USD/40'HQ · Freightos指数</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:#3b82f6;">~$2,900</div><div class="kpi-label">远东→北欧</div><div class="kpi-sub">USD/FEU · 4月中旬</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:#f59e0b;">~$2,420</div><div class="kpi-label">远东→美西</div><div class="kpi-sub">USD/FEU · 较2月底+40%</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:#ef4444;">⚠️ 双危机</div><div class="kpi-label">红海+霍尔木兹</div><div class="kpi-sub">同时受阻 · 极端局面</div></div>
+  </div>
+
+  <!-- 各航线运价参考表 -->
+  <h3 style="color:var(--accent-gold);margin:3rem 0 1.5rem;font-size:1.15rem;">📊 AEM 相关航线 参考运价 (2026年4月)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>航线 Lane</th><th>起点 Origin</th><th>终点 Dest</th><th>20'DV ($)</th><th>40'HC ($)</th><th>状态 Status</th><th>备注 Note</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>远东—东地中海 FEM</strong> <span class="tag tag-key">AEM同类</span></td>
+          <td>上海/宁波/深圳</td>
+          <td>梅尔辛/伊斯坦布尔/阿什杜德</td>
+          <td>$2,000-2,600</td>
+          <td>$3,500-4,500</td>
+          <td class="neutral">波动中</td>
+          <td>FBX13基准$3,527/40'HQ；苏伊士直航溢价</td>
+        </tr>
+        <tr>
+          <td><strong>远东—西北欧（经苏伊士）</strong></td>
+          <td>上海/宁波/青岛</td>
+          <td>鹿特丹/汉堡/安特卫普</td>
+          <td>$2,500-3,200</td>
+          <td>$4,500-5,500</td>
+          <td class="up">↑ 4月涨~20%</td>
+          <td>燃油附加费飙升推动</td>
+        </tr>
+        <tr>
+          <td><strong>东南亚—中东/红海</strong></td>
+          <td>新加坡/巴生/胡志明</td>
+          <td>吉达/杰贝阿里/索赫纳</td>
+          <td>$1,500-2,200</td>
+          <td>$2,500-3,800</td>
+          <td class="up">含战争险</td>
+          <td>风险溢价$300-$800/TEU不等</td>
+        </tr>
+        <tr>
+          <td><strong>中东—土耳其（短途）</strong> <span class="tag tag-new">区域段</span></td>
+          <td>迪拜/杰贝阿里</td>
+          <td>梅尔辛/伊斯坦布尔</td>
+          <td>$800-1,300</td>
+          <td>$1,400-2,200</td>
+          <td class="neutral">平稳</td>
+          <td>舱位相对充裕 · 4-7天航程</td>
+        </tr>
+        <tr>
+          <td><strong>土耳其—北非（支线）</strong> <span class="tag tag-new">MES/NAF</span></td>
+          <td>伊斯坦布尔/阿利亚加</td>
+          <td>米苏拉塔/阿尔及尔</td>
+          <td>$300-600</td>
+          <td>$550-1,000</td>
+          <td class="up">需求增长</td>
+          <td>短途环线 · 高利润率</td>
+        </tr>
+        <tr>
+          <td><strong>欧洲—土耳其（支线）</strong></td>
+          <td>比雷埃夫斯/的里雅斯特</td>
+          <td>伊斯坦布尔/梅尔辛</td>
+          <td>$300-600</td>
+          <td>$500-1,000</td>
+          <td class="neutral">平稳</td>
+          <td>高频次灵活配载</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 市场动态时间线 -->
+  <h3 style="color:var(--accent-red);margin:3rem 0 1.2rem;font-size:1.1rem;">🔥 2026年Q1-Q2 市场关键事件</h3>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#3b82f6;"></div>
+      <div class="tl-date">🔵 2026年1-2月 — 春节前抢运</div>
+      <div class="tl-body">
+        <h4>春节出货高峰 + 红海持续受阻</h4>
+        <ul>
+          <li>春节前出货潮叠加红海绕行，亚欧航线运价攀升</li>
+          <li>CMA CGM引入旺季附加费PSS；主流策略仍为全面绕行好望角</li>
+          <li>SOLAS新规生效：强制报告海上丢失集装箱（2024年丢失量激增181%）</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#f59e0b;"></div>
+      <div class="tl-date">🟠 2026年2-3月 — 胡塞重启袭击</div>
+      <div class="tl-body">
+        <h4>马士基两次尝试复航苏伊士失败 + 霍尔木兹升级</h4>
+        <ul>
+          <li>胡塞武装2月初恢复系统性袭击商船</li>
+          <li>马士基ME11航线3月5日和3月12日两次尝试恢复苏伊士路由，均数日后被迫逆转</li>
+          <li>伊朗-美国霍尔木兹冲突升级 → 形成<strong>红海+霍尔木兹双重咽喉同时受阻</strong>极端局面</li>
+          <li>约130艘集装箱船被困波斯湾内或锚泊于阿曼湾外</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#ef4444;"></div>
+      <div class="tl-date">🔴 2026年4月 — 胶着状态</div>
+      <div class="tl-body">
+        <h4>燃油暴涨 + 战争险附加费争议 + 运价高位震荡</h4>
+        <ul>
+          <li>VLSFO燃油从$430/mt飙升至峰值$960/mt（+123%）</li>
+          <li>货代谴责船公司战争险附加费"过高且不标准化"，部分超基础运费本身</li>
+          <li>CMA CGM正式恢复部分航线苏伊士通航（FAL1/FAL3/INDAMEX）</li>
+          <li>远东→美西运价较2月底暴涨约40%；远东→北欧涨约20%</li>
+          <li>行业整体准班率下降，多数Top10承运商环比下行</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <p><strong>📈 运价判断：</strong><br/>
+    ① <strong>短期(1-3月)：成本推动型上涨将持续</strong>——燃油附加费(BAF)和战争险(WRS)主导，非需求驱动。VLSFO若从高点回落，5月可能部分回调附加费。<br/>
+    ② <strong>苏伊士直航的稀缺价值凸显：</strong>——在绝大多数航线被迫绕行的背景下，<strong>能够稳定提供苏伊士直航服务的AEM航线具备显著竞争优势</strong>（时效优势10-14天）。<br/>
+    ③ <strong>霍尔木兹因素是新增变量：</strong>——若海峡持续关闭，波斯湾内130艘船舶的运力缺口将传导至全球，进一步推高各航线底价。<br/>
+    ④ <strong>合约谈判季(2026-27)支撑高运价：</strong>——承运人有强烈动机维持当前水平进入年度合约谈判，预计停航率维持在6%左右以控运力。</p>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 06 直航竞品分析 -->
+<!-- ================================================================ -->
+<section id="s06" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 06</div>
+    <h2 class="section-title">苏伊士直航竞品分析</h2>
+    <p class="section-sub">市场上同类远东→地中海/中东直航服务对比</p>
+  </div>
+
+  <div class="table-wrap">
+    <table class="comp-table">
+      <thead><tr><th>承运商/联盟 Carrier</th><th>服务名称 Service</th><th>远东起运 Origin</th><th>地中海/中东挂靠 Med/ME Calls</th><th>是否经苏伊士 Suez?</th><th>与AEM重叠度 Overlap</th><th>竞争力评价 Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>🥇 MSC</strong></td>
+          <td>Turkey Express / MED Service</td>
+          <td>上海/宁波/盐田/厦门</td>
+          <td>梅尔辛 · 伊斯坦布尔 · 伊兹密尔 · Iskenderun · Mersin</td>
+          <td class="up"><strong>✓ 是</strong> 部分恢复</td>
+          <td><span class="tag tag-hot">高度重叠</span></td>
+          <td>土耳其航线王者，港口覆盖最深，新投放Turkey-Adriatic-Malta-Libya周班</td>
+        </tr>
+        <tr>
+          <td><strong>🥈 CMA CGM</strong></td>
+          <td>FAL1 / FAL3 / MEX / INDAMEX</td>
+          <td>上海/宁波/盐田</td>
+          <td>比雷埃夫斯 · 马赛 · 巴塞罗那 · 贝鲁特 · 梅尔辛(部分)</td>
+          <td class="up"><strong>✓ 已恢复</strong> 官方确认</td>
+          <td><span class="tag tag-hot">高度重叠</span></td>
+          <td>2026年2月起正式恢复FAL1/FAL3/INDAMEX苏伊士通航，FAK费率定期发布</td>
+        </tr>
+        <tr>
+          <td><strong>🥉 Maersk</strong></td>
+          <td>AE1/AE2 / EMC</td>
+          <td>上海/宁波/青岛</td>
+          <td>菲力克斯托 · 不莱梅哈芬 · 塞得港 · 阿什杜德</td>
+          <td class="down"><strong>✗ 两次失败后暂停</strong></td>
+          <td><span class="tag tag-warn">中等重叠</span></td>
+          <td>3月两次复航尝试均失败，目前维持绕行；但端到端物流方案仍具竞争力</td>
+        </tr>
+        <tr>
+          <td><strong>Ocean Alliance</strong></td>
+          <td>3条 Far East – Middle East loops</td>
+          <td>中国主要港口</td>
+          <td>杰贝阿里 · 哈马德 · 达曼 · 朱拜勒</td>
+          <td class="neutral">视具体航线</td>
+          <td><span class="tag tag-new">中东段重叠</span></td>
+          <td>COSCO宣布2026年4月提供3条远东-中东直航loop以满足增长需求</td>
+        </tr>
+        <tr>
+          <td><strong>Hapag-Lloyd</strong></td>
+          <td>MD1/MD2/MD3 / TEX</td>
+          <td>亚洲主要港口</td>
+          <td>塞得港 · 贝鲁特 · 梅尔辛 · 伊斯坦布尔</td>
+          <td class="neutral">部分恢复</td>
+          <td><span class="tag tag-warn">中等重叠</span></td>
+          <td>地中海服务调整积极；与Maersk合作Gemini联盟；准班率全球领先67.4%</td>
+        </tr>
+        <tr>
+          <td><strong>ONE</strong></td>
+          <td>FEM / Red Sea Services</td>
+          <td>上海/宁波/深圳/台北</td>
+          <td>阿什杜德 · 梅尔辛 · 塞得港 · 索赫纳</td>
+          <td class="up">逐步恢复</td>
+          <td><span class="tag tag-warm">中等重叠</span></td>
+          <td>官方提供实时船期查询覆盖土耳其所有主要港口</td>
+        </tr>
+        <tr>
+          <td><strong>ZIM</strong></td>
+          <td>地中海冷箱专线 / 支线</td>
+          <td>-</td>
+          <td>以色列-土耳其-希腊支线</td>
+          <td class="up">区域内正常</td>
+          <td><span class="tag tag-new">差异化互补</span></td>
+          <td>东地中海冷箱市场差异化优势；受苏伊士影响较大</td>
+        </tr>
+        <tr>
+          <td><strong>🏠 CUL (我们)</strong></td>
+          <td><strong style="color:var(--accent-gold);">AEM</strong></td>
+          <td><strong>青岛 · 上海 · 宁波 · 南沙</strong></td>
+          <td><strong style="color:var(--accent-gold);">吉达 · 亚历山大 · 阿利亚加 · 伊斯坦布尔 · 梅尔辛</strong></td>
+          <td class="up"><strong style="color:var(--accent-green);">✓ 苏伊士直航</strong></td>
+          <td><span class="tag tag-key">— 自身</span></td>
+          <td><strong>独特价值：唯一同时覆盖红海(Jeddah)+埃及(Alexandria)+土耳其三港的地东直航服务；配合MES/NAF支线形成完整网络</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight">
+    <p><strong>🏆 竞争格局总结：</strong></p>
+    <p style="margin-top:0.8rem;line-height:1.9;">
+    <strong>① CMA CGM是目前最激进的苏伊士复航者</strong> — FAL1/FAL3/INDAMEX三条主力航线已正式恢复苏伊士通航，这对AEM形成直接竞争。但CMA的航线更偏重西地中海（Piraeus/Marseille/Barcelona），对东地中海土耳其三港的覆盖密度不如AEM专注。<br/><br/>
+    <strong>② MSC仍是土耳其市场的绝对霸主</strong> — 但MSC的优势更多体现在区域内支线和港口合作关系上，而非远东直航。AEM可以定位为"远东直航专家"与之差异化。<br/><br/>
+    <strong>③ Maersk的两次复航失败是一个信号</strong> — 说明苏伊士直航并非所有承运商都能稳定执行。能够<strong>稳定</strong>提供直航本身就是核心竞争力。<br/><br/>
+    <strong>④ CUL AEM的独特护城河 = Jeddah + Alexandria + 土耳其三港</strong> — 市场上很少有航线能同时覆盖这三个关键节点。这意味着AEM不只是土耳其航线，更是一条<strong>"红海-埃及-土耳其"三位一体的走廊型产品</strong>。</p>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 07 销售机会与行动 -->
+<!-- ================================================================ -->
+<section id="s07" class="section">
+  <div class="section-head">
+    <div class="section-num">Section 07</div>
+    <h2 class="section-title">销售机会与行动计划</h2>
+    <p class="section-sub">基于数据和航线网络的实操建议</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="border-left:4px solid var(--accent-green);">
+      <span class="card-icon">💡</span>
+      <h3>机会 1: 苏伊士直航作为核心卖点</h3>
+      <h4>The Suez Direct Advantage</h4>
+      <p>在市场上90%的远东-地中海货量被迫绕行好望角的背景下，AEM的<strong>苏伊士直航</strong>是稀缺资源：</p>
+      <ul>
+        <li><strong>时效优势：</strong>比绕行快 <strong>10-14天</strong> — 对时间敏感客户极具吸引力</li>
+        <li><strong>成本优势：</strong>省去额外燃油成本（每航次省$100-200万）</li>
+        <li><strong>可靠性：</strong>避免南非海域恶劣天气和延误风险</li>
+        <li><strong>销售话术：</strong>"当别人绕行非洲时，您的货物已经到了"</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left:4px solid var(--accent-gold);">
+      <span class="card-icon">🏗️</span>
+      <h3>机会 2: 伊拉克重建市场</h3>
+      <h4>$130B+ 的土耳其→伊拉克贸易走廊</h4>
+      <p>伊拉克是土耳其第4大出口市场（$130亿/年），且目标中期增至$180亿：</p>
+      <ul>
+        <li><strong>建材需求旺盛：</strong>家具/钢铁/塑料/铝材合计>$25亿 — 震后+重建双重拉动</li>
+        <li><strong>食品出口巨大：</strong>谷物/水果/肉类/蔬菜合计>$35亿+ — 伊拉克严重依赖进口食品</li>
+        <li><strong>汽车品牌：</strong>Tofas(Fiat)和OYAK Renault垄断市场 — 配套零部件运输需求</li>
+        <li><strong>CUL切入点：</strong>AEM到Mersin + 陆桥卡车转运伊拉克南部</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left:4px solid var(--accent-cyan);">
+      <span class="card-icon">🏜️</span>
+      <h3>机会 3: 北非战后重建 (MES/NAF)</h3>
+      <h4>Libya & Algeria — 地中海最后的增长 frontier</h3>
+      <p>两条支线服务的目标市场正处于高速增长前夜：</p>
+      <ul>
+        <li><strong>MES → Misurata(利比亚)：</strong>战后重建需求爆发，建材/医疗/消费品急缺，月出口已从几乎为零增长至$2.76亿</li>
+        <li><strong>NAF → Algiers(阿尔及利亚)：</strong>北非第二大市场($28.8亿/年)，石油经济带动基建和消费升级</li>
+        <li><strong>回程机会：</strong>阿尔及利亚磷矿/原油 → 土耳其/欧洲精炼</li>
+        <li><strong>差异化：</strong>大多数国际承运商不覆盖这两个港口，CUL有先发优势</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left:4px solid var(--accent-blue);">
+      <span class="card-icon">🇮🇳</span>
+      <h3>机会 4: 印度-土耳其贸易增长</h3>
+      <h4>$8.7B → $20B 目标的物流红利</h4>
+      <p>印度-土耳其双方政府明确目标：五年内贸易翻倍：</p>
+      <ul>
+        <li><strong>印度→土耳其($55.4亿)：</strong>工程设备($30.4亿) · 化工($5.14亿) · 电子($4.27亿) — 高价值适箱货</li>
+        <li><strong>土耳其→印度($30亿)：</strong>能源($7.83亿) · 黄金珠宝($3.09亿) · 航空器($1.8亿)</li>
+        <li><strong>目标sector：</strong>纺织 · 医药 · 农业 · 汽车 · 金属 — 均为集装箱适装品类</li>
+        <li><strong>CUL切入点：</strong>印度港口(Cochin/Chennai/Nhava Sheva) → FEM/IMX航线衔接</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left:4px solid var(--accent-purple);">
+      <span class="card-icon">⚡</span>
+      <h3>机会 5: "第三条路"销售策略</h3>
+      <h4>When customers debate Suez vs Cape...</h4>
+      <p>当客户在"苏伊士(贵且险)"vs"好望角(慢)"之间纠结时：</p>
+      <ul>
+        <li><strong>Option A:</strong> 红海直达 — 最快28天，但有风险溢价</li>
+        <li><strong>Option B:</strong> 好望角绕行 — 最安全，+12-14天</li>
+        <li><strong><span style="color:var(--accent-gold);">Option C (CUL):</span></strong> AEM苏伊士直航 — 平衡方案，稳定班期</li>
+
+        <li><strong>关键：</strong>强调AEM不是赌运气，而是有计划、稳定的直航承诺</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left:4px solid var(--accent-orange);">
+      <span class="card-icon">🔄</span>
+      <h3>机会 6: 回程带货优化</h3>
+      <h4>Return Cargo Optimization</h3>
+      <p>不只是把货运去，更要利用回程舱位：</p>
+      <ul>
+        <li><strong>土耳其→远东：</strong>榛子(全球70%)/无花果/葡萄干/橄榄油 → 东南亚食品加工厂</li>
+        <li><strong>北非→远东：</strong>阿尔及利亚磷矿/化肥 → 越南/泰国农业</li>
+        <li><li><strong>红海→远东：</strong>埃及棉花 → 中国/越南/印尼纺织厂</li>
+        <li>回程装载率提升 = 往返利润优化</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 行动清单 -->
+  <div class="insight" style="margin-top:3rem;">
+    <p><strong>🎯 全球销售团队 — 行动清单 (Action Items)：</strong></p>
+    <ol style="font-size:0.93rem;color:var(--text-primary);line-height:2;padding-left:1.6rem;margin-top:1rem;">
+      <li><strong>立即行动：</strong>梳理手头客户中有土耳其/中东/北非业务的公司，发送本报告摘要 + AEM航线介绍</li>
+
+      <li><strong>本月内：</strong>针对Iraq/Libya/Algeria三个高增长市场各筛选1-2个重点客户，定制"MES/NAF支线+陆桥"组合方案</li>
+      <li><strong>持续跟踪：</strong>关注CMA CGM苏伊士复航的稳定性（直接影响竞品格局）和霍尔木兹局势（影响整体运价水位）</li>
+      <li><strong>中长期：</strong>建立Mersin本地合作伙伴关系（报关行/拖车行/仓库），为深度介入土耳其-伊拉克陆桥做准备</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="footer-brand">CUL Route Intelligence Report</div>
+  <p>Türkiye Market Intelligence — AEM · MES · NAF 航线货流深度报告</p>
+  <p>Generated: 2026-04-28 | Data Sources: ShipHub / DynaMar / Container News / Ballast Markets / Econdb / Vizion TradeView / Freightos FBX13 / CMA CGM / Mighty Shipping</p>
+  <p style="margin-top:0.5rem;">For Internal Use by Global Sales Team | TEU数据为主 · 贸易额为辅 | *估算值已标注</p>
+  <p style="margin-top:1.2rem;color:#334155;">© 2026 CUL Market Intelligence Division</p>
+</footer>
+
+<script>
+// Smooth scroll nav
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href').substring(1);
+    const el = document.getElementById(targetId);
+    if (el) { el.scrollIntoView({ behavior:'smooth', block:'start' }); }
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+// Active nav on scroll
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('[id^="s"]');
+  let current = '';
+  sections.forEach(s => { if (s.getBoundingClientRect().top <= 150) current = s.id; });
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.getAttribute('href') === '#' + current));
+});
+</script>
+</body>
+</html>
