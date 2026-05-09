@@ -277,11 +277,11 @@
 </div>
 
 <div class="compare-bar" style="margin-bottom:8px;">
-  <div class="bar-label"><span>TEU 占比：市场部 27,927 / 全船 149,091</span><span style="color:var(--accent);font-weight:700;">18.7%</span></div>
+  <div class="bar-label"><span>TEU 占比：市场部 28,288 / 全船 149,091</span><span style="color:var(--accent);font-weight:700;">18.7%</span></div>
   <div class="bar-track"><div class="bar-fill mkt" style="width:18.7%">18.7%</div></div>
 </div>
 <div class="compare-bar" style="margin-bottom:20px;">
-  <div class="bar-label"><span>CM 占比：市场部 $22.28M / 全船 $142.61M</span><span style="color:var(--accent);font-weight:700;">15.6%</span></div>
+  <div class="bar-label"><span>CM 占比：市场部 $23.40M / 全船 $142.61M</span><span style="color:var(--accent);font-weight:700;">15.6%</span></div>
   <div class="bar-track"><div class="bar-fill mkt" style="width:15.6%;background:linear-gradient(90deg,#e67e22,#f39c12);">15.6%</div></div>
 </div>
 
@@ -575,7 +575,7 @@
           </div>
           <div class="card-footer text-muted bg-light d-flex justify-content-between">
             <small>共 136 个活跃合约，展示 Top 10</small>
-            <small>Total: 27,927 TEU | $22.28M</small>
+            <small>Total: 28,288 TEU | $23.40M</small>
           </div>
         </div>
       </section>
@@ -589,107 +589,146 @@
 <section>
 
 
+
 <!-- ====== Section: 储能柜专题 ====== -->
 <div class="card shadow-sm mb-4">
   <div class="card-body">
     <h2 class="section-title mb-3">四、储能柜项目专项分析</h2>
-    <p class="text-muted small mb-3">合约号：C2615021 / A2633122 | 项目类型：储能柜(Energy Storage Cabinet) | 路线：上海 → 吉达(SA)</p>
+    <p class="text-muted small mb-4">
+      <span class="badge bg-secondary me-1">C2615021</span>
+      <span class="badge bg-warning text-dark me-1">A2633122</span>
+      Energy Storage Cabinet | 上海 → 吉达(SA)
+    </p>
 
-    <!-- Project Overview -->
-    <div class="table-responsive mb-4">
-      <table class="table table-sm table-hover">
-        <thead class="table-light">
-          <tr>
-            <th>合约号</th>
-            <th>类型</th>
-            <th>客户</th>
-            <th>VVD</th>
-            <th>提单数</th>
-            <th>TEU</th>
-            <th>CM</th>
-            <th>单箱CM</th>
-            <th>箱型</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>C2615021</strong></td>
-            <td><span class="badge bg-success">C约</span></td>
-            <td>NANJING CML GRANDLINK LOGISTICS CO.,LTD.</td>
-            <td>CULC2610W</td>
-            <td>2</td>
-            <td>20</td>
-            <td>$70K</td>
-            <td><strong>$3487</strong></td>
-            <td>40ft x10</td>
-          </tr>
-          <tr>
-            <td><strong>A2633122</strong></td>
-            <td><span class="badge bg-warning text-dark">A约(市场部)</span></td>
-            <td>ZHONGJUN SUPPLY CHAIN MANAGEMENT(SHANGHAI)CO.,LTD.</td>
-            <td>CULC2617W</td>
-            <td>10</td>
-            <td>361</td>
-            <td>$1117K</td>
-            <td><strong>$3095</strong></td>
-            <td>混合</td>
-          </tr>
-          <tr class="table-primary fw-bold">
-            <td colspan="4">合计</td>
-            <td>12</td>
-            <td>381</td>
-            <td>$1187K</td>
-            <td><strong>$3116</strong></td>
-            <td>—</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- ====== 总览KPI ====== -->
+    <div class="kpi-grid mb-4" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="kpi-card">
+        <div class="label">总提单</div>
+        <div class="value">12</div>
+        <div class="sub">C约2 + A约10</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">总TEU</div>
+        <div class="value">381</div>
+        <div class="sub">占总箱量 <strong>1.3%</strong></div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">总CM</div>
+        <div class="value">$1.19M</div>
+        <div class="sub">占总CM <strong>5.1%</strong></div>
+      </div>
+      <div class="kpi-card" style="background: linear-gradient(135deg,#fff5f5,#ffe0e0); border-left: 4px solid #dc3545;">
+        <div class="label">单箱CM</div>
+        <div class="value" style="color:#dc3545;">$3,116</div>
+        <div class="sub">市场部均值的 <strong class="text-danger">391%</strong></div>
+      </div>
     </div>
 
-    <!-- Key Highlights -->
+    <!-- ====== 合约对比卡片 ====== -->
+    <h5 class="mb-3 mt-4"><i class="bi bi-file-earmark-text me-1"></i>合约明细</h5>
     <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <div class="card bg-light border-0 h-100">
-          <div class="card-body text-center">
-            <h6 class="text-muted">单箱CM vs 市场部平均</h6>
-            <h3 class="text-danger">391%<small class="text-muted"> of avg</small></h3>
-            <small class="text-muted">市场部均值: $798/TEU</small>
+
+      <!-- C2615021 -->
+      <div class="col-md-6">
+        <div class="card h-100" style="border-top: 4px solid #198754;">
+          <div class="card-header py-2 d-flex justify-content-between align-items-center">
+            <strong>C2615021</strong>
+            <span class="badge bg-success">C 约</span>
+          </div>
+          <div class="card-body">
+            <p class="text-muted mb-2" style="font-size:0.85rem;"><i class="bi bi-building me-1"></i>Nanjing CML Grandlink Logistics Co.,Ltd.</p>
+            <table class="table table-sm table-borderless mb-0" style="font-size:0.92rem;">
+              <tr><td class="text-muted w-40%">VVD</td><td><strong>CULC2610W</strong> <small class="text-muted">(W10)</small></td></tr>
+              <tr><td class="text-muted">提单 / TEU</td><td><strong>2</strong> 票 / <strong>20</strong> TEU</td></tr>
+              <tr><td class="text-muted">CM</td><td class="fw-bold">$69,743</td></tr>
+              <tr><td class="text-muted">单箱CM</td><td><span class="badge bg-light text-dark border">$3,487</span></td></tr>
+              <tr><td class="text-muted">箱型</td><td>40ft × 10</td></tr>
+            </table>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card bg-light border-0 h-100">
-          <div class="card-body text-center">
-            <h6 class="text-muted">占总CM比重</h6>
-            <h3 class="text-primary">5.1%</h3>
-            <small class="text-muted">(含A约口径)</small>
+
+      <!-- A2633122 (主合同) -->
+      <div class="col-md-6">
+        <div class="card h-100" style="border-top: 4px solid #fd7e14; box-shadow: 0 2px 8px rgba(253,126,20,0.15);">
+          <div class="card-header py-2 d-flex justify-content-between align-items-center" style="background:#fff8f0;">
+            <strong>A2633122</strong>
+            <div><span class="badge bg-warning text-dark me-1">A 约</span><span class="badge bg-info">市场部项目</span></div>
+          </div>
+          <div class="card-body">
+            <p class="text-muted mb-2" style="font-size:0.85rem;"><i class="bi bi-building me-1"></i>Zhongjun Supply Chain Management (Shanghai) Co.,Ltd.</p>
+            <table class="table table-sm table-borderless mb-0" style="font-size:0.92rem;">
+              <tr><td class="text-muted w-40%">VVD</td><td><strong>CULC2617W</strong> <small class="text-muted">(W17)</small></td></tr>
+              <tr><td class="text-muted">提单 / TEU</td><td><strong>10</strong> 票 / <strong>361</strong> TEU</td></tr>
+              <tr><td class="text-muted">CM</td><td class="fw-bold">$1,117,439</td></tr>
+              <tr><td class="text-muted">单箱CM</td><td><span class="badge bg-light text-dark border">$3,095</span></td></tr>
+              <tr><td class="text-muted">占合并比重</td><td><span class="text-success fw-bold">94.8% TEU / 94.1% CM</span></td></tr>
+            </table>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card bg-light border-0 h-100">
-          <div class="card-body text-center">
-            <h6 class="text-muted">航线特征</h6>
-            <h5 class="fw-bold">上海 → 吉达</h5>
-            <small class="text-muted">中東红海线 | 纯出口</small>
-          </div>
-        </div>
+
+    </div><!-- end row -->
+
+    <!-- ====== 航线与货品 ====== -->
+    <h5 class="mb-3 mt-4"><i class="bi bi-geo-alt me-1"></i>航线与货品信息</h5>
+    <div class="row g-3 mb-3">
+
+      <div class="col-md-6">
+        <table class="table table-sm table-bordered mb-0" style="font-size:0.88rem;">
+          <tbody>
+            <tr class="table-light"><td width="90"><strong>POL</strong></td><td>上海 (CNSHAT02)</td></tr>
+            <tr><td><strong>POD</strong></td><td>吉达 Jeddah (SAJEDT01)</td></tr>
+            <tr class="table-light"><td><strong>国家/区域</strong></td><td>🇸🇦 沙特阿拉伯 | 中东红海线</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-6">
+        <table class="table table-sm table-bordered mb-0" style="font-size:0.88rem;">
+          <tbody>
+            <tr class="table-light"><td width="100"><strong>货品类型</strong></td><td>储能柜 (Energy Storage Cabinet)</td></tr>
+            <tr><td><strong>货品特征</strong></td><td>高价值设备货 · 单箱CM远超均值</td></tr>
+            <tr class="table-light"><td><strong>VVD间隔</strong></td><td>W10 → W17 (相隔7周)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- ====== 对比条形图 (文本版) ====== -->
+    <h5 class="mb-3 mt-4"><i class="bi bi-bar-chart me-1"></i>效率对比</h5>
+    <div class="mb-2 d-flex align-items-center">
+      <span class="me-2" style="width:120px;font-size:0.88rem;text-align:right;">市场部平均:</span>
+      <div class="progress flex-grow-1" style="height:20px; background:#e9ecef;">
+        <div class="progress-bar bg-secondary" role="progressbar" style="width:21%; font-size:0.78rem; line-height:20px;">$827/TEU</div>
+      </div>
+      <span class="ms-2 text-muted" style="width:60px;font-size:0.82rem;">基准</span>
+    </div>
+    <div class="d-flex align-items-center mb-3">
+      <span class="me-2" style="width:120px;font-size:0.88rem;text-align:right;">C2615021:</span>
+      <div class="progress flex-grow-1" style="height:24px; background:#e9ecef;">
+        <div class="progress-bar bg-success" role="progressbar" style="width:89%; font-size:0.8rem; line-height:24px; font-weight:bold;">$3,487/TEU (422%)</div>
+      </div>
+    </div>
+    <div class="d-flex align-items-center mb-3">
+      <span class="me-2" style="width:120px;font-size:0.88rem;text-align:right;">A2633122:</span>
+      <div class="progress flex-grow-1" style="height:24px; background:#e9ecef;">
+        <div class="progress-bar bg-warning text-dark" role="progressbar" style="width:79%; font-size:0.8rem; line-height:24px; font-weight:bold;">$3,095/TEU (374%)</div>
+      </div>
+    </div>
+    <div class="d-flex align-items-center">
+      <span class="me-2" style="width:120px;font-size:0.88rem;text-align:right;font-weight:bold;">项目合计:</span>
+      <div class="progress flex-grow-1" style="height:28px; background:#fde8e8;">
+        <div class="progress-bar bg-danger" role="progressbar" style="width:80%; font-size:0.85rem; line-height:28px; font-weight:bold;">$3,116/TEU (391%)</div>
       </div>
     </div>
 
-    <!-- Route Info -->
-    <h5 class="mb-2">📍 货物流向</h5>
-    <ul class="list-unstyled">
-      <li><strong>POL:</strong> 上海 (CNSHAT02)</li>
-      <li><strong>POD:</strong> 吉达 Jeddah (SAJEDT01) — 沙特阿拉伯</li>
-      <li><strong>VVD间隔:</strong> CULC2610W(W10) → CULC2617W(W17)，相隔7周</li>
-      <li><strong>货品:</strong> 储能柜 (Energy Storage Cabinet)，高价值设备货</li>
-    </ul>
-
-    <!-- Note about A contract inclusion -->
-    <div class="alert alert-info mt-3 mb-0" role="alert">
-      <small><strong>注：</strong>A2633122为A约，但属于市场部储能柜项目，已纳入本次工作量化统计。在KPI总览中以"含A约项目"口径同步更新。</small>
+    <!-- 注释 -->
+    <div class="alert alert-info mt-4 mb-0" role="alert" style="font-size:0.83rem;">
+      <strong>注：</strong>A2633122 为A约，但属于市场部储能柜项目，已纳入工作量化统计。KPI总览已同步更新为「含A约项目」口径。
     </div>
+
   </div>
 </div>
 
