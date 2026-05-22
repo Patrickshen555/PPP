@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>客户画像评分体系 — 算法说明文档</title>
+<style>
+  :root {
+    --primary: #2c3e50;
+    --accent: #3498db;
+    --accent2: #e67e22;
+    --accent3: #27ae60;
+    --accent4: #e74c3c;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #333;
+    --light: #666;
+    --border: #e0e0e0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.8;
+    padding: 20px; max-width: 1100px; margin: 0 auto;
+  }
+  h1 {
+    text-align: center; color: var(--primary); font-size: 28px;
+    padding: 30px 0 10px; border-bottom: 3px solid var(--accent);
+  }
+  .subtitle {
+    text-align: center; color: var(--light); font-size: 14px; margin-bottom: 40px;
+  }
+  h2 {
+    color: var(--primary); font-size: 20px; margin: 35px 0 15px;
+    padding-left: 15px; border-left: 4px solid var(--accent);
+  }
+  h3 {
+    color: var(--accent); font-size: 16px; margin: 20px 0 10px;
+  }
+  p { margin: 8px 0; text-align: justify; }
+  .card {
+    background: var(--card-bg); border-radius: 10px; padding: 24px;
+    margin: 15px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: 1px solid var(--border);
+  }
+  .formula-box {
+    background: #f0f4ff; border-left: 4px solid var(--accent);
+    padding: 14px 20px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-family: 'Consolas', 'Courier New', monospace; font-size: 15px;
+  }
+  .note-box {
+    background: #fff8e1; border-left: 4px solid var(--accent2);
+    padding: 12px 18px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+  .warning-box {
+    background: #fde8e8; border-left: 4px solid var(--accent4);
+    padding: 12px 18px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+  .success-box {
+    background: #e8f5e9; border-left: 4px solid var(--accent3);
+    padding: 12px 18px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+  table {
+    width: 100%; border-collapse: collapse; margin: 12px 0;
+    font-size: 14px;
+  }
+  th {
+    background: var(--primary); color: #fff; padding: 10px 14px;
+    text-align: center; font-weight: 600;
+  }
+  td {
+    padding: 8px 14px; border-bottom: 1px solid var(--border); text-align: center;
+  }
+  tr:hover { background: #f5f7fa; }
+  .tag {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 12px; font-weight: 600; color: #fff;
+  }
+  .tag-teu { background: #3498db; }
+  .tag-cm { background: #e67e22; }
+  .tag-off { background: #27ae60; }
+
+  /* Flowchart */
+  .flowchart {
+    display: flex; flex-direction: column; align-items: center;
+    margin: 20px 0; gap: 0;
+  }
+  .fc-node {
+    padding: 12px 24px; border-radius: 10px; text-align: center;
+    font-size: 14px; font-weight: 600; color: #fff;
+    min-width: 280px; position: relative; line-height: 1.5;
+  }
+  .fc-arrow {
+    width: 3px; height: 24px; background: #bbb; margin: 0 auto;
+  }
+  .fc-arrow-down::after {
+    content: ''; display: block; width: 0; height: 0;
+    border-left: 8px solid transparent; border-right: 8px solid transparent;
+    border-top: 10px solid #bbb; margin: -1px auto 0;
+  }
+  .fc-start { background: var(--primary); border-radius: 25px; }
+  .fc-step { background: var(--accent); }
+  .fc-step2 { background: var(--accent2); }
+  .fc-step3 { background: var(--accent3); }
+  .fc-step4 { background: #8e44ad; }
+  .fc-end { background: var(--accent4); border-radius: 25px; }
+  .fc-branch {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    margin: 8px 0;
+  }
+
+  /* Horizontal flow */
+  .hflow {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; flex-wrap: wrap; margin: 16px 0;
+  }
+  .hf-box {
+    padding: 10px 16px; border-radius: 8px; text-align: center;
+    font-size: 13px; font-weight: 600; color: #fff; min-width: 100px;
+  }
+  .hf-arrow { font-size: 20px; color: #999; }
+
+  /* Dimension card */
+  .dim-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin: 16px 0;
+  }
+  .dim-card {
+    border-radius: 10px; padding: 18px; text-align: center;
+    color: #fff;
+  }
+  .dim-card h4 { font-size: 16px; margin-bottom: 8px; }
+  .dim-card .dim-formula {
+    font-family: 'Consolas', monospace; font-size: 13px;
+    background: rgba(255,255,255,0.2); padding: 8px; border-radius: 6px;
+    margin-top: 8px;
+  }
+  .dim-teu { background: linear-gradient(135deg, #3498db, #2980b9); }
+  .dim-cm { background: linear-gradient(135deg, #e67e22, #d35400); }
+  .dim-off { background: linear-gradient(135deg, #27ae60, #229954); }
+
+  /* View grid */
+  .view-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px; margin: 16px 0;
+  }
+  .view-box {
+    border: 2px solid var(--border); border-radius: 10px;
+    padding: 14px; text-align: center;
+  }
+  .view-box h5 { color: var(--primary); margin-bottom: 6px; }
+  .view-box .view-desc { font-size: 12px; color: var(--light); }
+  .view-box .view-score {
+    margin-top: 8px; padding: 6px; border-radius: 6px;
+    background: #f0f4ff; font-family: 'Consolas', monospace;
+    font-size: 12px;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--card-bg); border-radius: 10px; padding: 20px 30px;
+    margin: 20px 0; border: 1px solid var(--border);
+  }
+  .toc h3 { margin-bottom: 10px; color: var(--primary); }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin: 4px 0; font-size: 14px; }
+  .toc a { color: var(--accent); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* Example */
+  .example-box {
+    background: #f5f0ff; border: 1px solid #d5c8f0;
+    border-radius: 10px; padding: 18px; margin: 12px 0;
+  }
+  .example-box h4 { color: #8e44ad; margin-bottom: 8px; }
+
+  /* CM_OFF flow */
+  .cmoff-step {
+    padding: 10px 20px; border-radius: 8px; text-align: center;
+    font-size: 13px; font-weight: 600; color: #fff; min-width: 320px;
+  }
+  .cmoff-flow {
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+    margin: 16px 0;
+  }
+
+  @media print {
+    body { padding: 0; max-width: none; }
+    .card { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<h1>客户画像评分体系 — 算法说明文档</h1>
+<p class="subtitle">Customer Portrait Scoring System — Algorithm Documentation<br>
+四个独立视图 | 加权中位数评分法 | 三维度综合评价</p>
+
+<!-- TOC -->
+<div class="toc">
+  <h3>目 录</h3>
+  <ol>
+    <li><a href="#s1">概述与设计目标</a></li>
+    <li><a href="#s2">数据准备与淡旺季标记</a></li>
+    <li><a href="#s3">加权中位数评分法</a></li>
+    <li><a href="#s4">四个独立视图</a></li>
+    <li><a href="#s5">三个评分维度</a></li>
+    <li><a href="#s6">CM_OFF 淡季配合维度算法</a></li>
+    <li><a href="#s7">完整计算流程图</a></li>
+    <li><a href="#s8">计算示例（美的 CN340069）</a></li>
+    <li><a href="#s9">评分含义与使用指南</a></li>
+    <li><a href="#s10">算法特性与边界说明</a></li>
+  </ol>
+</div>
+
+<!-- ===== Section 1 ===== -->
+<h2 id="s1">一、概述与设计目标</h2>
+
+<div class="card">
+<p>本评分体系对航运公司全部客户进行量化画像，从<strong>规模（箱量）</strong>、<strong>利润贡献（毛利）</strong>和<strong>淡季配合度</strong>三个维度综合评估客户价值。每个维度在四个独立视图中分别评分和排名，满足总部全局视角与口岸/航线局部视角的不同业务需求。</p>
+
+<h3>1.1 核心设计原则</h3>
+<table>
+  <tr><th>原则</th><th>说明</th></tr>
+  <tr><td><b>多维度</b></td><td>不唯箱量论，同时考察利润贡献和淡季配合度，全面反映客户价值</td></tr>
+  <tr><td><b>多视图</b></td><td>四个独立视图（总体/航线/口岸/口岸×航线），各自独立评分和排名，互不干扰</td></tr>
+  <tr><td><b>抗极端值</b></td><td>采用加权中位数作为标准化基准，避免被少数超大客户拉偏</td></tr>
+  <tr><td><b>可追溯</b></td><td>每个得分均可追溯到具体计算步骤和基准值，结果透明可审计</td></tr>
+</table>
+
+<h3>1.2 评分体系总览</h3>
+
+<div class="hflow">
+  <div class="hf-box" style="background:#3498db;">箱量 TEU<br><small>权重 30%</small></div>
+  <div class="hf-arrow">＋</div>
+  <div class="hf-box" style="background:#e67e22;">毛利 CM<br><small>权重 50%</small></div>
+  <div class="hf-arrow">＋</div>
+  <div class="hf-box" style="background:#27ae60;">淡季配合 CM_OFF<br><small>权重 20%</small></div>
+  <div class="hf-arrow">＝</div>
+  <div class="hf-box" style="background:var(--primary); min-width:140px;">综合总分<br><small>每个视图独立计算</small></div>
+</div>
+
+<div class="formula-box">
+<strong>综合总分 = 0.3 × TEU得分 + 0.5 × CM得分 + 0.2 × CM_OFF得分</strong>
+</div>
+</div>
+
+<!-- ===== Section 2 ===== -->
+<h2 id="s2">二、数据准备与淡旺季标记</h2>
+
+<div class="card">
+<h3>2.1 原始数据</h3>
+<p>数据来源为客户系统的月度航线明细数据，每行记录包含：</p>
+<table>
+  <tr><th>字段</th><th>含义</th><th>示例</th></tr>
+  <tr><td>SHIPPER_CD</td><td>客户代码</td><td>CN340069</td></tr>
+  <tr><td>SHIPPER_NAME</td><td>客户名称</td><td>美的集团</td></tr>
+  <tr><td>REV_YM</td><td>业务月份</td><td>202501</td></tr>
+  <tr><td>LANE</td><td>航线代码</td><td>REX, CST, BDX</td></tr>
+  <tr><td>POL_CD</td><td>口岸代码</td><td>CNSHK, CNNGB</td></tr>
+  <tr><td>TEU_GP</td><td>箱量（TEU）</td><td>500</td></tr>
+  <tr><td>CM_GP</td><td>毛利（元）</td><td>250,000</td></tr>
+</table>
+<p>数据清洗规则：剔除 TEU=0 或 CM/TEU 缺失的记录。</p>
+
+<h3>2.2 淡旺季标记（IS_PEAK）</h3>
+<p>航运业务存在明显的淡旺季周期。为衡量客户在淡季是否持续出货（淡季拿柜难，持续出货表明配合度高），需按航线独立标记每月的淡旺季属性。</p>
+
+<div class="formula-box">
+<strong>标记规则（按航线独立计算）：</strong><br><br>
+1. 对每条航线，计算每月的 CM/TEU（TEU 加权平均）：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;CM/TEU<sub>航线,月份</sub> = Σ(CM) / Σ(TEU)<br><br>
+2. 计算该航线年度平均 CM/TEU：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;CM/TEU<sub>年度平均</sub> = 航线全年总CM / 航线全年总TEU<br><br>
+3. 判定：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;当月 CM/TEU ≥ 年度平均 → <strong>旺季（IS_PEAK = 1）</strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;当月 CM/TEU &lt; 年度平均 → <strong>淡季（IS_PEAK = 0）</strong>
+</div>
+
+<div class="note-box">
+<strong>设计依据：</strong> 旺季定义为"单位箱量利润更高"，而非"总利润更高"。用 CM/TEU 比用总 CM 更准确，因为总 CM 受箱量影响，而 CM/TEU 反映的是航线本身的盈利环境。按航线独立标记，可捕捉不同航线淡旺季错位的特征。
+</div>
+
+<div class="flowchart">
+  <div class="fc-node fc-start">原始数据：每行 = 客户 × 航线 × 月份</div>
+  <div class="fc-arrow fc-arrow-down"></div>
+  <div class="fc-node fc-step">按航线×月份 计算 CM/TEU（TEU 加权平均）</div>
+  <div class="fc-arrow fc-arrow-down"></div>
+  <div class="fc-node fc-step2">按航线计算年度平均 CM/TEU</div>
+  <div class="fc-arrow fc-arrow-down"></div>
+  <div class="fc-node fc-step3">当月 CM/TEU ≥ 年度平均 → 旺季；否则 → 淡季</div>
+</div>
+</div>
+
+<!-- ===== Section 3 ===== -->
+<h2 id="s3">三、加权中位数评分法</h2>
+
+<div class="card">
+<h3>3.1 为什么不用百分位排名？</h3>
+<p>百分位排名（排名/总数×100）分布均匀，但<strong>头部客户区分度极差</strong>。假设100个客户，第1名和第2名的百分位分数差不到1分，无法反映实际业务量差异。</p>
+
+<h3>3.2 为什么不用均值作为基准？</h3>
+<p>航运客户体量呈<strong>幂律分布</strong>（少数大客户占大部分业务），均值会被极端大客户拉高。例如全公司平均 TEU 可能为 288，但加权中位数只有 22 —— 大部分客户远低于均值，用均值做基准会让多数客户得分极低。</p>
+
+<h3>3.3 加权中位数算法</h3>
+
+<div class="formula-box">
+<strong>定义：</strong> 加权中位数是累积总量达到 50% 时对应的值。<br><br>
+<strong>计算步骤：</strong><br>
+1. 将所有客户的某指标值从大到小排列<br>
+2. 计算累积和（cumsum）<br>
+3. 找到累积和首次达到总量 50% 的位置<br>
+4. 该位置对应的值即为加权中位数
+</div>
+
+<div class="example-box">
+<h4>📐 示例：计算 TEU 的加权中位数</h4>
+<p>假设有5个客户，TEU分别为：1000, 500, 200, 50, 10</p>
+<table>
+  <tr><th>排序</th><th>TEU</th><th>累积和</th><th>累积占比</th></tr>
+  <tr><td>1</td><td>1,000</td><td>1,000</td><td>55.6%</td></tr>
+  <tr style="background:#e8f5e9"><td style="background:#e8f5e9"><b>2</b></td><td style="background:#e8f5e9"><b>500 ← 加权中位数</b></td><td style="background:#e8f5e9">1,500</td><td style="background:#e8f5e9"><b>83.3%</b></td></tr>
+  <tr><td>3</td><td>200</td><td>1,700</td><td>94.4%</td></tr>
+  <tr><td>4</td><td>50</td><td>1,750</td><td>97.2%</td></tr>
+  <tr><td>5</td><td>10</td><td>1,760</td><td>100%</td></tr>
+</table>
+<p>总量 = 1,760，50% = 880。累积到第2个客户时（1,000）已超过880，因此<b>加权中位数 = 500</b>。</p>
+</div>
+
+<h3>3.4 评分公式</h3>
+<div class="formula-box">
+<strong>客户得分 = 客户指标值 ÷ 加权中位数 × 100</strong><br><br>
+TEU_Score &nbsp; = 客户TEU &nbsp; ÷ TEU加权中位数 &nbsp;&nbsp; × 100<br>
+CM_Score &nbsp;&nbsp; = 客户CM &nbsp;&nbsp; ÷ CM加权中位数 &nbsp;&nbsp;&nbsp; × 100<br>
+CM_OFF_Score = 客户CM_OFF ÷ CM_OFF加权中位数 × 100
+</div>
+
+<div class="note-box">
+<strong>得分含义：</strong> 得分 = 100 表示该客户恰好达到"业务量聚集点"水平（超过50%的业务量在此值之上）。得分越高，相对规模越大。
+</div>
+</div>
+
+<!-- ===== Section 4 ===== -->
+<h2 id="s4">四、四个独立视图</h2>
+
+<div class="card">
+<p>本体系设四个独立视图，每个视图内独立完成"原始值计算 → 加权中位数标准化 → 维度加权合成 → 排名"的完整流程。四个视图互不干扰，各自输出独立的排名结果。</p>
+
+<div class="view-grid">
+  <div class="view-box" style="border-color:#3498db;">
+    <h5>🔵 视图1：总体评分</h5>
+    <div class="view-desc">不分组<br>全公司客户在一起排名</div>
+    <div class="view-score">标准化基准 = 全公司<br>用途：全公司客户分级</div>
+  </div>
+  <div class="view-box" style="border-color:#e67e22;">
+    <h5>🟠 视图2：航线评分</h5>
+    <div class="view-desc">按航线分组<br>每条航线内部独立排名</div>
+    <div class="view-score">标准化基准 = 各航线内部<br>用途：航线级客户评估</div>
+  </div>
+  <div class="view-box" style="border-color:#27ae60;">
+    <h5>🟢 视图3：口岸评分</h5>
+    <div class="view-desc">按口岸分组<br>每个口岸内部独立排名</div>
+    <div class="view-score">标准化基准 = 各口岸内部<br>用途：口岸级客户评估</div>
+  </div>
+  <div class="view-box" style="border-color:#8e44ad;">
+    <h5>🟣 视图4：口岸×航线评分</h5>
+    <div class="view-desc">按口岸×航线分组<br>最细粒度</div>
+    <div class="view-score">标准化基准 = 各组合内部<br>用途：精细化运营</div>
+  </div>
+</div>
+
+<h3>4.1 各视图规格</h3>
+<table>
+  <tr><th>视图</th><th>分组方式</th><th>排名范围</th><th>适用场景</th></tr>
+  <tr><td><b>视图1</b></td><td>不分组</td><td>全公司 1 ~ N</td><td>客户分级（A/B/C客）</td></tr>
+  <tr><td><b>视图2</b></td><td>按 LANE</td><td>每条航线内 1 ~ M</td><td>航线资源分配</td></tr>
+  <tr><td><b>视图3</b></td><td>按 POL_CD</td><td>每个口岸内 1 ~ P</td><td>口岸客户维护</td></tr>
+  <tr><td><b>视图4</b></td><td>按 POL_CD + LANE</td><td>每个组合内 1 ~ Q</td><td>精细化运营决策</td></tr>
+</table>
+
+<h3>4.2 独立视图的设计依据</h3>
+<p>不同视图的加权中位数基准不同，因此同一客户在不同视图中的得分和排名可能差异显著。例如，某客户在全公司排第10名，但在某条小航线上可能排第1名——这并非矛盾，而是反映了"相对位置"随比较范围的变化。</p>
+
+<div class="success-box">
+<strong>独立视图的优势：</strong>（1）每个视图的标准化基准严格限定在对应分组内，避免跨组比较导致的偏差；（2）用户可根据业务场景选择对应视图，无需接受不相关噪声的干扰；（3）视图4颗粒度最细，适合辅助参考，不污染其他视图的排名。
+</div>
+
+<h3>4.3 视图关系图</h3>
+<div class="flowchart">
+  <div class="fc-node fc-start">原始数据：客户 × 航线 × 口岸 × 月份</div>
+  <div class="fc-arrow fc-arrow-down"></div>
+  <div class="fc-node fc-step">数据清洗 + 淡旺季标记（IS_PEAK）</div>
+  <div class="fc-arrow fc-arrow-down"></div>
+  <div class="fc-branch">
+    <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+      <div class="fc-node fc-step" style="min-width:200px;">视图1：不分组</div>
+      <div style="font-size:12px; color:#888;">全公司排名</div>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+      <div class="fc-node fc-step2" style="min-width:200px;">视图2：按航线</div>
+      <div style="font-size:12px; color:#888;">各航线内排名</div>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+      <div class="fc-node fc-step3" style="min-width:200px;">视图3：按口岸</div>
+      <div style="font-size:12px; color:#888;">各口岸内排名</div>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+      <div class="fc-node fc-step4" style="min-width:200px;">视图4：按口岸×航线</div>
+      <div style="font-size:12px; color:#888;">各组合内排名</div>
+    </div>
+  </div>
+  <div class="fc-arrow fc-arrow-down"></div>
+  <div class="fc-node fc-end">输出：4个独立 Sheet（各含完整评分和排名）</div>
+</div>
+</div>
+
+<!-- ===== Section 5 ===== -->
+<h2 id="s5">五、三个评分维度</h2>
+
+<div class="card">
+<div class="dim-cards">
+  <div class="dim-card dim-teu">
+    <h4>📦 箱量维度（TEU）</h4>
+    <p>衡量客户的规模大小</p>
+    <div class="dim-formula">
+      客户 TEU 总和 ÷ 加权中位数 TEU × 100
+    </div>
+    <p style="font-size:12px; margin-top:8px;">权重：30%</p>
+  </div>
+  <div class="dim-card dim-cm">
+    <h4>💰 利润维度（CM）</h4>
+    <p>衡量客户的利润贡献</p>
+    <div class="dim-formula">
+      客户 CM 总和 ÷ 加权中位数 CM × 100
+    </div>
+    <p style="font-size:12px; margin-top:8px;">权重：50%</p>
+  </div>
+  <div class="dim-card dim-off">
+    <h4>❄️ 淡季配合维度（CM_OFF）</h4>
+    <p>衡量淡季的持续贡献</p>
+    <div class="dim-formula">
+      客户 CM_OFF ÷ 加权中位数 CM_OFF × 100
+    </div>
+    <p style="font-size:12px; margin-top:8px;">权重：20%</p>
+  </div>
+</div>
+
+<h3>5.1 三个维度的原始值定义</h3>
+<table>
+  <tr><th>维度</th><th>原始值</th><th>数据范围</th></tr>
+  <tr><td><span class="tag tag-teu">TEU</span> 箱量</td><td>客户 TEU 总和</td><td>全年所有记录</td></tr>
+  <tr><td><span class="tag tag-cm">CM</span> 利润</td><td>客户 CM 总和</td><td>全年所有记录</td></tr>
+  <tr><td><span class="tag tag-off">CM_OFF</span> 淡季配合</td><td>分月评分 → 两层CM加权平均<br>（详见第六章）</td><td>仅 IS_PEAK=0 的记录</td></tr>
+</table>
+
+<h3>5.2 三个维度在各视图中的标准化</h3>
+<p>每个维度在每个视图中<strong>独立</strong>做加权中位数标准化。以 <b>TEU 维度</b>为例：</p>
+<table>
+  <tr>
+    <th>视图</th><th>分组方式</th><th>加权中位数基准</th>
+  </tr>
+  <tr>
+    <td>视图1：总体</td><td>不分组</td><td>全公司 TEU 加权中位数</td>
+  </tr>
+  <tr>
+    <td>视图2：航线</td><td>按 LANE 分组</td><td>各航线内 TEU 加权中位数</td>
+  </tr>
+  <tr>
+    <td>视图3：口岸</td><td>按 POL_CD 分组</td><td>各口岸内 TEU 加权中位数</td>
+  </tr>
+  <tr>
+    <td>视图4：口岸×航线</td><td>按 POL_CD + LANE 分组</td><td>各组合内 TEU 加权中位数</td>
+  </tr>
+</table>
+<p>CM 和 CM_OFF 维度同理，仅替换对应的指标值和加权中位数基准。</p>
+</div>
+
+<!-- ===== Section 6 ===== -->
+<h2 id="s6">六、CM_OFF 淡季配合维度算法</h2>
+
+<div class="card">
+<p>CM_OFF 维度衡量客户在淡季的配合度。算法采用<strong>分月评分、两层CM加权平均</strong>，确保结果精细且量纲与其他维度一致。</p>
+
+<h3>6.1 核心思路</h3>
+<div class="formula-box">
+<strong>CM_OFF 原始值 = "客户在淡季月的CM表现，是淡季中位数的几倍"</strong><br><br>
+通过两层加权平均汇总：先按航线汇总，再跨航线汇总（视图1和视图3需要）。
+</div>
+
+<h3>6.2 完整计算步骤</h3>
+
+<div class="cmoff-flow">
+  <div class="cmoff-step" style="background:var(--accent);">
+    <strong>第一步：分月评分（按航线独立）</strong><br>
+    月得分 = 客户该月该航线CM ÷ 该航线该月全体客户CM中位数 × 100
+  </div>
+  <div class="fc-arrow fc-arrow-down"></div>
+
+  <div class="cmoff-step" style="background:var(--accent2);">
+    <strong>第二步：航线内汇总（CM 加权平均）</strong><br>
+    航线得分 = Σ(月得分<sub>i</sub> × CM<sub>i</sub>) ÷ Σ(CM<sub>i</sub>)<br>
+    <small>i = 该航线内的所有淡季月</small>
+  </div>
+  <div class="fc-arrow fc-arrow-down"></div>
+
+  <div class="cmoff-step" style="background:var(--accent3);">
+    <strong>第三步：跨航线汇总（仅视图1和视图3需要，CM 加权平均）</strong><br>
+    客户CM_OFF = Σ(航线得分<sub>j</sub> × CM<sub>j</sub>) ÷ Σ(CM<sub>j</sub>)<br>
+    <small>j = 客户涉及的所有航线（视图1）或该口岸内所有航线（视图3）</small>
+  </div>
+</div>
+
+<h3>6.3 淡季记录数硬门槛</h3>
+
+<div class="warning-box">
+<strong>规则：客户淡季记录数 &lt; 3 条时，CM_OFF 得分直接归零。</strong><br><br>
+<b>设计依据：</b>当客户在某分组（如某航线、某口岸）的淡季记录不足 3 条时，"CM 加权平均"缺乏统计意义——1 条记录的月得分就是最终得分，无法被其他月份稀释，容易产生极端值（如某客户仅 2 条淡季记录，CM_OFF 虚高至 941 分）。<br><br>
+<b>影响范围：</b>约 34% 的客户（L1 层面 388 个）因淡季记录不足被归零，这些客户在 CM_OFF 维度不参与评分。大客户（淡季记录远超 3 条）不受影响。
+</div>
+
+<h3>6.4 各视图的 CM_OFF 汇总方式</h3>
+<table>
+  <tr><th>视图</th><th>是否需要跨航线汇总</th><th>CM_OFF 原始值来源</th></tr>
+  <tr><td>视图1（总体）</td><td>✅ 需要</td><td>跨所有航线的 CM 加权平均</td></tr>
+  <tr><td>视图2（航线）</td><td>❌ 不需要</td><td>航线内 CM 加权平均（已限定单航线）</td></tr>
+  <tr><td>视图3（口岸）</td><td>✅ 需要</td><td>跨该口岸内所有航线的 CM 加权平均</td></tr>
+  <tr><td>视图4（口岸×航线）</td><td>❌ 不需要</td><td>航线内 CM 加权平均（已限定单组合）</td></tr>
+</table>
+
+<h3>6.5 设计依据</h3>
+<div class="note-box">
+<strong>分月评分的意义：</strong> 客户在不同淡季月的表现可能差异很大。分月评分可捕捉月度差异，而非简单地将整个淡季合并计算。<br><br>
+<strong>CM 加权平均的意义：</strong> CM 高的月份/航线对最终得分影响更大——客户在 CM 高的时期配合度更重要，权重理应更大。
+</div>
+
+<div class="example-box">
+<h4>📐 示例：某客户 CM_OFF 计算过程</h4>
+<p>假设客户 X 在航线 REX 有 3 个淡季月：</p>
+<table>
+  <tr><th>月份</th><th>客户 CM</th><th>该月 REX 全体 CM 中位数</th><th>月得分</th><th>CM 权重</th></tr>
+  <tr><td>2025-01</td><td>50,000</td><td>20,000</td><td>250.0</td><td>26.3%</td></tr>
+  <tr><td>2025-02</td><td>30,000</td><td>15,000</td><td>200.0</td><td>15.8%</td></tr>
+  <tr><td>2025-03</td><td>110,000</td><td>22,000</td><td>500.0</td><td>57.9%</td></tr>
+  <tr><td><strong>合计</strong></td><td><strong>190,000</strong></td><td>—</td><td>—</td><td><strong>100%</strong></td></tr>
+</table>
+<p><b>第二步：REX 航线得分</b> = (250×50,000 + 200×30,000 + 500×110,000) / 190,000 = <b>384.2</b></p>
+<p>含义：客户 X 在 REX 航线淡季的表现是淡季中位数的 3.84 倍。</p>
+</div>
+</div>
+
+<!-- ===== Section 7 ===== -->
+<h2 id="s7">七、完整计算流程图</h2>
+
+<div class="card">
+<div class="flowchart" style="gap:0;">
+  <div class="fc-node fc-start" style="min-width:440px;">
+    <b>输入：</b>原始数据（客户 × 航线 × 口岸 × 月份 × TEU × CM）
+  </div>
+  <div class="fc-arrow fc-arrow-down"></div>
+
+  <div class="fc-node fc-step2" style="min-width:440px;">
+    <b>Step 1：数据清洗</b><br>
+    <small>剔除 TEU=0 或 CM 缺失记录</small>
+  </div>
+  <div class="fc-arrow fc-arrow-down"></div>
+
+  <div class="fc-node fc-step" style="min-width:440px;">
+    <b>Step 2：淡旺季标记</b><br>
+    <small>按航线计算 CM/TEU，≥ 年度平均 → 旺季(IS_PEAK=1)，否则淡季(IS_PEAK=0)</small>
+  </div>
+  <div class="fc-arrow fc-arrow-down"></div>
+
+  <div class="fc-node fc-step2" style="min-width:440px;">
+    <b>Step 3：CM_OFF 分月评分 + 两层 CM 加权平均</b><br>
+    <small>月得分 → 航线内 CM 加权 → 跨航线 CM 加权 → 淡季记录数门槛过滤（<3条归零）</small>
+  </div>
+  <div class="fc-arrow fc-arrow-down"></div>
+
+  <div class="fc-node fc-step4" style="min-width:440px;">
+    <b>Step 4：四个独立视图分别评分</b><br>
+    <small>每个视图内：计算 TEU/CM/CM_OFF 原始值 → 加权中位数标准化 → 维度加权合成 → 排名</small>
+  </div>
+  <div class="fc-arrow fc-arrow-down"></div>
+
+  <div class="fc-branch" style="gap: 10px;">
+    <div style="text-align:center;">
+      <div class="fc-node fc-step" style="font-size:12px; min-width:140px; padding:10px;">
+        <b>视图1</b><br>总体评分<br><small>不分组</small>
+      </div>
+      <div style="font-size:11px; color:#888;">全公司排名</div>
+    </div>
+    <div style="text-align:center;">
+      <div class="fc-node fc-step2" style="font-size:12px; min-width:140px; padding:10px;">
+        <b>视图2</b><br>航线评分<br><small>按 LANE 分组</small>
+      </div>
+      <div style="font-size:11px; color:#888;">各航线内排名</div>
+    </div>
+    <div style="text-align:center;">
+      <div class="fc-node fc-step3" style="font-size:12px; min-width:140px; padding:10px;">
+        <b>视图3</b><br>口岸评分<br><small>按 POL 分组</small>
+      </div>
+      <div style="font-size:11px; color:#888;">各口岸内排名</div>
+    </div>
+    <div style="text-align:center;">
+      <div class="fc-node fc-step4" style="font-size:12px; min-width:140px; padding:10px;">
+        <b>视图4</b><br>口岸×航线<br><small>按 POL+LANE</small>
+      </div>
+      <div style="font-size:11px; color:#888;">各组合内排名</div>
+    </div>
+  </div>
+  <div class="fc-arrow fc-arrow-down"></div>
+
+  <div class="fc-node fc-end" style="min-width:440px;">
+    <b>输出：</b>客户画像评分结果.xlsx（4个独立 Sheet：L1_Overall / L2_ByLane / L3_ByPort / L4_ByPortLane）
+  </div>
+</div>
+</div>
+
+<!-- ===== Section 8 ===== -->
+<h2 id="s8">八、计算示例 — 以美的（CN340069）为例</h2>
+
+<div class="card">
+<p>本章以美的（CN340069）为例，演示完整的评分计算过程。</p>
+
+<div class="formula-box" style="background:#e8f5e9; border-left-color:#27ae60; font-size:16px;">
+<strong>最终结果（视图1）：综合总分 473.4，全公司排名第1</strong>
+</div>
+
+<h3>8.1 原始数据汇总</h3>
+<table>
+  <tr><th>项目</th><th>数值</th><th>说明</th></tr>
+  <tr><td>总 TEU（箱量）</td><td><b>14,942</b></td><td>美的全年发运箱量</td></tr>
+  <tr><td>总 CM（利润）</td><td><b>1,044 万元</b></td><td>美的全年利润贡献</td></tr>
+  <tr><td>淡季 CM</td><td><b>474 万元</b></td><td>淡季期间利润（占全年 45.4%）</td></tr>
+  <tr><td>涉及航线</td><td>13 条</td><td>REX、CST、NSX 等</td></tr>
+  <tr><td>涉及口岸</td><td>4 个</td><td>南沙、蛇口、宁波、上海</td></tr>
+</table>
+
+<h3>8.2 视图1（总体）评分结果</h3>
+<table>
+  <tr><th>维度</th><th>标准化得分</th><th>权重</th><th>加权贡献</th></tr>
+  <tr><td><span class="tag tag-teu">TEU</span> 箱量</td><td>629.4</td><td>30%</td><td>188.8</td></tr>
+  <tr><td><span class="tag tag-cm">CM</span> 利润</td><td>411.5</td><td>50%</td><td>205.7</td></tr>
+  <tr><td><span class="tag tag-off">CM_OFF</span> 淡季配合</td><td>394.3</td><td>20%</td><td>78.9</td></tr>
+  <tr style="background:#fff5f5; font-weight:bold"><td>综合总分</td><td>—</td><td>100%</td><td><b>473.4</b></td></tr>
+</table>
+
+<h3>8.3 各独立视图中的表现</h3>
+<p>同一客户在不同视图中的得分和排名可能差异显著：</p>
+<table>
+  <tr><th>视图</th><th>TEU</th><th>CM</th><th>CM_OFF</th><th>总分</th><th>排名</th></tr>
+  <tr><td><b>视图1（总体）</b></td><td>629.4</td><td>411.5</td><td>394.3</td><td>473.4</td><td><b>#1</b></td></tr>
+  <tr><td><b>视图2 — CST</b></td><td>554.2</td><td>460.4</td><td>441.5</td><td>484.8</td><td>#1</td></tr>
+  <tr><td><b>视图2 — NSX</b></td><td>641.1</td><td>524.3</td><td>0.0</td><td>454.5</td><td>#1</td></tr>
+  <tr><td><b>视图2 — REX</b></td><td>292.8</td><td>321.4</td><td>232.1</td><td>295.0</td><td>#1</td></tr>
+  <tr><td><b>视图3 — 南沙</b></td><td>746.1</td><td>508.8</td><td>511.1</td><td>580.4</td><td>#1</td></tr>
+  <tr><td><b>视图3 — 蛇口</b></td><td>297.8</td><td>203.4</td><td>253.9</td><td>241.9</td><td>#6</td></tr>
+</table>
+
+<div class="note-box">
+<strong>解读：</strong> 美的在总体视图排第1，在多数航线和南沙口岸也排第1，但在蛇口口岸仅排第7。这反映美的在蛇口的业务量/利润相对其他客户并不突出。多视图的价值正在于此：<strong>从不同角度全面评价同一客户</strong>。
+</div>
+
+<h3>8.4 CM_OFF 计算过程追溯</h3>
+<div class="example-box">
+<h4>📐 美的 CM_OFF 计算过程</h4>
+<p><strong>第一步：分月评分</strong>（以 REX 航线为例）</p>
+<p>美的在 REX 航线的各淡季月，分别计算"客户CM ÷ 该航线该月全体客户CM中位数 × 100"，得到各月得分。</p>
+<p><strong>第二步：航线内汇总</strong></p>
+<p>以各月 CM 为权重，加权平均得到 REX 航线的淡季得分。</p>
+<p><strong>第三步：跨航线汇总</strong></p>
+<p>美的涉及 13 条航线，以各航线淡季 CM 为权重，加权平均得到最终 CM_OFF 原始值。</p>
+<p><strong>标准化：</strong> 394.3 ÷ 全公司 CM_OFF 加权中位数 × 100 = <b>394.3 分</b></p>
+</div>
+</div>
+
+<!-- ===== Section 9 ===== -->
+<h2 id="s9">九、评分含义与使用指南</h2>
+
+<div class="card">
+<h3>9.1 得分含义</h3>
+<table>
+  <tr><th>得分范围</th><th>含义</th><th>客户特征</th></tr>
+  <tr><td>> 200</td><td>远超中位数水平</td><td>核心大客户，业务量和利润均远超平均水平</td></tr>
+  <tr><td>100 ~ 200</td><td>超过中位数水平</td><td>重要客户，在多数视图中表现优于中等客户</td></tr>
+  <tr><td>50 ~ 100</td><td>接近中位数水平</td><td>中等客户，业务量与利润在平均水平附近</td></tr>
+  <tr><td>10 ~ 50</td><td>低于中位数水平</td><td>小客户，但在部分航线或口岸有一定贡献</td></tr>
+  <tr><td>0 ~ 10</td><td>远低于中位数水平</td><td>尾部客户，业务量很小</td></tr>
+  <tr><td>< 0</td><td>负分</td><td>亏损客户（CM为负），需要关注</td></tr>
+</table>
+
+<h3>9.2 维度得分的独立解读</h3>
+<div class="success-box">
+<b>高TEU + 低CM</b> → 箱量大但不赚钱，需分析定价策略<br>
+<b>低TEU + 高CM</b> → 小而美的效率型客户，值得维护<br>
+<b>高CM_OFF</b> → 淡季配合度高，供应链稳定性强
+</div>
+
+<h3>9.3 视图选择指南</h3>
+<table>
+  <tr><th>使用场景</th><th>推荐视图</th><th>原因</th></tr>
+  <tr><td>客户分级（A/B/C客）</td><td>视图1（总体）</td><td>全局视角，最适合做分级</td></tr>
+  <tr><td>航线定价策略</td><td>视图2（航线）</td><td>看该航线内客户贡献排名</td></tr>
+  <tr><td>口岸客户维护</td><td>视图3（口岸）</td><td>看该口岸内客户贡献排名</td></tr>
+  <tr><td>精细化资源分配</td><td>视图4（口岸×航线）</td><td>最细粒度，适合操作层使用</td></tr>
+</table>
+
+<h3>9.4 评分分布特征</h3>
+<div class="warning-box">
+<strong>注意：</strong> 加权中位数法产生的得分呈<strong>右偏态</strong>（长尾集中在低分区域）。大部分客户单个维度得分低于 100，这是算法的固有特征——加权中位数反映的是"业务量聚集点"，而非"客户数中点"。
+</div>
+</div>
+
+<!-- ===== Section 10 ===== -->
+<h2 id="s10">十、算法特性与边界说明</h2>
+
+<div class="card">
+<h3>10.1 算法特性</h3>
+<table>
+  <tr><th>特性</th><th>说明</th><th>影响</th></tr>
+  <tr>
+    <td><b>右偏分布</b></td>
+    <td>加权中位数法使大部分客户得分低于 100</td>
+    <td>头部客户区分度高，尾部客户区分度低</td>
+  </tr>
+  <tr>
+    <td><b>小组合效应</b></td>
+    <td>客户少的航线/口岸，加权中位数偏低</td>
+    <td>小航线客户在小组合内可能获得相对高分</td>
+  </tr>
+  <tr>
+    <td><b>量纲一致</b></td>
+    <td>三个维度均采用"÷ 加权中位数 × 100"标准化</td>
+    <td>维度间可直接比较和加权，不存在量纲膨胀</td>
+  </tr>
+  <tr>
+    <td><b>CM_OFF 门槛</b></td>
+    <td>淡季记录不足 3 条时 CM_OFF 归零</td>
+    <td>避免小样本导致的极端虚高分数</td>
+  </tr>
+</table>
+
+<h3>10.2 数据要求</h3>
+<table>
+  <tr><th>要求</th><th>说明</th></tr>
+  <tr><td>数据完整性</td><td>每条记录需包含 SHIPPER_CD、REV_YM、LANE、POL_CD、TEU_GP、CM_GP</td></tr>
+  <tr><td>时间范围</td><td>建议包含完整财年数据，以准确计算淡旺季标记</td></tr>
+  <tr><td>客户唯一性</td><td>SHIPPER_CD 须为客户唯一标识；若同一客户存在多个代码，需提前合并</td></tr>
+</table>
+
+<h3>10.3 输出规范</h3>
+<p>输出为 Excel 文件，包含 4 个独立 Sheet：</p>
+<table>
+  <tr><th>Sheet</th><th>内容</th><th>每行含义</th></tr>
+  <tr><td><b>L1_Overall</b></td><td>总体评分与排名</td><td>1个客户 = 1行</td></tr>
+  <tr><td><b>L2_ByLane</b></td><td>航线内评分与排名</td><td>1个客户×航线 = 1行</td></tr>
+  <tr><td><b>L3_ByPort</b></td><td>口岸内评分与排名</td><td>1个客户×口岸 = 1行</td></tr>
+  <tr><td><b>L4_ByPortLane</b></td><td>口岸×航线评分与排名</td><td>1个客户×口岸×航线 = 1行</td></tr>
+</table>
+<p>每个 Sheet 包含以下字段：客户代码、客户名称、TEU原始值、CM原始值、TEU得分、CM得分、CM_OFF得分、综合总分、排名。</p>
+</div>
+
+<div class="card" style="text-align:center; color: var(--light); font-size:13px; margin-top:30px;">
+  <p>— 客户画像评分体系 算法说明文档 —</p>
+  <p>四个独立视图 | 加权中位数评分法 | Python + Pandas 实现</p>
+</div>
+
+</body>
+</html>
