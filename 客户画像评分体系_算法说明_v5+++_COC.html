@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>客户画像评分体系 — 算法说明文档 V5+++</title>
+<style>
+  :root {
+    --primary: #2c3e50;
+    --accent: #3498db;
+    --accent2: #e67e22;
+    --accent3: #27ae60;
+    --accent4: #e74c3c;
+    --accent5: #9b59b6;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #333;
+    --light: #666;
+    --border: #e0e0e0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg); color: var(--text); line-height:1.8;
+    padding: 20px; max-width: 1100px; margin: 0 auto;
+  }
+  h1 {
+    text-align: center; color: var(--primary); font-size: 28px;
+    padding: 30px 0 10px; border-bottom: 3px solid var(--accent);
+  }
+  .subtitle {
+    text-align: center; color: var(--light); font-size: 14px; margin-bottom: 40px;
+  }
+  h2 {
+    color: var(--primary); font-size: 20px; margin: 35px 0 15px;
+    padding-left: 15px; border-left: 4px solid var(--accent);
+  }
+  h3 { color: var(--accent); font-size: 16px; margin: 20px 0 10px; }
+  p { margin: 8px 0; text-align: justify; }
+  .card {
+    background: var(--card-bg); border-radius: 10px; padding: 24px;
+    margin: 15px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: 1px solid var(--border);
+  }
+  .formula-box {
+    background: #f0f4ff; border-left: 4px solid var(--accent);
+    padding: 14px 20px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-family: 'Consolas', 'Courier New', monospace; font-size: 15px;
+  }
+  .note-box {
+    background: #fff8e1; border-left: 4px solid var(--accent2);
+    padding: 12px 18px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+  .warning-box {
+    background: #fde8e8; border-left: 4px solid var(--accent4);
+    padding: 12px 18px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+  .success-box {
+    background: #e8f5e9; border-left: 4px solid var(--accent3);
+    padding: 12px 18px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+  .update-box {
+    background: #f3e8ff; border-left: 4px solid var(--accent5);
+    padding: 14px 20px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+  table { width:100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th { background: var(--primary); color: #fff; padding: 10px 14px; text-align: center; font-weight: 600; }
+  td { padding: 8px 14px; border-bottom: 1px solid var(--border); text-align: center; }
+  tr:hover { background: #f5f7fa; }
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; color: #fff; }
+  .tag-teu { background: #3498db; }
+  .tag-cm { background: #e67e22; }
+  .tag-off { background: #27ae60; }
+  .tag-new { background: #9b59b6; }
+  .flowchart { display: flex; flex-direction: column; align-items: center; margin: 20px 0; gap: 0; }
+  .fc-node { padding: 12px 24px; border-radius: 10px; text-align: center; font-size: 14px; font-weight: 600; color: #fff; min-width: 280px; position: relative; line-height:1.5; }
+  .fc-arrow { width: 3px; height: 24px; background: #bbb; margin: 0 auto; }
+  .fc-start { background: var(--primary); }
+  .fc-step  { background: var(--accent); }
+  .fc-step2 { background: var(--accent2); }
+  .fc-step3 { background: var(--accent3); }
+  .fc-step4 { background: var(--accent4); }
+  .fc-step5 { background: var(--accent5); }
+  .hf-flow { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
+  .hf-box { padding: 12px 18px; border-radius: 8px; color: #fff; font-weight: 600; font-size: 14px; text-align: center; }
+  .hf-arrow { font-size: 20px; color: var(--light); }
+  .example-box { background: #e8f4fd; border-left: 4px solid var(--accent); padding: 14px 20px; margin: 12px 0; border-radius: 0 8px 8px 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .toc { background: var(--card-bg); border:1px solid var(--border); border-radius: 10px; padding: 20px 28px; margin: 15px 0; }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin: 6px 0; }
+  .updated { color: var(--accent5); font-size: 13px; font-weight: 600; }
+  .highlight { background: #fff3cd; padding: 2px 6px; border-radius: 3px; font-weight: 600; }
+  .bugfix-table td { text-align: left; }
+  .import-box {
+    background: #e8f4fd; border-left: 4px solid #2980b9;
+    padding: 14px 20px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<h1>📊 客户画像评分体系<br><small style="font-size:16px;color:var(--light);">算法说明文档 V5+++</small></h1>
+<p class="subtitle">适用时段：2025年7月 ～ 2026年2月（共14个月）｜ 更新日期：2026-05-27</p>
+
+<!-- TOC -->
+<div class="toc">
+  <h3>目 录</h3>
+  <ol>
+    <li><a href="#s1">概述与设计目标</a></li>
+    <li><a href="#s2">数据准备与进出口分类</a></li>
+    <li><a href="#s3">评分算法逻辑</a></li>
+    <li><a href="#s4">四个独立视图</a></li>
+    <li><a href="#s5">三个评分维度</a></li>
+    <li><a href="#s6">CM_OFF 淡季配合维度</a></li>
+    <li><a href="#s7">CM_Score 算法升级：方案B（V5++）</a></li>
+    <li><a href="#s8">进口排除机制（V5+++ 核心新增）</a></li>
+    <li><a href="#s9">月度更新机制</a></li>
+    <li><a href="#s10">完整计算流程图</a></li>
+    <li><a href="#s11">计算示例（美的 CN340069）</a></li>
+    <li><a href="#s12">评分含义与使用指南</a></li>
+    <li><a href="#s13">算法特性与边界说明</a></li>
+    <li><a href="#s14">本次更新说明（V5+ → V5+++）</a></li>
+  </ol>
+</div>
+
+<!-- ===== Section 1 ===== -->
+<h2 id="s1">一、概述与设计目标</h2>
+<div class="card">
+<p>本评分体系对航运公司全部客户进行量化画像，从<strong>规模（箱量）</strong>、<strong>单箱效益（CM/TEU）</strong>和<strong>淡季配合度</strong>三个维度综合评估客户价值。每个维度在四个独立视图中分别评分和排名，满足总部全局视角与口岸/航线局部视角的不同业务需求。</p>
+<span class="updated">（V5+++ 核心变更：新增"进口排除"机制，进口记录不参与CM和CM_OFF评分，仅计算TEU评分）</span>
+<h3>1.1 核心设计原则</h3>
+<table>
+  <tr><th>原则</th><th>说明</th></tr>
+  <tr><td><b>多维度</b></td><td>不唯箱量论，同时考察单箱效益和淡季配合度，全面反映客户价值</td></tr>
+  <tr><td><b>多视图</b></td><td>四个独立视图（总体/航线/口岸/口岸×航线），各自独立评分和排名，互不干扰</td></tr>
+  <tr><td><b>抗极端值</b></td><td>分位数分段映射法，避免被少数超大客户拉偏，同时解决右偏分布导致的区分度不足问题</td></tr>
+  <tr><td><b>进出口分离</b> <span class="tag tag-new">V5+++ 新增</span></td><td>进口业务CM/TEU极低（82元 vs 出口791元），排除进口对CM和CM_OFF维度的影响，避免出口客户被进口亏损拉低评分</td></tr>
+  <tr><td><b>可追溯</b></td><td>每个得分均可追溯到具体计算步骤和基准值，结果透明可审计</td></tr>
+</table>
+<h3>1.2 评分体系总览</h3>
+<div class="hf-flow">
+  <div class="hf-box" style="background:#3498db;">箱量 TEU<br><small>权重 30%</small></div>
+  <div class="hf-arrow">＋</div>
+  <div class="hf-box" style="background:#e67e22;">单箱效益 CM/TEU<br><small>权重 50%</small></div>
+  <div class="hf-arrow">＋</div>
+  <div class="hf-box" style="background:#27ae60;">淡季配合 CM_OFF<br><small>权重 20%</small></div>
+  <div class="hf-arrow">＝</div>
+  <div class="hf-box" style="background:var(--primary); min-width:140px;">综合总分<br><small>每个视图独立计算</small></div>
+</div>
+<div class="formula-box" style="background:#e8f5e9; border-left-color:#27ae60; font-size:16px;">
+<strong>V5+++ 标准化方法：分位数分段映射（10档×20分/档，档内线性）＋ 进口排除</strong>
+</div>
+</div>
+
+<!-- ===== Section 2 ===== -->
+<h2 id="s2">二、数据准备与进出口分类</h2>
+<div class="card">
+<h3>2.1 原始数据</h3>
+<p>数据来源为客户系统的月度航线明细数据（COC版），每行记录包含：</p>
+<table>
+  <tr><th>字段</th><th>含义</th><th>示例</th></tr>
+  <tr><td>SHIPPER_CD</td><td>客户代码</td><td>CN340069</td></tr>
+  <tr><td>SHIPPER_NAME</td><td>客户名称</td><td>美的集团</td></tr>
+  <tr><td>YM</td><td>业务月份</td><td>202607</td></tr>
+  <tr><td>LANE</td><td>航线代码</td><td>REX, CST, BDX</td></tr>
+  <tr><td>POL_CD</td><td>装货港（起运港）</td><td>CNSHK, CNNGB</td></tr>
+  <tr><td>POD_CD</td><td>卸货港（目的港）</td><td>USLAX, VNHPH</td></tr>
+  <tr><td>TEU</td><td>箱量（TEU）</td><td>500</td></tr>
+  <tr><td>CM</td><td>毛利（元）</td><td>250,000</td></tr>
+</table>
+<p>数据清洗规则：剔除 TEU=0 的记录；同一 SHIPPER_CD 只保留最长名称（避免同名异码导致客户被拆行）。</p>
+
+<h3>2.2 进出口分类 <span class="tag tag-new">V5+++ 新增</span></h3>
+<div class="import-box">
+<strong>分类规则：</strong>根据 POL_CD（装货港）和 POD_CD（卸货港）判断进出口方向：<br><br>
+<table style="width:80%; margin:10px auto; text-align:center;">
+  <tr><th>方向</th><th>判断条件</th><th>说明</th></tr>
+  <tr><td><b>出口</b></td><td>POL_CD 以 "CN" 开头，且 POD_CD 不以 "CN" 开头</td><td>中国出口到海外</td></tr>
+  <tr><td><b>进口</b></td><td>POL_CD 不以 "CN" 开头，且 POD_CD 以 "CN" 开头</td><td>海外进口到中国</td></tr>
+  <tr><td><b>第三国</b></td><td>其他情况（POL和POD都不以CN开头，或都以CN开头）</td><td>沿海内贸或第三国运输</td></tr>
+</table>
+<br>
+<strong>标记方法：</strong><br>
+&nbsp;&nbsp;IS_IMPORT = (POL_CD不以CN开头) 且 (POD_CD以CN开头)<br>
+&nbsp;&nbsp;IS_EXPORT = (POL_CD以CN开头) 且 (POD_CD不以CN开头)<br>
+&nbsp;&nbsp;IS_THIRD = 其他<br><br>
+<strong>新增列 CM_NI（排除进口后的CM）：</strong><br>
+&nbsp;&nbsp;CM_NI = CM（如果 IS_IMPORT=False）或 0（如果 IS_IMPORT=True）<br><br>
+<strong>TEU 不排除进口：</strong>进口货物同样占用舱位，因此在TEU维度仍计入。
+</div>
+
+<h3>2.3 为什么需要进口排除？</h3>
+<div class="warning-box">
+<strong>问题：进口业务的特征与出口截然不同，混合计算会严重拉低出口客户的评分。</strong><br><br>
+<table style="width:100%; margin:10px 0;">
+  <tr><th>方向</th><th>记录数</th><th>占比</th><th>CM/TEU</th><th>CM&lt;0 占比</th></tr>
+  <tr><td><b>出口</b></td><td>32,512</td><td>61.4%</td><td style="color:#27ae60;"><b>791 元</b></td><td>1.7%</td></tr>
+  <tr><td><b>进口</b></td><td>10,171</td><td>19.2%</td><td style="color:#e74c3c;"><b>82 元</b></td><td><b>27.5%</b></td></tr>
+  <tr><td><b>第三国</b></td><td>10,278</td><td>19.4%</td><td>454 元</td><td>10.5%</td></tr>
+</table>
+<br>
+<strong>关键影响：</strong><br>
+&nbsp;&nbsp;① 进口 CM/TEU 仅 82元（出口的 1/10），混合计算会拉低航线整体基准值<br>
+&nbsp;&nbsp;② 进口 27.5% 的记录 CM&lt;0（出口仅 1.7%），大量亏损记录会拉低航线月度 CM/TEU<br>
+&nbsp;&nbsp;③ 以 CWS 航线为例：混合计算 CM/TEU=97，仅算出口 CM/TEU=191（翻倍）<br>
+&nbsp;&nbsp;④ <strong>389个客户</strong>因进口亏损导致整体 CM&lt;0 而被归零，进口排除后这些客户恢复正常评分
+</div>
+
+<h3>2.4 淡旺季标记（IS_PEAK）</h3>
+<p>航运业务存在明显的淡旺季周期。为衡量客户在淡季是否持续出货，需按航线独立标记每月的淡旺季属性。</p>
+<div class="formula-box">
+<strong>标记规则（按航线独立计算，排除进口记录）：</strong><br><br>
+1. 对每条航线，计算每月的 CM_NI/TEU（月总CM_NI ÷ 月总TEU）<br>
+&nbsp;&nbsp;&nbsp;&nbsp;CM/TEU<sub>航线,月份</sub> = Σ(CM_NI) / Σ(TEU)<br><br>
+2. 计算该航线年度平均 CM_NI/TEU（排除进口）：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;CM/TEU<sub>年度平均</sub> = 航线全年总CM_NI / 航线全年总TEU<br><br>
+3. 判定：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;当月 CM_NI/TEU ≥ 年度平均 → <strong>旺季（IS_PEAK = 1）</strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp;当月 CM_NI/TEU &lt; 年度平均 → <strong>淡季（IS_PEAK = 0）</strong>
+</div>
+<div class="note-box">
+<strong>设计依据：</strong> 旺季定义为"单位箱量利润更高"，而非"总利润更高"。用 CM_NI/TEU 比用总 CM 更准确，因为总 CM 受箱量影响，而 CM_NI/TEU 反映的是航线本身的盈利环境。按航线独立标记，可捕捉不同航线淡旺季错位的特征。<br><br>
+<strong>V5+++ 更新：</strong> 淡旺季判定的基准值（年度平均 CM/TEU）和月度 CM/TEU 均<strong>排除进口记录</strong>，避免进口低盈利扭曲淡旺季判断。
+</div>
+</div>
+
+<!-- ===== Section 3 ===== -->
+<h2 id="s3">三、评分算法逻辑</h2>
+<div class="card">
+<h3>3.1 为什么不用百分位排名？</h3>
+<p>百分位排名（排名/总数×100）分布均匀，但<strong>头部客户区分度极差</strong>。假设100个客户，第1名和第2名的百分位分数差不到1分，无法反映实际业务量差异。</p>
+<h3>3.2 为什么不用均值作为基准？</h3>
+<p>航运客户体量呈<strong>幂律分布</strong>（少数大客户占大部分业务），均值会被极端大客户拉高。例如全公司平均 TEU 可能为 288，但加权中位数只有 22 —— 大部分客户远低于均值，用均值做基准会让多数客户得分极低。</p>
+<h3>3.3 为什么不用简单的"除以中位数×100"？</h3>
+<p>航运业客户数据呈<strong>极端右偏分布</strong>：少数超大客户 TEU 极高，但绝大多数客户 TEU 很小。如果直接用"客户值÷中位数×100"：</p>
+<table>
+  <tr><th>问题</th><th>说明</th><th>影响</th></tr>
+  <tr><td><b>右偏分布导致大部分客户得分极低</b></td><td>85.5% 的客户 TEU 得分 &lt; 1（因为中位数很小，比值极大但大部分客户远小于中位数）</td><td>区分度几乎为零</td></tr>
+  <tr><td><b>Min-Max 标准化同样有此问题</b></td><td>最大值极大（如美的 TEU=14942），最小值很小，导致大部分客户被压缩到 [0,1] 区间</td><td>同样缺乏区分度</td></tr>
+</table>
+<h3>3.4 分位数分段映射算法（V5+ 核心方法）</h3>
+<div class="formula-box">
+<strong>核心思想：</strong> 将客户按原始得分从小到大分为 10 个分位档（每档约10%客户），每档内线性映射到对应的 20 分区间。<br><br>
+<strong>映射规则：</strong><br>
+&nbsp;&nbsp;• 第1档（最小10%）→ 映射到 [0, 20]<br>
+&nbsp;&nbsp;• 第2档 → 映射到 [20, 40]<br>
+&nbsp;&nbsp;• ……<br>
+&nbsp;&nbsp;• 第10档（最大10%）→ 映射到 [180, 200]<br><br>
+<strong>档内线性映射公式：</strong><br>
+&nbsp;&nbsp;mapped_score = seg_lo + (raw_value - seg_min) / (seg_max - seg_min) × 20<br><br>
+<strong>0值处理（CM/CM_OFF维度）：</strong><br>
+&nbsp;&nbsp;• CM=0 或 CM_OFF=0 的客户不参与分档，直接保持 0 分<br>
+&nbsp;&nbsp;• 约 79% 的客户 CM=0，这些客户 CM_Score 保持 0
+</div>
+<div class="example-box">
+<h4>📐 示例：TEU 分位数分段映射</h4>
+<p>假设某视图有 1000 个客户，TEU 的 10 个分位数边界为：</p>
+<p>Q1=1, Q2=2, Q3=5, Q4=10, Q5=22, Q6=50, Q7=120, Q8=300, Q9=800, Q10=14942</p>
+<p>某客户 TEU=300，落在第8档（Q7=120 ~ Q8=300）：</p>
+<p>映射后得分 = 140 + (300-120)/(300-120) × 20 = <strong>160 分</strong></p>
+<p>含义：该客户 TEU 处于前 20% 水平（第8档对应 [140,160] 区间）。</p>
+</div>
+<h3>3.5 为什么分位数分段映射更优？</h3>
+<table>
+  <tr><th>方法</th><th>优点</th><th>缺点</th></tr>
+  <tr><td><b>除以中位数×100</b></td><td>简单直观</td><td>右偏分布下 85% 客户得分&lt;1，无区分度</td></tr>
+  <tr><td><b>Min-Max 标准化</b></td><td>固定在 [0,100] 区间</td><td>受极端大客户影响，同样缺乏区分度</td></tr>
+  <tr><td><b>分位数分段映射</b><br><span class="tag tag-new">V5+ 采用</span></td><td>每档内区分度均匀；不受极端值影响；得分分布更合理</td><td>计算稍复杂；同档内仍有压缩</td></tr>
+</table>
+<h3>3.6 进口排除在评分中的体现 <span class="tag tag-new">V5+++ 新增</span></h3>
+<div class="import-box">
+<strong>CM维度：</strong><br>
+&nbsp;&nbsp;• 计算 CM_PER_TEU 时，分子用 <strong>CM_NI（排除进口CM）</strong>，分母用 <strong>TEU（含进口）</strong><br>
+&nbsp;&nbsp;• 含义：进口货物占用舱位（分母含进口TEU），但不贡献CM（分子不含进口CM），因此进口占比高的客户CM_PER_TEU会被摊薄<br><br>
+<strong>CM_OFF维度：</strong><br>
+&nbsp;&nbsp;• 分月评分时，基准值（航线月度CM_NI/TEU）<strong>排除进口记录</strong><br>
+&nbsp;&nbsp;• 客户月度CM_NI/TEU与基准值比较，得出月度配合度得分<br><br>
+<strong>TEU维度：</strong><br>
+&nbsp;&nbsp;• <strong>不排除进口</strong>，进口TEU正常计入箱量评分<br><br>
+<strong>CM&lt;0归零判断：</strong><br>
+&nbsp;&nbsp;• 用 <strong>CM_NI（排除进口）</strong> 判断是否小于0<br>
+&nbsp;&nbsp;• 避免进口亏损误杀纯出口客户（389个客户因此恢复正常）
+</div>
+</div>
+
+<!-- ===== Section 4 ===== -->
+<h2 id="s4">四、四个独立视图</h2>
+<div class="card">
+<p>评分结果输出<strong>四个独立视图</strong>，每个视图独立评分、独立排名，互不干扰。</p>
+<table>
+  <tr><th>视图</th><th>分组逻辑</th><th>输出行数</th><th>业务用途</th></tr>
+  <tr><td><b>L1_Overall</b></td><td>不分组（全公司）</td><td>1个客户 = 1行</td><td>客户分级（A/B/C客）</td></tr>
+  <tr><td><b>L2_ByLane</b></td><td>按航线分组</td><td>1个客户×航线 = 1行</td><td>航线资源分配</td></tr>
+  <tr><td><b>L3_ByPort</b></td><td>按口岸分组</td><td>1个客户×口岸 = 1行</td><td>口岸客户维护</td></tr>
+  <tr><td><b>L4_ByPortLane</b></td><td>按口岸×航线分组</td><td>1个客户×口岸×航线 = 1行</td><td>精细化运营决策</td></tr>
+</table>
+<p>不同视图的分位数边界不同，同一客户在不同视图中的得分和排名可能差异显著。例如某客户在全公司排第100名，但在某条小航线上可能排第1名——这并非矛盾，而是反映了相对位置随比较范围的变化。</p>
+</div>
+
+<!-- ===== Section 5 ===== -->
+<h2 id="s5">五、三个评分维度</h2>
+<div class="card">
+<h3>5.1 维度一：箱量（TEU）—— 权重 30% <span class="tag tag-teu">TEU</span></h3>
+<div class="formula-box">
+<strong>算法：</strong> 分位数分段映射（10档，每档映射到20分区间）<br>
+<strong>数据范围：</strong> <strong>含进口TEU</strong>（进口货物同样占用舱位）<br>
+<strong>基准：</strong> 该视图下所有客户 TEU 的 10 个分位数边界<br>
+<strong>门槛：</strong> 无（所有有箱量的客户均参与评分，0值客户映射后得0分属正常行为）
+</div>
+<p><strong>得分含义：</strong> 得分=100 代表该客户 TEU 恰好处于该视图的第5档（约50%分位）。</p>
+
+<h3>5.2 维度二：单箱效益（CM/TEU）—— 权重 50% <span class="tag tag-cm">CM</span> <span class="updated">（V5+++ 进口排除）</span></h3>
+<div class="formula-box">
+<strong>算法：</strong> 分位数分段映射（10档，每档映射到20分区间）<br>
+<strong>原始值：</strong> CM_PER_TEU = CM_NI（排除进口CM）÷ TEU（含进口）<br>
+<strong>基准：</strong> 该视图下所有客户 CM/TEU 的 10 个分位数边界<br>
+<strong>门槛：</strong> CM_NI &lt; 0 时，CM_Score 直接归零（亏损客户不应获得效益得分）<br>
+<strong>负CM处理：</strong> 同上（CM_NI&lt;0 → CM_Score=0）
+</div>
+<div class="note-box">
+<strong>V5+++ 进口排除说明：</strong> CM维度使用 CM_NI（排除进口CM）计算，避免进口低盈利（82元/TEU）拉低出口客户（791元/TEU）的评分。但TEU分母含进口，因此进口占比高的客户CM_PER_TEU会被摊薄，这是有意设计——进口占用舱位但贡献低，应该在效益维度被区分。
+</div>
+<p><strong>设计目标：</strong> 识别单箱利润高的高价值客户，而非薄利多销型客户。</p>
+
+<h3>5.3 维度三：淡季配合度（CM_OFF）—— 权重 20% <span class="tag tag-off">CM_OFF</span> <span class="updated">（V5+++ 进口排除）</span></h3>
+<div class="formula-box">
+<strong>算法：</strong> 分月评分 + 两层 TEU 加权平均 + 分位数分段映射<br>
+<strong>原始值：</strong> 客户淡季 CM_NI / 客户淡季 TEU（排除进口CM）<br>
+<strong>基准：</strong> 该视图下所有客户 CM_OFF 的 10 个分位数边界<br>
+<strong>门槛：</strong> 客户淡季记录数 &lt; 3 条时，CM_OFF_Score 直接归零<br>
+<strong>负CM处理：</strong> CM_NI &lt; 0 时，CM_OFF_Score 也直接归零
+</div>
+<div class="import-box">
+<strong>V5+++ 进口排除说明：</strong> CM_OFF维度的分月评分中，基准值（航线月度CM/TEU）使用<strong>排除进口后的数据</strong>计算，避免进口的极低CM/TEU（82元）拉低基准值，导致出口客户在淡季的配合度得分异常偏高。
+</div>
+<p><strong>得分含义：</strong> 得分=100 代表该客户淡季单箱效益恰好处于该视图的第5档（约50%分位）。</p>
+</div>
+
+<!-- ===== Section 6 ===== -->
+<h2 id="s6">六、CM_OFF 淡季配合维度算法</h2>
+<div class="card">
+<h3>6.1 设计目标</h3>
+<p>航运业存在明显的淡旺季周期。淡季时船公司舱位过剩、价格竞争激励，客户是否持续出货（用柜）反映了客户的<strong>配合度</strong>和<strong>供应链稳定性</strong>。CM_OFF维度旨在量化这一配合度。</p>
+<h3>6.2 计算步骤（V5+++ 进口排除版）</h3>
+<div class="formula-box">
+<strong>第一步：分月评分（排除进口）</strong><br>
+客户某月CM_OFF月得分 = 客户该月该航线CM_NI ÷ 该航线该月全体客户CM_NI/TEU × 100<br>
+（分母基准值排除进口记录）<br><br>
+<strong>第二步：航线内TEU加权平均</strong><br>
+客户在该航线内CM_OFF = Σ(月得分_i × TEU_i) / Σ(TEU_i)<br>
+（TEU含进口，反映舱位占用；CM_NI排除进口）<br><br>
+<strong>第三步：跨航线/跨口岸TEU加权平均</strong><br>
+客户最终CM_OFF = Σ(航线CM_OFF_j × TEU_j) / Σ(TEU_j)<br>
+（仅在L1总体和L3口岸视图中需要；L2航线视图不需要跨航线，L4不需要跨航线也不跨口岸）<br><br>
+<strong>第四步：分位数分段映射</strong><br>
+将最终CM_OFF原始值与各视图分位数边界比较，映射到 [0, 200] 区间
+</div>
+<h3>6.3 淡季记录数硬门槛</h3>
+<div class="warning-box">
+<strong>规则：客户淡季记录数 &lt; 3 条时，CM_OFF 得分直接归零。</strong><br><br>
+<b>设计依据：</b> 当客户在某分组（如某航线、某口岸）的淡季记录不足 3 条时，"CM 加权平均"缺乏统计意义——1 条记录的月得分就是最终得分，无法被其他月份稀释，容易产生极端值（如某客户仅 2 条淡季记录，CM_OFF 虚高至 941 分）。<br><br>
+<b>影响范围：</b> 约 34% 的客户（L1 层面 388 个）因淡季记录不足被归零，这些客户在 CM_OFF 维度不参与评分。大客户（淡季记录远超 3 条）不受影响。
+</div>
+<h3>6.4 各视图的 CM_OFF 汇总方式</h3>
+<table>
+  <tr><th>视图</th><th>是否需要跨航线汇总</th><th>是否需要跨口岸汇总</th></tr>
+  <tr><td><b>L1 总体</b></td><td>✅ 需要（跨航线加权）</td><td>✅ 已包含在跨航线中</td></tr>
+  <tr><td><b>L2 航线</b></td><td>❌ 不需要（已在单航线内）</td><td>✅ 需要（跨口岸加权）</td></tr>
+  <tr><td><b>L3 口岸</b></td><td>✅ 需要（跨航线加权）</td><td>❌ 不需要（已在单口岸内）</td></tr>
+  <tr><td><b>L4 口岸×航线</b></td><td>❌ 不需要</td><td>❌ 不需要</td></tr>
+</table>
+</div>
+
+<!-- ===== Section 7 ===== -->
+<h2 id="s7">七、CM_Score 算法升级：方案B（V5++）</h2>
+<div class="card">
+<h3>7.1 问题背景</h3>
+<p>V5+ 版本中，L1（总体）和 L3（口岸）的 CM_Score 是<strong>独立计算</strong>的：直接用该视图下所有客户的 CM/TEU 除以同组中位数。</p>
+<p>这种方式存在两个问题：</p>
+<table>
+  <tr><th>问题</th><th>说明</th></tr>
+  <tr><td><b>全体中位数被拉低</b></td><td>全公司 CM/TEU 中位数被大量低效客户拉低，导致高效率小客户 CM_Score 虚高（如 CN359141 得 478 分，远超 200 封顶）</td></tr>
+  <tr><td><b>上下层逻辑不一致</b></td><td>L2/L4 层面已按航线/口岸×航线独立评分，但 L1/L3 未继承这些下层结果，而是重新用全体数据算一遍</td></tr>
+</table>
+<h3>7.2 方案B：从下级视图加权汇总</h3>
+<div class="formula-box">
+<strong>核心思想：</strong>L1 不直接算 CM_Score，而是<strong>继承 L2 各航线的 CM_Score，按 CM_NI 占比加权汇总</strong>。同理，L3 继承 L4。<br><br>
+<strong>L1 CM_Score 计算步骤：</strong><br>
+&nbsp;&nbsp;1. 先算 L2：每个（客户×航线）的 CM_Score（用该航线内中位数）<br>
+&nbsp;&nbsp;2. 过滤 CM_NI &lt; 0 的记录（亏损航线不贡献）<br>
+&nbsp;&nbsp;3. 对该客户所有航线，按 CM_NI 占比加权：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;L1_CM_Score = Σ( L2_CM_Score_i × CM_NI_i / CM_NI_total )<br><br>
+<strong>L3 CM_Score 计算步骤：</strong><br>
+&nbsp;&nbsp;1. 先算 L4：每个（客户×口岸×航线）的 CM_Score<br>
+&nbsp;&nbsp;2. 过滤 CM_NI &lt; 0 的记录<br>
+&nbsp;&nbsp;3. 对该客户所有（口岸×航线），按 CM_NI 占比加权：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;L3_CM_Score = Σ( L4_CM_Score_j × CM_NI_j / CM_NI_total )
+</div>
+<h3>7.3 计算顺序调整</h3>
+<div class="flowchart">
+  <div class="fc-node fc-step">旧顺序：L1 → L2 → L3 → L4（自上而下）</div>
+  <div class="fc-arrow"></div>
+  <div class="fc-node fc-step2">新顺序：L2 → L4 → L1 → L3（自下而上汇合）</div>
+</div>
+<p>由于 L1 依赖 L2 的结果、L3 依赖 L4 的结果，<strong>计算顺序必须调整</strong>：先算 L2 和 L4，再用它们的结果汇总出 L1 和 L3。</p>
+<h3>7.4 方案B 效果对比</h3>
+<table>
+  <tr><th>客户</th><th>旧算法（独立算）</th><th>方案B（加权汇总）</th><th>变化</th></tr>
+  <tr><td>CN359141</td><td style="color:#e74c3c;"><b>478.2</b></td><td style="color:#27ae60;"><b>112.6</b></td><td>↓ 365.6（回归合理区间）</td></tr>
+  <tr><td>美的 CN340069</td><td>112.0</td><td>114.8</td><td>↑ 2.8（基本不变，因各航线表现均匀）</td></tr>
+</table>
+<div class="success-box">
+<strong>✅ 方案B 优势：</strong><br>
+&nbsp;&nbsp;1. <strong>消除虚高</strong>：不再用全体中位数，避免被低效客户拉低基准<br>
+&nbsp;&nbsp;2. <strong>逻辑一致</strong>：L1/L3 的结果直接继承下层视图，上下层逻辑统一<br>
+&nbsp;&nbsp;3. <strong>反映结构</strong>：加权汇总反映了客户在各航线/口岸的<strong>实际业务结构</strong>，而非一个虚构的"总体效率"
+</div>
+</div>
+
+<!-- ===== Section 8（新） ===== -->
+<h2 id="s8">八、进口排除机制（V5+++ 核心新增）</h2>
+<div class="card">
+<h3>8.1 业务背景与数据证据</h3>
+<div class="warning-box">
+<strong>发现问题：</strong> 在分析CWS航线评分异常时，发现航线月度CM/TEU极低（如2026-03仅为34元/TEU），导致客户CN327824的月度评分异常偏高（2406分）。深入排查发现，<strong>进口记录的低盈利严重拉低了航线整体基准值</strong>。<br><br>
+<strong>数据证据（COC数据，共52,961条记录）：</strong>
+<table style="width:100%; margin:10px 0;">
+  <tr><th>方向</th><th>记录数</th><th>占比</th><th>sum(CM)</th><th>CM/TEU</th><th>CM&lt;0 占比</th></tr>
+  <tr><td><b>出口</b></td><td>32,512</td><td>61.4%</td><td>3.11亿元</td><td style="color:#27ae60;"><b>791元</b></td><td>1.7%</td></tr>
+  <tr><td><b>进口</b></td><td>10,171</td><td>19.2%</td><td>832万元</td><td style="color:#e74c3c;"><b>82元</b></td><td><b>27.5%</b></td></tr>
+  <tr><td><b>第三国</b></td><td>10,278</td><td>19.4%</td><td>3,469万元</td><td>454元</td><td>10.5%</td></tr>
+</table>
+<br>
+<strong>CWS航线实例（2026-03）：</strong>
+<table style="width:80%; margin:10px auto; text-align:center;">
+  <tr><th>方向</th><th>记录数</th><th>CM</th><th>TEU</th><th>CM/TEU</th></tr>
+  <tr><td>出口</td><td>565</td><td>61.1万</td><td>3,193</td><td><b>191元</b></td></tr>
+  <tr><td>进口</td><td>52</td><td>-3.5万</td><td>231</td><td style="color:#e74c3c;"><b>-153元</b></td></tr>
+  <tr><td><b>混合</b></td><td>670</td><td>35.4万</td><td>3,657</td><td style="color:#e74c3c;"><b>97元</b></td></tr>
+</table>
+<br>
+<strong>结论：</strong>混合计算的CM/TEU=97，被进口的-153严重拉低。如果只算出口，CM/TEU=191，翻了一倍。
+</div>
+
+<h3>8.2 进口排除方案选择</h3>
+<p>提出两个方案，最终选择<strong>方案B（完全排除进口记录）</strong>：</p>
+<table>
+  <tr><th>方案</th><th>内容</th><th>优点</th><th>缺点</th></tr>
+  <tr><td><b>方案A</b><br>分开计算</td><td>CM_OFF的航线月度CM/TEU按进出口分开计算（两套基准）</td><td>保留进口客户的CM_OFF评分可能性</td><td>实现复杂；进口业务模型与出口不同，放在一起比较意义不大</td></tr>
+  <tr><td><b>方案B</b><br><span style="color:#27ae60;font-weight:600;">✅ 采用</span></td><td><strong>进口记录不参与CM和CM_OFF评分，仅计算TEU评分</strong></td><td>逻辑清晰；避免进口亏损拉低出口客户评分；实现简单</td><td>纯进口客户（1009个）CM和CM_OFF得分为0，只有TEU评分</td></tr>
+</table>
+
+<h3>8.3 进口排除算法实现</h3>
+<div class="formula-box">
+<strong>Step 1：标记进口记录</strong><br>
+IS_IMPORT = (POL_CD不以"CN"开头) 且 (POD_CD以"CN"开头)<br><br>
+<strong>Step 2：计算CM_NI（排除进口后的CM）</strong><br>
+CM_NI = CM（如果IS_IMPORT=False）或 0（如果IS_IMPORT=True）<br><br>
+<strong>Step 3：CM维度计算（排除进口）</strong><br>
+CM_PER_TEU = CM_NI ÷ TEU（TEU含进口，反映舱位占用）<br>
+客户CM_Score原始值 = CM_PER_TEU ÷ 同组基准值 × 100<br>
+（基准值从该组客户的CM_PER_TEU分位数计算，不含进口影响）<br><br>
+<strong>Step 4：CM_OFF维度计算（排除进口）</strong><br>
+航线月度基准 = sum(该航线该月所有出口记录的CM) ÷ sum(该航线该月所有出口记录的TEU)<br>
+客户月度得分 = 客户该月CM_NI ÷ 航线月度基准 × 100<br>
+然后按TEU加权平均，再分位数映射<br><br>
+<strong>Step 5：CM&lt;0归零判断（用CM_NI）</strong><br>
+如果 CM_NI &lt; 0 → CM_Score=0 且 CM_OFF_Score=0<br>
+（避免进口亏损误杀纯出口客户）
+</div>
+
+<h3>8.4 进口排除的影响范围</h3>
+<table>
+  <tr><th>指标</th><th>修改前</th><th>修改后</th><th>变化</th></tr>
+  <tr><td>进口记录</td><td>10,171条(19.2%)混入CM计算</td><td><strong>排除</strong></td><td>—</td></tr>
+  <tr><td>CM_NI&lt;0 客户数</td><td>642个</td><td><strong>253个</strong></td><td>389个因进口拖累转正</td></tr>
+  <tr><td>纯进口客户(CM_NI=0)</td><td>无区分</td><td><strong>1009个</strong>，只有TEU评分</td><td>Total最高55.7分</td></tr>
+  <tr><td>淡季基准（CWS 2026-03）</td><td>34元/TEU（被进口拉低）</td><td><strong>191元/TEU</strong></td><td>基准更合理</td></tr>
+  <tr><td>淡旺季标记</td><td>可能受进口影响误判</td><td><strong>排除进口后更准确</strong></td><td>—</td></tr>
+</table>
+
+<h3>8.5 纯进口客户的处理</h3>
+<div class="note-box">
+<strong>纯进口客户（CM_NI=0）的评分结果：</strong><br><br>
+<table style="width:60%; margin:10px auto; text-align:center;">
+  <tr><th>维度</th><th>得分</th><th>说明</th></tr>
+  <tr><td>TEU_Score</td><td>0~200</td><td>正常计算（进口TEU计入）</td></tr>
+  <tr><td>CM_Score</td><td><strong>0</strong></td><td>CM_NI=0，不参与分档</td></tr>
+  <tr><td>CM_OFF_Score</td><td><strong>0</strong></td><td>CM_NI=0，无效益数据</td></tr>
+  <tr><td><strong>Total_Score</strong></td><td><strong>最高 60</strong></td><td>0.3×TEU_Score + 0 + 0</td></tr>
+</table>
+<br>
+<strong>业务解释：</strong> 纯进口客户在效益维度得0分是合理的——进口业务CM/TEU极低（82元），与出口业务（791元）不可比。如果希望进口客户在效益维度也有评分，需要<strong>单独建立进口客户评分体系</strong>，但这超出了当前系统的设计范围。
+</div>
+</div>
+
+<!-- ===== Section 9 ===== -->
+<h2 id="s9">九、月度更新机制</h2>
+<div class="card">
+<h3>9.1 更新频率与数据窗口</h3>
+<p>评分体系支持<strong>每月更新</strong>。以"5月1日更新4月数据"为例：</p>
+<table>
+  <tr><th>维度</th><th>数据窗口</th><th>说明</th></tr>
+  <tr><td><span class="tag tag-teu">TEU</span></td><td><strong>当前月单月</strong>（如 202604）</td><td>只用最新一个月的箱量，反映当前规模</td></tr>
+  <tr><td><span class="tag tag-cm">CM/TEU</span></td><td><strong>当前月单月</strong>（如 202604）</td><td>只用最新一个月的效益，反映当前效率</td></tr>
+  <tr><td><span class="tag tag-off">CM_OFF</span></td><td><strong>前12个月滚动窗口</strong>（如 202505~202604）</td><td>淡季配合度需要足够长的周期才有统计意义</td></tr>
+</table>
+<div class="note-box">
+<strong>设计依据：</strong> TEU 和 CM 用单月数据，是因为这两个维度反映的是<strong>当前状态</strong>；而 CM_OFF 需要观察客户在淡季是否持续出货，单月数据不足以判断配合度，因此需要12个月滚动窗口。<br><br>
+<strong>V5+++ 更新：</strong> 月度更新时，CM和CM_OFF的计算均使用CM_NI（排除进口），保持与全量版一致。
+</div>
+<h3>9.2 月度更新脚本</h3>
+<table>
+  <tr><th>脚本</th><th>用途</th><th>输出文件</th></tr>
+  <tr><td><code>customer_scoring_coc.py</code></td><td>全量版（所有月份数据）</td><td>COC_客户画像评分结果_v1.xlsx</td></tr>
+  <tr><td><code>customer_scoring_coc_monthly.py</code></td><td>月度更新版（单月TEU/CM + 滚动12月CM_OFF）</td><td>COC_客户画像评分_YYYYMMDD.xlsx</td></tr>
+  <tr><td><code>gen_report_coc.py</code></td><td>读取Excel，生成交互式HTML报告</td><td>COC_客户画像评分报告.html</td></tr>
+</table>
+<h3>9.3 输出报告功能</h3>
+<p>生成的 HTML 报告支持以下功能（与全量版报告格式一致）：</p>
+<table>
+  <tr><th>功能</th><th>说明</th></tr>
+  <tr><td><strong>四视图切换</strong></td><td>L1总体 / L2航线 / L3口岸 / L4口岸×航线，独立切换</td></tr>
+  <tr><td><strong>视图内筛选</strong></td><td>L2 按航线筛选、L3 按口岸筛选、L4 按口岸+航线双重筛选</td></tr>
+  <tr><td><strong>搜索</strong></td><td>支持客户代码/名称模糊搜索</td></tr>
+  <tr><td><strong>排序</strong></td><td>点击表头列排序（升序/降序切换）</td></tr>
+  <tr><td><strong>分页</strong></td><td>每页100条，支持首页/上页/下页/末页</td></tr>
+  <tr><td><strong>POL→POD 展开</strong></td><td>点击 + 号展开该客户每条路线的箱量和CM明细</td></tr>
+  <tr><td><strong>淡旺季标记</strong></td><td>L2/L4 视图选择航线后，显示该航线各月份的淡旺季标记</td></tr>
+  <tr><td><strong>新增：CM_NI列</strong> <span class="tag tag-new">V5+++</span></td><td>每个sheet新增CM_NI列（排除进口后的CM），原CM列保留为原始值（含进口），方便对照</td></tr>
+</table>
+</div>
+
+<!-- ===== Section 10 ===== -->
+<h2 id="s10">十、完整计算流程图</h2>
+<div class="card">
+<div class="flowchart">
+  <div class="fc-node fc-start" style="min-width:500px;">Step 0：原始数据 → 进出口分类（IS_IMPORT标记）→ 计算CM_NI → 按(客户×航线×月份)聚合</div>
+  <div class="fc-arrow"></div>
+  <div class="fc-node fc-step" style="min-width:500px;">Step 1：淡旺季标记（按航线计算每月 CM_NI/TEU，排除进口，与年度平均对比）</div>
+  <div class="fc-arrow"></div>
+  <div class="fc-node fc-step2" style="min-width:500px;">Step 2：CM_OFF 分月评分（基准值排除进口）+ 两层TEU加权平均 + 淡季记录数门槛过滤（&lt;3条归零）</div>
+  <div class="fc-arrow"></div>
+  <div class="fc-node fc-step3" style="min-width:500px;">Step 3：四个视图分别计算三维度原始值（TEU含进口 / CM_NI排除进口 / CM_OFF排除进口）</div>
+  <div class="fc-arrow"></div>
+  <div class="fc-node fc-step4" style="min-width:500px;">Step 4：分位数分段映射（10档×20分/档）→ 应用门槛规则（CM_NI&lt;0归零 / 记录数&lt;3归零）</div>
+  <div class="fc-arrow"></div>
+  <div class="fc-node fc-step5" style="min-width:500px;">Step 5：综合总分 = 0.3×TEU得分 + 0.5×CM得分 + 0.2×CM_OFF得分，独立排名</div>
+</div>
+</div>
+
+<!-- ===== Section 11 ===== -->
+<h2 id="s11">十一、计算示例（美的 CN340069）</h2>
+<div class="card">
+<p>美的（SHIPPER_CD = CN340069）是本次评分的<strong>重要客户</strong>。以下以美的为例，展示 V5+++ 算法下的计算过程。</p>
+<h3>11.1 原始数据概况（2025年7月 ～ 2026年2月，共14个月）</h3>
+<table>
+  <tr><th>指标</th><th>数值</th><th>说明</th></tr>
+  <tr><td>总记录数</td><td>113 行</td><td>客户系统在14个月中的每月每条航线的记录</td></tr>
+  <tr><td>涉及航线</td><td>13 条</td><td>REX, CST, NSX, BDX 等</td></tr>
+  <tr><td>涉及口岸</td><td>4 个</td><td>南沙、蛇口、宁波、上海</td></tr>
+  <tr><td>总 TEU</td><td>14,942 TEU</td><td>14个月累计箱量（含进口）</td></tr>
+  <tr><td>总 CM</td><td>12,298,594 元</td><td>14个月累计毛利（含进口）</td></tr>
+  <tr><td>总 CM_NI</td><td>12,298,594 元</td><td>排除进口后CM（美的无进口业务，因此与CM相同）</td></tr>
+  <tr><td>CM/TEU</td><td>823 元/TEU</td><td>单箱利润 = 12,298,594 ÷ 14,942</td></tr>
+  <tr><td>淡季记录数</td><td>63 条</td><td>IS_PEAK=0 的记录，远超3条门槛，CM_OFF不被归零</td></tr>
+</table>
+<div class="note-box">
+<strong>注：</strong>美的为纯出口客户，无进口业务，因此进口排除对其评分<strong>没有负面影响</strong>。进口排除主要帮助那些被进口亏损拖累的出口客户恢复正常评分。
+</div>
+<h3>11.2 三个维度得分计算（视图1：总部总体视角）</h3>
+<table>
+  <tr><th>维度</th><th>原始值</th><th>分位数档位</th><th>映射后得分</th></tr>
+  <tr><td><span class="tag tag-teu">TEU</span></td><td>14,942 TEU</td><td>第10档（最大10%）</td><td><strong>200.0</strong></td></tr>
+  <tr><td><span class="tag tag-cm">CM效率</span></td><td>823 元/TEU</td><td>约第7档</td><td><strong>114.8</strong></td></tr>
+  <tr><td><span class="tag tag-off">CM_OFF</span></td><td>淡季CM_NI/TEU = 756.3</td><td>约第6档</td><td><strong>118.5</strong></td></tr>
+</table>
+<div class="formula-box" style="background:#e8f5e9; border-left-color:#27ae60; font-size:16px;">
+<strong>美的 L1 综合总分 = 0.3×200.0 + 0.5×114.8 + 0.2×118.5 = 144.4，全公司排名第 155</strong>
+</div>
+<div class="note-box">
+<strong>解读：</strong> 美的 TEU 得分满分（200），说明箱量处于全公司前10%；但 CM 效率得分114.8（略高于中位数），说明单箱利润处于中等偏上水平。综合排名第155名，反映了"规模大但效率中等"的特征。<br><br>
+<strong>与旧算法对比：</strong> 旧算法（除以中位数×100）下美的得分473.4排第1，因为旧算法对超大客户给予过高得分。新算法（分位数分段映射）更均衡，超大客户最高得200分，避免了得分过度集中。
+</div>
+<h3>11.3 美的在各视图的得分与排名</h3>
+<table>
+  <tr><th>视图</th><th>TEU得分</th><th>CM效率得分</th><th>CM_OFF得分</th><th>总分</th><th>排名</th></tr>
+  <tr><td><b>视图1（总体）</b></td><td>200.0</td><td>114.8</td><td>118.5</td><td>144.4</td><td>#155</td></tr>
+  <tr><td><b>视图2 — REX</b></td><td>185.7</td><td>165.3</td><td>180.2</td><td>174.4</td><td>#2</td></tr>
+  <tr><td><b>视图2 — SGX</b></td><td>181.6</td><td>200.0</td><td>0.0</td><td>154.5</td><td>#1</td></tr>
+  <tr><td><b>视图3 — 南沙</b></td><td>200.0</td><td>161.9</td><td>165.3</td><td>174.0</td><td>#23</td></tr>
+</table>
+</div>
+
+<!-- ===== Section 12 ===== -->
+<h2 id="s12">十二、评分含义与使用指南</h2>
+<div class="card">
+<h3>12.1 得分区间含义（V5+++ 分位数映射版）</h3>
+<table>
+  <tr><th>得分区间</th><th>含义</th><th>客户特征</th></tr>
+  <tr><td><strong>180 ~ 200</strong></td><td>前10%水平</td><td>该维度表现极为突出，属于顶尖客户</td></tr>
+  <tr><td><strong>100 ~ 180</strong></td><td>前10%~前50%水平</td><td>该维度表现优于中位数客户</td></tr>
+  <tr><td><strong>20 ~ 100</strong></td><td>后50%~后10%水平</td><td>该维度表现低于中位数客户</td></tr>
+  <tr><td><strong>0 ~ 20</strong></td><td>后10%水平</td><td>该维度表现极差</td></tr>
+  <tr><td><strong>= 0</strong></td><td>门槛未达标</td><td>CM_NI&lt;0（CM维度）或 淡季记录&lt;3（CM_OFF维度）</td></tr>
+</table>
+<h3>12.2 维度组合解读</h3>
+<table>
+  <tr><th>TEU得分</th><th>CM效率得分</th><th>客户类型</th><th>建议动作</th></tr>
+  <tr><td>高（>180）</td><td>高（>180）</td><td>核心高价值大客户</td><td>重点维护，优先保障舱位</td></tr>
+  <tr><td>高（>180）</td><td>低（<100）</td><td>薄利多销型大客户</td><td>分析定价策略，评估是否提价</td></tr>
+  <tr><td>低（<100）</td><td>高（>180）</td><td>小而美型客户</td><td>效率极高但规模小，可考虑引导增量</td></tr>
+  <tr><td>低（<100）</td><td>低（<100）</td><td>普通小客户</td><td>常规维护</td></tr>
+</table>
+<h3>12.3 纯进口客户的解读 <span class="tag tag-new">V5+++ 新增</span></h3>
+<div class="note-box">
+<strong>纯进口客户（CM_NI=0）的特征：</strong><br>
+&nbsp;&nbsp;• CM_Score = 0，CM_OFF_Score = 0<br>
+&nbsp;&nbsp;• Total_Score 最高 = 0.3 × 200 = <strong>60分</strong><br>
+&nbsp;&nbsp;• 共 1009个纯进口客户<br><br>
+<strong>业务建议：</strong><br>
+&nbsp;&nbsp;① 如果希望评估进口客户价值，需要<strong>单独建立进口客户评分体系</strong>（进口CM/TEU仅82元，与出口791元不可比）<br>
+&nbsp;&nbsp;② 当前体系下，纯进口客户的评分仅反映其<strong>箱量规模</strong>（TEU维度），不反映效益<br>
+&nbsp;&nbsp;③ 如果进口客户同时有出口业务，则CM_NI>0，正常参与所有维度评分
+</div>
+<h3>12.4 排名与得分的关系</h3>
+<div class="note-box">
+<strong>重要：</strong> 在同一分组内，得分排名与原始值排名<strong>完全一致</strong>。这是因为分位数分段映射是单调变换，不改变排序。<br><br>
+得分的价值不在于"改变排名"，而在于：<br>
+&nbsp;&nbsp;1. <strong>跨维度可比性</strong>——TEU（箱数）和CM/TEU（元/箱）单位不同，无法直接比较。标准化后使加权求和有意义。<br>
+&nbsp;&nbsp;2. <strong>跨组可比性</strong>——L2航线层面，REX航线排名第2的箱量 vs SGX航线排名第2的箱量，原始值差距巨大。但得分把各组都标准化到同一量纲，使得跨航线的得分有了参照意义。<br>
+&nbsp;&nbsp;3. <strong>绝对位置感知</strong>——得分&gt;100代表该维度处于前50%水平，&gt;180代表前10%水平。
+</div>
+</div>
+
+<!-- ===== Section 13 ===== -->
+<h2 id="s13">十三、算法特性与边界说明</h2>
+<div class="card">
+<h3>13.1 算法特性汇总（V5+++）</h3>
+<table>
+  <tr><th>特性</th><th>说明</th><th>影响</th></tr>
+  <tr><td><b>量纲一致</b></td><td>三个维度均采用分位数分段映射得分（0~200）</td><td>维度间可直接比较和加权，不存在量纲膨胀</td></tr>
+  <tr><td><b>抗极端值</b></td><td>分位数法不受极端大客户影响，最大客户最高得200分</td><td>避免旧算法下超大客户得分过高的"赢家通吃"问题</td></tr>
+  <tr><td><b>进口排除</b> <span class="tag tag-new">V5+++</span></td><td>CM和CM_OFF维度排除进口记录，TEU维度含进口</td><td>避免进口低盈利拉低出口客户评分；纯进口客户仅有TEU评分</td></tr>
+  <tr><td><b>CM_OFF 门槛</b></td><td>淡季记录&lt;3条 或 淡季TEU&lt;50 时 CM_OFF 归零</td><td>避免小样本导致的极端虚高分数（硬门槛仅适用于CM_OFF维度）</td></tr>
+  <tr><td><b>负CM归零</b></td><td>CM_NI &lt; 0 时 CM和CM_OFF得分均归零</td><td>亏损客户不应获得任何效益维度得分</td></tr>
+</table>
+<h3>13.2 已知边界与限制</h3>
+<div class="warning-box">
+  <ul style="margin:0; padding-left:20px;">
+    <li><strong>同码异名已修复：</strong>V5+ 已修复同一 SHIPPER_CD 因名称细微差异被拆成多行的问题（取最长名称）。L1 从 1153 → 1136 客户。</li>
+    <li><strong>小客户区分度：</strong>分位数法下，后50%客户得分在 [0,100] 区间，仍有区分度（旧算法下大部分得 &lt;1 分）。</li>
+    <li><strong>时间范围固定：</strong>支持全量版（所有月份）和月度更新版（TEU/CM用单月，CM_OFF用前12个月滚动窗口）。</li>
+    <li><strong>纯进口客户仅有TEU评分：</strong>1009个纯进口客户CM_Score=0，CM_OFF_Score=0，Total最高60分。如需要评估进口客户价值，需单独建立进口评分体系。</li>
+  </ul>
+</div>
+<h3>13.3 与旧版本的主要差异</h3>
+<table>
+  <tr><th>版本</th><th>CM维度</th><th>标准化方法</th><th>进口处理</th><th>独立视图</th><th>已知问题</th></tr>
+  <tr><td>V3</td><td>总CM（加权中位数）</td><td>除以中位数×100</td><td>无区分</td><td>❌ 合并视图</td><td>尾部区分度差</td></tr>
+  <tr><td>V4</td><td>总CM（均值法）</td><td>除以中位数×100</td><td>无区分</td><td>❌ 合并视图</td><td>受极端值影响</td></tr>
+  <tr><td>V5（初版）</td><td>CM/TEU（简单中位数）</td><td>除以中位数×100</td><td>无区分</td><td>✅ 四个独立视图</td><td>右偏分布导致85%客户得分&lt;1</td></tr>
+  <tr><td><b>V5+（本版）</b></td><td><b>CM/TEU</b></td><td><b>分位数分段映射</b></td><td>无区分</td><td>✅ 四个独立视图</td><td><b>进口混合计算导致出口客户被拉低</b></td></tr>
+  <tr><td><b>V5++</b></td><td><b>CM/TEU（方案B加权）</b></td><td><b>分位数分段映射</b></td><td>无区分</td><td>✅ 四个独立视图</td><td><b>同V5+，尚未处理进口问题</b></td></tr>
+  <tr><td><b>V5+++（最新）</b></td><td><b>CM_NI/TEU（排除进口）</b></td><td><b>分位数分段映射</b></td><td><b>✅ 进口排除</b></td><td>✅ 四个独立视图</td><td><b>无已知问题 ✅</b></td></tr>
+</table>
+</div>
+
+<!-- ===== Section 14 ===== -->
+<h2 id="s14">十四、本次更新说明（V5+ → V5+++）</h2>
+<div class="card">
+<div class="update-box">
+<strong>更新时间：</strong> 2026-05-27<br>
+<strong>适用版本：</strong> V5+++（在 V5++ 基础上新增进口排除机制）<br>
+<strong>更新内容：</strong> 进口记录标记 + CM_NI计算 + CM/CM_OFF维度排除进口 + 淡旺季基准排除进口
+</div>
+
+<h3>14.1 V5++ → V5+++ 变更汇总</h3>
+<div class="success-box">
+<strong>本次更新核心（2026-05-27）：</strong><br>
+&nbsp;&nbsp;① <strong>进出口分类</strong>——根据POL_CD和POD_CD判断进出口，标记IS_IMPORT<br>
+&nbsp;&nbsp;② <strong>CM_NI计算</strong>——新增CM_NI列（排除进口后的CM），原CM列保留<br>
+&nbsp;&nbsp;③ <strong>CM维度排除进口</strong>——CM_PER_TEU = CM_NI ÷ TEU，进口不贡献CM但占用TEU<br>
+&nbsp;&nbsp;④ <strong>CM_OFF维度排除进口</strong>——分月评分的基准值（航线月度CM/TEU）排除进口记录<br>
+&nbsp;&nbsp;⑤ <strong>淡旺季基准排除进口</strong>——年度平均CM/TEU和月度CM/TEU均排除进口<br>
+&nbsp;&nbsp;⑥ <strong>CM&lt;0判断用CM_NI</strong>——避免进口亏损误杀纯出口客户<br>
+&nbsp;&nbsp;⑦ <strong>Excel输出新增CM_NI列</strong>——方便对照检查
+</div>
+
+<h3>14.2 进口排除的影响分析</h3>
+<table>
+  <tr><th>影响项</th><th>修改前</th><th>修改后</th><th>业务意义</th></tr>
+  <tr><td>CM_NI&lt;0 客户数</td><td>642个</td><td><strong>253个</strong></td><td>389个因进口亏损被误杀的客户恢复正常</td></tr>
+  <tr><td>纯进口客户数</td><td>无区分</td><td><strong>1009个</strong></td><td>这些客户只有TEU评分，CM和CM_OFF得0分</td></tr>
+  <tr><td>航线月度基准（CWS 2026-03）</td><td>34元/TEU</td><td><strong>191元/TEU</strong></td><td>基准值更合理，不被进口亏损拉低</td></tr>
+  <tr><td>客户CN327824（CWS航线）</td><td>月度得分2406（异常高）</td><td>月度得分<strong>约200-400</strong></td><td>基准值提高后，相对表现不再异常偏高</td></tr>
+</table>
+
+<h3>14.3 Bug修复汇总（V5+ 及 V5++ 及 V5+++）</h3>
+<table class="bugfix-table">
+  <tr><th style="text-align:left;">Bug</th><th style="text-align:left;">严重程度</th><th style="text-align:left;">影响</th><th style="text-align:left;">修复方案</th></tr>
+  <tr><td><b>normalize_to_range 映射方向反了</b></td><td><span style="color:#e74c3c; font-weight:600;">严重</span></td><td>高盈利客户得0分，低盈利客户反而得高分（最高200分给了最低效益客户）</td><td>修正映射方向：seg_id=0（最小原始值）→ [0,20]，seg_id=9（最大原始值）→ [180,200]</td></tr>
+  <tr><td><b>SHIPPER_NAME 重复导致客户被拆行</b></td><td><span style="color:#e67e22; font-weight:600;">中等</span></td><td>16个 SHIPPER_CD 因名称细微差异（空格/标点/缩写）被拆成2-3行，TEU/CM碎片化，导致部分碎片 TEU&lt;50 不过门槛，评分偏低</td><td>groupby 只用 SHIPPER_CD，SHIPPER_NAME 取最长名称。L1 从 1153 → 1136 客户</td></tr>
+  <tr><td><b>CM&lt;0 客户 CM_OFF 维度未归零</b></td><td><span style="color:#f39c12; font-weight:600;">次要</span></td><td>L2/L4 层有 CM&lt;0 但 OffSeason_Score&gt;0 的客户，亏损客户的淡季维度不应得分</td><td>新增规则：CM_NI&lt;0 的客户，CM_OFF_SCORE 也设为 0</td></tr>
+  <tr><td><b>淡旺季判定 TEU=0 产生 NaN</b></td><td><span style="color:#f39c12; font-weight:600;">次要</span></td><td>原算法用逐行 CM_GP/TEU_GP 再加权平均，遇到 TEU=0 记录产生 NaN，导致该航线全年被判为淡季</td><td>改为直接 sum(CM)/sum(TEU) 方式，数学等价但更稳健</td></tr>
+  <tr><td><b>CM_Score 错误复用 TEU&lt;50 过滤</b></td><td><span style="color:#e67e22; font-weight:600;">中等</span></td><td>CM_OFF的硬门槛（TEU_THRESHOLD=50）被错误复用到CM_Score计算中，导致TEU&lt;50的客户CM_Score被归零</td><td>CM_Score只过滤CM_NI&lt;0，不再过滤TEU</td></tr>
+  <tr><td><b>进口记录混入CM/CM_OFF计算</b></td><td><span style="color:#e74c3c; font-weight:600;">严重</span></td><td>进口CM/TEU仅82元（出口791元），27.5%亏损率，混合计算导致出口客户被进口亏损拉低评分</td><td><span style="color:#27ae60; font-weight:600;">V5+++ 新增：进口排除，CM和CM_OFF维度不参与计算</span></td></tr>
+</table>
+
+<h3>14.4 验证结果（V5+++）</h3>
+<div class="note-box">
+<strong>全面检查结果（2026-05-27）：</strong><br><br>
+<table style="width:100%; border-collapse:collapse; margin:10px 0;">
+  <tr><th>检查项</th><th>L1</th><th>L2</th><th>L3</th><th>L4</th></tr>
+  <tr><td>重复 Code</td><td>✅ 无</td><td>✅ 无</td><td>✅ 无</td><td>✅ 无</td></tr>
+  <tr><td>CM_NI&lt;0 得正CM分</td><td>✅ 无</td><td>✅ 无</td><td>✅ 无</td><td>✅ 无</td></tr>
+  <tr><td>CM_NI&lt;0 得正OFF分</td><td>✅ 无</td><td>✅ 无</td><td>✅ 无</td><td>✅ 无</td></tr>
+  <tr><td>负得分</td><td>✅ 无</td><td>✅ 无</td><td>✅ 无</td><td>✅ 无</td></tr>
+  <tr><td>TEU&lt;50 得CM分</td><td>✅ 无</td><td>✅ 无</td><td>✅ 无</td><td>✅ 无</td></tr>
+  <tr><td>进口记录影响CM评分</td><td>✅ <span style="color:#27ae60;">已排除</span></td><td>✅ 已排除</td><td>✅ 已排除</td><td>✅ 已排除</td></tr>
+</table>
+<span style="color:#27ae60; font-weight:600;">所有检查项通过，进口排除机制正常工作。</span>
+</div>
+</div>
+
+<!-- ===== Footer ===== -->
+<div class="card" style="text-align:center; color:var(--light); font-size:13px; margin-top:30px;">
+  <p>客户画像评分体系 — 算法说明文档 V5+++（含进口排除机制）</p>
+  <p>更新时间：2026-05-27 ｜ 数据时段：2025年7月 ～ 2026年2月（共14个月）</p>
+  <p>全量版脚本：<code>customer_scoring_coc.py</code> ｜ 月度更新：<code>customer_scoring_coc_monthly.py</code> ｜ 报告生成：<code>gen_report_coc.py</code></p>
+  <p>输出文件：<code>COC_客户画像评分结果_v1.xlsx</code>（含CM_NI列）</p>
+</div>
+
+</body>
+</html>
