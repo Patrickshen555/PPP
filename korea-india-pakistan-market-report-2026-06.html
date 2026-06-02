@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>韩国航线市场报告 | 2026年6月</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', 'Segoe UI', sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.7;
+        }
+
+        /* ── 顶部横幅 ── */
+        .hero {
+            background: linear-gradient(135deg, #1a3a5c 0%, #1e5080 50%, #2a6496 100%);
+            padding: 56px 40px 40px;
+            text-align: center;
+            border-bottom: 3px solid #c0392b;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hero h1 { font-size: 2.4em; color: #fff; margin-bottom: 12px; font-weight: 700; position: relative; }
+        .hero h1 span { color: #f5c542; }
+        .hero .route {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            padding: 10px 24px;
+            margin-top: 14px;
+            font-size: 0.95em;
+            color: #ffeaa7;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        .hero .meta { color: rgba(255,255,255,0.7); font-size: 1em; position: relative; margin-top: 12px; }
+        .hero .meta strong { color: #f5c542; }
+
+        /* ── 布局 ── */
+        .page { max-width: 1200px; margin: 0 auto; padding: 32px 24px 60px; }
+
+        /* ── 警示横幅 ── */
+        .alert-banner {
+            background: #eafaf1;
+            border: 1px solid #27ae60;
+            border-radius: 12px;
+            padding: 20px 28px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        .alert-banner.alert-red {
+            background: #fdedec;
+            border-color: #e74c3c;
+        }
+        .alert-banner .icon { font-size: 2em; flex-shrink: 0; margin-top: 2px; }
+        .alert-banner h3 { color: #c0392b; margin-bottom: 6px; font-size: 1.1em; }
+        .alert-banner p { color: #5d4037; font-size: 0.95em; }
+        .alert-banner.alert-green h3 { color: #1e8449; }
+        .alert-banner.alert-green p { color: #2e7d32; }
+
+        /* ── 章节标题 ── */
+        h2 {
+            font-size: 1.5em;
+            color: #1a3a5c;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #c0392b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h2 .num {
+            background: #c0392b;
+            color: #fff;
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        h3 { color: #546e7a; font-size: 1.05em; margin: 24px 0 12px; }
+
+        /* ── KPI 卡片行 ── */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .kpi-card {
+            background: #fff;
+            border: 1px solid #dce1e8;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .kpi-card .label { font-size: 0.8em; color: #78909c; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .5px; }
+        .kpi-card .value { font-size: 2em; font-weight: 700; }
+        .kpi-card .change { font-size: 0.85em; margin-top: 4px; }
+        .up   { color: #c0392b; }
+        .down { color: #27ae60; }
+        .warn { color: #e67e22; }
+
+        /* ── 表格 ── */
+        .table-wrap { overflow-x: auto; margin: 16px 0; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        table {
+            width: 100%; border-collapse: collapse;
+            font-size: 0.92em;
+            background: #fff;
+        }
+        th {
+            background: #1a3a5c;
+            color: #fff;
+            padding: 13px 14px;
+            text-align: left;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+        td { padding: 12px 14px; border-bottom: 1px solid #eceff1; vertical-align: top; color: #37474f; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: #f0f4f8; }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        .badge-red    { background: #fde8e8; color: #c0392b; border: 1px solid #e6b0b0; }
+        .badge-green  { background: #e8f8f0; color: #1e8449; border: 1px solid #a9dfbf; }
+        .badge-orange { background: #fef5e7; color: #d35400; border: 1px solid #f0c78a; }
+        .badge-gray   { background: #eceff1; color: #607d8b; border: 1px solid #cfd8dc; }
+        .badge-blue   { background: #e8f0fe; color: #1a5276; border: 1px solid #a9cce3; }
+
+        /* ── 时间轴 ── */
+        .timeline { position: relative; padding-left: 24px; }
+        .timeline::before {
+            content: '';
+            position: absolute; left: 7px; top: 8px; bottom: 8px;
+            width: 2px; background: #cfd8dc;
+        }
+        .tl-item { position: relative; margin-bottom: 22px; }
+        .tl-item::before {
+            content: '';
+            position: absolute; left: -20px; top: 6px;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: #c0392b;
+            box-shadow: 0 0 0 3px #fde8e8;
+        }
+        .tl-date { font-size: 0.8em; color: #e67e22; font-weight: 600; margin-bottom: 4px; }
+        .tl-title { color: #1a3a5c; font-weight: 600; margin-bottom: 4px; }
+        .tl-desc { color: #607d8b; font-size: 0.92em; }
+
+        /* ── 信息卡 ── */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .info-card {
+            background: #fff;
+            border: 1px solid #dce1e8;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .info-card h4 {
+            color: #1a3a5c;
+            margin-bottom: 12px;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .info-card ul { padding-left: 18px; }
+        .info-card li { color: #546e7a; font-size: 0.92em; margin-bottom: 6px; }
+        .info-card li strong { color: #2c3e50; }
+
+        /* ── 高亮框 ── */
+        .highlight {
+            background: linear-gradient(135deg, #e8f0fe 0%, #d6e4f0 100%);
+            border: 1px solid #a9cce3;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+        .highlight h4 { color: #1a5276; margin-bottom: 10px; }
+        .highlight p  { color: #546e7a; font-size: 0.95em; }
+        .highlight ol { padding-left: 20px; }
+        .highlight li { color: #546e7a; font-size: 0.92em; margin-bottom: 6px; }
+        .highlight li strong { color: #1a5276; }
+
+        /* ── 航线图 ── */
+        .route-diagram {
+            background: #fff;
+            border: 1px solid #dce1e8;
+            border-radius: 12px;
+            padding: 28px 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .route-track {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            min-width: max-content;
+            padding: 10px 0;
+        }
+        .port-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+        .port-dot {
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            border: 3px solid;
+            background: #fff;
+            flex-shrink: 0;
+        }
+        .port-dot.origin { border-color: #c0392b; background: #c0392b; }
+        .port-dot.transship { border-color: #e67e22; }
+        .port-dot.dest { border-color: #27ae60; }
+        .port-dot.return { border-color: #2980b9; }
+        .port-name {
+            margin-top: 8px;
+            font-size: 0.78em;
+            font-weight: 700;
+            color: #2c3e50;
+            white-space: nowrap;
+            text-align: center;
+        }
+        .port-code {
+            font-size: 0.7em;
+            color: #90a4ae;
+            margin-top: 2px;
+        }
+        .port-flag { font-size: 1.1em; }
+        .connector {
+            width: 48px;
+            height: 3px;
+            background: #b0bec5;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .connector::after {
+            content: '▶';
+            position: absolute;
+            right: -2px; top: -5px;
+            font-size: 0.65em;
+            color: #b0bec5;
+        }
+        .connector-arrow { color: #e67e22; font-weight: bold; }
+        .route-legend {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid #eceff1;
+            font-size: 0.82em;
+            color: #78909c;
+        }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            border: 2px solid;
+        }
+
+        /* ── 底部 ── */
+        .footer {
+            background: #fff;
+            border-top: 1px solid #dce1e8;
+            padding: 24px 40px;
+            text-align: center;
+            color: #90a4ae;
+            font-size: 0.88em;
+        }
+
+        /* ── 响应式 ── */
+        @media (max-width: 700px) {
+            .hero h1 { font-size: 1.6em; }
+            .hero .route { font-size: 0.78em; padding: 8px 14px; }
+            .page { padding: 20px 14px 40px; }
+            th, td { padding: 9px 10px; font-size: 0.85em; }
+            .kpi-card .value { font-size: 1.5em; }
+            .route-track { gap: 0; }
+            .connector { width: 28px; }
+            .port-name { font-size: 0.7em; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 顶部 -->
+<div class="hero">
+    <h1>🇰🇷 韩国<span>航线市场报告</span></h1>
+    <div class="route">
+        📍 PUS → TAO → NGB → SHK → PKG → INNSA / INMUN / PKKHI → PKG
+    </div>
+    <p class="meta">报告周期：<strong>2026年Q1-Q2</strong> &nbsp;|&nbsp; 发布日期：2026年6月2日</p>
+    <p class="meta" style="margin-top:6px;">数据来源：釜山港务局(BPA) · 韩国海洋水产部(MOF) · IBEF · PBS Pakistan · Alphaliner/Drewry/Xeneta</p>
+</div>
+
+<div class="page">
+
+    <!-- 市场概况 -->
+    <div class="alert-banner alert-green">
+        <div class="icon">📊</div>
+        <div>
+            <h3>东北亚—南亚最具活力的集装箱走廊之一</h3>
+            <p>釜山港2025年吞吐量达<strong>2,488万TEU</strong>，连续三年创历史新高，中转占比<strong>54%</strong>，稳居全球第二大中转港。韩国→印度双边贸易额超<strong>$215亿</strong>，半导体产业链是核心引擎。本航线PUS-TAO-NGB-SHK-PKG-INNSA/INMUN/PKKHI-PKG是连接东北亚制造基地与南亚新兴市场的黄金通道。</p>
+        </div>
+    </div>
+
+    <!-- KPI 核心数据 -->
+    <div class="kpi-row">
+        <div class="kpi-card">
+            <div class="label">釜山港年吞吐量 (2025)</div>
+            <div class="value up">2,488万</div>
+            <div class="change up">▲ TEU · 连续三年新高</div>
+        </div>
+<div class="kpi-card">
+            <div class="label">韩→印双边贸易额 (2025)</div>
+            <div class="value up">$215亿+</div>
+            <div class="change up">CEPA协定深化驱动</div>
+        </div>
+        <div class="kpi-card">
+            <div class="label">PUS→INNSA 参考运价 (40HC)</div>
+            <div class="value warn">$1,500-2,200</div>
+            <div class="change warn">2026 Q1-Q2 区间价</div>
+        </div>
+        <div class="kpi-card">
+            <div class="label">PUS→Karachi 参考运价 (40HC)</div>
+            <div class="value warn">$1,600-2,300</div>
+            <div class="change warn">KPS专线主力区间</div>
+        </div>
+        <div class="kpi-card">
+            <div class="label">韩国主要承运商数量</div>
+            <div class="value" style="color:#1a5276;">9+</div>
+            <div class="change" style="color:#78909c;">HMM/MSC/KMTC等</div>
+        </div>
+    </div>
+
+    <!-- ① 航线结构与港口 -->
+    <h2><span class="num">①</span>航线结构 — PUS至印巴完整链路</h2>
+
+    <!-- 航线可视化 -->
+    <div class="route-diagram">
+        <div class="route-track">
+            <div class="port-node">
+                <span class="port-flag">🇰🇷</span>
+                <div class="port-dot origin"></div>
+                <div class="port-name">釜山<br/>Busan</div>
+                <div class="port-code">PUS</div>
+            </div>
+            <div class="connector"></div>
+            <div class="port-node">
+                <span class="port-flag">🇨🇳</span>
+                <div class="port-dot tranship"></div>
+                <div class="port-name">青岛<br/>Qingdao</div>
+                <div class="port-code">TAO</div>
+            </div>
+            <div class="connector"></div>
+            <div class="port-node">
+                <span class="port-flag">🇨🇳</span>
+                <div class="port-dot tranship"></div>
+                <div class="port-name">宁波<br/>Ningbo</div>
+                <div class="port-code">NGB</div>
+            </div>
+            <div class="connector"></div>
+            <div class="port-node">
+                <span class="port-flag">🇨🇳</span>
+                <div class="port-dot tranship"></div>
+                <div class="port-name">蛇口<br/>Shekou</div>
+                <div class="port-code">SHK</div>
+            </div>
+            <div class="connector"></div>
+            <div class="port-node">
+                <span class="port-flag">🇲🇾</span>
+                <div class="port-dot tranship" style="border-color:#c0392b;background:#c0392b;"></div>
+                <div class="port-name">巴生<br/>Port Klang</div>
+                <div class="port-code">PKG ★ 中转枢纽</div>
+            </div>
+            <div class="connector"></div>
+            <div class="port-node">
+                <span class="port-flag">🇮🇳</span>
+                <div class="port-dot dest"></div>
+                <div class="port-name">那瓦西瓦<br/>JNhava Sheva</div>
+                <div class="port-code">INNSA</div>
+            </div>
+            <div class="connector" style="background:#cfd8dc;"></div>
+            <div class="port-node">
+                <span class="port-flag">🇮🇳</span>
+                <div class="port-dot dest"></div>
+                <div class="port-name">蒙德拉<br/>Mundra</div>
+                <div class="port-code">INMUN</div>
+            </div>
+            <div class="connector" style="background:#cfd8dc;"></div>
+            <div class="port-node">
+                <span class="port-flag">🇵🇰</span>
+                <div class="port-dot dest"></div>
+                <div class="port-name">卡拉奇<br/>Karachi</div>
+                <div class="port-code">PKKHI</div>
+            </div>
+            <div class="connector" style="background:#2980b9;"></div>
+            <div class="port-node">
+                <span class="port-flag">🇲🇾</span>
+                <div class="port-dot return" style="border-color:#2980b9;"></div>
+                <div class="port-name">巴生<br/>Port Klang</div>
+                <div class="port-code">PKG (回程)</div>
+            </div>
+        </div>
+        <div class="route-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#c0392b;border-color:#c0392b;"></div>起点港 Origin</div>
+            <div class="legend-item"><div class="legend-dot" style="background:transparent;border-color:#e67e22;"></div>挂靠港 Port of Call</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#c0392b;border-color:#c0392b;"></div>核心中转 Hub</div>
+            <div class="legend-item"><div class="legend-dot" style="background:transparent;border-color:#27ae60;"></div>目的港 Destination</div>
+            <div class="legend-item"><div class="legend-dot" style="background:transparent;border-color:#2980b9;"></div>回程 Return</div>
+        </div>
+    </div>
+
+    <!-- 港口详解表格 -->
+    <h3>各节点港口功能定位</h3>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>角色</th>
+                    <th>港口</th>
+                    <th>代码</th>
+                    <th>国家/地区</th>
+                    <th>在本航线中的功能</th>
+                    <th>2025年TEU</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>起点枢纽</strong></td>
+                    <td>釜山新港 Busan New Port</td>
+                    <td>PUS</td>
+                    <td>🇰🇷 韩国</td>
+                    <td>航线起始港 · 韩国本土出口 + 中日韩集货 + 保税中转</td>
+                    <td class="up">2,488万</td>
+                </tr>
+                <tr>
+                    <td rowspan="3"><strong>中国集货港</strong></td>
+                    <td>青岛港 Qingdao</td>
+                    <td>TAO</td>
+                    <td>🇨🇳 中国</td>
+                    <td>华北出口集货 · 重工业产品/化工品装载</td>
+                    <td>~2,800万</td>
+                </tr>
+                <tr>
+                    <td>宁波舟山 Ningbo-Zhoushan</td>
+                    <td>NGB</td>
+                    <td>🇨🇳 中国</td>
+                    <td>华东最大枢纽 · 电子/纺织品/家电密集出运</td>
+                    <td>~3,500万</td>
+                </tr>
+                <tr>
+                    <td>蛇口/深圳西部 Shekou</td>
+                    <td>SHK</td>
+                    <td>🇨🇳 中国</td>
+                    <td>华南电子制造出海口 · 珠三角货物集散</td>
+                    <td>~3,000万</td>
+                </tr>
+                <tr>
+                    <td><strong>核心中转枢纽</strong></td>
+                    <td>巴生港 Port Klang</td>
+                    <td>PKG</td>
+                    <td>🇲🇾 马来西亚</td>
+                    <td>东南亚最大中转港 · 分拨至INNSA/INMUN/PKKHI的关键节点</td>
+                    <td>~1,400万</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>印度目的港</strong></td>
+                    <td>JNhava Sheva (INNSA)</td>
+                    <td>INNSA</td>
+                    <td>🇮🇳 印度</td>
+                    <td>印度最大集装箱港 · 孟买经济圈门户 · 电子产品/机械进口</td>
+                    <td>~600万</td>
+                </tr>
+                <tr>
+                    <td>蒙德拉 Mundra</td>
+                    <td>INMUN</td>
+                    <td>🇮🇳 印度</td>
+                    <td>印度增长最快大港 · Adani运营 · 煤炭/化学品/汽车</td>
+                    <td>~650万</td>
+                </tr>
+                <tr>
+                    <td><strong>巴基斯坦目的港</strong></td>
+                    <td>卡拉奇（KICT/SAPT）</td>
+                    <td>PKKHI</td>
+                    <td>🇵🇰 巴基斯坦</td>
+                    <td>巴最大港 · 二手车/纺织机械/建材进口主通道</td>
+                    <td>~270万</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ② 韩国港口格局 -->
+    <h2><span class="num">②</span>韩国港口格局与出口基础</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>排名</th>
+                    <th>港口</th>
+                    <th>代码</th>
+                    <th>类型</th>
+                    <th>2025吞吐量(约)</th>
+                    <th>特点与本航线关联</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1</strong></td>
+                    <td><strong>釜山港 Busan</strong> 🏆</td>
+                    <td>PUS</td>
+                    <td>深水枢纽+中转</td>
+                    <td class="up">2,488万 TEU</td>
+                    <td>本航线<strong>起点</strong>· 新港全自动化码头· 自由港区政策 · 中转占比54%</td>
+                </tr>
+                <tr>
+                    <td><strong>2</strong></td>
+                    <td>仁川 Incheon</td>
+                    <td>ICN</td>
+                    <td>首都圈门户</td>
+                    <td>~350万 TEU</td>
+                    <td>首都圈产业带出口 · 汽车零部件/消费品 · 通过支线喂给PUS</td>
+                </tr>
+                <tr>
+                    <td><strong>3</strong></td>
+                    <td>光阳 Gwangyang</td>
+                    <td>KAN</td>
+                    <td>工业港</td>
+                    <td>~250万 TEU</td>
+                    <td>POSCO钢铁出运 · 化工品 · 汽车整车</td>
+                </tr>
+                <tr>
+                    <td><strong>4</strong></td>
+                    <td>蔚山 Ulsan</td>
+                    <td>USN</td>
+                    <td>工业港</td>
+                    <td>~180万 TEU</td>
+                    <td>现代重工造船基地 · 汽车出口 · 海上风电设备</td>
+                </tr>
+                <tr>
+                    <td><strong>5</strong></td>
+                    <td>浦项 Pohang</td>
+                    <td>HKN</td>
+                    <td>工业港</td>
+                    <td>~80万 TEU</td>
+                    <td>POSCO钢铁 · 散杂货为主</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="info-grid" style="margin-top:20px;">
+        <div class="info-card">
+            <h4>🇰🇷 釜山新港 — 全球标杆自动化码头</h4>
+            <ul>
+                <li><strong>码头：</strong>PNC (HMM主导) / HJNC (Hanjin/DP World) / BNCT (PSA)</li>
+                <li><strong>泊位：</strong>全自动化岸桥 + ARMG · 24/7全天候作业</li>
+                <li><strong>水深：</strong>-17m，可接卸2.4万TEU ULCV</li>
+                <li><strong>自由港：</strong>镇海经济自由区 · 保税仓储/加工复出口</li>
+                <li><strong>中日韩支线密度：</strong>每日30+班次进出</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <h4>📊 韩国出口结构（对印/巴方向）</h4>
+            <ul>
+                <li><strong>电子产品：</strong>$55-65亿 · 显示面板/存储芯片/摄像头模组</li>
+                <li><strong>机械设备：</strong>$30-40亿 · 半导体设备/工程机械/精密机床</li>
+                <li><strong>化工产品：</strong>$20-28亿 · 染料助剂/特种化学品/中间体</li>
+                <li><strong>钢铁/金属：</strong>$15-20亿 · 冷轧板/不锈钢/螺纹钢</li>
+                <li><strong>汽车CKD/整车：</strong>$8-12亿 · 发动机/变速箱/车身件</li>
+                <li><strong>二手车：</strong>$3-5亿 → 巴基斯坦为前三大目的地</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ③ 承运商动态 -->
+    <h2><span class="num">③</span>承运商格局 — PUS-PKG-INDPAK航线主要参与者</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>承运商</th>
+                    <th>国籍/类型</th>
+                    <th>在航线上的角色</th>
+                    <th>舱位优势</th>
+                    <th>航线覆盖评级</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>HMM 现代商船</strong> 🥇</td>
+                    <td>🇰🇷 韩国 · 国有控股</td>
+                    <td>CIS韩印直航 / KPS韩巴专线 主力承运人</td>
+                    <td>三星/LG/SK大合同货优先 · 政府战略支持</td>
+                    <td><span class="badge badge-red">第一梯队 · 全航线自营</span></td>
+                </tr>
+                <tr>
+                    <td><strong>MSC 地中海航运</strong> 🥈</td>
+                    <td>🇪🇺 欧洲 · 全球最大</td>
+                    <td>Asia-Europe经由Suez/新加坡覆盖 · India Express</td>
+                    <td>釜山新港优先靠泊权 · 船队规模最大</td>
+                    <td><span class="badge badge-red">第一梯队 · 舱位规模领先</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Maersk 马士基</strong> 🥉</td>
+                    <td>🇩🇰 丹麦 · 综合物流</td>
+                    <td>AE1/AE6/AE11 均覆盖印巴方向</td>
+                    <td>端到端方案能力最强</td>
+                    <td><span class="badge badge-blue">第二梯队 · 综合物流优势</span></td>
+                </tr>
+                <tr>
+                    <td><strong>CMA CGM 达飞</strong></td>
+                    <td>🇫🇷 法国</td>
+                    <td>FAL/FEX Asia Service</td>
+                    <td>印度次大陆覆盖广</td>
+                    <td><span class="badge badge-blue">第二梯队 · 印巴覆盖面广</span></td>
+                </tr>
+                <tr>
+                    <td><strong>KMTC 大韩海运</strong></td>
+                    <td>🇰🇷 韩国 · 区域型</td>
+                    <td>KPS(韩巴)主力之一 · 东南亚→印度支线密集</td>
+                    <td>灵活性强 · 二手车/项目货专精</td>
+                    <td><span class="badge badge-orange">区域领先 · 韩巴专线专精</span></td>
+                </tr>
+                <tr>
+                    <td><strong>PIL 太平船务</strong></td>
+                    <td>🇸🇬 新加坡</td>
+                    <td>印度洋传统强项 · 巴基斯坦覆盖深</td>
+                    <td>PKG中转网络成熟</td>
+                    <td><span class="badge badge-orange">区域型 · 印巴方向有基础</span></td>
+                </tr>
+                <tr>
+                    <td><strong>SINOKOR 长锦商船</strong></td>
+                    <td>🇰🇷 韩国 · 近洋</td>
+                    <td>中日韩近洋 · 将货物送至PUS交远洋船司中转</td>
+                    <td>支线喂给能力强</td>
+                    <td><span class="badge badge-gray">支线喂给 · 不直航印巴</span></td>
+                </tr>
+                <tr>
+                    <td><strong>COSCO 中远海运</strong></td>
+                    <td>🇨🇳 中国</td>
+                    <td>亚洲区域内全覆盖 · 经PKG中转印巴</td>
+                    <td>TAO/NGB/SHK段舱位充裕</td>
+                    <td><span class="badge badge-blue">第二梯队 · 中国段优势明显</span></td>
+                </tr>
+                <tr>
+                    <td><strong>ONE 海洋网联</strong></td>
+                    <td>🇯🇵 日本</td>
+                    <td>亚洲区域服务 · 多数经新加坡中转</td>
+                    <td>日本货源喂给PUS</td>
+                    <td><span class="badge badge-gray">补充性 · 经SIN中转</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ④ 运费走势 -->
+    <h2><span class="num">④</span>航商运价情况 — PUS → India/Pakistan (2026 Q1-Q2)</h2>
+
+    <h3>直航运价（PUS出发）</h3>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>航商</th>
+                    <th>服务/航线</th>
+                    <th>目的港</th>
+                    <th>20'DV ($)</th>
+                    <th>40'HC ($)</th>
+                    <th>航程</th>
+                    <th>运价趋势</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>HMM</strong></td>
+                    <td>CIS (Korea-India Service)</td>
+                    <td>JNhava Sheva</td>
+                    <td>$900-1,100</td>
+                    <td class="up" style="font-weight:700;">$1,600-2,000</td>
+                    <td>~18天</td>
+                    <td><span class="badge badge-orange">↗ 小幅上涨</span></td>
+                    <td>韩印直航主力；三星/LG合约货锁定舱位</td>
+                </tr>
+                <tr>
+                    <td><strong>HMM</strong></td>
+                    <td>KPS (Korea-Pakistan Service)</td>
+                    <td>Karachi</td>
+                    <td>$950-1,200</td>
+                    <td class="up" style="font-weight:700;">$1,700-2,200</td>
+                    <td>~21天</td>
+                    <td><span class="badge badge-red">↑ 上涨</span></td>
+                    <td>与KMTC共舱；巴基斯但方向舱位偏紧</td>
+                </tr>
+                <tr>
+                    <td><strong>KMTC</strong></td>
+                    <td>KPS (Korea-Pakistan Service)</td>
+                    <td>Karachi</td>
+                    <td>$900-1,150</td>
+                    <td class="up" style="font-weight:700;">$1,650-2,100</td>
+                    <td>~22天</td>
+                    <td><span class="badge badge-orange">↗ 小幅上涨</span></td>
+                    <td>区域型定价灵活；项目货/二手车有专项费率</td>
+                </tr>
+                <tr>
+                    <td><strong>MSC</strong></td>
+                    <td>India Express</td>
+                    <td>JNhava Sheva / Mundra</td>
+                    <td>$850-1,050</td>
+                    <td class="up" style="font-weight:700;">$1,500-1,900</td>
+                    <td>~20天</td>
+                    <td><span class="badge badge-gray">→ 稳定</span></td>
+                    <td>釜山新港优先靠泊；即期价波动小于HMM</td>
+                </tr>
+                <tr>
+                    <td><strong>MSC</strong></td>
+                    <td>India Express</td>
+                    <td>Karachi</td>
+                    <td>$900-1,150</td>
+                    <td class="up" style="font-weight:700;">$1,600-2,100</td>
+                    <td>~22天</td>
+                    <td><span class="badge badge-orange">↗ 小幅上涨</span></td>
+                    <td>舱位充裕；大客户合约价有优势</td>
+                </tr>
+                <tr>
+                    <td><strong>Maersk</strong></td>
+                    <td>AE1 / AE6</td>
+                    <td>JNhava Sheva</td>
+                    <td>$950-1,200</td>
+                    <td class="up" style="font-weight:700;">$1,700-2,200</td>
+                    <td>~19天</td>
+                    <td><span class="badge badge-orange">↗ 小幅上涨</span></td>
+                    <td>含内陆段联运方案；综合物流溢价明显</td>
+                </tr>
+                <tr>
+                    <td><strong>Maersk</strong></td>
+                    <td>AE1 / AE11</td>
+                    <td>Mundra</td>
+                    <td>$1,000-1,250</td>
+                    <td class="up" style="font-weight:700;">$1,800-2,300</td>
+                    <td>~20天</td>
+                    <td><span class="badge badge-gray">→ 稳定</span></td>
+                    <td>Mundra端到端方案含铁路转运至NCR</td>
+                </tr>
+                <tr>
+                    <td><strong>CMA CGM</strong></td>
+                    <td>FAL / AS1</td>
+                    <td>JNhava Sheva / Mundra</td>
+                    <td>$880-1,100</td>
+                    <td class="up" style="font-weight:700;">$1,550-2,000</td>
+                    <td>~20天</td>
+                    <td><span class="badge badge-gray">→ 稳定</span></td>
+                    <td>印度次大陆目的港覆盖最广</td>
+                </tr>
+                <tr>
+                    <td><strong>COSCO</strong></td>
+                    <td>Asia-IOC Service</td>
+                    <td>JNhava Sheva / Karachi</td>
+                    <td>$820-1,050</td>
+                    <td class="up" style="font-weight:700;">$1,450-1,850</td>
+                    <td>~21天</td>
+                    <td><span class="badge badge-green">↓ 价格竞争力强</span></td>
+                    <td>中国段舱位充裕；TAO/NGB接货方便</td>
+                </tr>
+                <tr>
+                    <td><strong>PIL</strong></td>
+                    <td>IOC Service</td>
+                    <td>Karachi / Mundra</td>
+                    <td>$850-1,050</td>
+                    <td>$1,500-1,900</td>
+                    <td>~22天</td>
+                    <td><span class="badge badge-gray">→ 稳定</span></td>
+                    <td>巴基斯坦方向传统优势；PKG中转方案成熟</td>
+                </tr>
+                <tr>
+                    <td><strong>ONE</strong></td>
+                    <td>Asia-Europe (经SIN中转)</td>
+                    <td>JNhava Sheva</td>
+                    <td>$900-1,150</td>
+                    <td>$1,600-2,050</td>
+                    <td>~24天</td>
+                    <td><span class="badge badge-gray">→ 稳定</span></td>
+                    <td>经新加坡中转，航程较长；日本货源为主</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>中转运价（经PKG二程）</h3>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>航段</th>
+                    <th>承运方案</th>
+                    <th>20'DV ($)</th>
+                    <th>40'HC ($)</th>
+                    <th>总航程</th>
+                    <th>趋势</th>
+                    <th>适用场景</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>PUS→PKG→INNSA</strong></td>
+                    <td>一程HMM/MSC + 二程区域支线</td>
+                    <td>$550-850</td>
+                    <td>$1,050-1,500</td>
+                    <td>~25天</td>
+                    <td><span class="badge badge-gray">→ 稳定</span></td>
+                    <td>直航无舱位时的备选；适合非紧急货</td>
+                </tr>
+                <tr>
+                    <td><strong>PUS→PKG→INMUN</strong></td>
+                    <td>一程MSC/COSCO + 二程区域支线</td>
+                    <td>$600-900</td>
+                    <td>$1,100-1,550</td>
+                    <td>~26天</td>
+                    <td><span class="badge badge-gray">→ 稳定</span></td>
+                    <td>Adani港效率高；部分货代推荐此路径</td>
+                </tr>
+                <tr>
+                    <td><strong>PUS→PKG→PKKHI</strong></td>
+                    <td>一程PIL/KMTC + 二程区域支线</td>
+                    <td>$600-950</td>
+                    <td>$1,150-1,650</td>
+                    <td>~28天</td>
+                    <td><span class="badge badge-orange">↗ 小幅上涨</span></td>
+                    <td>巴基斯坦方向中转方案比直航便宜15-20%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>喂给支线运价（交PUS中转）</h3>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>航段</th>
+                    <th>承运方案</th>
+                    <th>20'DV ($)</th>
+                    <th>40'HC ($)</th>
+                    <th>航程</th>
+                    <th>趋势</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>TAO→PUS</strong></td>
+                    <td>SINOKOR/KMTC 支线</td>
+                    <td>$80-150</td>
+                    <td>$150-300</td>
+                    <td>1-2天</td>
+                    <td><span class="badge badge-green">↓ 竞争激烈</span></td>
+                </tr>
+                <tr>
+                    <td><strong>NGB→PUS</strong></td>
+                    <td>SINOKOR/KMTC 支线</td>
+                    <td>$90-160</td>
+                    <td>$170-320</td>
+                    <td>2-3天</td>
+                    <td><span class="badge badge-green">↓ 竞争激烈</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Osaka/Kobe→PUS</strong></td>
+                    <td>SINOKOR/HMM 支线</td>
+                    <td>$120-200</td>
+                    <td>$220-380</td>
+                    <td>2-3天</td>
+                    <td><span class="badge badge-gray">→ 稳定</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p style="font-size:0.82em;color:#90a4ae;margin:8px 0 0 4px;line-height:1.6;">
+        <strong>数据来源：</strong>Xeneta 运价基准平台（合约价 & 即期价区间）、Drewry World Container Index（航线指数参考）、Alphaliner 运力数据库（舱位供给端）、各船司官网公告与运价表（附加费 & GRI）。以上运价为 2026 Q1–Q2 参考区间，实际成交价因合约类型、货量、附加费（BAF/CAF/PSS/GRI）及市场波动而异，仅供参考。
+    </p>
+
+    <div class="alert-banner alert-red" style="margin-top:24px;">
+        <div class="icon">⚡</div>
+        <div>
+            <h3>影响运价的四大关键因素</h3>
+            <p><strong>① 红海危机间接效应：</strong>红海危机吸引大量运力绕行好望角，使亚洲区域内可用运力相对收紧，推高PUS→印巴方向舱位成本。<br/>
+            <strong>② 印度港口拥堵溢价：</strong>INNSA/Mundra持续面临内陆交通瓶颈和堆场紧张，滞港时间延长推高综合物流成本。<br/>
+            <strong>③ 旺季前置效应：</strong>韩国出口旺季在3-5月和9-11月，这两个时段运价可能上浮15-25%。<br/>
+            <strong>④ 结构性下行压力：</strong>2024-2026年全球新增200万+TEU运力交付，中长期过剩终将传导至本航线。</p>
+        </div>
+    </div>
+
+    <!-- ⑤ 贸易结构 -->
+    <h2><span class="num">⑤</span>韩→印/巴贸易结构 Top品类</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>排序</th>
+                    <th>品类 Category</th>
+                    <th>HS编码</th>
+                    <th>年贸易额估算</th>
+                    <th>主要流向与说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1</strong></td>
+                    <td><strong>电子电气 Products Electronics &amp; Electrical</strong></td>
+                    <td>HS 85/84</td>
+                    <td class="up">$55-65亿</td>
+                    <td>三星印度Noida工厂供应链 · 显示面板/存储芯片/摄像头模组 → INNSA/Chennai</td>
+                </tr>
+                <tr>
+                    <td><strong>2</strong></td>
+                    <td><strong>机械设备 Machinery &amp; Mechanical</strong></td>
+                    <td>HS 84</td>
+                    <td>$30-40亿</td>
+                    <td>半导体制造设备 · 工程机械 · 工业机器人 · 精密机床</td>
+                </tr>
+                <tr>
+                    <td><strong>3</strong></td>
+                    <td><strong>有机化学 Organic Chemicals</strong></td>
+                    <td>HS 29</td>
+                    <td>$20-28亿</td>
+                    <td>电子级化学品 · 染料中间体 → 巴基斯坦纺织业 · PET原料</td>
+                </tr>
+                <tr>
+                    <td><strong>4</strong></td>
+                    <td><strong>汽车及零部件 Vehicles &amp; Parts</strong></td>
+                    <td>HS 87</td>
+                    <td>$8-12亿</td>
+                    <td>现代/起亚CKD散件 → 印度/巴基斯坦组装厂 · 发动机/变速箱</td>
+                </tr>
+                <tr>
+                    <td><strong>5</strong></td>
+                    <td><strong>钢铁制品 Iron &amp; Steel</strong></td>
+                    <td>HS 73/72</td>
+                    <td>$15-20亿</td>
+                    <td>冷轧钢板 · 不锈钢管材 · 螺纹钢 → 印度基建 / 巴基斯坦建筑</td>
+                </tr>
+                <tr>
+                    <td><strong>6</strong></td>
+                    <td><strong>塑料及其制品 Plastics</strong></td>
+                    <td>HS 39</td>
+                    <td>$5-8亿</td>
+                    <td>工程塑料 · 包装材料 → 印度消费市场</td>
+                </tr>
+                <tr>
+                    <td><strong>7</strong></td>
+                    <td><strong>二手车/拆车件 Used Vehicles</strong></td>
+                    <td>HS 87(used)</td>
+                    <td>$3-5亿</td>
+                    <td>韩国是全球第二大二手车出口国 → <strong>巴基斯坦为Top3目的地</strong> · KICT有专门检验设施</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ⑥ 中转生态 -->
+    <h2><span class="num">⑥</span>中转生态 — 釜山与巴生的双枢纽联动</h2>
+    <div class="info-grid">
+        <div class="info-card">
+            <h4>🇰🇷 釜山中转 — 第一层：东北亚集货</h4>
+            <ul>
+                <li><strong>中国北方 ~40%：</strong>青岛/大连/天津/连云港通过支线或陆桥到PUS中转，东北三省走大连→PUS仅1天</li>
+                <li><strong>日本 ~25%：</strong>大阪/神户/名古屋到PUS 1天内可达</li>
+                <li><strong>韩国本土 ~35%：</strong>直接出口货，不属T/S但共享舱位规模经济</li>
+                <li><strong>操作模式：</strong>CY-CY标准中转(+$50-150/TEU) 占主流 · 直装/增值中转为辅</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <h4>🇲🇾 巴生港中转 — 第二层：南亚分拨</h4>
+            <ul>
+                <li><strong>位置：</strong>马六甲海峡西口 · 远东至南亚/中东/东非必经之路</li>
+                <li><strong>功能：</strong>将PUS来货分拨至INNSA/INMUN(印度) 和 PKKHI(巴基斯坦)</li>
+                <li><strong>运营商：</strong>Westports (北港) + MTT (南港) · 北港以中转为主</li>
+                <li><strong>优势：</strong>自由区政策 · 24小时作业 · 免税期优惠</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <h4>⛓ 双枢纽串联效应</h4>
+            <ul>
+                <li>PUS负责<strong>"东北亚集货"</strong> — 把中日韩三国的货集中起来</li>
+                <li>PKG负责<strong>"南亚分拨"</strong> — 将集中的货物分发到各印度/巴基斯坦港口</li>
+                <li>两者形成<strong>"漏斗式"</strong>两级中转架构</li>
+                <li>相比从中国港口直达印巴，此路径可利用更密的班次频率和更大的船舶规模</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 三种中转操作对比 -->
+    <h3>三种中转操作模式对比</h3>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>模式</th>
+                    <th>操作流程</th>
+                    <th>适用场景</th>
+                    <th>时效影响</th>
+                    <th>成本影响</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>直装 Direct Loading</strong></td>
+                    <td>支线卸货 → 直接装入同泊位远洋大船</td>
+                    <td>时间窗口匹配好的大宗货</td>
+                    <td><span class="up">最快 · 零延误</span></td>
+                    <td>最低</td>
+                </tr>
+                <tr>
+                    <td><strong>CY-CY 中转 CY Transfer</strong></td>
+                    <td>支线卸入堆场 → 远洋船从堆场提取装船</td>
+                    <td>最常见模式 · 标准操作</td>
+                    <td>+1~3天</td>
+                    <td>+ $50-150/TEU</td>
+                </tr>
+                <tr>
+                    <td><strong>增值中转 Value-Add T/S</strong></td>
+                    <td>卸箱 → 保税仓储 → 分拣/贴标/拼装 → 重新装箱</td>
+                    <td>多国集拼 / 质检需求</td>
+                    <td><span class="down">+3~7天</span></td>
+                    <td>+ $200-500/TEU</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ⑦ 目的地港口详情 -->
+    <h2><span class="num">⑦</span>目的地港口 — INNSA / INMUN / PKKHI 详解</h2>
+    <div class="info-grid">
+        <div class="info-card" style="border-left:4px solid #e94560;">
+            <h4>🇮🇳 JNhava Sheva — INNSA</h4>
+            <ul>
+                <li><strong>性质：</strong>印度第一大集装箱港 · 孟买港群核心</li>
+                <li><strong>运营商：</strong>JNPA(国有港务局) / DP World(NSICT) / Bharat Mumbai</li>
+                <li><strong>瓶颈：</strong>内陆交通拥堵严重 · 连接公路经常堵塞</li>
+                <li><strong>优势：</strong>覆盖孟买-德里工业走廊 · Nhava Sheva免税区</li>
+                <li><strong>主要货类进：</strong>电子产品 · 机械 · 化工品 · 汽车零部件</li>
+                <li><strong>主要货类出：</strong>纺织品 · 棉花 · 医药 · 农产品</li>
+            </ul>
+        </div>
+        <div class="info-card" style="border-left:4px solid #ffa500;">
+            <h4>🇮🇳 Mundra Port — INMUN</h4>
+            <ul>
+                <li><strong>性质：</strong>Adani Ports旗下旗舰港 · 增速最快的印度大港</li>
+                <li><strong>优势：</strong>深海港(-17.5m) · 后方腹地广阔 · 铁路连接好</li>
+                <li><strong>码头：</strong>APM Terminals + Adani自营 · 效率高于INNSA</li>
+                <li><strong>特色：</strong>印度最大煤炭进口港 · 液体化工码头齐全</li>
+                <li><strong>发展：</strong>持续扩容中 · 有望超越INNSA成为印度第一</li>
+            </ul>
+        </div>
+        <div class="info-card" style="border-left:4px solid #3fb950;">
+            <h4>🇵🇰 Karachi (KICT + SAPT) — PKKHI</h4>
+            <ul>
+                <li><strong>KICT(Karachi Int'l):</strong>DP World运营 · 主要是集装箱 · 二手车专业卸货设施</li>
+                <li><strong>SAPT(South Asia PT):</strong>卡拉奇港务局 · 粮食/化肥/散货为主</li>
+                <li><strong>特征：</strong>韩国二手车最大单一目的地港之一</li>
+                <li><strong>挑战：</strong>港口基础设施老化 · 清关效率待提升</li>
+                <li><strong>CPEC带动：</strong>中巴经济走廊二期推进 · 基建物资需求上升</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ⑧ 竞争对比 -->
+    <h2><span class="num">⑧</span>竞争格局 — 釜山 vs 替代方案</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>维度</th>
+                    <th>🇰🇷 本航线(PUS-PKG-INDPAK)</th>
+                    <th>🇸🇬 新加坡中转方案</th>
+                    <th>🇨🇳 中国直发方案</th>
+                    <th>🇯🇵 日本中转</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>典型路径</strong></td>
+                    <td style="background:#e8f0fe;color:#1a5276;padding:2px 8px;border-radius:4px;">PUS→TAO→NGB→SHK→PKG→INNSA</td>
+                    <td>SIN/PKG→INNSA/PKKHI</td>
+                    <td>NGB/SHA→Colombo→INNSA</td>
+                    <td>Tokyo Bay→SIN→INNSA</td>
+                </tr>
+                <tr>
+                    <td><strong>对中国货吸引力</strong></td>
+                    <td class="up">极强 ⭐⭐⭐⭐⭐</td>
+                    <td>一般（需绕道南下）</td>
+                    <td class="up">极强(本国)</td>
+                    <td>弱</td>
+                </tr>
+                <tr>
+                    <td><strong>对韩国货适配性</strong></td>
+                    <td class="up">完美 ⭐⭐⭐⭐⭐</td>
+                    <td>较好（但多绕路）</td>
+                    <td>差（需先运到中国）</td>
+                    <td>一般</td>
+                </tr>
+                <tr>
+                    <td><strong>班次密度</strong></td>
+                    <td class="up">高 · 中日韩支线密集</td>
+                    <td class="up">极高 · 全球最密</td>
+                    <td>高</td>
+                    <td>中等</td>
+                </tr>
+                <tr>
+                    <td><strong>船舶规模</strong></td>
+                    <td class="up">大 · 可用ULCV</td>
+                    <td class="up">最大 · ULCV常态化</td>
+                    <td>大</td>
+                    <td>中大</td>
+                </tr>
+                <tr>
+                    <td><strong>综合成本</strong></td>
+                    <td class="warn">中等偏低</td>
+                    <td>偏高（额外航程）</td>
+                    <td class="down">最低(中国货)</td>
+                    <td>偏高</td>
+                </tr>
+                <tr>
+                    <td><strong>最佳适用场景</strong></td>
+                    <td><strong>韩国出口 + 中国北方货物</strong></td>
+                    <td>华南/东南亚货物为主</td>
+                    <td>纯中国南方货物直发</td>
+                    <td>日本货物为主</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ⑨ 市场机会洞察 -->
+    <h2><span class="num">⑨</span>市场机会洞察 — 六大战略方向</h2>
+    <div class="info-grid">
+        <div class="info-card" style="border-left:4px solid #27ae60;">
+            <h4>💡 机会一：半导体供应链延伸</h4>
+            <ul>
+                <li>三星印度工厂扩产 + "Semicon India"国家补贴</li>
+                <li>晶圆设备 · 洁净室材料 · 特种化学品运输需求持续增长</li>
+                <li><strong>未来3-5年最确定的增量来源</strong></li>
+            </ul>
+        </div>
+        <div class="info-card" style="border-left:4px solid #2980b9;">
+            <h4>🚗 机会二：汽车CKD出口爆发</h4>
+            <ul>
+                <li>现代/起亚在印度、巴基斯坦持续扩建整车组装厂</li>
+                <li>发动机 · 变速箱 · 车身零部件 · 汽车玻璃等CKD散件快速上升</li>
+                <li>通常走HMM CIS直航或专租舱位</li>
+            </ul>
+        </div>
+        <div class="info-card" style="border-left:4px solid #d4a853;">
+            <h4>♻️ 机会三：二手车专业化物流</h4>
+            <ul>
+                <li>韩国→巴基斯坦是全球最活跃二手车海运走廊之一</li>
+                <li>卡拉奇KICT有专门检验设施</li>
+                <li>可开发门到门：釜山收车→海运→卡拉奇清关→配送拉合尔/伊斯兰堡</li>
+            </ul>
+        </div>
+        <div class="info-card" style="border-left:4px solid #e74c3c;">
+            <h4>🔄 机会四：回程货开发 — 印度纺织品</h4>
+            <ul>
+                <li>印度全球第二大棉纺生产国 · 韩国需大量进口棉纱坯布</li>
+                <li>当前回程装载率仅35-45%，提升空间巨大</li>
+                <li>开发India→Korea纺织品回程可大幅改善往返收益平衡</li>
+            </ul>
+        </div>
+        <div class="info-card" style="border-left:4px solid #9b59b6;">
+            <h4>⚡ 机会五：电池及新能源产业链</h4>
+            <ul>
+                <li>SDI/SK ON/LGES三大电池厂加速海外布局</li>
+                <li>正极材料 · 隔膜 · 电解液生产设备发往印度新能源产业园</li>
+            </ul>
+        </div>
+        <div class="info-card" style="border-left:4px solid #1abc9c;">
+            <h4>🏗️ 机会六：巴基斯坦基建物资</h4>
+            <ul>
+                <li>CPEC二期带动全国基建热潮</li>
+                <li>韩国工程机械/发电设备/水泥生产线在该市场有差异化竞争优势</li>
+                <li>质量优于中国低价竞品 · 定位高端基建项目</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ⑩ 行动建议 -->
+    <h2><span class="num">⑩</span>行动建议</h2>
+    <div class="highlight">
+        <h4>🎯 本航线开发行动清单</h4>
+        <ol>
+            <li><strong>立即行动：</strong>梳理手头客户中有韩国/印/巴业务的公司，主动推荐PUS-PKG-INDPAK中转方案，发送本报告摘要</li>
+            <li><strong>本周内：</strong>了解HMM/MSC/KMTC最新的PUS→INNSA/PKKHI航线费率和舱位情况</li>
+            <li><strong>本月内：</strong>筛选1-2个重点客户设计"PUS集货+PKG中转+印巴分拨"定制报价方案，对比直航成本优势</li>
+            <li><strong>持续跟踪：</strong>关注红海局势变化（间接影响亚洲区域内运力）、釜山新港扩建进度、印度INNSA/Mundra拥堵状况</li>
+            <li><strong>中长期：</strong>考虑建立釜山本地合作伙伴关系（报关行/拖车行/仓储），为深度介入韩国出口市场做准备；同时评估在PKG建立代理网络的可行性</li>
+        </ol>
+    </div>
+
+</div>
+
+<div class="footer">
+    <p><strong>韩国航线市场报告</strong></p>
+    <p style="margin-top:6px;">航线路径：PUS → TAO → NGB → SHK → PKG → INNSA / INMUN / PKKHI → PKG</p>
+    <p style="margin-top:6px;">资料来源：Busan Port Authority (BPA) · MOF South Korea · IBEF · PBS Pakistan · Alphaliner / Drewry / Xeneta</p>
+    <p style="margin-top:8px;color:#555;">For internal use by Marketing Team | 仅供内部参考 &nbsp;©&nbsp; 2026</p>
+</div>
+
+</body>
+</html>
