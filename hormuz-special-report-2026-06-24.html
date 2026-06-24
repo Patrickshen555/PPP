@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霍尔木兹海峡专题汇报 · 2026-06-24</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #0d1117; color: #e6edf3; line-height: 1.7; padding: 24px; }
+.container { max-width: 1060px; margin: 0 auto; }
+
+/* Header */
+.header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: #fff; padding: 32px 36px; border-radius: 14px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(15,52,96,0.4); position: relative; overflow: hidden; }
+.header::before { content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; background: rgba(233,69,96,0.15); border-radius: 50%; }
+.header::after { content: ''; position: absolute; bottom: -20px; left: -20px; width: 80px; height: 80px; background: rgba(0,168,150,0.12); border-radius: 50%; }
+.header h1 { font-size: 26px; margin-bottom: 4px; position: relative; }
+.header .subtitle { font-size: 15px; color: #a8b2d1; margin-bottom: 8px; }
+.header .meta { font-size: 13px; opacity: 0.85; position: relative; }
+.tag { display: inline-block; background: rgba(233,69,96,0.25); color: #e94560; padding: 3px 12px; border-radius: 14px; font-size: 12px; margin-right: 6px; font-weight: 600; border: 1px solid rgba(233,69,96,0.3); }
+.tag.blue { background: rgba(0,168,150,0.2); color: #00a896; border-color: rgba(0,168,150,0.3); }
+.tag.yellow { background: rgba(255,193,7,0.2); color: #ffc107; border-color: rgba(255,193,7,0.3); }
+
+/* Status Dashboard */
+.dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.dash-card { background: #161b22; border-radius: 10px; padding: 16px 18px; text-align: center; border: 1px solid #30363d; }
+.dash-card .label { font-size: 11px; color: #8b949e; margin-bottom: 4px; }
+.dash-card .value { font-size: 22px; font-weight: bold; }
+.dash-card .value.red { color: #e94560; }
+.dash-card .value.green { color: #00a896; }
+.dash-card .value.yellow { color: #ffc107; }
+.dash-card .value.blue { color: #58a6ff; }
+.dash-card .sub { font-size: 11px; color: #8b949e; margin-top: 2px; }
+
+/* Summary */
+.summary { background: #161b22; border: 1px solid #e94560; border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; }
+.summary h3 { font-size: 16px; color: #e94560; margin-bottom: 10px; }
+.summary p { font-size: 14px; color: #c9d1d9; }
+
+/* Section headers */
+h2.section { font-size: 18px; color: #58a6ff; margin: 28px 0 14px 0; padding-left: 12px; border-left: 4px solid #58a6ff; }
+
+/* Cards */
+.card { background: #161b22; border-radius: 10px; padding: 22px 26px; margin-bottom: 16px; border: 1px solid #30363d; border-left: 5px solid #58a6ff; }
+.card.red { border-left-color: #e94560; }
+.card.orange { border-left-color: #ffc107; }
+.card.green { border-left-color: #00a896; }
+.card.purple { border-left-color: #a371f7; }
+.card.teal { border-left-color: #3fb950; }
+.card h2 { font-size: 17px; color: #e6edf3; }
+.card .label { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+.card.red .label { background: rgba(233,69,96,0.15); color: #e94560; }
+.card.orange .label { background: rgba(255,193,7,0.15); color: #ffc107; }
+.card.green .label { background: rgba(0,168,150,0.15); color: #00a896; }
+.card.purple .label { background: rgba(163,113,247,0.15); color: #a371f7; }
+.card.teal .label { background: rgba(63,185,80,0.15); color: #3fb950; }
+.card .desc { font-size: 14px; color: #c9d1d9; margin: 12px 0; }
+.card .highlight { background: rgba(233,69,96,0.08); border: 1px solid rgba(233,69,96,0.2); border-radius: 6px; padding: 12px 16px; font-size: 13px; color: #c9d1d9; margin: 10px 0; }
+.card .highlight strong { color: #e94560; }
+.card .highlight.green { background: rgba(0,168,150,0.08); border-color: rgba(0,168,150,0.2); }
+.card .highlight.green strong { color: #00a896; }
+.card .highlight.blue { background: rgba(88,166,255,0.08); border-color: rgba(88,166,255,0.2); }
+.card .highlight.blue strong { color: #58a6ff; }
+.card .highlight.purple { background: rgba(163,113,247,0.08); border-color: rgba(163,113,247,0.2); }
+.card .highlight.purple strong { color: #a371f7; }
+.card .data-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.card .data-chip { background: rgba(88,166,255,0.12); color: #58a6ff; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 500; border: 1px solid rgba(88,166,255,0.2); }
+.card .data-chip.red { background: rgba(233,69,96,0.12); color: #e94560; border-color: rgba(233,69,96,0.2); }
+.card .data-chip.green { background: rgba(0,168,150,0.12); color: #00a896; border-color: rgba(0,168,150,0.2); }
+.card .data-chip.yellow { background: rgba(255,193,7,0.12); color: #ffc107; border-color: rgba(255,193,7,0.2); }
+.card .data-chip.purple { background: rgba(163,113,247,0.12); color: #a371f7; border-color: rgba(163,113,247,0.2); }
+.card .source { font-size: 12px; color: #8b949e; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #30363d; }
+.card .source a { color: #58a6ff; text-decoration: none; }
+.card .source a:hover { text-decoration: underline; }
+
+/* Timeline */
+.timeline { background: #161b22; border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; border: 1px solid #30363d; }
+.timeline h3 { font-size: 15px; color: #58a6ff; margin-bottom: 12px; }
+.tl-item { display: flex; gap: 14px; margin-bottom: 10px; }
+.tl-date { min-width: 72px; font-size: 12px; color: #ffc107; font-weight: 600; text-align: right; }
+.tl-content { font-size: 13px; color: #c9d1d9; }
+.tl-content .type { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+.tl-content .type.dip { background: rgba(88,166,255,0.15); color: #58a6ff; }
+.tl-content .type.mil { background: rgba(233,69,96,0.15); color: #e94560; }
+.tl-content .type.mar { background: rgba(0,168,150,0.15); color: #00a896; }
+.tl-content .type.econ { background: rgba(255,193,7,0.15); color: #ffc107; }
+
+/* Comparison table */
+.table-wrap { background: #161b22; border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; border: 1px solid #30363d; }
+.table-wrap h3 { font-size: 15px; color: #58a6ff; margin-bottom: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { background: #21262d; color: #8b949e; padding: 10px 12px; text-align: left; font-weight: 600; border-bottom: 2px solid #30363d; }
+td { padding: 10px 12px; border-bottom: 1px solid #30363d; color: #c9d1d9; }
+tr:hover td { background: rgba(88,166,255,0.04); }
+td.red { color: #e94560; font-weight: 600; }
+td.green { color: #00a896; font-weight: 600; }
+td.yellow { color: #ffc107; font-weight: 600; }
+td.blue { color: #58a6ff; }
+
+/* Prediction bar */
+.prediction { background: #161b22; border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; border: 1px solid #30363d; }
+.prediction h3 { font-size: 15px; color: #a371f7; margin-bottom: 12px; }
+.pred-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.pred-label { min-width: 180px; font-size: 13px; color: #c9d1d9; }
+.pred-bar-wrap { flex: 1; height: 22px; background: #21262d; border-radius: 4px; position: relative; overflow: hidden; }
+.pred-bar { height: 100%; border-radius: 4px; transition: width 0.3s; }
+.pred-bar.red { background: linear-gradient(90deg, #e94560, #e94560aa); }
+.pred-bar.green { background: linear-gradient(90deg, #00a896, #00a896aa); }
+.pred-bar.yellow { background: linear-gradient(90deg, #ffc107, #ffc107aa); }
+.pred-val { font-size: 13px; font-weight: bold; min-width: 40px; text-align: right; }
+
+/* Footer */
+.footer { text-align: center; color: #484f58; font-size: 12px; margin-top: 28px; padding: 16px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>⚠️ 霍尔木兹海峡专题汇报</h1>
+    <div class="subtitle">封锁第 115 天 · 从"完全关闭"到"混乱部分开放"</div>
+    <div class="meta">
+      <span class="tag">2026-06-24 周三</span>
+      <span class="tag blue">航运日报特刊</span>
+      <span class="tag yellow">自动化任务 #1781485712150</span>
+    </div>
+  </div>
+
+  <!-- STATUS DASHBOARD -->
+  <div class="dashboard">
+    <div class="dash-card">
+      <div class="label">封锁天数</div>
+      <div class="value red">115 天</div>
+      <div class="sub">自 2026-02-28 起</div>
+    </div>
+    <div class="dash-card">
+      <div class="label">日通行量</div>
+      <div class="value red">5 艘/日</div>
+      <div class="sub">仅正常水平的 5%</div>
+    </div>
+    <div class="dash-card">
+      <div class="label">正常通行量</div>
+      <div class="value blue">93 艘/日</div>
+      <div class="sub">危机前基准</div>
+    </div>
+    <div class="dash-card">
+      <div class="label">滞留海员</div>
+      <div class="value yellow">11,000+</div>
+      <div class="sub">IMO 撤离计划启动</div>
+    </div>
+    <div class="dash-card">
+      <div class="label">VLCC 日收益</div>
+      <div class="value yellow">$47万</div>
+      <div class="sub">逼近历史高位</div>
+    </div>
+    <div class="dash-card">
+      <div class="label">布伦特油价</div>
+      <div class="value green">$76.25</div>
+      <div class="sub">-0.55% 仅比危机前高6%</div>
+    </div>
+    <div class="dash-card">
+      <div class="label">6/23穿越明细</div>
+      <div class="value blue">43 艘</div>
+      <div class="sub">驶入15 / 驶出28</div>
+    </div>
+    <div class="dash-card">
+      <div class="label">BDTI原油运输指数</div>
+      <div class="value yellow">2,227</div>
+      <div class="sub">+2.34% 物理摩擦成本</div>
+    </div>
+    <div class="dash-card">
+      <div class="label">CTFI中国油运指数</div>
+      <div class="value red">5,863</div>
+      <div class="sub">单日+486点 合规摩擦飙升</div>
+    </div>
+  </div>
+
+  <!-- CORE SUMMARY -->
+  <div class="summary">
+    <h3>📌 核心判断：海峡处于"有争议/争夺中"状态</h3>
+    <p>伊朗宣称海峡"开放60天免费通行"，但同时设立PGSA管理局要求船舶持其批准的保险单（现阶段免费但后续可能收费），与阿曼成立联合工作组共商海峡管理权，明确声明"海峡将永远无法恢复战前状态"。美国国务卿鲁比奥坚持"任何国家不得收取通行费"，阿曼私下向美国保证"不会参与收费"。IMO启动11,000名滞留海员撤离计划。通航量仅恢复至正常5%，TSS主航道未经扫雷，船舶被迫使用两条替代路线。VLCC日收益逼近$47万历史高位，战争险保费已降至船体价值3%（从5%回落）。预测市场：6月底恢复正常概率仅<b>2%</b>，年底前达<b>87%</b>。</p>
+  </div>
+
+  <!-- SECTION 1: CURRENT STATUS -->
+  <h2 class="section">1️⃣ 当前通行实况</h2>
+
+  <div class="card red">
+    <h2>伊朗宣布"免费开放60天"，但以PGSA保险制度铺垫未来收费</h2>
+    <span class="label">通行规则 · 核心争议</span>
+    <p class="desc">6月23日，伊朗常驻联合国日内瓦办事处代表巴赫雷尼宣布：霍尔木兹海峡已开放，为期60天，其间不收取任何费用。伊美双方建立沟通机制监控海峡运行。但60天后，海峡开放的具体情况将由伊美谈判结果决定。</p>
+    <p class="desc" style="color:#ffc107;">⚠️ 关键绕行机制：伊朗5月设立波斯湾海峡管理局(PGSA)，要求所有通过海峡的船舶必须持有由PGSA批准的有效保险单——现阶段免费提供，但PGSA已成立专门保险公司。Lloyd's List主编理查德·米德指出，这一要求"有效规避了美伊协议，为伊朗未来收取费用铺平道路"。</p>
+    <div class="data-row">
+      <span class="data-chip yellow">60天免费通行窗口</span>
+      <span class="data-chip red">PGSA保险单强制要求</span>
+      <span class="data-chip purple">PGSA保险公司已成立</span>
+      <span class="data-chip">OFAC警告：付费可能触发制裁</span>
+    </div>
+    <div class="highlight purple">
+      <strong>三层通行路径已形成：</strong><br>
+      ① <b>双边豁免层</b>：印度、伊拉克、巴基斯坦通过政治安排通行，不正式收费<br>
+      ② <b>PGSA收费层</b>：中国关联和UAE灰色/影子船队支付通行费（据报高达$200万/次，以人民币或比特币结算）<br>
+      ③ <b>执法风险层</b>：暗状态操作的船只面临美国海上扣押、OFAC制裁和海湾港口执法<br>
+      无中立过境选项——每艘船必须选择一条路径。
+    </div>
+    <div class="source">
+      📰 <a href="https://news.qq.com/rain/a/20260624A04Y5000" target="_blank">澎湃新闻：伊朗称霍尔木兹海峡免费开放60天，然后收取保险费？</a> ·
+      <a href="https://www.hstoday.us/subject-matter-areas/maritime-security/iran-tightens-grip-on-strait-of-hormuz-as-shipping-forced-into-controlled-routes/" target="_blank">HS Today：Iran tightens grip, shipping forced into controlled routes</a>
+    </div>
+  </div>
+
+  <div class="card red">
+    <h2>双路线通行系统：伊朗路线 vs 美国支持路线，TSS主航道未经扫雷</h2>
+    <span class="label">通航实况 · 安全风险</span>
+    <p class="desc">当前船舶被迫使用两条替代路线（TSS以南和以北），因为TSS主航道截至6月18日仍<b>未经扫雷</b>，且没有任何扫雷行动在进行中。联合海事信息中心(JMIC)警告船只避开海峡中部，使用靠近阿曼海岸的南向航线，称该航线"已确认无雷"。6月23日，首批船只返回TSS中央航道，但仅零星通行。IMO与阿曼等沿海国家协调制定撤离计划，将分阶段推进——鉴于当前碰撞风险较高，需逐步且受控疏散。</p>
+    <div class="data-row">
+      <span class="data-chip red">TSS未经扫雷</span>
+      <span class="data-chip green">南向替代航线确认无雷</span>
+      <span class="data-chip">首批船只返回中央航道</span>
+      <span class="data-chip yellow">IMO分阶段撤离计划</span>
+    </div>
+    <div class="highlight">
+      <strong>水雷威胁现状：</strong>美国情报估计伊朗拥有约5,000枚不同类型水雷，包括具备磁力/地震/压力/声学组合传感器的智能水雷。部分水雷有"船只计数器"功能——当一定数量船只经过后引爆，对护航队造成毁灭性打击。意大利防长警告："没有哪个国家能在不确定其舰船会否被轰炸的情况下介入冲突。扫雷舰不是战舰，无法自卫。"五角大楼估计全面扫雷需<b>6个月</b>。
+    </div>
+    <div class="source">
+      📰 <a href="https://www.sohu.com/a/1038212406_260616" target="_blank">澎湃新闻：美伊提前签署协议，霍尔木兹重开如何克服水雷障碍</a> ·
+      <a href="https://www.sohu.com/a/1037757345_120012596" target="_blank">搜狐：霍尔木兹海峡水雷密布，清雷难度超想象</a>
+    </div>
+  </div>
+
+  <!-- SECTION 2: DIPLOMATIC -->
+  <h2 class="section">2️⃣ 地缘博弈：通行费之争与海峡管理权</h2>
+
+  <div class="card orange">
+    <h2>美伊"各说各话"：鲁比奥坚持免费通行 vs 伊朗声明"永不回到战前状态"</h2>
+    <span class="label">外交博弈 · 管理权争夺</span>
+    <p class="desc"><b>美国立场：</b>国务卿鲁比奥6月23日访问阿布扎比、科威特和巴林，强调"霍尔木兹海峡是国际水道，任何国家不得收取通行费，伊朗会接受这一点，地区所有国家都会同意"。特朗普提出"守护天使费"——若60天内未达成最终协议，美国将对海峡征收通行费，用作美方为中东国家提供服务的资金。</p>
+    <p class="desc"><b>伊朗立场：</b>首席谈判代表、议会议长卡利巴夫明确表示"海峡将永远无法恢复战前状态，将由伊朗伊斯兰共和国根据国际法和本国安排进行管理"。伊朗同意建立协调中心和沟通热线避免冲突和意外。</p>
+    <p class="desc"><b>阿曼立场：</b>6月24日，伊朗和阿曼发表联合声明，成立联合工作组就海峡未来航行管理达成协议，强调"与海峡有关的所有安排必须充分尊重两国主权和主权权利"。但阿曼私下向美国保证"不会对海峡通航收费"。</p>
+    <div class="data-row">
+      <span class="data-chip blue">鲁比奥：不得收费</span>
+      <span class="data-chip red">伊朗：永不回到战前</span>
+      <span class="data-chip yellow">特朗普：守护天使费</span>
+      <span class="data-chip purple">伊朗阿曼联合工作组</span>
+      <span class="data-chip">IMO协调撤离</span>
+    </div>
+    <div class="highlight blue">
+      <strong>核心矛盾：</strong>美伊谅解备忘录允许伊朗60天内暂时管理海峡，但备忘录第14条写明——"之后伊朗和阿曼将与其他波斯湾沿岸国家讨论海峡未来的管理及海事服务，遵循国际法和沿岸国家主权权利"。这等于<b>没有直接禁止伊朗收取费用</b>，仅要求"遵循适用的国际法"。IMO发言人表示"沿海国家不能暂停或阻碍航行权，国际法中没有明确依据允许强制收取过路费"，但<b>未排除各国"形成合作机制以协助管理海峡"的可能性</b>——为伊朗的PGSA制度留下了法律灰色地带。
+    </div>
+    <div class="source">
+      📰 <a href="https://news.qq.com/rain/a/20260624A04Y5000" target="_blank">澎湃新闻：伊朗称霍尔木兹海峡免费开放60天</a> ·
+      <a href="https://news.qq.com/rain/a/20260624A051I200" target="_blank">财联社：伊朗阿曼共商海峡管理，波斯湾或迎"共治时代"</a> ·
+      <a href="https://finance.sina.com.cn/wm/2026-06-21/doc-iniecmta1316437.shtml" target="_blank">新浪财经：美伊技术层面会谈，霍尔木兹通行又现"罗生门"</a>
+    </div>
+  </div>
+
+  <!-- SECTION 3: SHIPPING IMPACT -->
+  <h2 class="section">3️⃣ 航运影响全景</h2>
+
+  <div class="card purple">
+    <h2>全球前9大集装箱公司全部绕航好望角，仅中远有限通行</h2>
+    <span class="label">集运 · 运力损失</span>
+    <div class="table-wrap" style="margin-top:12px; padding:0;">
+      <table>
+        <thead>
+          <tr><th>船司</th><th>策略</th><th>附加费/TEU</th><th>滞留船只</th><th>滞留运力</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>MSC</td><td class="red">绕航好望角</td><td>$1,200</td><td>15艘</td><td class="red">109K TEU</td></tr>
+          <tr><td>马士基</td><td class="red">绕航好望角</td><td>$1,000</td><td>14艘</td><td class="red">70K TEU</td></tr>
+          <tr><td>达飞轮船</td><td class="red">绕航好望角</td><td>$950</td><td>1艘</td><td>—</td></tr>
+          <tr><td>中远海运</td><td class="yellow">有限通行(护航)</td><td>$600</td><td>5艘</td><td>—</td></tr>
+          <tr><td>赫伯罗特</td><td class="red">绕航好望角</td><td>$1,100</td><td>6艘</td><td>25K TEU</td></tr>
+          <tr><td>ONE</td><td class="red">绕航好望角</td><td>$900</td><td>—</td><td>—</td></tr>
+          <tr><td>长荣</td><td class="red">绕航好望角</td><td>$850</td><td>—</td><td>—</td></tr>
+          <tr><td>HMM</td><td class="red">绕航好望角</td><td>$800</td><td>—</td><td>—</td></tr>
+          <tr><td>阳明</td><td class="red">绕航好望角</td><td>$750</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px; color:#8b949e; margin-top:8px;">汇总：8家绕航 · 1家有限通行 · 41艘滞留 · 约204K TEU运力被困</p>
+    </div>
+    <div class="source">
+      📰 <a href="https://straits.live/" target="_blank">straits.live：实时海峡监控数据</a> ·
+      <a href="https://www.hstoday.us/subject-matter-areas/maritime-security/iran-tightens-grip-on-strait-of-hormuz-as-shipping-forced-into-controlled-routes/" target="_blank">HS Today：Iran tightens grip on Strait</a>
+    </div>
+  </div>
+
+  <div class="card red">
+    <h2>油轮市场：VLCC日收益逼近$47万历史高位，战争险保费从5%降至3%</h2>
+    <span class="label">油运 · 运价飙升</span>
+    <p class="desc">霍尔木兹海峡外油轮日租金从一周前的$10.65万跳涨至<b>$19.05万</b>（近翻倍）；VLCC日均收益更逼近<b>$47万</b>历史高位，单周涨幅超$5万。克拉克森研报指出"船东正为中东原油大批涌入做准备，TCE日均破十万美元令人振奋"。战争风险保险费率过去5天从船体价值<b>5%降至3%</b>（未计折扣），单艘船支出可减少数十万美元。</p>
+    <p class="desc" style="color:#ffc107;">⚠️ 但保险市场仍高度紧张：VLCC战争险保费约$250万/航次，为正常水平的<b>8倍</b>；6家P&I俱乐部已撤回承保；劳合社JWC已将海峡列入高风险区域名单。</p>
+    <div class="data-row">
+      <span class="data-chip yellow">油轮日租 $10.65万→$19.05万</span>
+      <span class="data-chip red">VLCC日收益 逼近$47万</span>
+      <span class="data-chip green">战争险 5%→3%</span>
+      <span class="data-chip red">8倍正常水平</span>
+      <span class="data-chip red">6家P&I撤保</span>
+    </div>
+    <div class="source">
+      📰 <a href="https://www.cngold.org/c/2026-06-24/c10579852.html" target="_blank">金投网：霍尔木兹通了+油轮租金翻倍</a> ·
+      <a href="https://straits.live/" target="_blank">straits.live：实时监控</a>
+    </div>
+  </div>
+
+  <!-- SECTION 4: IRAN EXPORT -->
+  <h2 class="section">4️⃣ 伊朗出口基础设施东移</h2>
+
+  <div class="card teal">
+    <h2>伊朗正在建立"绕过霍尔木兹"的替代出口网络</h2>
+    <span class="label">基础设施 · 战略转型</span>
+    <p class="desc">伊朗的出口基础设施正在向<b>东部转移</b>，形成绕过海峡的替代通道：</p>
+    <div class="table-wrap" style="margin-top:8px; padding:0;">
+      <table>
+        <thead>
+          <tr><th>节点</th><th>位置</th><th>功能</th><th>关键数据</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Kharg岛</td><td>波斯湾内</td><td>传统原油终端</td><td>6/21周出口679万桶(2月来最高)；经历13天零装载黑暗期后恢复多泊位装载</td></tr>
+          <tr><td>Kuh Mubarak浮标</td><td>阿曼湾(海峡以东110海里)</td><td>海上装载</td><td>5个月装载约690万桶伊朗重质原油，全部运往中国</td></tr>
+          <tr><td>Bandar-e Jask排序场</td><td>阿曼湾</td><td>Goreh-Jask管道后门</td><td>5/24首次观察到3艘暗状态VLCC锚泊</td></tr>
+          <tr><td>浮存储量</td><td>全球海域</td><td>海上存储</td><td>约3,979万桶在79艘油轮上浮存(从战争初期的1.5亿桶大幅下降)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="highlight green">
+      <strong>值得关注：</strong>Kuh Mubarak和Bandar-e Jask的激活意味着伊朗正在建设"绕过霍尔木兹"的永久性出口通道——即使海峡未来恢复常态，伊朗也将拥有东向出口的备选能力，这从根本上改变了波斯湾原油出口的地理逻辑。对中国而言，Kuh Mubarak的全部出口都运往中国，说明这条替代通道已成为中国进口伊朗原油的关键节点。
+    </div>
+    <div class="source">
+      📰 <a href="https://www.hstoday.us/subject-matter-areas/maritime-security/iran-tightens-grip-on-strait-of-hormuz-as-shipping-forced-into-controlled-routes/" target="_blank">HS Today：Iran tightens grip, detailed export infrastructure</a>
+    </div>
+  </div>
+
+  <!-- SECTION 5: TIMELINE -->
+  <h2 class="section">5️⃣ 关键事件时间线（2026年6月）</h2>
+
+  <div class="timeline">
+    <h3>📊 6月关键节点</h3>
+    <div class="tl-item">
+      <div class="tl-date">6/4</div>
+      <div class="tl-content"><span class="type econ">经济</span>伊朗原油5月出口环比<b>下降84%</b>，至2020年2月以来最低水平；美军瘫痪受制裁油轮MT LEXIE</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">6/10-11</div>
+      <div class="tl-content"><span class="type mar">海事</span>AIS可见交通降至仅<b>5次过境</b>（危机最低水平之一）；Kharg岛两个原油终端首次同时空置</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">6/14</div>
+      <div class="tl-content"><span class="type mil">军事</span>约<b>106艘IRGC高速快艇</b>在2.5小时内从集结区涌出</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">6/16</div>
+      <div class="tl-content"><span class="type dip">外交</span>美伊<b>同意结束冲突</b>；宣布60天免通行费过境窗口；战争风险保费高达船体价值10%</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">6/17-18</div>
+      <div class="tl-content"><span class="type dip">外交</span><b>美伊谅解备忘录签署</b>；18次过境记录(冲突期最高)；首批商业移动船只以中国关联为主</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">6/20</div>
+      <div class="tl-content"><span class="type mil">军事</span>伊朗以以色列违反停火为由<b>宣布重新关闭海峡</b>；美军表示未监测到关闭行动</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">6/21-22</div>
+      <div class="tl-content"><span class="type mar">海事</span>6/22记录<b>25次AIS可见过境</b>（伊朗宣布关闭后仍通行）；Kharg岛出口679万桶(2月来最高)；美伊瑞士会谈18小时戏剧性转折</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">6/23</div>
+      <div class="tl-content"><span class="type dip">外交</span>伊朗宣布<b>海峡免费开放60天</b>；鲁比奥访问海湾三国坚持免费通行；<b>伊朗阿曼成立联合工作组</b>；IMO启动<b>11,000名海员撤离计划</b>；丹麦加入多国护航；首批船只返回TSS中央航道</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">6/24</div>
+      <div class="tl-content"><span class="type mar">海事</span>伊朗再次宣布关闭后海峡航运<b>短暂停滞</b>；追踪器显示更多船只通过；<b>阿曼公布临时航运通道</b>；卡塔尔称美伊热线对重开海峡"至关重要"</div>
+    </div>
+  </div>
+
+  <h2 class="section">6️⃣ 船讯网实态：6/23穿越明细与宏观物价</h2>
+
+  <div class="card purple">
+    <h2>船讯网综合研判：从"准停滞"到"高摩擦恢复期"</h2>
+    <span class="label">AI研判 · 亿海蓝</span>
+    <p class="desc" style="color:#ffc107;">⚠️ 以下内容由亿海蓝AI生成，请谨慎识别</p>
+    <p class="desc">霍尔木兹海峡的通航态势正处于从<b>"准停滞"</b>向<b>"高摩擦恢复期"</b>过渡的关键阶段。随着美伊谅解备忘录的签署与技术性谈判的推进，航运活动出现显著回升，但微观操作层面美伊航线指令的对立，正将船东推入<b>物理安全</b>与<b>制裁合规</b>的双重困境，海峡远未恢复至正常通航状态。</p>
+    <p class="desc">AIS数据印证了通航流量的结构性修复与运营的脆弱性。波斯湾在湾船舶总数在6月23日录得<b>3,768艘</b>，较5月下旬低点（约2,865艘）有所回升，但油轮、散货船及集装箱船等核心运力数量仍处于低位，区域运力以本地拖轮、供应船等辅助船舶为主。昨日（6月23日）穿越海峡的<b>43艘</b>船舶明细显示，通航活动虽已重启，但船型构成复杂——包含希腊船东控制的VLCC（如NISSOS KEA、LEGIO X EQUESTRIS）、韩国籍集装箱船（HMM DAON）及多艘伊朗籍原油船（SARAK、SOBAR），显示通行具有高度的选择性，且与特定货载需求紧密挂钩。</p>
+    <p class="desc">资产定价层面，市场正在加速剥离地缘冲突爆发以来积累的极端风险溢价。WTI与布伦特原油价格分别回落至<b>$72.60</b>与<b>$76.25</b>，已基本回吐战事以来的大部分涨幅。然而，<b>BDTI</b>（原油运输指数）逆势升至<b>2,227点</b>(+2.34%)，<b>CTFI</b>更是飙升至<b>5,863.26</b>(单日+486点)，揭示了"物理摩擦成本"与"合规摩擦成本"的持续存在——航线选择的纠结、冗长的审批程序以及对未来可能征收通行费的预期，共同推高了实际的运输成本。</p>
+    <div class="highlight purple">
+      <strong>船讯网核心判断：</strong>当前海峡通航量的恢复主要源于前期被压抑的刚性需求释放，而非系统性风险解除。若美伊航行指令的二元对立无法在技术层面达成统一，全球原油海运成本中枢大概率将维持高位震荡，而油价的进一步下行空间则取决于宏观需求端的支撑力度。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>6月23日穿越海峡43艘船舶完整明细</h2>
+    <span class="label">AIS数据 · 船讯网</span>
+    <div class="data-row">
+      <span class="data-chip green">总穿越 43艘</span>
+      <span class="data-chip">驶入 15</span>
+      <span class="data-chip yellow">驶出 28</span>
+      <span class="data-chip red">VLCC 5艘</span>
+      <span class="data-chip">集装箱 2艘</span>
+      <span class="data-chip">化学品 6艘</span>
+    </div>
+    <div class="table-wrap" style="margin-top:8px; padding:0;">
+      <table>
+        <thead>
+          <tr><th>方向</th><th>时间</th><th>船名</th><th>船旗</th><th>船型</th><th>DWT</th><th>经营公司</th><th>国家</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="green">驶出</td><td>23:58</td><td>YM CREDIBILITY</td><td>利比里亚</td><td>集装箱船</td><td>37,435</td><td>阳明海运</td><td class="blue">中国台湾</td></tr>
+          <tr><td class="green">驶出</td><td>23:56</td><td>TAN BINH 34</td><td>巴拿马</td><td>干散货船</td><td>37,218</td><td>TAN BINH CO</td><td>越南</td></tr>
+          <tr><td>驶入</td><td>23:47</td><td style="color:#e94560">NISSOS KEA ★</td><td>马绍尔群岛</td><td style="color:#e94560">原油船(VLCC)</td><td>300,323</td><td>KYKLADES MARITIME</td><td class="yellow">希腊</td></tr>
+          <tr><td class="green">驶出</td><td>22:54</td><td>SHAMROCK JUPITER</td><td>巴拿马</td><td>化学品船</td><td>19,837</td><td>ULTRATANK</td><td>智利</td></tr>
+          <tr><td class="green">驶出</td><td>22:49</td><td>ULIVIA</td><td>利比里亚</td><td>干散货船</td><td>95,720</td><td>SPRING VALLEY</td><td>新加坡</td></tr>
+          <tr><td>驶入</td><td>18:00</td><td>VELON 1</td><td>伊朗</td><td>集装箱船</td><td>23,051</td><td>GHASEMI</td><td style="color:#e94560">伊朗</td></tr>
+          <tr><td class="green">驶出</td><td>17:41</td><td style="color:#e94560">LEGIO X EQUESTRIS ★</td><td>马绍尔群岛</td><td style="color:#e94560">原油船(VLCC)</td><td>299,937</td><td>CENTRAL MARE</td><td class="yellow">希腊</td></tr>
+          <tr><td class="green">驶出</td><td>16:14</td><td>NO2 OCEAN PIONEER</td><td>马绍尔群岛</td><td>化学品船</td><td>19,991</td><td>HEUNG-A SHIPPING</td><td>韩国</td></tr>
+          <tr><td class="green">驶出</td><td>16:00</td><td style="color:#e94560">SARAK ★</td><td>伊朗</td><td style="color:#e94560">原油船</td><td>159,885</td><td>YAM SHIPPING</td><td style="color:#e94560">马绍尔群岛</td></tr>
+          <tr><td class="green">驶出</td><td>15:17</td><td>BOW SAGA</td><td>挪威</td><td>化学品船</td><td>49,559</td><td>ODFJELL TANKERS</td><td>挪威</td></tr>
+          <tr><td class="green">驶出</td><td>15:08</td><td>HANYU CAMELLIA</td><td>巴拿马</td><td>化学品船</td><td>19,999</td><td>HANYU CO</td><td>韩国</td></tr>
+          <tr><td class="green">驶出</td><td>14:49</td><td style="color:#e94560">SOBAR ★</td><td>伊朗</td><td style="color:#e94560">原油船</td><td>160,183</td><td>VANIYA SHIP MGMT</td><td style="color:#e94560">印度</td></tr>
+          <tr><td>驶入</td><td>14:33</td><td style="color:#e94560">NISSOS HERACLEA ★</td><td>利比里亚</td><td style="color:#e94560">原油船(VLCC)</td><td>313,525</td><td>KYKLADES MARITIME</td><td class="yellow">希腊</td></tr>
+          <tr><td>驶入</td><td>14:00</td><td style="color:#e94560">UNIVERSAL GLORY ★</td><td>利比里亚</td><td style="color:#e94560">原油船(VLCC)</td><td>301,123</td><td>HMM CO LTD</td><td>韩国</td></tr>
+          <tr><td class="green">驶出</td><td>12:56</td><td>HMM DAON</td><td>韩国</td><td>集装箱船</td><td>160,927</td><td>HMM CO LTD</td><td>韩国</td></tr>
+          <tr><td class="green">驶出</td><td>12:53</td><td>LAUSANNE</td><td>马绍尔群岛</td><td>干散货船</td><td>82,035</td><td>GREHEL SHIPMGMT</td><td class="yellow">希腊</td></tr>
+          <tr><td class="green">驶出</td><td>12:38</td><td>OMICRON OCTO</td><td>利比里亚</td><td>干散货船</td><td>76,334</td><td>OMICRON SHIP MGMT</td><td class="yellow">希腊</td></tr>
+          <tr><td>驶入</td><td>10:53</td><td>PORTLAND</td><td>圣基茨</td><td>干散货船</td><td>28,642</td><td>GULF MARITIME</td><td>科威特</td></tr>
+          <tr><td>驶入</td><td>09:59</td><td style="color:#e94560">DUBAI ENERGY ★</td><td>利比里亚</td><td style="color:#e94560">原油船(VLCC)</td><td>299,991</td><td>TRAFIGURA LTD</td><td>英国</td></tr>
+          <tr><td>驶入</td><td>08:57</td><td>GASCHEM ERICA</td><td>--</td><td>LPG</td><td>29,193</td><td>GASCHEM SERVICES</td><td>德国</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="highlight">
+      <strong>穿越明细关键特征：</strong><br>
+      ① <b>5艘VLCC级原油船</b>：NISSOS KEA(30万DWT希腊)、LEGIO X EQUESTRIS(30万DWT希腊)、NISSOS HERACLEA(31万DWT希腊)、UNIVERSAL GLORY(30万DWT韩国HMM)、DUBAI ENERGY(30万DWT英国Trafigura)——均为希腊/韩国/英国顶级船东控制的合规VLCC<br>
+      ② <b>2艘伊朗籍原油船驶出</b>：SARAK(16万DWT)和SOBAR(16万DWT)——伊朗出口恢复的微观证据<br>
+      ③ <b>2艘集装箱船</b>：YM CREDIBILITY(阳明)驶出 + HMM DAON(HMM)驶出——亚欧主干航线开始试探性通行<br>
+      ④ <b>驶出(28)远多于驶入(15)</b>——前期滞留船舶正在集中离港，驶入量偏少说明船东信心仍不足
+    </div>
+    <div class="source">
+      📰 数据来源：<a href="https://www.shipxy.com/special/hormuz" target="_blank">船讯网：霍尔木兹海峡&波斯湾实时航运动态</a>（AIS实时数据，更新于2026-06-24 14:26）
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>宏观物价与运价指数（6月24日实时）</h2>
+    <span class="label">市场数据 · 船讯网</span>
+    <div class="table-wrap" style="margin-top:8px; padding:0;">
+      <table>
+        <thead>
+          <tr><th>指标</th><th>数值</th><th>变动</th><th>日期</th><th>解读</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>WTI原油</td><td class="green">$72.60/bbl</td><td class="green">-0.61%</td><td>6/24</td><td>基本回吐战事涨幅，地缘溢价加速剥离</td></tr>
+          <tr><td>布伦特原油</td><td class="green">$76.25/bbl</td><td class="green">-0.55%</td><td>6/24</td><td>仅比危机前基准(~$72)高6%</td></tr>
+          <tr><td>BDTI原油运输指数</td><td class="yellow">2,227</td><td class="yellow">+2.34%</td><td>6/23</td><td>逆势上行——物理摩擦+合规摩擦推高运输成本</td></tr>
+          <tr><td>CTFI中国油运指数</td><td class="red">5,863.26</td><td class="red">+486.30</td><td>6/23</td><td>单日暴涨486点，中国进口原油海运成本飙升</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="highlight blue">
+      <strong>油价与运价的矛盾信号：</strong>油价持续回落（WTI $72.6, Brent $76.25）说明金融市场对"供应恢复"叙事已充分定价；但BDTI逆势升至2,227(+2.34%)、CTFI单日暴涨486点至5,863，说明<b>物理市场的摩擦成本并未随协议签署而消失</b>。这种"油价跌+运价涨"的背离，正是"有协议≠有运力"的具体体现——航线选择纠结、审批冗长、通行费预期，共同维持了运输成本的高位。
+    </div>
+    <div class="source">
+      📰 数据来源：<a href="https://www.shipxy.com/special/hormuz" target="_blank">船讯网：宏观物价与运价指数</a>
+    </div>
+  </div>
+
+  <!-- SECTION 8: PORT DISTRIBUTION -->
+  <h2 class="section">7️⃣ 区域港口船舶分布</h2>
+
+  <div class="card">
+    <h2>海峡及周边主要港口+波斯湾整体态势（6月22日-24日）</h2>
+    <div class="table-wrap" style="margin-top:12px; padding:0;">
+      <table>
+        <thead>
+          <tr><th>港口</th><th>油轮</th><th>货船</th><th>其他</th><th>合计</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>富查伊拉</td><td class="yellow">19</td><td>13</td><td>8</td><td>40</td><td>主要霍尔木兹绕行终端，严重拥堵</td></tr>
+          <tr><td>豪尔法坎</td><td class="yellow">15</td><td>11</td><td>14</td><td>40</td><td>绕行卸货港，拥堵</td></tr>
+          <tr><td>苏哈尔(阿曼)</td><td>14</td><td>11</td><td>15</td><td>40</td><td>阿曼替代港口</td></tr>
+          <tr><td>杰贝阿里</td><td class="yellow">10</td><td>15</td><td>13</td><td>38</td><td>运营正常</td></tr>
+          <tr><td>阿巴斯港(伊朗)</td><td>6</td><td class="yellow">28</td><td>6</td><td>40</td><td>伊朗主要港口</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px; color:#8b949e; margin-top:8px;">富查伊拉和豪尔法坎作为霍尔木兹绕行终端，油轮和货船集中度最高，反映大量船舶选择在此卸货而非穿越海峡。7天内滞留船只531艘(锚泊+停泊)，较7天前增加205艘。6月22日波斯湾在湾总船数<b>3,969艘</b>（含辅助船舶），6月23日<b>3,768艘</b>——核心运力(油轮/散货/集装箱)仍处低位。</p>
+    <div class="source">
+      📰 <a href="https://www.shipxy.com/special/hormuz" target="_blank">船讯网：霍尔木兹实时航运动态</a> ·
+      <a href="https://straits.live/" target="_blank">straits.live：实时监控</a>
+    </div>
+  </div>
+
+  <!-- SECTION 9: FORWARD LOOKING -->
+  <h2 class="section">8️⃣ 前瞻与关键变量</h2>
+
+  <div class="card green">
+    <h2>恢复路径的三阶段判断</h2>
+    <span class="label">前瞻分析</span>
+    <p class="desc"><b>阶段一（当前-7月初）："混乱部分开放"</b><br>
+    双路线并行、PGSA保险要求、TSS未经扫雷、IMO撤离计划启动、IRGC快艇仍在海上巡逻。日通行量逐步回升但远低于正常水平。船东信心脆弱——BIMCO首席安全官称"此时船只航行风险极大"。</p>
+    <p class="desc"><b>阶段二（7月-9月）："护航通行期"</b><br>
+    法英牵头多国护航行动启动（约20国参与，丹麦已加入），德国扫雷舰和补给舰正穿越苏伊士运河驶向海峡，意大利扫雷舰驻扎吉布提。扫雷行动启动后，安全走廊逐步拓宽。但意大利防长警告"扫雷舰不是战舰，无法自卫"。战争险保费从5%降至3%是积极信号。</p>
+    <p class="desc"><b>阶段三（Q4 2026及之后）："新秩序建立期"</b><br>
+    60天免费窗口到期后，伊朗阿曼联合工作组将决定海峡长期管理规则。PGSA是否成为永久制度？通行费/保险费是否正式实施？美国"守护天使费"威胁是否兑现？IMO是否推动新的海峡管理框架？这些问题的答案将决定海峡"正常化"的最终形态——很可能不是回到战前状态，而是进入一种"有管理的通行"新秩序。</p>
+    <div class="data-row">
+      <span class="data-chip yellow">阶段一：混乱部分开放</span>
+      <span class="data-chip blue">阶段二：护航通行期</span>
+      <span class="data-chip green">阶段三：新秩序建立</span>
+      <span class="data-chip purple">关键变量：扫雷进度</span>
+      <span class="data-chip purple">关键变量：60天后收费规则</span>
+    </div>
+    <div class="highlight green">
+      <strong>对航运业的三个关键变量：</strong><br>
+      ① <b>扫雷进度</b>：TSS主航道未经扫雷是最大物理障碍，预计全面扫雷需6个月<br>
+      ② <b>60天后收费规则</b>：PGSA保险要求→正式收费的演变路径，将决定长期通行成本<br>
+      ③ <b>黎巴嫩停火</b>：伊朗以黎巴嫩停火作为进一步谈判前提，黎以冲突未停则海峡恢复随时可能中断
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>本专题汇报由 WorkBuddy 自动化任务（#1781485712150）生成 · 数据截至 2026-06-24 14:26 GMT+8</p>
+    <p>数据来源：Lloyd's List、澎湃新闻、财联社、HS Today、straits.live、IMO、Polymarket、克拉克森、新华社、船讯网(亿海蓝)、金投网等</p>
+    <p>⚠️ 本报告基于公开信源整理，不构成投资或航运决策建议。海峡局势高度动态，建议持续跟踪实时监控。</p>
+  </div>
+
+</div>
+</body>
+</html>
